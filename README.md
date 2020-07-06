@@ -7,44 +7,59 @@
 
 This repository forms the basis of *Task 2* for the **Unsupervised Predict** within EDSA's Data Science course. It hosts template code which will enable students to deploy a basic recommender engine based upon the [Streamlit](https://www.streamlit.io/) web application framework.
 
-As part of the predict, students are expected to expand on this base template; improving the given base recommender algorithms, as well as providing greater context to the problem and attempted solutions through additional application pages/functionality.    
+As part of the predict, students are expected to expand on this base template; improving (and fixing) the given base recommender algorithms, as well as providing greater context to the problem and attempted solutions through additional application pages/functionality.    
 
-#### 1.1) What is a Recommender Engine?
+#### 1.1) What is a Recommender System?
 
 [![What is an API](resources/imgs/What_is_a_recommender_system.png)](https://youtu.be/Eeg1DEeWUjA)
 
-If you've ever had the misfortune of having to deploy a model as an API (as was required in the Regression Sprint), you'd know that to even get basic functionality can be a tricky ordeal. Extending this framework even further to act as a web server with dynamic visuals, multiple responsive pages, and robust deployment of your models... can be a nightmare. That's where Streamlit comes along to save the day! :star:
+Recommender systems are the unsung heroes of our modern technological world. Search engines, online shopping, streaming multimedia platforms, news-feeds - all of these services depend on recommendation algorithms in order to provide users the content they want to interact with.
 
-In its own words:
-> Streamlit ... is the easiest way for data scientists and machine learning engineers to create beautiful, performant apps in only a few hours!  All in pure Python. All for free.
+At a fundamental level, these systems operate using similarity, where we try to match people (users) to things (items). Two primary approaches are used in recommender systems are content-based and collaborative-based filtering.  In content-based filtering this similarity is measured between items based on their properties, while collaborative filtering uses similarities amongst users to drive recommendations.
 
-> It’s a simple and powerful app model that lets you build rich UIs incredibly quickly.
+Throughout the course of this Sprint, you'll work on defining this brief explanation further as you come to understand the theoretical and practical aspects of recommendation algorithms.     
 
-Streamlit takes away much of the background work needed in order to get a platform which can deploy your models to clients and end users. Meaning that you get to focus on the important stuff (related to the data), and can largely ignore the rest. This will allow you to become a lot more productive.  
+#### 1.2) Description of contents
 
-##### Description of files
+Below is a high-level description of the contents within this repo:
 
-For this repository, we are only concerned with a single file:
-
-| File Name              | Description                       |
-| :--------------------- | :--------------------             |
-| `base_app.py`          | Streamlit application definition. |
+| File Name                             | Description                                                       |
+| :---------------------                | :--------------------                                             |
+| `edsa_recommender.py`                 | Base Streamlit application definition.                            |
+| `recommenders/collaborative_based.py` | Simple implementation of collaborative filtering.                 |
+| `recommenders/content_based.py`       | Simple implementation of content-based filtering.                 |
+| `resources/data/`                     | Sample movie and rating data used to demonstrate app functioning. |
+| `resources/models/`                   | Folder to store model and data binaries if produced.              |
+| `utils/`                              | Folder to store additional helper functions for the Streamlit app |
 
 ## 2) Usage Instructions
 
-#### 2.1) Creating a copy of this repo
+#### 2.1) Improving your recommender system
+The primary goal of this task within the Unsupervised Predict is to make students aware of (and ultimately competent in handling) the complexities associated with deploying recommender algorithms in a live environment. These algorithms are resource heavy - requiring high amounts of memory and processing power when associated with larger data sources. As such, you'll need to research and determine the modifications required to deploy this app so that it produces appropriate recommendations with as little latency as possible. This will not be a trivial task, but we know you'll give your best shot :star:!  
+
+In order to make your improvements, we have a few instructions to guide you:
+  - **Only modify the sections of the base `edsa_recommender.py` file which have been indicated**. The code which has been designated to be left unaltered is used to provide a standard interface during our automated testing of your app. Changing this code may result in our system assigning you a mark of 0 :(
+
+  - **Do not modify the function name and signature for the `*_model` functions in `collaborative_based.py` and `content_based.py`**. As stated above, these functions are used during automated testing. You are, however, supposed to modify/improve the content of these functions with your algorithms developed within Task 1 of the Unsupervised Predict.
+
+  - **Add additional data where needed**. The data files which we've provided you within this repo template serve only as examples. For correct/improved functioning, you may need to add additional data files from sources such as the Kaggle challenge in Task 1, or the S3 bucket provided to you during this sprint. (**NB:** Github doesn't accept large file uploads during a commit. As such, you may need to keep only local copies of your data files. Have a look at how to exclude files from your git commits using a `.gitignore` file [here](https://docs.github.com/en/github/using-git/ignoring-files))
+
+  - **Focus on both algorithmic approaches**. There will be trade-offs for using either collaborative or content based filtering. Try to discover these by attempting to use both approaches in your app.
+
+  - **Use computing power if necessary**. As mentioned before, the compute resources required for this task are heavy. As such, when the need arises, switch to an AWS instance with greater computing power. (**NB:** We'll require that you restrict this to one large AWS instance (t2.2xlarge/t2.xlarge) per team).
+
+
+#### 2.2) Creating a copy of this repo
 
 | :zap: WARNING :zap:                                                                                     |
 | :--------------------                                                                                   |
 | Do **NOT** *clone* this repository. Instead follow the instructions in this section to *fork* the repo. |
 
-As described within the Predict instructions for the Classification Sprint, this code represents a *template* from which to extend your own work. As such, in order to modify the template, you will need to **[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)** this repository. Failing to do this will lead to complications when trying to work on the web application remotely.
+As described within the Predict instructions for the Unsupervised Sprint, this code represents a *template* from which to extend your own work. As such, in order to modify the template, you will need to **[fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)** this repository. Failing to do this will lead to complications when trying to work on the web application remotely.
 
-![Fork Repo](resources/imgs/fork-repo.png)  
+To fork the repo, simply ensure that you are logged into your GitHub account, and then click on the 'fork' button at the top of this page.
 
-To fork the repo, simply ensure that you are logged into your GitHub account, and then click on the 'fork' button at the top of this page as indicated within the figure above.
-
-#### 2.2) Running the Streamlit web app on your local machine
+#### 2.3) Running the recommender system locally
 
 As a first step to becoming familiar with our web app's functioning, we recommend setting up a running instance on your own local machine.
 
@@ -54,19 +69,20 @@ To do this, follow the steps below by running the given commands within a Git ba
 
  ```bash
  pip install -U streamlit numpy pandas scikit-learn
+ conda install -c conda-forge scikit-surprise
  ```
 
  2. Clone the *forked* repo to your local machine.
 
  ```bash
- git clone https://github.com/{your-account-name}/classification-predict-streamlit-template.git
+ git clone https://github.com/{your-account-name}/unsupervised-predict-streamlit-template.git
  ```  
 
  3. Navigate to the base of the cloned repo, and start the Streamlit app.
 
  ```bash
- cd classification-predict-streamlit-template/
- streamlit run base_app.py
+ cd unsupervised-predict-streamlit-template/
+ streamlit run edsa_recommender.py
  ```
 
  If the web server was able to initialise successfully, the following message should be displayed within your bash/terminal session:
@@ -80,16 +96,19 @@ To do this, follow the steps below by running the given commands within a Git ba
 
 You should also be automatically directed to the base page of your web app. This should look something like:
 
-![Streamlit base page](resources/imgs/streamlit-base-splash-screen.png)
+![Streamlit base page](resources/imgs/landing_page_sample.png)
 
-Congratulations! You've now officially deployed your first web application!
+Congratulations! You've now officially deployed your web-based recommender engine!
 
-While we leave the modification of your web app up to you, the latter process of cloud deployment is outlined within the next section.  
+While we leave the modification of your recommender system up to you, the latter process of cloud deployment is outlined within the next section.  
 
-#### 2.4) Running Streamlit on a remote AWS EC2 instance
+#### 2.4) Running the recommender system on a remote AWS EC2 instance
 
+| :zap: WARNING :zap:                                                                                                                                                                                                          |
+| :--------------------                                                                                                                                                                                                        |
+| As outlined in the previous section, we recommend deploying this app on a larger AWS instance with sufficient memory (t2.2xlarge/t2.xlarge). Note that a restriction of one large compute instance per team will be applied. |
 
-The following steps will enable you to run your web app on a remote EC2 instance, allowing it to the accessed by any device/application which has internet access.
+The following steps will enable you to run your recommender system on a remote EC2 instance, allowing it to the accessed by any device/application which has internet access.
 
 Within these setup steps, we will be using a remote EC2 instance, which we will refer to as the ***Host***, in addition to our local machine, which we will call the ***Client***. We use these designations for convenience, and to align our terminology with that of common web server practices. In cases where commands are provided, use Git bash (Windows) or Terminal (Mac/Linux) to enter these.
 
@@ -101,13 +120,14 @@ Within these setup steps, we will be using a remote EC2 instance, which we will 
 
 ```bash
 pip install -U streamlit numpy pandas scikit-learn
+conda install -c conda-forge scikit-surprise
 ```
 
 3. Clone your copy of the API repo, and navigate to its root directory:
 
 ```bash
-git clone https://github.com/{your-account-name}/classification-predict-streamlit-template.git
-cd classification-predict-streamlit-template/
+git clone https://github.com/{your-account-name}/unsupervised-predict-streamlit-template.git
+cd unsupervised-predict-streamlit-template/
 ```
 
 | :information_source: NOTE :information_source:                                                                                                    |
@@ -119,7 +139,7 @@ cd classification-predict-streamlit-template/
 5. Start the Streamlit web app on port `5000` of the host
 
 ```bash
-streamlit run --server.port 5000 base_app.py
+streamlit run --server.port 5000 edsa_recommender.py
 ```
 
 If this command ran successfully, output similar to the following should be observed on the Host:
@@ -142,13 +162,11 @@ Where the specific `Network` and `External` URLs correspond to those assigned to
 
     Where the above public IP address corresponds to the one given to your AWS EC2 instance.
 
-    If successful, you should see the landing page of your streamlit web app:
-
-![Streamlit base page](resources/imgs/streamlit-base-splash-screen.png)
+    If successful, you should see the landing page of your recommender system app (image identical to that for the local setup instructions).
 
 **[On the Host]:**
 
-7. To keep your web app running continuously in the background, detach from the Tmux window by pressing `ctrl + b` and then `d`. This should return you to the view of your terminal before you opened the Tmux window.
+7. To keep your app running continuously in the background, detach from the Tmux window by pressing `ctrl + b` and then `d`. This should return you to the view of your terminal before you opened the Tmux window.
 
     To go back to your Tmux window at any time (even if you've left your `ssh` session and then return), simply type `tmux attach-session`.
 

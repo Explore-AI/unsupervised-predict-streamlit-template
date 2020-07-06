@@ -59,6 +59,8 @@ def data_preprocessing(subset_size):
     movies_subset = movies[:subset_size]
     return movies_subset
 
+# !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
+# You are, however, encouraged to change its content.  
 def content_model(movie_list,top_n=10):
     """Performs Content filtering based upon a list of movies supplied
        by the app user.
@@ -105,6 +107,6 @@ def content_model(movie_list,top_n=10):
     top_50_indexes = list(listings.iloc[1:50].index)
     # Removing chosen movies
     top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n + 1]:
+    for i in top_indexes[:top_n]:
         recommended_movies.append(list(movies['title'])[i])
     return recommended_movies
