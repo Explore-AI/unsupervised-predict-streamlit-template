@@ -3,15 +3,15 @@
 
 ## 1) Overview
 
-![Streamlit](resources/imgs/Image_header.png)
+![Movie_Recommendations](resources/imgs/Image_header.png)
 
-This repository forms the basis of *Task 2* for the **Unsupervised Predict** within EDSA's Data Science course. It hosts template code which will enable students to deploy a basic [Streamlit](https://www.streamlit.io/) web application.
+This repository forms the basis of *Task 2* for the **Unsupervised Predict** within EDSA's Data Science course. It hosts template code which will enable students to deploy a basic recommender engine based upon the [Streamlit](https://www.streamlit.io/) web application framework.
 
-As part of the predict, students are expected to expand on this base template; increasing the number of available models, user data exploration capabilities, and general Streamlit functionality.    
+As part of the predict, students are expected to expand on this base template; improving the given base recommender algorithms, as well as providing greater context to the problem and attempted solutions through additional application pages/functionality.    
 
-#### 1.1) What is Streamlit?
+#### 1.1) What is a Recommender Engine?
 
-[![What is an API](resources/imgs/what-is-streamlit.png)](https://youtu.be/R2nr1uZ8ffc?list=PLgkF0qak9G49QlteBtxUIPapT8TzfPuB8)
+[![What is an API](resources/imgs/What_is_a_recommender_system.png)](https://youtu.be/Eeg1DEeWUjA)
 
 If you've ever had the misfortune of having to deploy a model as an API (as was required in the Regression Sprint), you'd know that to even get basic functionality can be a tricky ordeal. Extending this framework even further to act as a web server with dynamic visuals, multiple responsive pages, and robust deployment of your models... can be a nightmare. That's where Streamlit comes along to save the day! :star:
 

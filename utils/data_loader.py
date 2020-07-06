@@ -21,7 +21,7 @@ def load_movie_titles(path_to_movies):
     Returns
     -------
     list[str]
-        Unordered list of movie titles.
+        Movie titles.
 
     """
     df = pd.read_csv(path_to_movies)
