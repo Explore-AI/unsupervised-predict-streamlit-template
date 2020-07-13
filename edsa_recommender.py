@@ -31,6 +31,7 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+from PIL import Image
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -40,28 +41,34 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+def background_setup(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ['Welcome','Reccomender','EDA','Solution Overview','About']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
-    page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if page_selection == "Recommender System":
+    page_selection = st.sidebar.selectbox('Choose Option', page_options)
+    if page_selection == 'Welcome':
+        background_setup('home_style.css')
         # Header contents
-        st.write('# Nextflix')
-#        home_page = 
-        st.markdown(<h>man<h>, unsafe_allow_html=False)
-#        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-#        st.image('resources/imgs/Image_header.png',use_column_width=True)
-#        # Recommender System algorithm selection
-#        sys = st.radio("Select an algorithm",
-#                       ('Content Based Filtering',
-#                        'Collaborative Based Filtering'))
+#        st.write('# Nextflix')
+        home_image = Image.open('resources/imgs/home_page/nextflix_home.png')
+        st.image(home_image)
+    if page_selection =='Reccomender':
+        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
+        # Recommender System algorithm selection
+        sys = st.radio("Select an algorithm",
+                       ('Content Based Filtering',
+                        'Collaborative Based Filtering'))
 
 #        # User-based preferences
 #        st.write('### Enter Your Three Favorite Movies')
