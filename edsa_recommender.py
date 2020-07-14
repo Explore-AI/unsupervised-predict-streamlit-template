@@ -160,8 +160,9 @@ def main():
                           'Drama','Fantasy','Horror','Mystery','Romance','Sci-fi','Thriller','War','Western']
         genres = st.multiselect('select genres',genres_setlist)
         st.write(genres)
-        st.write(genre_count('movies.csv').figure)
-
+        genre_count_figure = genre_count('movies.csv').figure
+        if st.checkbox('show genre counts in dataset'):
+            st.write(genre_count_figure)
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
