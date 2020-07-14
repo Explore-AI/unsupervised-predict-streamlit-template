@@ -110,8 +110,9 @@ def main():
     st.sidebar.title("About")
     st.sidebar.info(
         """ 
-        This app serves as a project for an unsupervised sprint.
         This app is maintained by EDSA students.
+        It serves as a project for an unsupervised sprint.
+        
     
         **Authors:**\n
         Caryn Pialat\n
