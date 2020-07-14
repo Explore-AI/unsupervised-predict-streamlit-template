@@ -56,32 +56,6 @@ data_path = '../unsupervised_data/unsupervised_movie_data/'
 #    data = data.title.tolist()
 #    return(data)
 
-# Function to chunk data and calculated genre distribution
-
-def genre_count(filename):
-    '''Plots the distribution of genres in the movies dataset'''
-    filename = data_path+str(filename)
-    chunks = pd.read_csv(filename,chunksize=10000)
-    data = pd.DataFrame()
-    count = 0
-    dict_genres = {}
-    for chunk in chunks:
-        chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
-        chunk_genres = [item for item in chunk_genres if item != '(no genres listed)']
-        for genre in chunk_genres:
-            if genre in dict_genres:
-                dict_genres[genre]+=1
-            else:
-                dict_genres[genre]=1
-    sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
-    genre, frequency = zip(*sorted_dict)
-    plt.figure(figsize=(10,5))
-    freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
-    freq_plot.set(title='Genre frequency',
-                  xlabel='Genre_count',ylabel='Genre')
-    plt.show()
-    return (freq_plot)
-
 # Data Loading
 
 #title_list = load_movie_titles('resources/data/movies.csv')
