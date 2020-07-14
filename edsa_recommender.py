@@ -44,6 +44,7 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+data_path = '../unsupervised_data/unsupervised_movie_data/'
 #dataframe of movie titles
 #def genre_titles(filename,genre):
 #    filename = '../edsa-recommender-system-predict/'+str(filename)
@@ -57,20 +58,9 @@ from recommenders.content_based import content_model
 
 # Function to chunk data and calculated genre distribution
 
-
-
-
-
-
-
-
-
-
-
-
 def genre_count(filename):
     '''Plots the distribution of genres in the movies dataset'''
-    filename = '../edsa-recommender-system-predict/'+str(filename)
+    filename = data_path+str(filename)
     chunks = pd.read_csv(filename,chunksize=10000)
     data = pd.DataFrame()
     count = 0
@@ -92,35 +82,10 @@ def genre_count(filename):
     plt.show()
     return (freq_plot)
 
-
-
-
-
-
-
-
-
-
 # Data Loading
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-title_list = load_movie_titles('resources/data/movies.csv')
-ratings = pd.read_csv('../edsa-recommender-system-predict/train.csv')
+#title_list = load_movie_titles('resources/data/movies.csv')
+#ratings = pd.read_csv('../edsa-recommender-system-predict/train.csv')
 
 def background_setup(file_name):
     with open(file_name) as f:
@@ -196,7 +161,7 @@ def main():
         @st.cache
         def genre_count(filename):
             '''Plots the distribution of genres in the movies dataset'''
-            filename = '../edsa-recommender-system-predict/'+str(filename)
+            filename = data_path+str(filename)
             chunks = pd.read_csv(filename,chunksize=10000)
             data = pd.DataFrame()
             count = 0
