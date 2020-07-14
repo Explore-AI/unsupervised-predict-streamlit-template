@@ -45,12 +45,12 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
-
+    st.sidebar.title("Pages")
+    page_selection = st.sidebar.radio(label="",options = ["Information","EDA and Insights","Recommender System","Solution Overview"])
+    
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
-    page_selection = st.sidebar.selectbox("Choose Option", page_options)
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
@@ -107,6 +107,15 @@ def main():
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
+    # Build information page
+    if page_selection == "Information":
+        st.info("A recommender system is a subclass of information filtering system that seeks to predict the rating or preference a user would give to an item")
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
+
+
+
+
+        
     st.sidebar.title("About")
     st.sidebar.info(
         """ 
