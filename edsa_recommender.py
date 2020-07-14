@@ -163,7 +163,7 @@ def main():
         if len(genres) > 0:
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
-            st.write(genre_count_figure)
+                st.write(genre_count_figure)
         else:
             pass
     if page_selection == "Solution Overview":
