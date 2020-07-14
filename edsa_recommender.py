@@ -158,7 +158,6 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'EDA':
-        @st.cache
         def genre_count(filename):
             '''Plots the distribution of genres in the movies dataset'''
             filename = data_path+str(filename)
