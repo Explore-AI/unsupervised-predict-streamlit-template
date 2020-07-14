@@ -1,4 +1,7 @@
 body {
-    color: #000000;
-    background-color: #A9A9A9;
+    color: #FFFFFF;
+    background-image: url("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5f6bde95-3a21-4f33-9259-6fa38267c434/underworld2.jpg");
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
