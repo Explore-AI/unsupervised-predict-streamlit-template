@@ -107,6 +107,21 @@ def main():
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
-
+    st.sidebar.title("About")
+    st.sidebar.info(
+        """ 
+        This app serves as a project for an unsupervised sprint.
+        This app is maintained by EDSA students.
+    
+        **Authors:**\n
+        Caryn Pialat\n
+        Kganedi Magolo\n
+        Lesego Bhebe\n
+        Nombulelo Msibi\n
+        Tshokelo Tumelo Mokubi\n
+        Tuduetso Mmokwa\n
+    
+    """
+    )
 if __name__ == '__main__':
     main()
