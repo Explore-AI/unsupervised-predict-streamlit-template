@@ -132,7 +132,7 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'EDA':
-        def genre_count(filename):
+        def genre_count(filename,list1):
             '''Plots the distribution of genres in the movies dataset'''
             filename = data_path+str(filename)
             chunks = pd.read_csv(filename,chunksize=10000)
@@ -141,7 +141,7 @@ def main():
             dict_genres = {}
             for chunk in chunks:
                 chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
-                chunk_genres = [item for item in chunk_genres if item != '(no genres listed)']
+                chunk_genres = [item for item in chunk_genres if item in list1]
                 for genre in chunk_genres:
                     if genre in dict_genres:
                         dict_genres[genre]+=1
@@ -160,7 +160,7 @@ def main():
                           'Drama','Fantasy','Horror','Mystery','Romance','Sci-fi','Thriller','War','Western']
         genres = st.multiselect('select genres',genres_setlist)
         st.write(genres)
-        genre_count_figure = genre_count('movies.csv').figure
+        genre_count_figure = genre_count('movies.csv',genres).figure
         if st.checkbox('show genre counts in dataset'):
             st.write(genre_count_figure)
     if page_selection == "Solution Overview":
