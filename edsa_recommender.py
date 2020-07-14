@@ -32,14 +32,95 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
+#Plots
+import seaborn as sns
+import matplotlib.style as style 
+sns.set(font_scale=1)
+import matplotlib.pyplot as plt
+#import plotly.figure_factory as ff
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+#dataframe of movie titles
+#def genre_titles(filename,genre):
+#    filename = '../edsa-recommender-system-predict/'+str(filename)
+#    chunks = pd.read_csv(filename,chunksize=10000)
+#    data = pd.DataFrame()
+#    for chunk in chunks:
+#        chunk = chunk[chunk.genres.apply(lambda x: genre in x)]
+#        data = pd.concat([data,chunk])
+#    data = data.title.tolist()
+#    return(data)
+
+# Function to chunk data and calculated genre distribution
+
+
+
+
+
+
+
+
+
+
+
+
+def genre_count(filename):
+    '''Plots the distribution of genres in the movies dataset'''
+    filename = '../edsa-recommender-system-predict/'+str(filename)
+    chunks = pd.read_csv(filename,chunksize=10000)
+    data = pd.DataFrame()
+    count = 0
+    dict_genres = {}
+    for chunk in chunks:
+        chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
+        chunk_genres = [item for item in chunk_genres if item != '(no genres listed)']
+        for genre in chunk_genres:
+            if genre in dict_genres:
+                dict_genres[genre]+=1
+            else:
+                dict_genres[genre]=1
+    sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
+    genre, frequency = zip(*sorted_dict)
+    plt.figure(figsize=(10,5))
+    freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
+    freq_plot.set(title='Genre frequency',
+                  xlabel='Genre_count',ylabel='Genre')
+    plt.show()
+    return (freq_plot)
+
+
+
+
+
+
+
+
+
+
 # Data Loading
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 title_list = load_movie_titles('resources/data/movies.csv')
+ratings = pd.read_csv('../edsa-recommender-system-predict/train.csv')
 
 def background_setup(file_name):
     with open(file_name) as f:
@@ -57,58 +138,92 @@ def main():
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox('Choose Option', page_options)
     if page_selection == 'Welcome':
+        def background_setup(file_name):
+            with open(file_name) as f:
+                st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
         background_setup('home_style.css')
-        # Header contents
+#         Header contents
 #        st.write('# Nextflix')
-        home_image = Image.open('resources/imgs/home_page/nextflix_home.png')
-        st.image(home_image)
+        st.image('resources/imgs/home_page/nextflix_home.png')
     if page_selection =='Reccomender':
         st.write('### EXPLORE Data Science Academy Unsupervised Predict')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
-        # Recommender System algorithm selection
+#        Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
                         'Collaborative Based Filtering'))
-
-#        # User-based preferences
-#        st.write('### Enter Your Three Favorite Movies')
-#        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
-#        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-#        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
-#        fav_movies = [movie_1,movie_2,movie_3]
-
-        # Perform top-10 movie recommendation generation
-#        if sys == 'Content Based Filtering':
-#            if st.button("Recommend"):
-#                try:
-#                    with st.spinner('Crunching the numbers...'):
-#                        top_recommendations = content_model(movie_list=fav_movies,
-#                                                            top_n=10)
-#                    st.title("We think you'll like:")
-#                    for i,j in enumerate(top_recommendations):
-#                        st.subheader(str(i+1)+'. '+j)
-#                except:
-#                    st.error("Oops! Looks like this algorithm does't work.\
-#                              We'll need to fix it!")
+#
+        # User-based preferences
+        st.write('### Enter Your Three Favorite Movies')
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        fav_movies = [movie_1,movie_2,movie_3]
+#
+#        Perform top-10 movie recommendation generation
+        if sys == 'Content Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = content_model(movie_list=fav_movies,
+                                                            top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
 #
 #
-#        if sys == 'Collaborative Based Filtering':
-#            if st.button("Recommend"):
-#                try:
-#                    with st.spinner('Crunching the numbers...'):
-#                        top_recommendations = collab_model(movie_list=fav_movies,
-#                                                           top_n=10)
-#                    st.title("We think you'll like:")
-#                    for i,j in enumerate(top_recommendations):
-#                        st.subheader(str(i+1)+'. '+j)
-#                except:
-#                    st.error("Oops! Looks like this algorithm does't work.\
-#                              We'll need to fix it!")
+        if sys == 'Collaborative Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = collab_model(movie_list=fav_movies,
+                                                           top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
 
 
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    if page_selection == 'EDA':
+        @st.cache
+        def genre_count(filename):
+            '''Plots the distribution of genres in the movies dataset'''
+            filename = '../edsa-recommender-system-predict/'+str(filename)
+            chunks = pd.read_csv(filename,chunksize=10000)
+            data = pd.DataFrame()
+            count = 0
+            dict_genres = {}
+            for chunk in chunks:
+                chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
+                chunk_genres = [item for item in chunk_genres if item != '(no genres listed)']
+                for genre in chunk_genres:
+                    if genre in dict_genres:
+                        dict_genres[genre]+=1
+                    else:
+                        dict_genres[genre]=1
+            sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
+            genre, frequency = zip(*sorted_dict)
+            plt.figure(figsize=(10,5))
+            freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
+            freq_plot.set(title='Genre frequency',
+                          xlabel='Genre_count',ylabel='Genre')
+            plt.show()
+            return (freq_plot)
+        st.title('EDA') 
+        genres_setlist = ['Action','Adventure','Animation','Children','Comedy','Crime','Documentary',
+                          'Drama','Fantasy','Horror','Mystery','Romance','Sci-fi','Thriller','War','Western']
+        genres = st.multiselect('select genres',genres_setlist)
+        st.write(genres)
+        st.write(genre_count('movies.csv').figure)
+
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
