@@ -218,7 +218,7 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-    if page_selection = 'test_page':
+    if page_selection == 'test_page':
         st.write('1,2,3...test')
 
     # You may want to add more sections here for aspects such as an EDA,
