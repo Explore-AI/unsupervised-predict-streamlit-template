@@ -70,7 +70,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ['Welcome','Reccomender','EDA','Solution Overview','About']
+    page_options = ['Welcome','Reccomender','EDA','Solution Overview','About','test_page']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -168,7 +168,7 @@ def main():
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
                 st.write(genre_count_figure)
-        if st.checkbox('Top movies of all time'):
+        if st.checkbox('Greatest Hits'):
             st.subheader('1. The Shawshank Redemption')
             st.image('resources/imgs/thumbnails/shawshank_redemption.png', width=100)
             st.write('Realese year:1994  \n Genre: Drama  \nRealese year:1994  \nRuntime: 2h 22min  \nAverage rating: 4.4  \nNumber of ratings: 32831  \nStoryline:  \nChronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man\'s unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.')
@@ -218,6 +218,8 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+    if page_selection = 'test_page':
+        st.write('1,2,3...test')
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
