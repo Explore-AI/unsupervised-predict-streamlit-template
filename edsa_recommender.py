@@ -169,6 +169,23 @@ def main():
             if st.checkbox('show genre counts in dataset'):
                 st.write(genre_count_figure)
         if st.checkbox('Greatest Hits'):
+            # Movie Titles List:
+            titles = ['The Shawshank Redemption','Pulp Fiction','Forrest Gump','The Silence of The Lambs',
+                      'The MATRIX','Star Wars: Episode IV - A New Hope','Schindler\'s List','Fight Club',
+                      'Star Wars: Episode V - The empire Strikes Back','Braveheart','The Usual Suspects',
+                      'Jurassic Park','Terminator 2: Judgment Day','The Lord of The Rings (TFOTR)','Raisers of The Lost Ark']
+            #Images List
+            images = ['resources/imgs/thumbnails/shawshank_redemption.png','resources/imgs/thumbnails/pulp_fiction.png',
+                      'resources/imgs/thumbnails/forest_gump.png','resources/imgs/thumbnails/silence_of_the_lambs.png',
+                      'resources/imgs/thumbnails/the_matrix.png','resources/imgs/thumbnails/star_wars.png',
+                      'resources/imgs/thumbnails/schindlers_list.png','resources/imgs/thumbnails/fight_club.png',
+                      'resources/imgs/thumbnails/star_wars_2.png','resources/imgs/thumbnails/braveheart.png',
+                      'resources/imgs/thumbnails/the_usual_suspects.png','resources/imgs/thumbnails/jurassic_park.png',
+                      'resources/imgs/thumbnails/terminator_2.png','resources/imgs/thumbnails/LOTR_FLOTR.png',
+                      'resources/imgs/thumbnails/raiders_of_lost_ark.png']
+            st.write(len(images),len(titles))
+            
+            
             shawshank_redemption =(st.subheader('1. The Shawshank Redemption'),st.image('resources/imgs/thumbnails/shawshank_redemption.png', width=100),st.write('Realese year:1994  \n Genre: Drama  \nRealese year:1994  \nRuntime: 2h 22min  \nAverage rating: 4.4  \nNumber of ratings: 32831  \nStoryline:  \nChronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man\'s unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.'))
             st.subheader('2. Pulp Fiction')
             st.image('resources/imgs/thumbnails/pulp_fiction.png', width=100)
@@ -185,7 +202,7 @@ def main():
             st.subheader('6. Star Wars: Episode IV - A New Hope')
             st.image('resources/imgs/thumbnails/star_wars.png', width=100)
             st.markdown('Release year: 1977  \nGenre: Action, Adventure, Fantasy  \nRuntime: 2h.1min  \nRatings: 4.2  \nNumber of Ratings: 27560  \nStoryline:  \nThe Imperial Forces, under orders from cruel Darth Vader, hold Princess Leia hostage in their efforts to quell the rebellion against the Galactic Empire. Luke Skywalker and Han Solo, captain of the Millennium Falcon, work together with the companionable droid duo R2-D2 and C-3PO to rescue the beautiful princess, help the Rebel Alliance and restore freedom and justice to the Galaxy.')
-            st.subheader("7. Schindler's List")
+            st.subheader('7. Schindler\'s List')
             st.image('resources/imgs/thumbnails/schindlers_list.png', width=100)
             st.markdown('Release year: 1993  \nGenre: Biography, Drama, History  \nRuntime: 3h.15min  \nRatings: 4.2  \nNumber of Ratings: 24004  \nStoryline:  \nOskar Schindler is a vain and greedy German businessman who becomes an unlikely humanitarian amid the barbaric German Nazi reign when he feels compelled to turn his factory into a refuge for Jews. Based on the true story of Oskar Schindler who managed to save about 1100 Jews from being gassed at the Auschwitz concentration camp, it is a testament to the good in all of us.')
             st.subheader('8. Fight Club')
