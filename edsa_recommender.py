@@ -27,6 +27,10 @@
 """
 # Streamlit dependencies
 import streamlit as st
+import joblib
+import os
+import pickle
+from markdown import markdown
 
 # Data handling dependencies
 import pandas as pd
@@ -63,7 +67,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
@@ -107,13 +111,24 @@ def main():
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
+
     # Build information page
     if page_selection == "Information":
+        st.write('### Recommender Systems')
         st.info("A recommender system is a subclass of information filtering system that seeks to predict the rating or preference a user would give to an item")
         st.image('resources/imgs/Image_header.png',use_column_width=True)
+        
+        if st.button("How does the app work"):
+                    app_info = open("resources/info.md").read() 
+                    st.markdown(app_info,unsafe_allow_html=True) 
+        
+        if st.button("Data description"):
+                    data_descript = open("resources/data_description.md").read()
+                    st.markdown(data_descript,unsafe_allow_html=True)
 
-
-
+        st.subheader("Raw data")
+        if st.checkbox('Show data'):  # data is hidden if box is unchecked
+                    st.write('Dataframe to be inputed here')  # will write the df to the page
 
         
     st.sidebar.title("About")
