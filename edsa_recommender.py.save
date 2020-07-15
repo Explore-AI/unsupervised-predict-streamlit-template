@@ -140,7 +140,7 @@ def main():
             count = 0
             dict_genres = {}
             for chunk in chunks:
-                chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
+                chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
                 chunk_genres = [item for item in chunk_genres if item in list1]
                 for genre in chunk_genres:
                     if genre in dict_genres:
@@ -151,7 +151,7 @@ def main():
             genre, frequency = zip(*sorted_dict)
             plt.figure(figsize=(10,5))
             freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
-            freq_plot.set(title='Genre frequency',
+            freq_plot.set(title='Number of movies in genre',
                           xlabel='Genre_count',ylabel='Genre')
             plt.show()
             return (freq_plot)
@@ -164,26 +164,8 @@ def main():
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
                 st.write(genre_count_figure)
-        if st.checkbox('Top movies of all time'):
-            st.subheader('1. The Shawshank Redemption')
-            st.image('resources/imgs/thumbnails/shawshank_redemption.png', width=100)
-            st.markdown('Realese year:1994')
-            st.markdown('Genre:Drama')
-            st.image('resources/imgs/thumbnails/pulp_fiction.png', width=100)
-            st.image('resources/imgs/thumbnails/forest_gump.png', width=100)
-            st.image('resources/imgs/thumbnails/silence_of_the_lambs.png', width=100)
-            st.image('resources/imgs/thumbnails/the_matrix.png', width=100)
-            st.image('resources/imgs/thumbnails/star_wars.png', width=100)
-            st.image('resources/imgs/thumbnails/schindlers_list.png', width=100)
-            st.image('resources/imgs/thumbnails/fight_club.png', width=100)
-            st.image('resources/imgs/thumbnails/star_wars_2.png', width=100)
-            st.image('resources/imgs/thumbnails/braveheart.png', width=100)
-            st.image('resources/imgs/thumbnails/the_usual_suspects.png', width=100)
-            st.image('resources/imgs/thumbnails/jurassic_park.png', width=100)
-            st.image('resources/imgs/thumbnails/terminator_2.png', width=100)
-            st.image('resources/imgs/thumbnails/LOTR_FLOTR.png',width=100)
-            st.image('resources/imgs/thumbnails/raiders_of_lost_ark.png',width=100)
-            
+        else:
+            st.warning('Please input favourite Genre(s)')
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
