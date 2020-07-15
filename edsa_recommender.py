@@ -70,7 +70,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ['Welcome','Reccomender','EDA','Solution Overview','About','test_page']
+    page_options = ['Welcome','Reccomender','Exloratory Data Analysis','Solution Overview','About','test_page']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
