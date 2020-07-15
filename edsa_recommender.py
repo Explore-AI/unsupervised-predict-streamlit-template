@@ -163,7 +163,7 @@ def main():
                           'Romance','Sci-fi',
                           'Thriller','War','Western']
         genres = st.multiselect('select genres',genres_setlist)
-        st.write(genres)
+#        st.write(genres)
         if len(genres) > 0:
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
