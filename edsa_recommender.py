@@ -140,7 +140,7 @@ def main():
             count = 0
             dict_genres = {}
             for chunk in chunks:
-                chunk_genres = ','.join([genres.replace('|',',').lower() for genres in chunk.genres]).split(',')
+                chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
                 chunk_genres = [item for item in chunk_genres if item in list1]
                 for genre in chunk_genres:
                     if genre in dict_genres:
@@ -156,8 +156,12 @@ def main():
             plt.show()
             return (freq_plot)
         st.title('EDA') 
-        genres_setlist = ['Action','Adventure','Animation','Children','Comedy','Crime','Documentary',
-                          'Drama','Fantasy','Horror','Mystery','Romance','Sci-fi','Thriller','War','Western']
+        genres_setlist = ['Action','Adventure','Animation',
+                          'Children','Comedy',
+                          'Crime','Documentary',
+                          'Drama','Fantasy','Horror','Mystery',
+                          'Romance','Sci-fi',
+                          'Thriller','War','Western']
         genres = st.multiselect('select genres',genres_setlist)
         st.write(genres)
         if len(genres) > 0:
