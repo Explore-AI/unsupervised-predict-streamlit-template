@@ -164,8 +164,23 @@ def main():
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
                 st.write(genre_count_figure)
-        else:
-            pass
+        if st.checkbox('Top movies of all time'):
+            st.image('resources/imgs/thumbnails/shawshank_redemption.png')
+            st.image('resources/imgs/thumbnails/pulp_fiction.png')
+            st.image('resources/imgs/thumbnails/forest_gump.png')
+            st.image('resources/imgs/thumbnails/silence_of_the_lambs.png')
+            st.image('resources/imgs/thumbnails/the_matrix.png')
+            st.image('resources/imgs/thumbnails/star_wars.png')
+            st.image('resources/imgs/thumbnails/schindlers_list.png')
+            st.image('resources/imgs/thumbnails/fight_club.png')
+            st.image('resources/imgs/thumbnails/star_wars_2.png')
+            st.image('resources/imgs/thumbnails/braveheart.png')
+            st.image('resources/imgs/thumbnails/the_usual_suspects.png')
+            st.image('resources/imgs/thumbnails/jurassic_park.png')
+            st.image('resources/imgs/thumbnails/terminator_2.png')
+            st.image('resources/imgs/thumbnails/LOTR_FLOTR.png')
+            st.image('resources/imgs/thumbnails/raiders_of_lost_ark.png')
+            
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
