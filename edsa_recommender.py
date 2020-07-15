@@ -213,6 +213,31 @@ def main():
             st.image('resources/imgs/thumbnails/raiders_of_lost_ark.png',width=100)
             st.markdown('Release year: 1981  \nGenre: Action, Adventure  \nRuntime: 1h.55m  \nRatings: 4.1  \nNumber of Ratings: 21982  \nStoryline:  \nThe year is 1936. An archeology professor named Indiana Jones is venturing in the jungles of South America searching for a golden statue. Unfortunately, he sets off a deadly trap but miraculously escapes. Then, Jones hears from a museum curator named Marcus Brody about a biblical artifact called The Ark of the Covenant, which can hold the key to humanely existence. Jones has to venture to vast places such as Nepal and Egypt to find this artifact. However, he will have to fight his enemy Rene Belloq and a band of Nazis in order to reach it.')
             
+            #Next Button
+            list_1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+            def next_prev(button):
+                next_counter = pd.read_csv('../edsa-recommender-system-predict/next_button.csv')['value']
+                next_value = next_counter[0]
+                if button == 'next':
+                    if next_value >= 14:
+                        next_value = 0
+                    else:
+                        next_value = next_value + 1
+                    next_counter[0] = next_value
+                    next_counter.to_csv('resources/imgs/thumbnails/next_button.csv')
+                if button == 'previous':
+                    if next_value < 1:
+                        next_value = 14
+                    else:
+                        next_value = next_value - 1
+                    next_counter[0] = next_value
+                    next_counter.to_csv('resources/imgs/thumbnails/next_button.csv')
+                return(next_value)
+            if st.button('next'):
+                next_prev('next')
+            if st.button('previous'):
+                next_prev('previous')
+            st.write(list_1[next_prev(button)])
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
