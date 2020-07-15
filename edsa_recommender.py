@@ -171,8 +171,8 @@ def main():
         if st.checkbox('Top movies of all time'):
             st.subheader('1. The Shawshank Redemption')
             st.image('resources/imgs/thumbnails/shawshank_redemption.png', width=100)
-            st.markdown('Realese year:1994')
-            st.markdown('Genre: Drama\n
+            st.write('Realese year:1994\n
+                         Genre: Drama\n
                            Realese year:1994\n
                            Runtime: 2h 22min\n
                            Average rating: 4.4\n
@@ -180,7 +180,7 @@ def main():
                            Storyline:Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man\'s unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.')
             st.subheader('2. Pulp Fiction')
             st.image('resources/imgs/thumbnails/pulp_fiction.png', width=100)
-            st.markdown('Release year: 1994\n
+            st.write('Release year: 1994\n
                          Genre: Comedy, Crime\n
                            Runtime: 2h.58min\n
                            Ratings: 4.2\n
