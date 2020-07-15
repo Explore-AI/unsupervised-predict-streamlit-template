@@ -217,7 +217,7 @@ def main():
             list_1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
             button = 'button' #Initialise program only
             def next_prev(button):
-                next_counter = pd.read_csv('../edsa-recommender-system-predict/next_button.csv')['value']
+                next_counter = pd.read_csv('resources/imgs/thumbnails/next_button.csv')['value']
                 next_value = next_counter[0]
                 if button == 'next':
                     if next_value >= 14:
