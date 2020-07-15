@@ -168,7 +168,13 @@ def main():
             st.subheader('1. The Shawshank Redemption')
             st.image('resources/imgs/thumbnails/shawshank_redemption.png', width=100)
             st.markdown('Realese year:1994')
-            st.markdown('Genre:Drama')
+            st.markdown('''Genre: Drama
+                           Realese year:1994
+                           Runtime: 2h 22min
+                           Average rating: 4.4
+                           Number of ratings: 32831
+
+                           Storyline:Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.''')
             st.image('resources/imgs/thumbnails/pulp_fiction.png', width=100)
             st.image('resources/imgs/thumbnails/forest_gump.png', width=100)
             st.image('resources/imgs/thumbnails/silence_of_the_lambs.png', width=100)
