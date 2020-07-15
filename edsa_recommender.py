@@ -224,7 +224,7 @@ def main():
                 next_prev('next')
             if st.button('previous'):
                 next_prev('previous')
-            st.subheader('{}. {}'.format(next_prev(button),titles[next_prev(button)]))
+            st.subheader('{}. {}'.format(next_prev(button)+1,titles[next_prev(button)]))
             st.image(images[next_prev(button)],width=100)
             st.markdown(descriptions[next_prev(button)])
     if page_selection == "Solution Overview":
