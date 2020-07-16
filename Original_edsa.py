@@ -100,42 +100,46 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'Exploratory Data Analysis':
-        def genre_count(filename,list1):
-            '''Plots the distribution of genres in the movies dataset'''
-            filename = data_path+str(filename)
-            chunks = pd.read_csv(filename,chunksize=10000)
-            data = pd.DataFrame()
-            count = 0
-            dict_genres = {}
-            for chunk in chunks:
-                chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
-                chunk_genres = [item for item in chunk_genres if item in list1]
-                for genre in chunk_genres:
-                    if genre in dict_genres:
-                        dict_genres[genre]+=1
-                    else:
-                        dict_genres[genre]=1
-            sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
-            genre, frequency = zip(*sorted_dict)
-            plt.figure(figsize=(10,5))
-            freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
-            freq_plot.set(title='Genre frequency',
-                          xlabel='Genre_count',ylabel='Genre')
-            plt.show()
-            return (freq_plot)
+
         st.title('EDA') 
-        genres_setlist = ['Action','Adventure','Animation',
-                          'Children','Comedy',
-                          'Crime','Documentary',
-                          'Drama','Fantasy','Horror','Mystery',
-                          'Romance','Sci-fi',
-                          'Thriller','War','Western']
-        genres = st.multiselect('select genres',genres_setlist)
+
+        if st.checkbox('Listings by genre'):
+            genres_setlist = ['Action','Adventure','Animation',
+                              'Children','Comedy',
+                              'Crime','Documentary',
+                              'Drama','Fantasy','Horror','Mystery',
+                              'Romance','Sci-fi',
+                              'Thriller','War','Western']
+            genres = st.multiselect('select genres',genres_setlist)
 #        st.write(genres)
         if len(genres) > 0:
             genre_count_figure = genre_count('movies.csv',genres).figure
             if st.checkbox('show genre counts in dataset'):
+                def genre_count(filename,list1):
+                    '''Plots the distribution of genres in the movies dataset'''
+                    filename = data_path+str(filename)
+                    chunks = pd.read_csv(filename,chunksize=10000)
+                    data = pd.DataFrame()
+                    count = 0
+                    dict_genres = {}
+                    for chunk in chunks:
+                        chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
+                        chunk_genres = [item for item in chunk_genres if item in list1]
+                        for genre in chunk_genres:
+                            if genre in dict_genres:
+                                dict_genres[genre]+=1
+                            else:
+                                dict_genres[genre]=1
+                    sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
+                    genre, frequency = zip(*sorted_dict)
+                    plt.figure(figsize=(10,5))
+                    freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
+                    freq_plot.set(title='Genre frequency',
+                                  xlabel='Genre_count',ylabel='Genre')
+                    plt.show()
+                    return (freq_plot)
                 st.write(genre_count_figure)
+        
         if st.checkbox('Greatest Hits'):
             # Movie Titles List:
             titles = ['The Shawshank Redemption','Pulp Fiction','Forrest Gump','The Silence of The Lambs',
