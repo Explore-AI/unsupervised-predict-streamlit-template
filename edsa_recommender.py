@@ -70,7 +70,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ['Welcome','Reccomender','Exploratory Data Analysis','Solution Overview','About','test_page']
+    page_options = ['Welcome','Reccomender','Exploratory Data Analysis','Solution Overview','About','About Us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -230,8 +230,98 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-    if page_selection == 'test_page':
-        st.write('1,2,3...test')
+    if page_selection == 'About Us':
+        team = """<!-----------One Member--------------->
+<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/nicole_2.png" alt="Pineapple" width="170" height="170">
+<h3 style="margin-bottom: 2px">Nicole Meinie</h3>
+<p style="">Project Manager</p>
+<ul>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+</li>
+</ul>
+</div>
+
+<!-----------One Member--------------->
+<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/marcio_2.png" alt="Pineapple" width="170" height="170">
+<h3 style="margin-bottom: 2px">Marcio Maluka</h3>
+<p style="">Tech Lead</p>
+<ul>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+</li>
+</ul>
+</div>
+
+<!-----------One Member--------------->
+<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/phiwa.png" alt="Pineapple" width="170" height="170">
+<h3 style="margin-bottom: 2px">Phiwayinkosi Hlatshwayo</h3>
+<p style="">Data Scientist</p>
+<ul>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+</li>
+</ul>
+</div>
+
+<!-----------One Member--------------->
+<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/karabo.png" alt="Pineapple" width="170" height="170">
+<h3 style="margin-bottom: 2px">Karabo Leso</h3>
+<p style="">Data Engineer</p>
+<ul>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+</li>
+</ul>
+</div>
+
+<!-----------One Member--------------->
+<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
+<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
+<h3 style="margin-bottom: 2px">Noah Kaekae</h3>
+<p style="">Software Developer</p>
+<ul>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+</li>
+<li style="display:inline;">
+<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+</li>
+</ul>
+</div>"""
+        st.markdown(team, unsafe_allow_html=True)
+        
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
