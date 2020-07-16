@@ -230,97 +230,81 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-    if page_selection == 'About Us':
-        team = """<!-----------One Member--------------->
-<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
-<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/nicole_2.png" alt="Pineapple" width="170" height="170">
-<h3 style="margin-bottom: 2px">Nicole Meinie</h3>
-<p style="">Project Manager</p>
-<ul>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
-</li>
-</ul>
-</div>
-
-<!-----------One Member--------------->
-<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
-<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/marcio_2.png" alt="Pineapple" width="170" height="170">
-<h3 style="margin-bottom: 2px">Marcio Maluka</h3>
-<p style="">Tech Lead</p>
-<ul>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
-</li>
-</ul>
-</div>
-
-<!-----------One Member--------------->
-<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
-<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/phiwa.png" alt="Pineapple" width="170" height="170">
-<h3 style="margin-bottom: 2px">Phiwayinkosi Hlatshwayo</h3>
-<p style="">Data Scientist</p>
-<ul>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
-</li>
-</ul>
-</div>
-
-<!-----------One Member--------------->
-<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
-<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="resources/imgs/karabo.png" alt="Pineapple" width="170" height="170">
-<h3 style="margin-bottom: 2px">Karabo Leso</h3>
-<p style="">Data Engineer</p>
-<ul>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
-</li>
-</ul>
-</div>
-
-<!-----------One Member--------------->
-<div style="overflow: auto;border: 3px solid #4CAF50;border-radius: 5px;margin: auto;width: 50%;border: 3px solid green;padding: 10px;">
-<img style="float: left;padding-right: 10px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
-<h3 style="margin-bottom: 2px">Noah Kaekae</h3>
-<p style="">Software Developer</p>
-<ul>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Twitter" src="https://image.flaticon.com/icons/svg/1384/1384017.svg" width="25" height="25"></a>  
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
-</li>
-<li style="display:inline;">
-<a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
-</li>
-</ul>
-</div>"""
-        st.markdown(team, unsafe_allow_html=True)
+    if page_selection == "About us":
+        the_team = """
+                    <h1 style="color:black;padding-bottom: 15px"><b>Meet the team that made it happen</b></h1>
+                    <!-----------One Member--------------->
+                    <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
+                    <h3 style="margin-bottom: 2px">Nicole Meinie</h3>
+                    <p style="">Project Manager</p>
+                    <ul>
+                    <li style="display:inline;">
+                    <a href="www.linkedin.com/in/nicole-meinie/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    </li>
+                    <li style="display:inline;">
+                    <a href="https://github.com/NicoleMeinie"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    </li>
+                    </ul>
+                    </div>
+                    <!-----------One Member--------------->
+                    <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C5603AQHcTe4c3SNhdA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=wlzH7LmLPCnoO5b1LagSO9lr4WyDFCfWfIBcR0MuZUs" alt="Pineapple" width="170" height="170">
+                    <h3 style="margin-bottom: 2px">Marcio Maluka</h3>
+                    <p style="">Tech Lead</p>
+                    <ul>
+                    <li style="display:inline;">
+                    <a href="linkedin.com/in/marcio-maluka-74b4065a"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    </li>
+                    <li style="display:inline;">
+                    <a href="https://github.com/xmaluka"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    </li>
+                    </ul>
+                    </div>
+                    <!-----------One Member--------------->
+                    <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
+                    <img style="float: left;padding-right: 10px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C4E03AQFvPi_4_Kd6tA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=cVHjEqDL_hzLxHgiSEBVob8I2kQ_CGdATmorzaanQFI" alt="Pineapple" width="170" height="170">
+                    <h3 style="margin-bottom: 2px">Phiwayinkosi Hlatshwayo</h3>
+                    <p style="">Data Scientist</p>
+                    <ul>
+                    <li style="display:inline;">
+                    <a href="https://www.linkedin.com/in/phiwayinkosi-hlatshwayo-03027b130/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    </li>
+                    <li style="display:inline;">
+                    <a href="https://github.com/phiwa-lab"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    </li>
+                    </ul>
+                    </div>
+                    <!-----------One Member--------------->
+                    <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://avatars0.githubusercontent.com/u/60364030?s=400&u=b1b36e92c09ad91e06ff145924ad8b5457639ccd&v=4" alt="Pineapple" width="170" height="170">
+                    <h3 style="margin-bottom: 2px">Karabo Leso</h3>
+                    <p style="">Data Engineer</p>
+                    <ul>
+                    <li style="display:inline;">
+                    <a href="https://www.linkedin.com/in/karabo-leso-191a01189/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    </li>
+                    <li style="display:inline;">
+                    <a href="https://github.com/KaraboLeso"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    </li>
+                    </ul>
+                    </div>
+                    <!-----------One Member--------------->
+                    <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
+                    <h3 style="margin-bottom: 2px">Noah Kaekae</h3>
+                    <p style="">Software Developer</p>
+                    <ul>
+                    <li style="display:inline;">
+                    <a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    </li>
+                    <li style="display:inline;">
+                    <a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    </li>
+                    </ul>
+                    </div>
+                    """
+        st.markdown(the_team, unsafe_allow_html=True)
         
 
     # You may want to add more sections here for aspects such as an EDA,
