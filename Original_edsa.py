@@ -260,15 +260,17 @@ def main():
                 for chunk in chunks:
                     if len(chunk[chunk.title==selection_1]):
                         return(chunk[chunk.title==selection_1]['movieId'])
-            st.write(movieId('../unsupervised_data/unsupervised_movie_data/movies.csv'))
-#            def rate(filename):
-                # chunks = pd.read_csv(filename,chunksize=30000)
-                # data = pd.DataFrame()
-                # for chunk in chunks:
-                    # chunk = chunk[chunk['movieId']==1][['movieId','rating']]
-                    # data = pd.concat([chunk,data])
-                # data = data.rating.value_counts()
-                # data = data*100/data.sum()
+            selid = movieId('../unsupervised_data/unsupervised_movie_data/movies.csv')
+            def rate(filename):
+                chunks = pd.read_csv(filename,chunksize=50000)
+                data = pd.DataFrame()
+                for chunk in chunks:
+                    chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
+                    data = pd.concat([chunk,data])
+                data = data.rating.value_counts()
+                data = data*100/data.sum()
+                return(data)
+            st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
                 # fig = plt.figure(figsize=(25,10))
                 # ax = fig.add_subplot(111)
                 
