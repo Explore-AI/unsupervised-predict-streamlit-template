@@ -254,18 +254,8 @@ def main():
                 st.write(top_movies_list(average_by_year('../unsupervised_data/unsupervised_movie_data/train.csv','../unsupervised_data/unsupervised_movie_data/movies.csv')))
                     # st.write(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv'))
         if drop_down_listings =='too many?':
-            pass
+            st.selectbox('select title',title_list)
 #            def rate(filename):
-#                movies = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv',chunksize=10000)
-#                movie_id_pair = pd.DataFrame()
-#                for chunk in movies:
-#                    movie_id_pair = pd.concat([chunk[['title','movieId']],movie_id_pair])
-#                titles = movie_id_pair.title
-#                return(titles)
-#            st.selectbox('select',rate(1))
-                #movieId = movies[movies.title == selection]['movieId']
-                #st.write(movieId)
-
                 # chunks = pd.read_csv(filename,chunksize=30000)
                 # data = pd.DataFrame()
                 # for chunk in chunks:
