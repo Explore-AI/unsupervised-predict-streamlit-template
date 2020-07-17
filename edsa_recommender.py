@@ -109,8 +109,12 @@ def main():
         st.title("Movie Recommender Engine")
 
         st.write("### Welcome to our Machine Learning Movie Recommender App") 
-        st.write("The app uses machine learning models to recommend best movies to our users") 
-        
+        st.write("The app uses machine learning models to recommend best movies to our users")
+        st.write("________________________________________________________________________________")
+        st.write("### B2B Movies")
+        st.write("make entertainment exciting, again.🔥") 
+        st.image('https://media0.giphy.com/media/dXQlx5RfbNwQVtqMet/giphy.gif?cid=6c09b9526ae25bf2202fbb861880e79c9c35b42b1257517b&rid=giphy.gif',use_column_width=True)
+        st.write("________________________________________________________________________________")
         # st.image('resources/imgs/Image_header.png',use_column_width=True)
 
     if page_selection == "Insights":
@@ -119,7 +123,7 @@ def main():
         st.write("### Below are some visuals, and insights gained from the data") 
         # st.write("The app uses machine learning models to recommend best movies to our users") 
         
-        # st.image('resources/imgs/Image_header.png',use_column_width=True)
+        # st.image('https://media0.giphy.com/media/dXQlx5RfbNwQVtqMet/giphy.gif?cid=6c09b9526ae25bf2202fbb861880e79c9c35b42b1257517b&rid=giphy.gif',use_column_width=True)
 
 
     # You may want to add more sections here for aspects such as an EDA,
