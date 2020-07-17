@@ -258,7 +258,8 @@ def main():
             def movieId(filename):
                 chunks = pd.read_csv(filename,chunksize=50000)
                 if len(chunk[chunk.title==selection_1]):
-                    st.write('got-it')
+                    return(chunk[chunk.title==selection_1]['movieId'])
+            st.write(movieId('../unsupervised_data/unsupervised_movie_data/movies.csv'))
 #            def rate(filename):
                 # chunks = pd.read_csv(filename,chunksize=30000)
                 # data = pd.DataFrame()
