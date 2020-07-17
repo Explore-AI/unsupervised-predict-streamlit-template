@@ -269,7 +269,6 @@ def main():
                     data = pd.concat([chunk,data])
                 data = data.rating.value_counts()
                 data = data*100/data.sum()
-                return(data)
                 fig = plt.figure(figsize=(25,10))
                 ax = fig.add_subplot(111)
                 labels = [str(round(index,2))+' stars' for index in data.index]
