@@ -254,7 +254,7 @@ def main():
                 st.write(top_movies_list(average_by_year('../unsupervised_data/unsupervised_movie_data/train.csv','../unsupervised_data/unsupervised_movie_data/movies.csv')))
                     # st.write(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv'))
         if drop_down_listings =='too many?':
-            st.selectbox('select title',title_list)
+            st.selectbox('select title',title_list[14930:15200])
 #            def rate(filename):
                 # chunks = pd.read_csv(filename,chunksize=30000)
                 # data = pd.DataFrame()
