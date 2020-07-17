@@ -260,7 +260,7 @@ def main():
                 for chunk in chunks:
                     if len(chunk[chunk.title==selection_1]):
                         return(chunk[chunk.title==selection_1]['movieId'])
-            selid = movieId('../unsupervised_data/unsupervised_movie_data/movies.csv')
+            selid = movieId('../unsupervised_data/unsupervised_movie_data/movies.csv').values[0]
             def rate(filename):
                 chunks = pd.read_csv(filename,chunksize=50000)
                 data = pd.DataFrame()
