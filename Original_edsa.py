@@ -257,8 +257,9 @@ def main():
             selection_1 = st.selectbox('select title',title_list[14930:15200])
             def movieId(filename):
                 chunks = pd.read_csv(filename,chunksize=50000)
-                if len(chunk[chunk.title==selection_1]):
-                    return(chunk[chunk.title==selection_1]['movieId'])
+                for chunk in chunks:
+                    if len(chunk[chunk.title==selection_1]):
+                        return(chunk[chunk.title==selection_1]['movieId'])
             st.write(movieId('../unsupervised_data/unsupervised_movie_data/movies.csv'))
 #            def rate(filename):
                 # chunks = pd.read_csv(filename,chunksize=30000)
