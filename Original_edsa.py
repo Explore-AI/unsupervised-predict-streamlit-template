@@ -282,7 +282,7 @@ def main():
                 fig = plt.gcf()
                 fig.gca().add_artist(centre_circle)
                 plt.legend(pie[0], labels, loc="lower left")
-                ax.set_title('Rating distribution for the Shawshanck Redemption\n', fontsize=35)
+                ax.set_title(f'Rating distribution for {selection_1}', fontsize=35)
                 plt.tight_layout()
                 plt.show()
                  # grouped = pd.DataFrame(data.groupby(['rating'])['title'].count())
