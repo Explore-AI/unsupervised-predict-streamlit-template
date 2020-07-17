@@ -276,8 +276,8 @@ def main():
                 ax.set_prop_cycle("color", [theme(1. * i / len(labels)) for i in range(len(labels))])
                 sns.set(font_scale=2)
                 pie = ax.pie(data,autopct='%1.1f%%',shadow=True,
-                             startangle=10,pctdistance=1.115,
-                             explode = tuple(np.ones(len(labels))*0.1))
+                             startangle=10,pctdistance=1.115)
+#                             explode = tuple(np.ones(len(labels)//1)*0.1))
                 centre_circle = plt.Circle((0,0),0.70,fc='white')
                 fig = plt.gcf()
                 fig.gca().add_artist(centre_circle)
