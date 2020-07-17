@@ -37,7 +37,7 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
-data_path = '../edsa-recommender-system-predict/'
+data_path = '../unsupervised_data/unsupervised_movie_data/'
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -251,7 +251,7 @@ def main():
                     # return(trending_df)
                 # st.write(top_movies_list(data))
                     # return()
-                st.write(top_movies_list(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv')))
+                st.write(top_movies_list(average_by_year('../unsupervised_data/unsupervised_movie_data/train.csv','../unsupervised_data/unsupervised_movie_data/movies.csv')))
                     # st.write(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv'))
         if drop_down_listings =='too many?':
             def rate(filename):
