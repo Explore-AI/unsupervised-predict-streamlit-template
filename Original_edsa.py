@@ -225,10 +225,10 @@ def main():
                         temp = chunk.merge(data_f1,on='movieId',how='inner').dropna()
                         data = pd.concat([temp,data])
                     return(data)
-                def top_movies_list(df):
-                    m = df.movieId.value_counts().quantile(0.8)
-                    st.write(len(df))
-                    return(df)
+#                def top_movies_list(df):
+#                    m = df.movieId.value_counts().quantile(0.8)
+#                    st.write(len(df))
+#                    return(df)
                     # vote_count = df.movieId.value_counts()
                     # average_ratings = df.groupby(['movieId']).rating.mean()
                     # C = average_ratings.mean() #average rating of a movie
@@ -254,14 +254,15 @@ def main():
                 st.write(top_movies_list(average_by_year('../unsupervised_data/unsupervised_movie_data/train.csv','../unsupervised_data/unsupervised_movie_data/movies.csv')))
                     # st.write(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv'))
         if drop_down_listings =='too many?':
-            def rate(filename):
-                movies = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv',chunksize=10000)
-                movie_id_pair = pd.DataFrame()
-                for chunk in movies:
-                    movie_id_pair = pd.concat([chunk[['title','movieId']],movie_id_pair])
-                titles = movie_id_pair.title
-                return(titles)
-            st.selectbox('select',rate(1))
+            pass
+#            def rate(filename):
+#                movies = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv',chunksize=10000)
+#                movie_id_pair = pd.DataFrame()
+#                for chunk in movies:
+#                    movie_id_pair = pd.concat([chunk[['title','movieId']],movie_id_pair])
+#                titles = movie_id_pair.title
+#                return(titles)
+#            st.selectbox('select',rate(1))
                 #movieId = movies[movies.title == selection]['movieId']
                 #st.write(movieId)
 
