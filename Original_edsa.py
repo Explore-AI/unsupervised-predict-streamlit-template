@@ -22,12 +22,14 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import re
 from PIL import Image
 #Plots
 import seaborn as sns
 import matplotlib.style as style 
 sns.set(font_scale=1)
 import matplotlib.pyplot as plt
+from datetime import date
 #import plotly.figure_factory as ff
 
 # Custom Libraries
@@ -35,7 +37,7 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
-data_path = '../unsupervised_data/unsupervised_movie_data/'
+data_path = '../edsa-recommender-system-predict/'
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -101,20 +103,18 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'Exploratory Data Analysis':
 
-        st.title('EDA') 
-
-        if st.checkbox('Listings by genre'):
+        st.subheader('EDA') 
+        drop_down_listings = st.selectbox('select_otions',['What\'s in a genre?','Greatest Hits','1 more plot','too many?'])
+        if drop_down_listings == 'What\'s in a genre?':
             genres_setlist = ['Action','Adventure','Animation',
                               'Children','Comedy',
                               'Crime','Documentary',
                               'Drama','Fantasy','Horror','Mystery',
                               'Romance','Sci-fi',
                               'Thriller','War','Western']
-            genres = st.multiselect('select genres',genres_setlist)
+            genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
 #        st.write(genres)
-        if len(genres) > 0:
-            genre_count_figure = genre_count('movies.csv',genres).figure
-            if st.checkbox('show genre counts in dataset'):
+            if len(genres) > 0:
                 def genre_count(filename,list1):
                     '''Plots the distribution of genres in the movies dataset'''
                     filename = data_path+str(filename)
@@ -134,13 +134,15 @@ def main():
                     genre, frequency = zip(*sorted_dict)
                     plt.figure(figsize=(10,5))
                     freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
-                    freq_plot.set(title='Genre frequency',
+                    freq_plot.set(title='Number of movies in genre',
                                   xlabel='Genre_count',ylabel='Genre')
                     plt.show()
                     return (freq_plot)
-                st.write(genre_count_figure)
+                genre_count_figure = genre_count('movies.csv',genres).figure
+                if st.checkbox('show genre counts in dataset'):
+                    st.write(genre_count_figure)
         
-        if st.checkbox('Greatest Hits'):
+        if drop_down_listings == 'Greatest Hits':
             # Movie Titles List:
             titles = ['The Shawshank Redemption','Pulp Fiction','Forrest Gump','The Silence of The Lambs',
                       'The MATRIX','Star Wars: Episode IV - A New Hope','Schindler\'s List','Fight Club',
@@ -192,17 +194,137 @@ def main():
                     next_counter[0] = next_value
                     next_counter.to_csv('resources/imgs/thumbnails/next_button.csv')
                 return(next_value)
+            st.subheader('{}. {}'.format(next_prev(button)+1,titles[next_prev(button)]))
+            st.image(images[next_prev(button)],width=100)
+            st.markdown(descriptions[next_prev(button)])
             if st.button('next'):
                 next_prev('next')
             if st.button('previous'):
                 next_prev('previous')
-            st.subheader('{}. {}'.format(next_prev(button)+1,titles[next_prev(button)]))
-            st.image(images[next_prev(button)],width=100)
-            st.markdown(descriptions[next_prev(button)])
-    
+
+        if drop_down_listings =='1 more plot':
+            current_year=date.today().year
+            min_year = 1970
+            add_slider = st.slider('Choose year range:',min_year, current_year,(min_year,current_year), step=1)
+            if st.button('View highest rated in time frame'):
+                def average_by_year(filename,filename_2):
+                    a = add_slider[0]
+                    b = add_slider[1]
+                    counter = 0
+                    data_f1 = pd.DataFrame()
+                    data = pd.DataFrame()
+                    chunks_1 = pd.read_csv(filename_2,chunksize=1000)
+                    for chunk in chunks_1:
+                        chunk['release_year'] = chunk.title.map(lambda x: re.findall('\d\d\d\d',x))
+                        chunk.release_year = chunk.release_year.apply(lambda x: np.nan if not x else int(x[-1]))
+                        chunk = chunk[(chunk['release_year']>=a)&(chunk['release_year']<b+1)]
+                        data_f1 = pd.concat([chunk,data_f1])                       
+
+                    chunks_2 = pd.read_csv(filename,chunksize=1000)
+                    for chunk in chunks_2: 
+                        temp = chunk.merge(data_f1,on='movieId',how='inner').dropna()
+                        data = pd.concat([temp,data])
+                    return(data)
+                def top_movies_list(df):
+                    m = df.movieId.value_counts().quantile(0.8)
+                    st.write(len(df))
+                    return(df)
+                    # vote_count = df.movieId.value_counts()
+                    # average_ratings = df.groupby(['movieId']).rating.mean()
+                    # C = average_ratings.mean() #average rating of a movie
+                    # q_movies = df.movieId.unique()
+                    # unique_val_counts = df.movieId.value_counts()
+                    # q_movies = [row for row in q_movies if unique_val_counts[row]>m]
+                    # st.write(q_movies)
+                    # def weighted_rating(movie_id,m=m,C=C):
+                        # v = vote_count[movie_id]
+                        # R = average_ratings[movie_id]
+                        # weighted_score = (v*R/(v+m))+(m*C/(v+m))
+                        # return(weighted_score)
+                    # def Top_N_Recommendations(movies_list=q_movies):
+                        # weighted_scores = [weighted_rating(movie_id) for movie_id in movies_list]
+                        # trending_df = pd.DataFrame({'movieId':movies_list,'weighted_scores':weighted_scores})
+                        # trending_df = trending_df.sort_values('weighted_scores',ascending=False)
+                        # trending_df = trending_df.merge(movies, on=['movieId'],how = 'inner')
+                    # return(trending_df)
+                    # trending_df = Top_N_Recommendations(movies_list=q_movies)
+                    # return(trending_df)
+                # st.write(top_movies_list(data))
+                    # return()
+                st.write(top_movies_list(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv')))
+                    # st.write(average_by_year('../edsa-recommender-system-predict/train.csv','../edsa-recommender-system-predict/movies.csv'))
+        if drop_down_listings =='too many?':
+            def rate(filename):
+                movies = pd.read_csv('../edsa-recommender-system-predict/movies.csv',chunksize=10000)
+                movie_id_pair = pd.DataFrame()
+                for chunk in movies:
+                    movie_id_pair = pd.concat([chunk[['title','movieId']],movie_id_pair])
+                titles = movie_id_pair.title
+                return(titles)
+            st.selectbox('select',rate(1))
+                #movieId = movies[movies.title == selection]['movieId']
+                #st.write(movieId)
+
+                # chunks = pd.read_csv(filename,chunksize=30000)
+                # data = pd.DataFrame()
+                # for chunk in chunks:
+                    # chunk = chunk[chunk['movieId']==1][['movieId','rating']]
+                    # data = pd.concat([chunk,data])
+                # data = data.rating.value_counts()
+                # data = data*100/data.sum()
+                # fig = plt.figure(figsize=(25,10))
+                # ax = fig.add_subplot(111)
+                
+                # labels = [str(round(index,2))+' stars' for index in data.index]
+                # theme = plt.get_cmap('Reds')
+                # ax.set_prop_cycle("color", [theme(1. * i / len(labels)) for i in range(len(labels))])
+                # sns.set(font_scale=2)
+                # pie = ax.pie(data,autopct='%1.1f%%',shadow=True,startangle=10,pctdistance=1.115,explode = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1))
+                # centre_circle = plt.Circle((0,0),0.70,fc='white')
+                # fig = plt.gcf()
+                # fig.gca().add_artist(centre_circle)
+                # plt.legend(pie[0], labels, loc="lower left")
+                # ax.set_title('Rating distribution for the Shawshanck Redemption\n', fontsize=35)
+                # plt.tight_layout()
+                # plt.show()
+                # # grouped = pd.DataFrame(data.groupby(['rating'])['title'].count())
+                # # grouped.rename(columns={'title':'rating_count'}, inplace=True)
+                # return(ax.figure)
+            # st.write(rate('../edsa-recommender-system-predict/train.csv'))
     if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        #st.title("Solution Overview")
+        #st.write("Describe your winning approach on this page")
+        sol_page = """
+                    <div class="w3-light-grey w3-padding-64 w3-margin-bottom w3-center">
+                    <h1 class="w3-jumbo">Solution Overview</h1>
+                    </div>
+​
+                    <div class="w3-row-padding w3-content" style="max-width:1400px">
+                    <div class="w3-twothird">
+                    <img src="https://trello-attachments.s3.amazonaws.com/5f03a5ce9c3e440f72126d34/500x434/52d0ca01f0acd3d463ed9c23b7a2b18b/netflix-because-you-watched-rick-and-morty-theory-every-thing-28570667.png" alt="Notebook" style="width:100%">
+                    <div class="w3-justify">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    </div>
+                    <div class="w3-third">
+                    <div class="w3-container w3-light-grey">
+                    <h2>Very New News!</h2>
+                    <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    <br>
+                    <div class="w3-container w3-light-grey w3-justify">
+                    <h2>Recommender Systems</h2>
+                    <p class="w3-justify"><b>Content-based recommenders:</b> suggest similar items based on a particular item. This system uses item metadata, such as genre, director, description, actors, etc. for movies, to make these recommendations. The general idea behind these recommender systems is that if a person likes a particular item, he or she will also like an item that is similar to it.</p>
+                    <p class="w3-justify"><b>Collaborative filtering engines:</b> these systems are widely used, and they try to predict the rating or preference that a user would give an item-based on past ratings and preferences of other users. Collaborative filters do not require item metadata like its content-based counterparts.</p>
+                    </div>
+                    </div>
+                    </div>
+                    """
+        st.markdown(sol_page, unsafe_allow_html=True)
     
     if page_selection == "About us":
         the_team = """
