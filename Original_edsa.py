@@ -289,7 +289,7 @@ def main():
                  # grouped = pd.DataFrame(data.groupby(['rating'])['title'].count())
                 # # grouped.rename(columns={'title':'rating_count'}, inplace=True)
                 return(ax.figure)
-             st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
+            st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
     if page_selection == "Solution Overview":
         #st.title("Solution Overview")
         #st.write("Describe your winning approach on this page")
