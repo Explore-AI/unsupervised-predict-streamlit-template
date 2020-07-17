@@ -2,49 +2,27 @@
 
     Collaborative-based filtering for item recommendation.
 
-    Author: Explore Data Science Academy.
+    Author: TEAM_1_DBN.
 
-    Note:
-    ---------------------------------------------------------------------
-    Please follow the instructions provided within the README.md file
-    located within the root of this repository for guidance on how to use
-    this script correctly.
-
-    NB: You are required to extend this baseline algorithm to enable more
-    efficient and accurate computation of recommendations.
-
-    !! You must not change the name and signature (arguments) of the
-    prediction function, `collab_model` !!
-
-    You must however change its contents (i.e. add your own collaborative
-    filtering algorithm), as well as altering/adding any other functions
-    as part of your improvement.
-
-    ---------------------------------------------------------------------
-
-    Description: Provided within this file is a baseline collaborative
-    filtering algorithm for rating predictions on Movie data.
+    Description: Collaborative filtering algorithm for rating predictions on 
+                 Movie data.
 
 """
 
 # Script dependencies
 import pandas as pd
-import numpy as np
 import bz2
 import _pickle as cPickle
-import pickle
-import copy
-from surprise import Reader, Dataset
-from surprise import SVD
-from sklearn.metrics.pairwise import cosine_similarity
 import surprise as surp
+
+# Pickle loading function
 
 def decompress_pickle(file):
     data_b = bz2.BZ2File(file, 'rb')
     data_b = cPickle.load(data_b)
     return data_b
 
-# Importing data
+# Importing data from S3 Bucket
 
 model = decompress_pickle('/home/explore-student/c_model.pbz2')
 
@@ -52,6 +30,8 @@ df_movie = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_mov
 df_rating = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
 
 #-----------------------------#
+# Class to pre-process data #
+
 class CFData:
     def __init__(self, df_rating, test_ratio=None, df_id_name_table=None, rating_scale=(1, 5)):
             """
@@ -106,19 +86,21 @@ class CFData:
 
 
 #-----------------------------#
+# Load rating data to CFData class #
 
-
-# Load rating data to CFData class
 df_data = df_rating[['userId','movieId', 'rating',]]
 df_data = df_data.rename(index=str, columns={'userId': 'userID', 'movieId': 'itemID', 'rating': 'rating'})
 df_id_name_table = df_movie[['movieId', 'title']]
 df_id_name_table = df_id_name_table.rename(index=str, columns={'movieId':'itemID', 'title':'itemName'})
 data_movie = CFData(df_data, test_ratio=None, df_id_name_table=df_id_name_table, rating_scale=(0.5, 5))
 
+#-----------------------------#
+# Helper Functions #
 
 def get_most_rated_movie(df_movie_in, df_rating_in, n_output):
     movie_list_tmp1 = pd.merge(df_movie, df_rating, on='movieId', how='inner').groupby('title').count()   
     movie_list_top_k = movie_list_tmp1['rating'].sort_values(ascending=False).index[:n_output]
+    
     return movie_list_top_k
 
 movie_list_top_n = get_most_rated_movie(df_movie, df_rating, 10000)
@@ -142,6 +124,7 @@ def get_similar_item(model, input_item_id, num_neighbor):
 def __get_top_similarities(item_inner_id, k):
 
     # Get TOP-k similar item for matix factorization model
+    
     from math import sqrt
     def cosine_distance(vector_a, vector_b):
         ab = sum([i*j for (i, j) in zip(vector_a, vector_b)])
@@ -166,16 +149,9 @@ def __get_top_similarities(item_inner_id, k):
         return [i[1] for i in similarity_table]
     else:
         return [i[1] for i in similarity_table[0:k]]
-    
-def show_recommended_movies(movie_name, k=10): 
-        
-    # Convert user-selected movie name to movie id then obtain the top-k similar movies
-    movie_item_id = data_movie.convert_name_to_id(movie_name)
-    movie_neighbor_name = [data_movie.convert_id_to_name(i) for i in get_similar_item(model,movie_item_id, k)]
-   
-    return movie_neighbor_name
-        
 
+#-----------------------------#
+    
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
@@ -197,17 +173,28 @@ def collab_model(movie_list,top_n=10):
 
     """
     
-    r_1 = show_recommended_movies(movie_list[0], k=10)
-    r_1 = [x for x in r_1 if x not in movie_list]
-    r_2 = show_recommended_movies(movie_list[1], k=10)
-    r_2 = [x for x in r_2 if x not in movie_list]
-    r_3 = show_recommended_movies(movie_list[2], k=10)
-    r_3 = [x for x in r_3 if x not in movie_list]
+    # Movie names to id
     
+    new_movie_ids = []
+    for i in movie_list :
+        the_name = data_movie.convert_name_to_id(i)
+        new_movie_ids.append(the_name)
+    
+    def show_recommended_movies(movie_name, k=10): 
+        
+    # Convert user-selected movie name to movie id then obtain the top-k similar movies
+        movie_item_id = data_movie.convert_name_to_id(movie_name)
+        movie_neighbor_name = [data_movie.convert_id_to_name(i) for i in get_similar_item(model,movie_item_id, k) if i not in new_movie_ids]
+   
+        return movie_neighbor_name
+    
+    r_1 = show_recommended_movies(movie_list[0], k=4)
+    r_2 = show_recommended_movies(movie_list[1], k=3)
+    r_3 = show_recommended_movies(movie_list[2], k=3)
+
     master_list = r_1 + r_2 + r_3
     master_list = list(set(master_list))
-    
-    
+        
     recommended_movies = master_list[0:10]
     
     return recommended_movies
