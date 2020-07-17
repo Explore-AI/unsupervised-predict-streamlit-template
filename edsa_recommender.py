@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Home Page","Recommender System","Insights","Solution Overview"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,9 +100,27 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+
+    if page_selection == "Home Page":
+        st.title("Movie Recommender Engine")
+
+        st.write("### Welcome to our Machine Learning Movie Recommender App") 
+        st.write("The app uses machine learning models to recommend best movies to our users") 
+        
+        # st.image('resources/imgs/Image_header.png',use_column_width=True)
+
+    if page_selection == "Insights":
+        st.title("Movie Recommender Engine")
+
+        st.write("### Below are some visuals, and insights gained from the data") 
+        # st.write("The app uses machine learning models to recommend best movies to our users") 
+        
+        # st.image('resources/imgs/Image_header.png',use_column_width=True)
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
