@@ -112,7 +112,24 @@ def main():
         st.info(""""Recommender Systems are used
                     is a subclass of information filtering system that
                     seeks to predict the "rating" or "preference" a user would give
-                    to an item.""")
+                    to an item. Recommender systems are used by companies
+                    like Youtube, Netflix and Amazon for e-commerce and
+                    online advertisement. They are very critical brcause
+                    that is how many companies are able to generate money.
+                    We have two types of reccomender systems, contet based
+                    and collaborative fltering.
+                    Collaborative methods for recommender systems are methods
+                    that are based solely on the past interactions recorded between
+                    users and items in order to produce new recommendations.
+                    Unlike collaborative methods that only rely on the user-item
+                    interactions, content based approaches use additional information
+                    about users and/or items.""")
+        st.markdown('##Exploratory Data Analysis')
+        fom PIL import Image
+        i = Image.open("resources/imgs/total_data.PNG")
+        st.image(i, caption="Total number of ratigs, users and movies")
+        st.text("     ")
+
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
