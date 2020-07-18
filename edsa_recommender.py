@@ -133,6 +133,10 @@ def main():
         st.info("""Integer values have taller bars than the floating values since most
                    of the users assign rating as integer value""")
         st.text("     ")
+        if st.button("WordCloud for Genres"):
+            from PIL import Image
+            genre = Image.open('resources/imgs/genre_word.PNG')
+            st.image(genre, caption='Most common genres')
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
