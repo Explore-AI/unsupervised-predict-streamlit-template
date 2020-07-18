@@ -19,7 +19,7 @@ from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
 # Data Loading
-title_list = load_movie_titles('/home/explore-student/unsupervised_data/unsupervised_movie_data/movies.csv')
+title_list = load_movie_titles('resources/data/movies.csv')
 
 # App declaration
 def main():
