@@ -125,7 +125,7 @@ def main():
                     interactions, content based approaches use additional information
                     about users and/or items.""")
         st.markdown('##Exploratory Data Analysis')
-        fom PIL import Image
+        from PIL import Image
         i = Image.open("resources/imgs/total_data.PNG")
         st.image(i, caption="Total number of ratigs, users and movies")
         st.text("     ")
