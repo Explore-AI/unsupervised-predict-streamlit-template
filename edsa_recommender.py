@@ -45,7 +45,8 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Home Page","Recommender System","Data & Insights","Solution Overview", "Exploratory Data Analysis"]
+    page_options = ["Home Page","Recommender System","Data & Insights",
+                    "Solution Overview", "Exploratory Data Analysis","About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -95,19 +96,85 @@ def main():
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-
-
     # -------------------------------------------------------------------
 
-    # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
 
+    profiles_html = """
+	<div class="container marketing">
+        <div class="row">
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQE_hQfcylm9fg/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=6IJmdWzXTldtb-hlKiyZM-CYFtS2XxBMCygInueQF3g" alt="Profile Pic" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/akshar-jadoonandan/">Akshar Jadoonandan</a></h3>
+            <p><li>Lead Data Scientist</li><li>Machine Learning</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/60362470?s=400&v=4" alt="Generic placeholder image" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/azukile-kobe-a22297183/">Azukile Kobe</a></h3>
+            <p><li>Data Scientist</li><li>Machine Learning</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/60362470?s=400&v=4" alt="Generic placeholder image" width="140" height="140">
+            <h3>Sandile Dladla</h3>
+            <p><li>Data Engineer</li><li>Research</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+	  <div class="col-lg-4">
+            <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C5603AQFQg17f1NUnhw/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=WzfozWzixxm2Gb4tmszxCCpNRQ8rlVdqeauvIqEQsTA" alt="Generic placeholder image" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/sibonelo-junior-malakiya/">Sibonelo Malakiya Jr</a></h3>
+            <p><li>Data Scientist</li><li>Big Data Engineer</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+	  <div class="col-lg-4">
+            <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQFd-pzyq0Gg1A/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=NNVu04JF0uIofiJ9UmtRexDql47EUr9i0OD_tZtOUzE" alt="Generic placeholder image" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/sizwe-ncube-a6b85b8a/">Sizwe Ncube</a></h3>
+            <p><li>Data Scientist</li><li>Web Dev</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+	  <div class="col-lg-4">
+            <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQGlQuKN7vSm7A/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=OaP37Ya-P_N0aD6tcrMan6Temqvs_dQoU83qdG7NJXE" alt="Generic placeholder image" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/lizwi-khanyile/">Lizwi Khanyile</a></h3>
+            <p><li>Data Scientist</li><li>Web Dev</li></ul></p>
+            <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
+            <ul class="list-inline mt-5">
+            </ul>
+            </div>
+          </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+</div>
+    
+    """
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
 
     if page_selection == "Home Page":
-        st.title("Popcorn Plug")
-        st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
+        st.title("")
+        html_temp = """
+        <div style="background-color:yellow;padding:10px">
+        <h2 style="color:red;text-align:center;">Popcorn Plug</h2>
+        </div>"""
+
+        st.markdown(html_temp,unsafe_allow_html=True)
+        st.header('')
+        # st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
         st.write("### Welcome to our Machine Learning Movie Recommender App") 
         st.write("The app uses machine learning models to recommend best movies to our users")
 
@@ -134,6 +201,17 @@ def main():
         st.title("Exploratory Data Analysis")
         st.write("EDA HERE")
 
+
+    # About us page
+    if page_selection == "About Us":
+        html_temp = """
+        <div style="background-color:yellow;padding:10px">
+        <h2 style="color:red;text-align:center;">Meet the team</h2>
+        </div>"""
+
+        st.markdown(html_temp,unsafe_allow_html=True)
+        st.header('')
+        st.markdown(profiles_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
