@@ -131,7 +131,7 @@ def main():
         st.text("     ")
         rating = Image.open("resources/imgs/rating_dis.PNG")
         st.image(rating, caption="Integer values have taller bars than the floating values since most of the users assign rating as integer value")
-        st.text("     s")
+        st.text("     ")
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
