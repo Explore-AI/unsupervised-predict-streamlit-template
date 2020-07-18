@@ -8,10 +8,12 @@
                  Movie data.
 
 """
+test_list = ['Dark Knight, The (2008)' , 'Jumanji (1995)' ,'Grumpier Old Men (1995)']
 
 # Script dependencies
 import pandas as pd
 import bz2
+import pickle
 import _pickle as cPickle
 import surprise as surp
 
@@ -26,8 +28,11 @@ def decompress_pickle(file):
 
 model = decompress_pickle('/home/explore-student/c_model.pbz2')
 
+
 df_movie = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/movies.csv',sep = ',',delimiter=',')
 df_rating = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
+
+
 
 #-----------------------------#
 # Class to pre-process data #
@@ -96,14 +101,6 @@ data_movie = CFData(df_data, test_ratio=None, df_id_name_table=df_id_name_table,
 
 #-----------------------------#
 # Helper Functions #
-
-def get_most_rated_movie(df_movie_in, df_rating_in, n_output):
-    movie_list_tmp1 = pd.merge(df_movie, df_rating, on='movieId', how='inner').groupby('title').count()   
-    movie_list_top_k = movie_list_tmp1['rating'].sort_values(ascending=False).index[:n_output]
-    
-    return movie_list_top_k
-
-movie_list_top_n = get_most_rated_movie(df_movie, df_rating, 10000)
 
 def get_similar_item(model, input_item_id, num_neighbor):
 
@@ -193,7 +190,6 @@ def collab_model(movie_list,top_n=10):
     r_3 = show_recommended_movies(movie_list[2], k=3)
 
     master_list = r_1 + r_2 + r_3
-    master_list = list(set(master_list))
         
     recommended_movies = master_list[0:10]
     
