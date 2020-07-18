@@ -27,6 +27,9 @@
 """
 # Streamlit dependencies
 import streamlit as st
+import streamlit as st
+import joblib,os
+from PIL import Image
 
 # Data handling dependencies
 import pandas as pd
@@ -45,7 +48,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","About", "Solution Overview"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,6 +103,16 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    if page_selection == "About":
+        #Title
+        st.title('About')
+        st.write('--------------------------------------')
+        #introduction
+        st.markdown('##Introduction')
+        st.info(""""Recommender Systems are used
+                    is a subclass of information filtering system that
+                    seeks to predict the "rating" or "preference" a user would give
+                    to an item.""")
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
