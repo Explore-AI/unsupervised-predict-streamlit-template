@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Home Page","Recommender System","Insights","Solution Overview"]
+    page_options = ["Home Page","Recommender System","Data & Insights","Solution Overview"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -106,7 +106,7 @@ def main():
         st.write("Describe your winning approach on this page")
 
     if page_selection == "Home Page":
-        st.title("Movie Recommender Engine")
+        st.title("Popcorn Plug")
 
         st.write("### Welcome to our Machine Learning Movie Recommender App") 
         # st.markdown("<p style='text-align: left; color: red;'>Popcorn Plug</p>", unsafe_allow_html=True)
@@ -118,7 +118,7 @@ def main():
         st.write("________________________________________________________________________________")
         # st.image('resources/imgs/Image_header.png',use_column_width=True)
 
-    if page_selection == "Insights":
+    if page_selection == "Data & Insights":
         st.title("Movie Recommender Engine")
 
         st.write("### Below are some visuals, and insights gained from the data") 
