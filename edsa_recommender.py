@@ -108,7 +108,7 @@ def main():
         st.title('About')
         st.write('--------------------------------------')
         #introduction
-        st.markdown('##Introduction')
+        st.markdown('INTRODUCTION')
         st.info(""""Recommender Systems is a subclass of information filtering system that
                     seeks to predict the "rating" or "preference" a user would give
                     to an item. Recommender systems are used by companies
@@ -123,13 +123,15 @@ def main():
                     Unlike collaborative methods that only rely on the user-item
                     interactions, content based approaches use additional information
                     about users and/or items.""")
-        st.markdown('##Exploratory Data Analysis')
+        st.markdown('EXPLORATORY DATA ANALYSIS')
         from PIL import Image
         i = Image.open("resources/imgs/total_data.PNG")
-        st.image(i, caption="Total number of ratigs, users and movies")
+        st.image(i)
         st.text("     ")
         rating = Image.open("resources/imgs/rating_dis.PNG")
-        st.image(rating, caption="Integer values have taller bars than the floating values since most of the users assign rating as integer value")
+        st.image(rating)
+        st.info("""Integer values have taller bars than the floating values since most
+                   of the users assign rating as integer value""")
         st.text("     ")
 
     if page_selection == "Solution Overview":
