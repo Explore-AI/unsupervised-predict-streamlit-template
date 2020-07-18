@@ -136,7 +136,7 @@ def main():
         if st.button("WordCloud for Genres"):
             from PIL import Image
             genre = Image.open('resources/imgs/genre_word.PNG')
-            st.image(genre, caption='Most common genres')
+            st.image(genre, caption='Most common genres', width=650)
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
