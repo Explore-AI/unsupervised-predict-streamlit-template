@@ -137,6 +137,10 @@ def main():
             from PIL import Image
             genre = Image.open('resources/imgs/genre_word.PNG')
             st.image(genre, caption='Most common genres', width=650)
+        if st.button("Wordcloud for Tags"):
+            from PIL import Image
+            tag = Image.open('resources/imgs/tag_word.PNG')
+            st.image(tag, caption='Most common tags', width=650)
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
