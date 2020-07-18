@@ -107,16 +107,17 @@ def main():
 
     if page_selection == "Home Page":
         st.title("Popcorn Plug")
-
-        st.write("### Welcome to our Machine Learning Movie Recommender App") 
-        # st.markdown("<p style='text-align: left; color: red;'>Popcorn Plug</p>", unsafe_allow_html=True)
-        st.write("The app uses machine learning models to recommend best movies to our users")
-        st.write("________________________________________________________________________________")
-        st.write("### Popcorn Plug Movies")
         st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
+        st.write("### Welcome to our Machine Learning Movie Recommender App") 
+        st.write("The app uses machine learning models to recommend best movies to our users")
+
+        st.write("________________________________________________________________________________")
+        # st.write("### Popcorn Plug ")
+        # st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
         st.image('https://media0.giphy.com/media/dXQlx5RfbNwQVtqMet/giphy.gif?cid=6c09b9526ae25bf2202fbb861880e79c9c35b42b1257517b&rid=giphy.gif',use_column_width=True)
         st.write("________________________________________________________________________________")
-        # st.image('resources/imgs/Image_header.png',use_column_width=True)
+        
+        st.write("<p style='text-align: center; color: red;'>Find out what to watch next!.</p>", unsafe_allow_html=True) 
 
     if page_selection == "Data & Insights":
         st.title("Movie Recommender Engine")
