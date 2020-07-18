@@ -109,8 +109,7 @@ def main():
         st.write('--------------------------------------')
         #introduction
         st.markdown('##Introduction')
-        st.info(""""Recommender Systems are used
-                    is a subclass of information filtering system that
+        st.info(""""Recommender Systems is a subclass of information filtering system that
                     seeks to predict the "rating" or "preference" a user would give
                     to an item. Recommender systems are used by companies
                     like Youtube, Netflix and Amazon for e-commerce and
