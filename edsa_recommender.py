@@ -38,6 +38,9 @@ from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 from PIL import Image,ImageFilter,ImageEnhance
 import os
+import cufflinks as cf
+from plotly.offline import init_notebook_mode, iplot
+
 
 
 # Data Loading
@@ -238,7 +241,28 @@ def main():
 
             """)
             st.dataframe(data.describe().T)
-            # st.write(len(data))
+
+            if st.checkbox("UserId Plot"):
+                data.userId.plot(kind='box')
+                st.pyplot()
+                st.markdown("""
+            ### Insights.
+            + The data seems to be well distributed for the userId column.
+            """)
+            elif st.checkbox("MovieId Plot"):
+                data.movieId.plot(kind='box')
+                st.pyplot()
+                st.markdown("""
+            ### Insights.
+            + The mean is higher than the median, that shows us that we have major outliers in the high end of the data, you can see on the plot
+            """)
+            elif st.checkbox("Rating Plot"):
+                data.rating.plot(kind='box')
+                st.pyplot()
+                st.markdown("""
+            ### Insights.
+            + The mean is lower than the median, showings that we have outliers in the lower end of the data, you can see on the plot
+            """)
 
         if selection_info == "Movie Rating":
             st.markdown("### Movie Rating")
