@@ -248,7 +248,7 @@ def main():
                         trending_df.index = np.arange(1, len(trending_df) + 1)
                         return(trending_df.head(10)[['title','release_year','IMDB_score']])
                     return(top_movies_list())
-                with st.spinner('Let\'s look back shall we...'):
+                with st.spinner('Let\'s look back through time...'):
                     st.table(average_by_year(0))
 
         if drop_down_listings =='Movie Search':
