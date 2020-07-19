@@ -203,53 +203,53 @@ def main():
                 next_prev('previous')
 
         if drop_down_listings =='1 more plot':
-        current_year=date.today().year
-        min_year = 1970
-        add_slider = st.slider('Choose year range:',min_year, current_year,(min_year,current_year), step=1)
-        if st.button('View highest rated in time frame'):
-            def average_by_year(filename):
-                a = add_slider[0]
-                b = add_slider[1]
-                counter = 0
-                data_f1 = pd.DataFrame()
-                data = pd.DataFrame()
-                chunks_1 = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv',chunksize=50000)
-                for chunk in chunks_1:
-                    chunk['release_year'] = chunk.title.map(lambda x: re.findall('\d\d\d\d',x))
-                    chunk.release_year = chunk.release_year.apply(lambda x: np.nan if not x else int(x[-1]))
-                    chunk = chunk[(chunk['release_year']>=a)&(chunk['release_year']<b+1)].drop(['genres'],axis=1)
-                    data_f1 = pd.concat([chunk,data_f1])
-                id_in_movies = data_f1.movieId
-                
-                chunks_2 = pd.read_csv('../unsupervised_data/unsupervised_movie_data/train.csv',chunksize=50000)
-                for chunk in chunks_2:
-                    identical = chunk[chunk['movieId'].isin(id_in_movies)].drop(['userId','timestamp'],axis=1)
-                    data = pd.concat([identical,data])
-                def top_movies_list(df=data):
-                    m = df.movieId.value_counts().quantile(0.8)
-                    vote_count = df.movieId.value_counts()
-                    average_ratings = df.groupby(['movieId']).rating.mean()
-                    C = average_ratings.mean() #average rating of a movie
-                    q_movies = df.movieId.unique()
-                    unique_val_counts = df.movieId.value_counts()
-                    q_movies = [row for row in q_movies if unique_val_counts[row]>m]
-                    def weighted_rating(movie_id,m=m,C=C):
-                        v = vote_count[movie_id]
-                        R = average_ratings[movie_id]
-                        weighted_score = (v*R/(v+m))+(m*C/(v+m))
-                        return(round(weighted_score,2))
-                    def Top_N_Recommendations(movies_list=q_movies):
-                        weighted_scores = [weighted_rating(movie_id) for movie_id in movies_list]
-                        trending_df = pd.DataFrame({'movieId':movies_list,'IMDB_score':weighted_scores})
-                        trending_df = trending_df.sort_values('IMDB_score',ascending=False)
-                        trending_df = trending_df.merge(data_f1, on=['movieId'],how = 'inner')
-                        return(trending_df)
-                    trending_df = Top_N_Recommendations(movies_list=q_movies)
-                    trending_df.index = np.arange(1, len(trending_df) + 1)
-                    return(trending_df.head(10)[['title','release_year','IMDB_score']])
-                return(top_movies_list())
-            with st.spinner('Let\'s look back shall we...'):
-                st.table(average_by_year(0))
+            current_year=date.today().year
+            min_year = 1970
+            add_slider = st.slider('Choose year range:',min_year, current_year,(min_year,current_year), step=1)
+            if st.button('View highest rated in time frame'):
+                def average_by_year(filename):
+                    a = add_slider[0]
+                    b = add_slider[1]
+                    counter = 0
+                    data_f1 = pd.DataFrame()
+                    data = pd.DataFrame()
+                    chunks_1 = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv',chunksize=50000)
+                    for chunk in chunks_1:
+                        chunk['release_year'] = chunk.title.map(lambda x: re.findall('\d\d\d\d',x))
+                        chunk.release_year = chunk.release_year.apply(lambda x: np.nan if not x else int(x[-1]))
+                        chunk = chunk[(chunk['release_year']>=a)&(chunk['release_year']<b+1)].drop(['genres'],axis=1)
+                        data_f1 = pd.concat([chunk,data_f1])
+                    id_in_movies = data_f1.movieId
+
+                    chunks_2 = pd.read_csv('../unsupervised_data/unsupervised_movie_data/train.csv',chunksize=50000)
+                    for chunk in chunks_2:
+                        identical = chunk[chunk['movieId'].isin(id_in_movies)].drop(['userId','timestamp'],axis=1)
+                        data = pd.concat([identical,data])
+                    def top_movies_list(df=data):
+                        m = df.movieId.value_counts().quantile(0.8)
+                        vote_count = df.movieId.value_counts()
+                        average_ratings = df.groupby(['movieId']).rating.mean()
+                        C = average_ratings.mean() #average rating of a movie
+                        q_movies = df.movieId.unique()
+                        unique_val_counts = df.movieId.value_counts()
+                        q_movies = [row for row in q_movies if unique_val_counts[row]>m]
+                        def weighted_rating(movie_id,m=m,C=C):
+                            v = vote_count[movie_id]
+                            R = average_ratings[movie_id]
+                            weighted_score = (v*R/(v+m))+(m*C/(v+m))
+                            return(round(weighted_score,2))
+                        def Top_N_Recommendations(movies_list=q_movies):
+                            weighted_scores = [weighted_rating(movie_id) for movie_id in movies_list]
+                            trending_df = pd.DataFrame({'movieId':movies_list,'IMDB_score':weighted_scores})
+                            trending_df = trending_df.sort_values('IMDB_score',ascending=False)
+                            trending_df = trending_df.merge(data_f1, on=['movieId'],how = 'inner')
+                            return(trending_df)
+                        trending_df = Top_N_Recommendations(movies_list=q_movies)
+                        trending_df.index = np.arange(1, len(trending_df) + 1)
+                        return(trending_df.head(10)[['title','release_year','IMDB_score']])
+                    return(top_movies_list())
+                with st.spinner('Let\'s look back shall we...'):
+                    st.table(average_by_year(0))
 
         if drop_down_listings =='too many?':
             value = st.text_input('Movie title', 'Search film title')
