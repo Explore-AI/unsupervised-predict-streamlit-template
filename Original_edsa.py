@@ -104,7 +104,7 @@ def main():
     if page_selection == 'Exploratory Data Analysis':
 
         st.subheader('EDA') 
-        drop_down_listings = st.selectbox('select_otions',['What\'s in a genre?','Greatest Hits','1 more plot','too many?'])
+        drop_down_listings = st.selectbox('select_otions',['What\'s in a genre?','Greatest Hits','Hottest Movie releases','Movie Search'])
         if drop_down_listings == 'What\'s in a genre?':
             genres_setlist = ['Action','Adventure','Animation',
                               'Children','Comedy',
