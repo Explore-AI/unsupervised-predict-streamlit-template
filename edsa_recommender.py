@@ -36,17 +36,20 @@ import numpy as np
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+from PIL import Image,ImageFilter,ImageEnhance
+import os
+
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
-
+rating = 'resources/data/ratings.csv'
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Home Page","Recommender System","Data & Insights",
-                    "Solution Overview", "Exploratory Data Analysis","About Us"]
+                    "Solution Overview", "About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -164,11 +167,12 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-
+    
+    # Home Page
     if page_selection == "Home Page":
         st.title("")
         html_temp = """
-        <div style="background-color:yellow;padding:10px">
+        <div style="background-color:gold;padding:10px">
         <h2 style="color:red;text-align:center;">Popcorn Plug</h2>
         </div>"""
 
@@ -185,11 +189,72 @@ def main():
         st.write("________________________________________________________________________________")
         
         st.write("<p style='text-align: center; color: red;'>Find out what to watch next!.</p>", unsafe_allow_html=True) 
-
+    
+    # Exploratory Data Analysis Page
     if page_selection == "Data & Insights":
-        st.title("Movie Recommender Engine")
+        html_temp = """
+        <div style="background-color:gold;padding:10px">
+        <h2 style="color:red;text-align:center;">Exploratory Data Analysis</h2>
+        </div>"""
 
-        st.write("### Below are some visuals, and insights gained from the data") 
+        st.markdown(html_temp,unsafe_allow_html=True)
+
+        st.write("### Below is the data, some visuals, and insights gained from the data") 
+        st.write('')
+
+        #To Improve speed and cache data
+        @st.cache(persist=True)
+        def explore_data(dataset):
+            df = pd.read_csv(os.path.join(dataset))
+            return df 
+
+        # Load Our Dataset
+        data = explore_data(rating)
+
+        # Show Entire Dataframe
+        insights = ['Raw Data','Descriptive Statistics','Movie Rating']
+        selection_info = st.selectbox("Select page", insights)
+
+        if selection_info == "Raw Data":
+            st.markdown("""
+            ### About the data set
+            + The data we used for the model is the train set - (train.csv), which contains all movie ratings.
+            + Ratings are made on a 5-star scale, with half-star increments (0.5 stars - 5.0 stars).
+            + Timestamps represent seconds since midnight Coordinated Universal Time (UTC) of January 1, 1970.
+
+            """)
+            st.dataframe(data)
+            # Show Dataset
+            if st.checkbox("Preview DataFrame Head or Tail"):
+                if st.button("Head"):
+                    st.write(data.head())
+                elif st.button("Tail"):
+                    st.write(data.tail())
+        
+        if selection_info == "Descriptive Statistics":
+            st.markdown("""
+            ### Descriptive Statistics.
+            + Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.
+
+            """)
+            st.dataframe(data.describe().T)
+            # st.write(len(data))
+
+        if selection_info == "Movie Rating":
+            st.markdown("### Movie Rating")
+            data.rating.value_counts().plot(kind='bar',color='gold')
+            st.pyplot()
+            st.markdown("""
+            ### Insights.
+            + The most frequent rating is 4.0
+            + The least frequent rating is 0.5
+            + The mean rating is 3.5
+            + There are no 0 ratings in the dataset.
+            """)
+        
+
+
+
         # st.write("The app uses machine learning models to recommend best movies to our users") 
         
         # st.image('https://media0.giphy.com/media/dXQlx5RfbNwQVtqMet/giphy.gif?cid=6c09b9526ae25bf2202fbb861880e79c9c35b42b1257517b&rid=giphy.gif',use_column_width=True)
@@ -197,15 +262,15 @@ def main():
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-    if page_selection == "Exploratory Data Analysis":
-        st.title("Exploratory Data Analysis")
-        st.write("EDA HERE")
+    # if page_selection == "Exploratory Data Analysis":
+    #     st.title("Exploratory Data Analysis")
+    #     st.write("EDA HERE")
 
 
     # About us page
     if page_selection == "About Us":
         html_temp = """
-        <div style="background-color:yellow;padding:10px">
+        <div style="background-color:gold;padding:10px">
         <h2 style="color:red;text-align:center;">Meet the team</h2>
         </div>"""
 
