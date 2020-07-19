@@ -252,7 +252,7 @@ def main():
                     st.table(average_by_year(0))
 
         if drop_down_listings =='Movie Search':
-            value = st.text_input('Movie title', 'Search film title')
+            value = st.text_input('Movie title', '')
             actor = st.text_input('Actor or producer:','')
             indexes = []
             count = 0
