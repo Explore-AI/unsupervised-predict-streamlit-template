@@ -274,7 +274,7 @@ def main():
             for chunk in pd.read_csv('resources/data/movies.csv',chunksize=100000):
                 actors_and_dir = actors_and_dir.merge(chunk,on='movieId',how='left')
             if len(value)==0 and len(actor)==0:
-                options = 'Pick a value'
+                options = ''
             if len(value)==0 and len(actor) > 0:
                 options = [title for title in actors_and_dir.title]
             if len(value)>0 and len(actor)>0:
