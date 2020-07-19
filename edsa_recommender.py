@@ -122,8 +122,8 @@ def main():
             </div>
           </div><!-- /.col-lg-4 -->
           <div class="col-lg-4">
-            <img class="rounded-circle" src="https://avatars3.githubusercontent.com/u/60362470?s=400&v=4" alt="Generic placeholder image" width="140" height="140">
-            <h3>Sandile Dladla</h3>
+            <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQHcahIyvHWPyg/profile-displayphoto-shrink_400_400/0?e=1600905600&v=beta&t=6cWqGknK3vmpQgAHEQ5D7nKF8hwAC5pSShFRCyeQinE" alt="Generic placeholder image" width="140" height="140">
+            <h3><a href="https://www.linkedin.com/in/sandile-dladla/">Sandile Dladla Jr</a></h3>
             <p><li>Data Engineer</li><li>Research</li></ul></p>
             <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
             <ul class="list-inline mt-5">
@@ -142,7 +142,7 @@ def main():
 	  <div class="col-lg-4">
             <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQFd-pzyq0Gg1A/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=NNVu04JF0uIofiJ9UmtRexDql47EUr9i0OD_tZtOUzE" alt="Generic placeholder image" width="140" height="140">
             <h3><a href="https://www.linkedin.com/in/sizwe-ncube-a6b85b8a/">Sizwe Ncube</a></h3>
-            <p><li>Data Scientist</li><li>Web Dev</li></ul></p>
+            <p><li>Data Scientist</li><li>App Dev</li></ul></p>
             <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
             <ul class="list-inline mt-5">
             </ul>
@@ -151,7 +151,7 @@ def main():
 	  <div class="col-lg-4">
             <img class="rounded-circle" src="https://media-exp1.licdn.com/dms/image/C4D03AQGlQuKN7vSm7A/profile-displayphoto-shrink_400_400/0?e=1600300800&v=beta&t=OaP37Ya-P_N0aD6tcrMan6Temqvs_dQoU83qdG7NJXE" alt="Generic placeholder image" width="140" height="140">
             <h3><a href="https://www.linkedin.com/in/lizwi-khanyile/">Lizwi Khanyile</a></h3>
-            <p><li>Data Scientist</li><li>Web Dev</li></ul></p>
+            <p><li>Data Scientist</li><li>App Dev</li></ul></p>
             <div class="col-sm-5 col-md-4 col-lg-3 social-links text-center">
             <ul class="list-inline mt-5">
             </ul>
