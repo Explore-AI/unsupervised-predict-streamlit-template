@@ -202,7 +202,7 @@ def main():
             if st.button('previous'):
                 next_prev('previous')
 
-        if drop_down_listings =='1 more plot':
+        if drop_down_listings =='Hottest Movie releases':
             current_year=date.today().year
             min_year = 1970
             add_slider = st.slider('Choose year range:',min_year, current_year,(min_year,current_year), step=1)
@@ -251,7 +251,7 @@ def main():
                 with st.spinner('Let\'s look back shall we...'):
                     st.table(average_by_year(0))
 
-        if drop_down_listings =='too many?':
+        if drop_down_listings =='Movie Search':
             value = st.text_input('Movie title', 'Search film title')
             actor = st.text_input('Actor or producer:','')
             indexes = []
