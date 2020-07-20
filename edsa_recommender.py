@@ -51,7 +51,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Home Page","Recommender System","Data & Insights",
+    page_options = ["Welcome","Recommender System","Data & Insights",
                     "Solution Overview", "About Us"]
 
     # -------------------------------------------------------------------
@@ -168,36 +168,33 @@ def main():
     
     """
     if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        html_temp = """
+        <div style="background-color:black;padding:10px">
+        <h2 style="color:yellow;text-align:center;">Solution Overview</h2>
+        </div>"""
+        
+        st.markdown(html_temp,unsafe_allow_html=True)
     
     # Home Page
-    if page_selection == "Home Page":
+    if page_selection == "Welcome":
         st.title("")
         html_temp = """
-        <div style="background-color:gold;padding:10px">
-        <h2 style="color:red;text-align:center;">Popcorn Plug</h2>
+        <div style="background-color:black;padding:10px">
+        <h2 style="color:yellow;text-align:center;">🔥POPCORN PLUG🔥</h2>
         </div>"""
 
         st.markdown(html_temp,unsafe_allow_html=True)
-        st.header('')
-        # st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
-        st.write("### Welcome to our Machine Learning Movie Recommender App") 
-        st.write("The app uses machine learning models to recommend best movies to our users")
-
+        st.header('') 
+        st.markdown('Welcome to the **Popcorn Plug**, The days of searching for the perfect movie to watch are over!!!' \
+                    ' We know **exactly** which movies you want to watch. So **sit back**, **Plug in** and press **PLAY**.')
+        st.image('https://media.giphy.com/media/fwtbN85BvsXknut34x/giphy.gif' , width = 695)
         st.write("________________________________________________________________________________")
-        # st.write("### Popcorn Plug ")
-        # st.write("<p style='text-align: left; color: red;'>Make entertainment exciting, again.🔥</p>", unsafe_allow_html=True) 
-        st.image('https://media0.giphy.com/media/dXQlx5RfbNwQVtqMet/giphy.gif?cid=6c09b9526ae25bf2202fbb861880e79c9c35b42b1257517b&rid=giphy.gif',use_column_width=True)
-        st.write("________________________________________________________________________________")
-        
-        st.write("<p style='text-align: center; color: red;'>Find out what to watch next!.</p>", unsafe_allow_html=True) 
     
     # Exploratory Data Analysis Page
     if page_selection == "Data & Insights":
         html_temp = """
-        <div style="background-color:gold;padding:10px">
-        <h2 style="color:red;text-align:center;">Exploratory Data Analysis</h2>
+        <div style="background-color:black;padding:10px">
+        <h2 style="color:yellow;text-align:center;">Exploratory Data Analysis</h2>
         </div>"""
 
         st.markdown(html_temp,unsafe_allow_html=True)
@@ -294,8 +291,8 @@ def main():
     # About us page
     if page_selection == "About Us":
         html_temp = """
-        <div style="background-color:gold;padding:10px">
-        <h2 style="color:red;text-align:center;">Meet the team</h2>
+        <div style="background-color:black;padding:10px">
+        <h2 style="color:yellow;text-align:center;">Meet the team</h2>
         </div>"""
 
         st.markdown(html_temp,unsafe_allow_html=True)
