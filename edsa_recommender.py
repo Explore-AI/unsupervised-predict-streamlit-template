@@ -129,6 +129,9 @@ def main():
         st.image(i)
         st.text("     ")
         st.markdown('All about users and ratings')
+        st.info("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
+                   0 means the user did not like the movie and 5 means the user liked the movie a lot.
+                   The ratings consist of decimal numbers and integers.""")
         rating = Image.open("resources/imgs/rating_dis.PNG")
         st.image(rating)
         st.info("""Integer values have taller bars than the floating values since most
