@@ -145,6 +145,11 @@ def main():
         st.text("     ")
         from PIL import Image
         st.markdown('All about genres and tags')
+        st.info("""Movie tags are a user's way of identifying movies for an example a user might
+                   identify a movie as being funny or violent or a fantasy. A movie genre is
+                   determined by the plot, character, story and setting of the movie eg: comedy or
+                   musical. People like different genre of movies and that can be inflenced by their
+                   age, gender or culture.""")
         bar_genre =Image.open("resources/imgs/bar_genre.PNG")
         st.image(bar_genre, caption='Most common genres', width=650)
         st.info("""In the above histogram we can see that the Drama genre seems to be having the
@@ -157,11 +162,6 @@ def main():
             st.image(tag, caption='Most common tags', width=650)
         st.text("      ")
         st.markdown("All About movies")
-        st.info("""Movie tags are a user's way of identifying movies for an example a user might
-                   identify a movie as being funny or violent or a fantasy. A movie genre is
-                   determined by the plot, character, story and setting of the movie eg: comedy or
-                   musical. People like different genre of movies and that can be inflenced by their
-                   age, gender or culture.""")
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
         st.image(movie_per, caption="Number of movies released per year", width=650)
