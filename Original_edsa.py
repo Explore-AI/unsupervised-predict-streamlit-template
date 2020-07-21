@@ -195,7 +195,7 @@ def main():
                     next_counter.to_csv('resources/imgs/thumbnails/next_button.csv')
                 return(next_value)
             st.subheader('{}. {}'.format(next_prev(button)+1,titles[next_prev(button)]))
-            st.image(images[next_prev(button)],width=1000)
+            st.image(images[next_prev(button)],width=500)
             st.markdown(descriptions[next_prev(button)])
             if st.button('next'):
                 next_prev('next')
