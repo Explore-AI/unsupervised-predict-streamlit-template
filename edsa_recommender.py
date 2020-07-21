@@ -151,7 +151,7 @@ def main():
         if st.button("Wordcloud for Tags"):
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
-            st.image(tag, caption='Most common tags', width=550)
+            st.image(tag, caption='Most common tags', width=400)
         st.text("      ")
         st.markdown("All About movies")
         from PIL import Image
