@@ -46,7 +46,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System",'Exploratory Data Analysis',"Solution Overview","About us"]
+    page_options = ['Recommender System','EDA','Interact with App','Solution Overview','About us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -101,49 +101,24 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == 'Exploratory Data Analysis':
-
-        st.subheader('EDA') 
-        drop_down_listings = st.selectbox('EDA Sections:',['What\'s in a genre?','Greatest Hits','Hottest Movie releases','Movie Search'])
-        if drop_down_listings == 'What\'s in a genre?':
-            genres_setlist = ['Action','Adventure','Animation',
-                              'Children','Comedy',
-                              'Crime','Documentary',
-                              'Drama','Fantasy','Horror','Mystery',
-                              'Romance','Sci-fi',
-                              'Thriller','War','Western']
-            genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
-#        st.write(genres)
-            if len(genres) > 0:
-                def genre_count(filename,list1):
-                    '''Plots the distribution of genres in the movies dataset'''
-                    filename = data_path+str(filename)
-                    chunks = pd.read_csv(filename,chunksize=10000)
-                    data = pd.DataFrame()
-                    count = 0
-                    dict_genres = {}
-                    for chunk in chunks:
-                        chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
-                        chunk_genres = [item for item in chunk_genres if item in list1]
-                        for genre in chunk_genres:
-                            if genre in dict_genres:
-                                dict_genres[genre]+=1
-                            else:
-                                dict_genres[genre]=1
-                    sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
-                    genre, frequency = zip(*sorted_dict)
-                    plt.figure(figsize=(10,5))
-                    freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
-                    freq_plot.set(title='Number of movies in genre',
-                                  xlabel='Genre_count',ylabel='Genre')
-                    plt.show()
-                    return (freq_plot)
-                genre_count_figure = genre_count('movies.csv',genres).figure
-                if st.checkbox('show genre counts in dataset'):
-                    st.write(genre_count_figure)
-        
-        if drop_down_listings == 'Greatest Hits':
-            # Movie Titles List:
+    if page_selection = 'EDA':
+        sub_pages = ['WordClouds','Rating Distribution','Greatest Hits','Production costs over time']
+        sub_page = st.selectbox('EDA options',sub_pages)
+        if sub_page == 'WordClouds':
+            if st.checkbox('view actors wordcloud'):
+                st.image('resources/imgs/EDA_imgs/actors_wordcloud.png',caption='Actors WordCloud')
+                st.subheader('Observations:')
+                st.markdown('''* Our intuition was right, immediately we see some big names in the film industry jumping out at us.  \n* Stephen King and Shakespeare? Well.. Its more likely that these films were based on their work.  \n* Woody Allen is an American director, writer, actor, and comedian whose career spans more than six decades and multiple Academy Award-winning movies.  \n* Tyler Perry has directed some amazing films like Acrimony and the Madea films. He now has his own motion picture studio, 'Tyler Perry Studios'.  \n* Luc Paul Maurice Besson is a French film director, screenwriter, and producer. He directed or produced the films Subway, The Big Blue, and La Femme Nikita. Besson is associated with the Cinéma du look film movement.''')
+            if st.checkbox('view directors wordcloud'):
+                st.image('resources/imgs/EDA_imgs/directors_wordcloud.png',caption='Directors WordCloud')
+                st.subheader('Observations:')
+                st.markdown('''* Tom Hanks: Aerican actor and filmmaker. Known for both his comedic and dramatic roles, Hanks is one of the most popular and recognizable film stars worldwide, and is widely regarded as an American cultural icon.  \n* Ben Stiller: Throughout his career he has written, starred in, directed, or produced more than 50 films including The Secret Life of Walter Mitty, Zoolander, The Cable Guy and There's Something About Mary.  \n* Eddie Murphy and Chris Rock are both successful comedians turned actors who have starred in numerous films throughout their careers.''')
+        if sub_page == 'Rating Distributions':
+            st.image(['resources/imgs/EDA_imgs/movielens_distribution_donut.png','resources/imgs/EDA_imgs/average_distributions.png'],width=400,
+                     caption=['','User rating distributions'])
+            st.subheader('Observations:')
+            st.markdown('''* 4 Star ratings make up the largest portion of ratings in the MovieLens dataset, accounting for 26.5% of the overall ratings.  \n* 5 star ratings make up 14.5% of the overall ratings (3rd largest portion).  \n* 0.5 star ratings account for the smallest portion of the ratings at a mere 1.6%.  \n* Most of the movies have received less than 2500 ratings. While the number of movies having more than 5000 ratings is very low.  \n* The ratings follow a normal distribution that is slightly skewed to the right. It seems like users are generally generous with thier ratings.''')
+        if sub_page == 'Greatest hits':
             titles = ['The Shawshank Redemption (1994)','Pulp Fiction (1994)','Forrest Gump (1994)','The Silence of The Lambs (1991)',
                       'The MATRIX (1999)','Star Wars: Episode IV - A New Hope (1977)','Schindler\'s List (1993)','Fight Club (1999)',
                       'Star Wars: Episode V - The empire Strikes Back (1980)','Braveheart (1995)','The Usual Suspects (1995)',
@@ -201,6 +176,46 @@ def main():
                 next_prev('next')
             if st.button('previous'):
                 next_prev('previous')
+                
+    if page_selection == 'Interact with App':
+        st.subheader('Nextflix') 
+        drop_down_listings = st.selectbox('What would you like to know:',['What\'s in a genre?','Hottest Movie releases','Movie Search'])
+        if drop_down_listings == 'What\'s in a genre?':
+            genres_setlist = ['Action','Adventure','Animation',
+                              'Children','Comedy',
+                              'Crime','Documentary',
+                              'Drama','Fantasy','Horror','Mystery',
+                              'Romance','Sci-fi',
+                              'Thriller','War','Western']
+            genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
+#        st.write(genres)
+            if len(genres) > 0:
+                def genre_count(filename,list1):
+                    '''Plots the distribution of genres in the movies dataset'''
+                    filename = data_path+str(filename)
+                    chunks = pd.read_csv(filename,chunksize=10000)
+                    data = pd.DataFrame()
+                    count = 0
+                    dict_genres = {}
+                    for chunk in chunks:
+                        chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
+                        chunk_genres = [item for item in chunk_genres if item in list1]
+                        for genre in chunk_genres:
+                            if genre in dict_genres:
+                                dict_genres[genre]+=1
+                            else:
+                                dict_genres[genre]=1
+                    sorted_dict = sorted(dict_genres.items(), key=lambda x: x[1],reverse=True)
+                    genre, frequency = zip(*sorted_dict)
+                    plt.figure(figsize=(10,5))
+                    freq_plot = sns.barplot(x = frequency,y = list(genre),palette='pastel')
+                    freq_plot.set(title='Number of movies in genre',
+                                  xlabel='Genre_count',ylabel='Genre')
+                    plt.show()
+                    return (freq_plot)
+                genre_count_figure = genre_count('movies.csv',genres).figure
+                if st.checkbox('show genre counts in dataset'):
+                    st.write(genre_count_figure)
 
         if drop_down_listings =='Hottest Movie releases':
             current_year=date.today().year
