@@ -101,12 +101,17 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
-        st.title("Solution Overview")
+        st.title("Rollick Technologies")
         st.write("Brief Description")
 
     if page_selection == "About The Team":
-        st.title("The Members of The Team Who Built The App")
+        st.title("Data Science Team")
         st.write("Our Linkedin profiles should go right here")
+        st.write("Bongani Msimanga")
+        st.write("Evans Marema")
+        st.write("Juarez ")
+        st.write("Chris")
+
      
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
