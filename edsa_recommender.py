@@ -118,11 +118,12 @@ def main():
                     We have two types of recommender systems, content based
                     and collaborative fltering.
                     Collaborative methods for recommender systems are methods
-                    that are based solely on the past interactions recorded between
+                    that are based solely on the past interactions such as a user's
+                    reaction which can be a Likert scale (0 - 5), recorded between
                     users and items in order to produce new recommendations.
                     Unlike collaborative methods that only rely on the user-item
                     interactions, content based approaches use additional information
-                    about users and/or items.""")
+                    about users and/or items such as their gender, location or age group.""")
         st.markdown('EXPLORATORY DATA ANALYSIS')
         from PIL import Image
         i = Image.open("resources/imgs/total_data.PNG")
@@ -173,7 +174,9 @@ def main():
                  of technology and some of it was not available 40 or 30 years ago. """)
         runtime = Image.open('resources/imgs/runtime.PNG')
         st.image(runtime, caption='Movies with longest runtime in minutes', width=650)
-        st.info("The longest movie in our dataset is Titanic")
+        st.text("      ")
+        st.markdown("MOVIE RUNTIME")
+        st.info("The longest movie in our dataset is Taken")
 
 
     if page_selection == "Solution Overview":
