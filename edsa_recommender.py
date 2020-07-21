@@ -171,6 +171,9 @@ def main():
                  has been increasing with each year because of availability of resources and popular use
                  of technology that was not available during 1960s. Most movies heavily depend on the use
                  of technology and some of it was not available 40 or 30 years ago. """)
+        runtime = Image.open('resources/imgs/runtime.PNG')
+        st.image(runtime, caption='Movies with longest runtime in minutes', width=650)
+        st.info("The longest movie in our dataset is Titanic")
 
 
     if page_selection == "Solution Overview":
