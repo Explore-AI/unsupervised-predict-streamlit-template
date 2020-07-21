@@ -124,6 +124,7 @@ def main():
                     interactions, content based approaches use additional information
                     about users and/or items.""")
         st.markdown('EXPLORATORY DATA ANALYSIS')
+        st.markdown('All about users and ratings')
         from PIL import Image
         i = Image.open("resources/imgs/total_data.PNG")
         st.image(i)
@@ -133,14 +134,30 @@ def main():
         st.info("""Integer values have taller bars than the floating values since most
                    of the users assign rating as integer value""")
         st.text("     ")
-        if st.button("WordCloud for Genres"):
-            from PIL import Image
-            genre = Image.open('resources/imgs/genre_word.PNG')
-            st.image(genre, caption='Most common genres', width=650)
+        from PIL import Image
+        day_rating = Image.open("resources/imgs/day_rating.PNG")
+        st.image(day_rating, caption='Average number of ratings per day')
+        st.info("""We calcated the average rating for each day of the week
+                   and we can see that we receive the most ratings on a Sunday and on a Saturday""")
+        st.text("     ")
+        from PIL import Image
+        bar_genre =Image.open("resources/imgs/bar_genre.PNG")
+        st.image(bar_genre, caption='Most common genres')
+        st.info("""In the above histogram we can see that the Drama genre seems to be having the
+                 most movies tags with a little over 25000 released movies followed by the Comedy
+                 genre that has over over 15000 movies. This could possible mean that most ratings
+                 are coming from these two genres as well.""")
         if st.button("Wordcloud for Tags"):
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
             st.image(tag, caption='Most common tags', width=650)
+        st.markdwon("All About movies")
+        from PIL import Image
+        movie_per = Image.open("resources/imgs/movie_per.PNG")
+        st.image(movie_per, caption="Number of movies released per year", width=650)
+        st.info("""Number of movies released per year increasing almost exponentially until 2010,
+                 then flattening and dropping signifincantly in 2011.""")
+
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
