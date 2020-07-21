@@ -101,7 +101,7 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection = 'EDA':
+    if page_selection == 'EDA':
         sub_pages = ['WordClouds','Rating Distribution','Greatest Hits','Production costs over time']
         sub_page = st.selectbox('EDA options',sub_pages)
         if sub_page == 'WordClouds':
