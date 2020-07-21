@@ -124,11 +124,11 @@ def main():
                     interactions, content based approaches use additional information
                     about users and/or items.""")
         st.markdown('EXPLORATORY DATA ANALYSIS')
-        st.markdown('All about users and ratings')
         from PIL import Image
         i = Image.open("resources/imgs/total_data.PNG")
         st.image(i)
         st.text("     ")
+        st.markdown('All about users and ratings')
         rating = Image.open("resources/imgs/rating_dis.PNG")
         st.image(rating)
         st.info("""Integer values have taller bars than the floating values since most
