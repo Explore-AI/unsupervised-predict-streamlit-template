@@ -151,12 +151,12 @@ def main():
         if st.button("Wordcloud for Tags"):
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
-            st.image(tag, caption='Most common tags', width=650)
+            st.image(tag, caption='Most common tags', width=550)
         st.text("      ")
         st.markdown("All About movies")
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
-        st.image(movie_per, caption="Number of movies released per year", width=550)
+        st.image(movie_per, caption="Number of movies released per year", width=650)
         st.info("""Number of movies released per year increasing almost exponentially until 2010,
                  then flattening and dropping signifincantly in 2011.""")
 
