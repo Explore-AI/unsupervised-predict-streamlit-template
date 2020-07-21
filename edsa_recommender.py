@@ -106,7 +106,7 @@ def main():
 
     if page_selection == "About The Team":
         st.title("The Members of The Team Who Built The App")
-        st.write("Brief Description")
+        st.write("Our Linkedin profiles should go right here")
      
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
