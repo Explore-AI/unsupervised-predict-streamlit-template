@@ -113,9 +113,9 @@ def main():
                     seeks to predict the "rating" or "preference" a user would give
                     to an item. Recommender systems are used by companies
                     like Youtube, Netflix and Amazon for e-commerce and
-                    online advertisement. They are very critical brcause
+                    online advertisement. They are very critical because
                     that is how many companies are able to generate money.
-                    We have two types of reccomender systems, contet based
+                    We have two types of recommender systems, content based
                     and collaborative fltering.
                     Collaborative methods for recommender systems are methods
                     that are based solely on the past interactions recorded between
@@ -131,7 +131,8 @@ def main():
         st.markdown('USERS & RATINGS')
         st.info("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
                    0 means the user did not like the movie and 5 means the user liked the movie a lot.
-                   The ratings consist of decimal numbers and integers.""")
+                   The ratings consist of decimal numbers and integers. It is clear that the rating
+                   users usually give movies is 4.0 followed by 3.0""")
         rating = Image.open("resources/imgs/rating_dis.PNG")
         st.image(rating)
         st.info("""Integer values have taller bars than the floating values since most
@@ -141,7 +142,8 @@ def main():
         day_rating = Image.open("resources/imgs/day_rating.PNG")
         st.image(day_rating, caption='Average number of ratings per day')
         st.info("""We calcated the average rating for each day of the week
-                   and we can see that we receive the most ratings on a Sunday and on a Saturday""")
+                   and we can see that we receive the most ratings on a Sunday and on a Saturday. The reason
+                   could be that it's the weekend and people have time to watch movies.""")
         st.text("     ")
         from PIL import Image
         st.markdown('GENRES, TAGS & MOVIES')
@@ -165,7 +167,10 @@ def main():
         movie_per = Image.open("resources/imgs/movie_per.PNG")
         st.image(movie_per, caption="Number of movies released per year", width=650)
         st.info("""Number of movies released per year increasing almost exponentially until 2010,
-                 then flattening and dropping signifincantly in 2011.""")
+                 then flattening and dropping signifincantly in 2011. The numbers of movies produced
+                 has been increasing with each year because of availability of resources and popular use
+                 of technology that was not available during 1960s. Most movies heavily depend on the use
+                 of technology and some of it was not available 40 or 30 years ago. """)
 
 
     if page_selection == "Solution Overview":
