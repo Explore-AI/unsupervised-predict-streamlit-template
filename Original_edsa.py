@@ -102,7 +102,7 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'EDA':
-        sub_pages = ['WordClouds','Rating Distribution','Greatest Hits','Production costs over time']
+        sub_pages = ['WordClouds','Rating Distributions','Greatest Hits','Production costs over time']
         sub_page = st.selectbox('EDA options',sub_pages)
         if sub_page == 'WordClouds':
             if st.checkbox('view actors wordcloud'):
@@ -118,7 +118,7 @@ def main():
                      caption=['','User rating distributions'])
             st.subheader('Observations:')
             st.markdown('''* 4 Star ratings make up the largest portion of ratings in the MovieLens dataset, accounting for 26.5% of the overall ratings.  \n* 5 star ratings make up 14.5% of the overall ratings (3rd largest portion).  \n* 0.5 star ratings account for the smallest portion of the ratings at a mere 1.6%.  \n* Most of the movies have received less than 2500 ratings. While the number of movies having more than 5000 ratings is very low.  \n* The ratings follow a normal distribution that is slightly skewed to the right. It seems like users are generally generous with thier ratings.''')
-        if sub_page == 'Greatest hits':
+        if sub_page == 'Greatest Hits':
             titles = ['The Shawshank Redemption (1994)','Pulp Fiction (1994)','Forrest Gump (1994)','The Silence of The Lambs (1991)',
                       'The MATRIX (1999)','Star Wars: Episode IV - A New Hope (1977)','Schindler\'s List (1993)','Fight Club (1999)',
                       'Star Wars: Episode V - The empire Strikes Back (1980)','Braveheart (1995)','The Usual Suspects (1995)',
