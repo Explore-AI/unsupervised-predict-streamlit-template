@@ -143,7 +143,7 @@ def main():
         from PIL import Image
         st.markdown('All about genres and tags')
         bar_genre =Image.open("resources/imgs/bar_genre.PNG")
-        st.image(bar_genre, caption='Most common genres')
+        st.image(bar_genre, caption='Most common genres', width=650)
         st.info("""In the above histogram we can see that the Drama genre seems to be having the
                  most movies tags with a little over 25000 released movies followed by the Comedy
                  genre that has over over 15000 movies. This could possible mean that most ratings
@@ -151,7 +151,7 @@ def main():
         if st.button("Wordcloud for Tags"):
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
-            st.image(tag, caption='Most common tags', width=400)
+            st.image(tag, caption='Most common tags', width=650)
         st.text("      ")
         st.markdown("All About movies")
         from PIL import Image
