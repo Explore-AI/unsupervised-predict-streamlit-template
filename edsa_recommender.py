@@ -141,6 +141,7 @@ def main():
                    and we can see that we receive the most ratings on a Sunday and on a Saturday""")
         st.text("     ")
         from PIL import Image
+        st.markdown('All about genres and tags')
         bar_genre =Image.open("resources/imgs/bar_genre.PNG")
         st.image(bar_genre, caption='Most common genres')
         st.info("""In the above histogram we can see that the Drama genre seems to be having the
@@ -155,7 +156,7 @@ def main():
         st.markdown("All About movies")
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
-        st.image(movie_per, caption="Number of movies released per year", width=650)
+        st.image(movie_per, caption="Number of movies released per year", width=550)
         st.info("""Number of movies released per year increasing almost exponentially until 2010,
                  then flattening and dropping signifincantly in 2011.""")
 
