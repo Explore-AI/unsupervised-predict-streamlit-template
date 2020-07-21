@@ -151,7 +151,7 @@ def main():
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
             st.image(tag, caption='Most common tags', width=650)
-        st.markdwon("All About movies")
+        st.markdown("All About movies")
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
         st.image(movie_per, caption="Number of movies released per year", width=650)
