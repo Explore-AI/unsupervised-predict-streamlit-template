@@ -128,7 +128,7 @@ def main():
         i = Image.open("resources/imgs/total_data.PNG")
         st.image(i)
         st.text("     ")
-        st.markdown('All about users and ratings')
+        st.markdown('USERS AND RATINGS')
         st.info("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
                    0 means the user did not like the movie and 5 means the user liked the movie a lot.
                    The ratings consist of decimal numbers and integers.""")
@@ -144,7 +144,7 @@ def main():
                    and we can see that we receive the most ratings on a Sunday and on a Saturday""")
         st.text("     ")
         from PIL import Image
-        st.markdown('All about genres and tags')
+        st.markdown('GENRES AND TAGS')
         st.info("""Movie tags are a user's way of identifying movies for an example a user might
                    identify a movie as being funny or violent or a fantasy. A movie genre is
                    determined by the plot, character, story and setting of the movie eg: comedy or
