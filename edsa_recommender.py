@@ -31,6 +31,7 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import random
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -43,10 +44,17 @@ title_list = load_movie_titles('resources/data/movies.csv')
 # App declaration
 def main():
 
+    #this function allows for the background colour to be changed 
+    # def local_css(file_name):
+    #     with open(file_name) as f:
+    #         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    # local_css('style.css')
+
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
-
+    st.sidebar.header('Movie Recommender Engine')
+    page_options = ["Recommender System","Solution Overview","Did you know?", "Suprise me"]
+ 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
@@ -102,10 +110,47 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        
+        st.markdown(open('resources/About_solution.md').read())
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
+    #did you know page
+    if page_selection == "Did you know?":
+        st.title("Did you know?")
+        #top 3 most watched movies
+        st.markdown("<h2 style='text-align: left;color: #000000;'>Top 3 most watched movies</h2>", unsafe_allow_html=True)
+        st.image('resources/imgs/Top3.PNG', use_column_width= True)
+        st.markdown('Watch **[The Shawshank Redemption](https://www.youtube.com/watch?v=6hB3S9bIaco)**')
+        st.markdown('Watch **[Forrest Gump](https://www.youtube.com/watch?v=bLvqoHBptjg)**')
+        st.markdown('Watch **[Pulp Fiction](https://www.youtube.com/watch?v=s7EdQ4FqbhY)**')
+
+        #word cloud for most common genre
+        st.markdown("<h2 style='text-align: left;color: #000000;'>Most watched genres</h2>", unsafe_allow_html=True)
+        st.image('resources/imgs/genres.PNG', use_column_width= True)
+
+        #Top 3 per genre
+        st.markdown("<h2 style='text-align: left;color: #000000;'>Top 3 most watched movies per genre</h2>", unsafe_allow_html=True)
+        genres = ['Comedy','Drama']
+        genre_selection = st.radio("What would you like to see?", genres)
+        if genre_selection == "Comedy":
+            st.write('Hello')
+
+    #suprise me page       
+    if page_selection == "Suprise me":
+        st.subheader('Here, a movie will be randomly selected for you')
+        if st.button('Suprise me'):
+            st.write(random.choice(title_list))
+            st.balloons()
+
+
+    #side bar description of app
+    st.sidebar.info('This app has been developed by SS4_JHB_Unsupervised team :movie_camera:')        
+
+
+
+
+
 
 
 if __name__ == '__main__':
