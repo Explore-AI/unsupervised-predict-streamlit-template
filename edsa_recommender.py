@@ -152,7 +152,9 @@ def main():
                    identify a movie as being funny or violent or a fantasy. A movie genre is
                    determined by the plot, character, story and setting of the movie eg: comedy or
                    musical. People like different genre of movies and that can be inflenced by their
-                   age, gender or culture.""")
+                   age, gender or culture. Plot keywords are words that describe motifs, themes,
+                   or plot details. Most are generic eg: murder or crying, some are clever and others
+                   are oddly specific.""")
         bar_genre =Image.open("resources/imgs/l_genre.PNG")
         st.image(bar_genre, caption='Most common genres', width=650)
         st.info("""In the above histogram we can see that the Drama genre seems to be having the
@@ -163,6 +165,10 @@ def main():
             from PIL import Image
             tag = Image.open('resources/imgs/tag_word.PNG')
             st.image(tag, caption='Most common tags', width=650)
+        if st.button("Wordcloud for plot keywords"):
+            from PIL import Image
+            plot = Image.open('resources/imgs/plot.PNG')
+            st.image(plot, caption='Most common plot keywords', width=650)
         st.text("      ")
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
