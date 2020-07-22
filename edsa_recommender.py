@@ -184,6 +184,9 @@ def main():
         st.image(runtime, caption='Movies with longest runtime in minutes', width=650)
         st.text("      ")
         st.info("The longest movie in our dataset is Taken")
+        st.text("     ")
+        director = Image.open('resources/imgs/director.PNG')
+        st.image(director, caption="Director with most ratings")
 
 
     if page_selection == "Solution Overview":
