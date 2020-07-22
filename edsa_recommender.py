@@ -48,7 +48,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","About", "Solution Overview"]
+    page_options = ["Recommender System","About", "Solution Overview", "About team 5"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -183,6 +183,16 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+    if page_selection =="About team 5":
+        from PIL import image
+        team = Image.open("resources/imgs/team.PNG")
+        st.image(team, width=650)
+        st.markdown("We build recommender systems")
+        st.info("""We help our clients discover and take advantage of the most essential
+                   technology in the movie industry. We provide them with a system that has
+                   two types of recommender methods, content based and collaborative filtering.
+                   Recommender systems are critical because they aid companies to increase their
+                   revenue income.""")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
