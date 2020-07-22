@@ -36,6 +36,15 @@ from markdown import markdown
 import pandas as pd
 import numpy as np
 
+# Import visualisations
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud
+
+
+# Import label encoder
+from sklearn.preprocessing import MultiLabelBinarizer, LabelEncoder
+
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
@@ -43,7 +52,36 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+movies = pd.read_csv('resources/data/movies.csv')
+imdb = pd.read_csv('resources/data/imdb_data.csv')
+tags = pd.read_csv('resources/data/tags.csv')
+train = pd.read_csv('resources/data/train.csv')
+g_tags = pd.read_csv('resources/data/genome_tags.csv')
+g_scores = pd.read_csv('resources/data/genome_scores.csv')
 
+# Merging dataframes
+# Ensure movies['genres'] column contains strings and split into a list of genres
+movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
+# Create a label binarizer class
+mlb = MultiLabelBinarizer()
+# Create a new dataframe with the binarized genres
+df_genres = pd.DataFrame(mlb.fit_transform(movies['genres']), columns=mlb.classes_)
+df = pd.merge(left=movies,right=df_genres, left_index=True, right_index=True)
+        
+# Ensure imdb['title_cast', 'plot_keyword'] columns contain strings and split into strings
+imdb['title_cast'] = imdb['title_cast'].apply(str).apply(lambda x: x.split('|'))
+imdb['plot_keywords'] = imdb['plot_keywords'].apply(str).apply(lambda x: x.split('|'))
+
+# Merge imdb data with df
+df = pd.merge(left=df,right=imdb, left_on='movieId', right_on='movieId')
+
+# Merge dataframes for rating analysis
+movies_train_df = pd.merge(train,movies, how='left',on='movieId')
+rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
+high_rated = rating_grouped.nlargest(20,'rating')
+
+
+#@st.cache(persist=True)
 # App declaration
 def main():
 
@@ -129,8 +167,90 @@ def main():
         st.subheader("Raw data")
         if st.checkbox('Show data'):  # data is hidden if box is unchecked
                     st.write('Dataframe to be inputed here')  # will write the df to the page
+    
+    # Build EDA page
+    if page_selection == "EDA and Insights":
+        st.write('### Exploratory Data Analysis and Insights')
+        st.info("The main characteristics of the data are summarized and insights are drawn.")
+        st.write('####  Use the sidebar to view visualizations and insights for particular variables')
 
-        
+        # Adding to sidebar
+        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Directors","Movies","Genre and Ratings"])
+
+        if variable_selection == "Genres":
+            a = pd.melt(df_genres)
+            plt.figure(figsize=(10,8))
+            sns.countplot(data=a.loc[a['value'] == 1], y='variable', palette = 'viridis')
+            plt.title('* Some movies are labelled with multiple genres')
+            plt.suptitle('Number of movies belonging to each category', fontsize=15)
+            plt.xlabel('Count')
+            plt.ylabel('')
+            st.pyplot()
+
+            st.markdown('Insights on visualization', unsafe_allow_html=True)
+
+        if variable_selection == "Genre and Ratings":
+            # Calculate the number of ratings per genre of movie
+            df_genres['movieId'] = df['movieId']
+            genre_ratings = pd.merge(left=train, right=df_genres, left_on='movieId', right_on='movieId')
+            genre_ratings.drop(['userId', 'movieId', 'timestamp'], axis=1, inplace=True)
+            genre_ratings = genre_ratings.groupby(by=['rating'], axis=0).sum()
+
+            # Examine how the different movie genres are historically rated by users
+            names = list(genre_ratings.columns)
+            labels = list(genre_ratings.index)
+            colours = sns.color_palette(palette='viridis', n_colors=len(labels), desat=None)
+
+            fig = plt.figure()
+            fig.subplots_adjust(hspace=1, wspace=1)
+            for i in range(1, 21):
+                plt.subplot(4, 5, i)
+                plt.pie(genre_ratings[names[i-1]], colors=colours, radius=1.8, autopct='%0.1f%%',pctdistance=1.2)
+                fig.set_size_inches(20, 16)
+                plt.title(names[i-1], pad=58, fontsize=14)
+            plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.8, 6.5))
+            st.pyplot()
+
+            st.markdown('Insights on visualization', unsafe_allow_html=True)
+
+        if variable_selection == "Ratings":
+            # Examine movie ratings from all users
+            plt.figure(figsize=(6,4))
+            sns.countplot(train['rating'], palette = 'viridis')
+            plt.title('Distribution of ratings from all users')
+            plt.xlabel('Rating')
+            plt.ylabel('Count')
+            st.pyplot()
+
+            st.markdown('Insights on visualization', unsafe_allow_html=True)
+
+            # Five number summary
+            st.write("#### Five number summary and boxplot")
+
+            summary = train['rating'].describe(include='all')
+            st.write(summary)
+
+            # Box plot
+            plt.boxplot(train['rating'])
+            st.pyplot()
+
+            st.markdown('Insights on visualization', unsafe_allow_html=True)
+
+        if variable_selection == "Movies":
+            
+            # Plot top 20 rated movies
+            plt.figure(figsize=(30,10))
+            plt.title('Top 20 movies with highest rating',fontsize=40)
+            colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
+            plt.ylabel('ratings',fontsize=30)
+            plt.xticks(fontsize=25,rotation=90)
+            plt.xlabel('movies title',fontsize=30)
+            plt.yticks(fontsize=25)
+            plt.bar(high_rated.index,high_rated['rating'],linewidth=3,edgecolor=colours,color=colours)
+            st.pyplot()
+
+
+
     st.sidebar.title("About")
     st.sidebar.info(
         """ 
