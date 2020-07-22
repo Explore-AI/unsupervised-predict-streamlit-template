@@ -59,6 +59,10 @@ train = pd.read_csv('resources/data/train.csv')
 g_tags = pd.read_csv('resources/data/genome_tags.csv')
 g_scores = pd.read_csv('resources/data/genome_scores.csv')
 
+ 
+# Drop duplicates from movies dataset
+movies.drop_duplicates(keep='first', inplace=True)
+
 # Merging dataframes
 # Ensure movies['genres'] column contains strings and split into a list of genres
 movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
@@ -75,10 +79,8 @@ imdb['plot_keywords'] = imdb['plot_keywords'].apply(str).apply(lambda x: x.split
 # Merge imdb data with df
 df = pd.merge(left=df,right=imdb, left_on='movieId', right_on='movieId')
 
-# Merge dataframes for rating analysis
-movies_train_df = pd.merge(train,movies, how='left',on='movieId')
-rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
-high_rated = rating_grouped.nlargest(20,'rating')
+df['year'] = df['title'].str.extract('(\d\d\d\d)')
+df['budget'] = df['budget'].str.replace('$', '').str.replace(',','')
 
 
 #@st.cache(persist=True)
@@ -166,13 +168,13 @@ def main():
 
         st.subheader("Raw data")
         if st.checkbox('Show data'):  # data is hidden if box is unchecked
-                    st.write('Dataframe to be inputed here')  # will write the df to the page
+                    st.write(df.tail())  # will write the df to the page
     
     # Build EDA page
     if page_selection == "EDA and Insights":
-        st.write('### Exploratory Data Analysis and Insights')
+        st.write('## Exploratory Data Analysis and Insights')
         st.info("The main characteristics of the data are summarized and insights are drawn.")
-        st.write('####  Use the sidebar to view visualizations and insights for particular variables')
+        st.write('###  Use the sidebar to view visualizations and insights for particular variables')
 
         # Adding to sidebar
         variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Directors","Movies","Genre and Ratings"])
@@ -237,17 +239,88 @@ def main():
             st.markdown('Insights on visualization', unsafe_allow_html=True)
 
         if variable_selection == "Movies":
-            
-            # Plot top 20 rated movies
-            plt.figure(figsize=(30,10))
-            plt.title('Top 20 movies with highest rating',fontsize=40)
-            colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
-            plt.ylabel('ratings',fontsize=30)
-            plt.xticks(fontsize=25,rotation=90)
-            plt.xlabel('movies title',fontsize=30)
-            plt.yticks(fontsize=25)
-            plt.bar(high_rated.index,high_rated['rating'],linewidth=3,edgecolor=colours,color=colours)
-            st.pyplot()
+
+            # Preview the movies datframe
+            st.write("Preview of movies dataframe:")
+            st.write(movies.head(3))
+
+            st.write("#### The movie dataset has a lot of aspects that can be analysed. Use the markdown below to navigate")
+
+            options = ['Top 20 movies with highest rating', 'Top 20 movies with highest number of ratings','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
+            selection = st.selectbox("Choose Option", options)
+
+            # Merge dataframes for rating analysis
+            movies_train_df = pd.merge(train,movies, how='left',on='movieId')
+            movies_train_df['title'] = movies_train_df['title'].str.replace('(\(\d\d\d\d\))', '')
+
+            if selection == 'Top 20 movies with highest rating':
+
+                    # group movies by title and rating 
+                    rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
+                    high_rated = rating_grouped.nlargest(20,'rating')
+
+                    plt.figure(figsize=(30,10))
+                    plt.title('Top 20 movies with highest rating',fontsize=40)
+                    colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
+                    plt.ylabel('ratings',fontsize=30)
+                    plt.xticks(fontsize=25,rotation=90)
+                    plt.xlabel('movies title',fontsize=30)
+                    plt.yticks(fontsize=25)
+                    plt.bar(high_rated.index,high_rated['rating'],linewidth=3,edgecolor=colours,color=colours)
+                    st.pyplot()
+
+            if selection == 'Top 20 movies with highest number of ratings':
+
+                    # group movies by title and rating
+                    no_ratings_df = movies_train_df.groupby('title')[['rating']].count()
+                    rating_count_20 = no_ratings_df.nlargest(20,'rating')
+
+                    # plot movies with the highest number of ratings
+                    plt.figure(figsize=(30,10))
+                    plt.title('Top 20 movies with highest number of ratings',fontsize=40)
+                    colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
+                    plt.xticks(fontsize=25,rotation=90)
+                    plt.yticks(fontsize=25)
+                    plt.xlabel('movies title',fontsize=30)
+                    plt.ylabel('ratings',fontsize=30)
+                    plt.bar(rating_count_20.index,rating_count_20.rating,color=colours)
+                    st.pyplot()
+
+            if selection == 'Top 20 movies with highest relevance':
+
+                    # Create a merged dataframe with g_scores and movies
+                    genome_movies_df = pd.merge(g_scores,movies, how='left',on='movieId')
+                    genome_train_grouped = genome_movies_df.groupby(['title'])[['relevance']].sum()
+                    high_relevance = genome_train_grouped.nlargest(20,'relevance')
+
+                    plt.figure(figsize=(30,10))
+                    plt.title('Top 20 movies with highest relevance',fontsize=40)
+                    colors = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
+                    plt.ylabel('Relevance',fontsize=30)
+                    plt.xticks(fontsize=25,rotation=90)
+                    plt.xlabel('Movies title',fontsize=30)
+                    plt.yticks(fontsize=25)
+                    plt.bar(high_relevance.index,high_relevance['relevance'],linewidth=3,edgecolor=colors,color=colors)
+                    st.pyplot()
+
+
+            if selection == 'Top 10 movies with longest runtime':
+
+                    imdb_movies = pd.merge(imdb,movies, how='left',on='movieId')
+                    df_runtime = imdb_movies.groupby(['title'])[['runtime']].sum()
+                    long_runtime = df_runtime.nlargest(10,'runtime')
+
+                    plt.figure(figsize=(30,10))
+                    plt.title('Top 10 movies with longest runtime',fontsize=40)
+                    colours = ['forestgreen','burlywood','gold','forestgreen','magenta','cyan','aqua','navy','lightblue','khaki']
+                    plt.ylabel('Movie runtime (in minutes)',fontsize=30)
+                    plt.xticks(fontsize=20,rotation=90)
+                    plt.xlabel('Movies title',fontsize=30)
+                    plt.yticks(fontsize=20)
+                    plt.bar(long_runtime.index,long_runtime['runtime'],linewidth=3,edgecolor=colours,color=colours)
+                    st.pyplot()
+
+        #if variable_selection == "Directors":
 
 
 
@@ -255,7 +328,7 @@ def main():
     st.sidebar.info(
         """ 
         This app is maintained by EDSA students.
-        It serves as a project for an unsupervised sprint.
+        It serves as a project for an unsupervised machine learning sprint.
         
     
         **Authors:**\n
