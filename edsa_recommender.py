@@ -140,7 +140,7 @@ def main():
                    of the users assign rating as integer value""")
         st.text("     ")
         from PIL import Image
-        day_rating = Image.open("resources/imgs/day_rating.PNG")
+        day_rating = Image.open("resources/imgs/l_rating.PNG")
         st.image(day_rating, caption='Average number of ratings per day')
         st.info("""We calcated the average rating for each day of the week
                    and we can see that we receive the most ratings on a Sunday and on a Saturday. The reason
@@ -153,7 +153,7 @@ def main():
                    determined by the plot, character, story and setting of the movie eg: comedy or
                    musical. People like different genre of movies and that can be inflenced by their
                    age, gender or culture.""")
-        bar_genre =Image.open("resources/imgs/bar_genre.PNG")
+        bar_genre =Image.open("resources/imgs/l_genre.PNG")
         st.image(bar_genre, caption='Most common genres', width=650)
         st.info("""In the above histogram we can see that the Drama genre seems to be having the
                  most movies tags with a little over 25000 released movies followed by the Comedy
@@ -184,7 +184,7 @@ def main():
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
     if page_selection =="About team 5":
-        from PIL import image
+        from PIL import Image
         team = Image.open("resources/imgs/team.PNG")
         st.image(team, width=650)
         st.markdown("We build recommender systems")
