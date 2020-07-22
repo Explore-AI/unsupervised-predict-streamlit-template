@@ -31,11 +31,19 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+from PIL import Image
+from datetime import date, timedelta
+
+# Plotting dependencies
+import seaborn as sns
+import matplotlib.style as style 
+sns.set(font_scale=4.5)
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
@@ -106,11 +114,42 @@ def main():
 
     if page_selection == "About The Team":
         st.title("Data Science Team")
-        st.write("Our Linkedin profiles should go right here")
-        st.write("Bongani Msimanga")
-        st.write("Evans Marema")
-        st.write("Juarez ")
-        st.write("Chris")
+        st.header('Data Science Team')
+        
+        st.markdown('')
+        st.markdown('**Mandla**')
+        img = Image.open('resources/imgs/')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/mandla-solomon-095063121/')
+        st.markdown('https://github.com/0731325603')
+        
+        st.markdown('')
+        st.markdown('**Chris**')
+        img = Image.open('resources/imgs/')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/nhlanhla-christopher-mahlangu-56b771137/')
+        st.markdown('https://github.com/NhlanhlaChris')
+        
+        st.markdown('')
+        st.markdown('**Juarez**')
+        img = Image.open('resources/imgs/')
+        st.image(img,width=180)
+        st.markdown('http://www.linkedin.com/in/')
+        st.markdown('https://github.com/')
+        
+        st.markdown('')
+        st.markdown('**Bongani**')
+        img = Image.open('resources/imgs/')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/')
+        st.markdown('https://github.com/')
+        
+        st.markdown('')
+        st.markdown('**Evans**')
+        img = Image.open('resources/imgs/in/')
+        st.image(img,width=180)
+        st.markdown('https://www.linkedin.com/in/')
+        st.markdown('https://github.com/')
 
      
     # You may want to add more sections here for aspects such as an EDA,
