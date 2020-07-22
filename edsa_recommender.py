@@ -244,7 +244,7 @@ def main():
             st.write("Preview of movies dataframe:")
             st.write(movies.head(3))
 
-            st.write("#### The movie dataset has a lot of aspects that can be analysed. Use the markdown below to navigate")
+            st.write("#### The movies dataset has a lot of aspects that can be analysed. Use the selectbox below to navigate")
 
             options = ['Top 20 movies with highest rating', 'Top 20 movies with highest number of ratings','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
             selection = st.selectbox("Choose Option", options)
@@ -259,7 +259,7 @@ def main():
                     rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
                     high_rated = rating_grouped.nlargest(20,'rating')
 
-                    plt.figure(figsize=(30,10))
+                    plt.figure(figsize=(50,300))
                     plt.title('Top 20 movies with highest rating',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('ratings',fontsize=30)
@@ -267,6 +267,7 @@ def main():
                     plt.xlabel('movies title',fontsize=30)
                     plt.yticks(fontsize=25)
                     plt.bar(high_rated.index,high_rated['rating'],linewidth=3,edgecolor=colours,color=colours)
+                    plt.subplots_adjust(bottom=0.5)#,height=0.8)
                     st.pyplot()
 
             if selection == 'Top 20 movies with highest number of ratings':
