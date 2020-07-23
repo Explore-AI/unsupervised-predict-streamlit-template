@@ -143,6 +143,6 @@ def collab_model(movie_list,top_n=10):
     top_50_indexes = list(listings.iloc[1:50].index)
     # Removing chosen movies
     top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
+    for i in top_indexes[:top_n + 1]:
         recommended_movies.append(list(movies_df['title'])[i])
     return recommended_movies
