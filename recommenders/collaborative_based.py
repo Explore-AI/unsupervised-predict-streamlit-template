@@ -61,7 +61,7 @@ def prediction_item(item_id):
 
     """
     # Data preprosessing
-    reader = Reader(rating_scale=(0, 5))
+    reader = Reader(rating_scale=(0.5, 5))
     load_df = Dataset.load_from_df(ratings_df,reader)
     a_train = load_df.build_full_trainset()
 
