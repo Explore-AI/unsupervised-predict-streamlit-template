@@ -177,7 +177,7 @@ def main():
         st.write('###  Use the sidebar to view visualizations and insights for particular variables')
 
         # Adding to sidebar
-        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Directors","Movies","Genre and Ratings"])
+        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Movies","Genre and Ratings","Directors"])
 
         if variable_selection == "Genres":
             a = pd.melt(df_genres)
@@ -224,7 +224,7 @@ def main():
             plt.ylabel('Count')
             st.pyplot()
 
-            st.markdown('Insights on visualization', unsafe_allow_html=True)
+            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 38.89% of them to be precise. It can also be seen that the ratings are left skewed, whiich suggests that most of the movies have high ratings and also that the mean is lower than the mode.  ', unsafe_allow_html=True)
 
             # Five number summary
             st.write("#### Five number summary and boxplot")
@@ -234,9 +234,11 @@ def main():
 
             # Box plot
             plt.boxplot(train['rating'])
+            plt.ylabel("Rating")
+            plt.xlabel("movies")
             st.pyplot()
 
-            st.markdown('Insights on visualization', unsafe_allow_html=True)
+            st.markdown('On average a user is most likely to give a movie a rating of 3.5257. The lowest rating given to a movie is 0.5, which is visible from the boxplot and that it is an outlier, meaning that it is an event that is less likely to occur. The standard deviation of the data is low which indicates that the ratings that the users make are usually closer to the mean.<br><br> The boxplot is also confirming that the ratings are left skewed, as it is visible that the mean value is lower than the mode which is 4, as seen on the distribution plot.', unsafe_allow_html=True)
 
         if variable_selection == "Movies":
 
@@ -244,7 +246,7 @@ def main():
             st.write("Preview of movies dataframe:")
             st.write(movies.head(3))
 
-            st.write("#### The movies dataset has a lot of aspects that can be analysed. Use the selectbox below to navigate")
+            st.write("#### Use the selectbox below to navigate the visuals")
 
             options = ['Top 20 movies with highest rating', 'Top 20 movies with highest number of ratings','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
             selection = st.selectbox("Choose Option", options)
@@ -259,7 +261,7 @@ def main():
                     rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
                     high_rated = rating_grouped.nlargest(20,'rating')
 
-                    plt.figure(figsize=(50,300))
+                    plt.figure(figsize=(30,10))
                     plt.title('Top 20 movies with highest rating',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('ratings',fontsize=30)
@@ -321,9 +323,80 @@ def main():
                     plt.bar(long_runtime.index,long_runtime['runtime'],linewidth=3,edgecolor=colours,color=colours)
                     st.pyplot()
 
-        #if variable_selection == "Directors":
+        if variable_selection == "Directors":
+            directors_movies = df[['director']]  # Create dataframe to analyse director variable
 
+            directors_movies['count'] = 1
+            directors_movies = directors_movies.groupby('director').sum().sort_values(by='count', ascending=False)
 
+            directors_rating = df[['director', 'movieId']]
+            directors_rating = pd.merge(left=directors_rating, right=train, left_on='movieId', right_on='movieId')
+            directors_rating.drop(['movieId', 'userId', 'timestamp'], axis=1, inplace=True)
+            directors_rating = directors_rating.groupby('director').mean().sort_values(by='rating', ascending=False)
+
+            directors = pd.merge(left=directors_rating, right=directors_movies, left_index=True, right_index=True)
+
+            st.write("#### Use the selectbox below to navigate the visuals")
+
+            options = ['Top 20 directors with high rated movies', 'Top 20 directors with low rated movies','Top 20 directors with the most projects','Top 20 directors with the least projects']
+            selection = st.selectbox("Choose Option", options)
+
+            if selection == 'Top 20 directors with high rated movies':
+                    
+                    directors = directors.sort_values(by=['rating'], ascending=False)
+
+                    plt.bar(directors.index[0:20], height=directors['rating'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
+                    plt.title("Directors with high rated movies")
+                    plt.ylabel("Rating")
+                    plt.xlabel("Director")
+                    plt.xticks(rotation=60)
+                    st.pyplot()
+
+                    table = directors.iloc[0:20,:-1] # view as a table to read names better
+                    st.write(table)
+
+            if selection == 'Top 20 directors with the most projects':
+
+                    directors = directors.sort_values(by=['count'], ascending=False)
+
+                    plt.bar(directors.index[0:20], height=directors['count'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
+                    plt.title("Number of movies a director worked on")
+                    plt.ylabel("Number of movies directed")
+                    plt.xlabel("Director")
+                    plt.xticks(rotation=60)
+                    st.pyplot()
+
+                    table = directors.iloc[0:20,-1] # view as a table to read names better
+                    st.write(table)
+
+            if selection == 'Top 20 directors with low rated movies':
+
+                    directors = directors.sort_values(by=['rating'], ascending=False)
+
+                    plt.bar(directors.index[-20:], height=directors['rating'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
+                    plt.title("Directors with low rated movies")
+                    plt.ylabel("Rating")
+                    plt.xlabel("Director") 
+                    plt.xticks(rotation=60)
+                    st.pyplot()
+
+                    table = directors.iloc[-20:,:-1] # view as a table to read names better
+                    st.write(table)
+
+            if selection == 'Top 20 directors with the least projects':
+
+                    directors = directors.sort_values(by=['count'], ascending=False)
+
+                    plt.bar(directors.index[-20:], height=directors['count'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
+                    plt.title("Number of movies a director worked on")
+                    plt.ylabel("Number of movies directed")
+                    plt.xlabel("Director")
+                    plt.xticks(rotation=60)
+                    st.pyplot()
+
+                    table = directors.iloc[-20:,-1] # view as a table to read names better
+                    st.write(table)
+    
 
     st.sidebar.title("About")
     st.sidebar.info(
