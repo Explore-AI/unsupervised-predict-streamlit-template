@@ -109,6 +109,9 @@ def main():
         st.write('--------------------------------------')
         #introduction
         st.markdown('INTRODUCTION')
+        from PIL import Image
+        movies = Image.open('resources/imgs/movies.PNG')
+        st.image(movies, width=650)
         st.info("""Recommender Systems is a subclass of information filtering system that
                     seeks to predict the "rating" or "preference" a user would give
                     to an item. Recommender systems are used by companies
@@ -181,22 +184,42 @@ def main():
         st.text("      ")
         st.markdown("MOVIE RUNTIME")
         runtime = Image.open('resources/imgs/runtime.PNG')
-        st.image(runtime, caption='Movies with longest runtime in minutes', width=650)
+        st.image(runtime, caption='Top 5 movies with longest runtime in minutes', width=650)
         st.text("      ")
         st.info("The longest movie in our dataset is Taken")
         st.text("     ")
+        st.write('DIRECTORS')
         director = Image.open('resources/imgs/director.PNG')
-        st.image(director, caption="Director with most ratings")
+        st.image(director, caption="Top 5 directors with most ratings", width=650)
+        st.info("""The director with most ratings is Quentin Tarantino, the average rating on his movies
+                 is 3.9""")
 
 
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.write("The type of recommender system we choose to use is collaborative filtering.")
+        st.info("""The measure of how well the model performs was defined by the RMSE score which is a value
+                 between 1 and 0. It is used to measure the differences between values predicted by the
+                 model and the values actually observed. The lower the RMSE, the more accurate the model""")
+        st.write(""" Firstly, we used Principal Component Analysis which is a dimentionality reduction method
+                that is often used to reduce the dimensionality of large data sets, by transforming a large
+                set of variables into a smaller one that still contains most of the information in the large
+                set. We used it with Random Forest and XGBoost. The RMSE score we were striving for was expected
+                to be lower than 0.85""")
+        st.markdown('RESULTS')
+        from PIL import Image
+        xg = Image.open('resources/imgs/xg.PNG')
+        st.image(xg, caption='XGBoost RMSE score', width=650)
+        st.text("      ")
+        forest = Image.open('resources/imgs/forest.PNG')
+        st.image(forest,caption="Random forest RMSE score", width=650)
+
     if page_selection =="About team 5":
+        st.write('### Team 5')
+        st.markdown("We build recommender systems")
         from PIL import Image
         team = Image.open("resources/imgs/team.PNG")
         st.image(team, width=650)
-        st.markdown("We build recommender systems")
         st.info("""We help our clients discover and take advantage of the most essential
                    technology in the movie industry. We provide them with a system that has
                    two types of recommender methods, content based and collaborative filtering.
