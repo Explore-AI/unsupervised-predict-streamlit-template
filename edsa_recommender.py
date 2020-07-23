@@ -154,7 +154,7 @@ def main():
 
     # Build information page
     if page_selection == "Information":
-        st.write('### Recommender Systems')
+        st.title('Recommender Systems')
         st.info("A recommender system is a subclass of information filtering system that seeks to predict the rating or preference a user would give to an item")
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         
@@ -172,12 +172,12 @@ def main():
     
     # Build EDA page
     if page_selection == "EDA and Insights":
-        st.write('## Exploratory Data Analysis and Insights')
+        st.title('Exploratory Data Analysis and Insights')
         st.info("The main characteristics of the data are summarized and insights are drawn.")
         st.write('###  Use the sidebar to view visualizations and insights for particular variables')
 
         # Adding to sidebar
-        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Movies","Genre and Ratings","Directors"])
+        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Movies","Genres and Ratings","Directors"])
 
         if variable_selection == "Genres":
             a = pd.melt(df_genres)
@@ -191,7 +191,7 @@ def main():
 
             st.markdown('Insights on visualization', unsafe_allow_html=True)
 
-        if variable_selection == "Genre and Ratings":
+        if variable_selection == "Genres and Ratings":
             # Calculate the number of ratings per genre of movie
             df_genres['movieId'] = df['movieId']
             genre_ratings = pd.merge(left=train, right=df_genres, left_on='movieId', right_on='movieId')
@@ -224,7 +224,7 @@ def main():
             plt.ylabel('Count')
             st.pyplot()
 
-            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 38.89% of them to be precise. It can also be seen that the ratings are left skewed, whiich suggests that most of the movies have high ratings and also that the mean is lower than the mode.  ', unsafe_allow_html=True)
+            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 26.53% of them to be precise, while the lowest rating 0.5 accounts for only 1.58% of the users. It can also be seen that the ratings are left skewed, whiich suggests that most of the movies have high ratings and also that the mean is lower than the mode.  ', unsafe_allow_html=True)
 
             # Five number summary
             st.write("#### Five number summary and boxplot")
@@ -243,7 +243,7 @@ def main():
         if variable_selection == "Movies":
 
             # Preview the movies datframe
-            st.write("Preview of movies dataframe:")
+            st.write("Preview movies dataframe:")
             st.write(movies.head(3))
 
             st.write("#### Use the selectbox below to navigate the visuals")
@@ -272,6 +272,8 @@ def main():
                     plt.subplots_adjust(bottom=0.5)#,height=0.8)
                     st.pyplot()
 
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+
             if selection == 'Top 20 movies with highest number of ratings':
 
                     # group movies by title and rating
@@ -288,6 +290,8 @@ def main():
                     plt.ylabel('ratings',fontsize=30)
                     plt.bar(rating_count_20.index,rating_count_20.rating,color=colours)
                     st.pyplot()
+
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
 
             if selection == 'Top 20 movies with highest relevance':
 
@@ -306,6 +310,8 @@ def main():
                     plt.bar(high_relevance.index,high_relevance['relevance'],linewidth=3,edgecolor=colors,color=colors)
                     st.pyplot()
 
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+
 
             if selection == 'Top 10 movies with longest runtime':
 
@@ -323,6 +329,8 @@ def main():
                     plt.bar(long_runtime.index,long_runtime['runtime'],linewidth=3,edgecolor=colours,color=colours)
                     st.pyplot()
 
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+
         if variable_selection == "Directors":
             directors_movies = df[['director']]  # Create dataframe to analyse director variable
 
@@ -336,6 +344,10 @@ def main():
 
             directors = pd.merge(left=directors_rating, right=directors_movies, left_index=True, right_index=True)
 
+            # Sort directors dataframe by rating and count to analyse by both
+            directors_rating = directors.sort_values(by=['rating'], ascending=False)
+            directors_count = directors.sort_values(by=['count'], ascending=False)
+
             st.write("#### Use the selectbox below to navigate the visuals")
 
             options = ['Top 20 directors with high rated movies', 'Top 20 directors with low rated movies','Top 20 directors with the most projects','Top 20 directors with the least projects']
@@ -343,59 +355,59 @@ def main():
 
             if selection == 'Top 20 directors with high rated movies':
                     
-                    directors = directors.sort_values(by=['rating'], ascending=False)
-
-                    plt.bar(directors.index[0:20], height=directors['rating'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
+                    plt.bar(directors_rating.index[0:20], height=directors_rating['rating'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
                     plt.title("Directors with high rated movies")
                     plt.ylabel("Rating")
                     plt.xlabel("Director")
                     plt.xticks(rotation=60)
                     st.pyplot()
 
-                    table = directors.iloc[0:20,:-1] # view as a table to read names better
+                    table = directors_rating.iloc[0:20,:-1] # view as a table to read names better
                     st.write(table)
+
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
 
             if selection == 'Top 20 directors with the most projects':
 
-                    directors = directors.sort_values(by=['count'], ascending=False)
-
-                    plt.bar(directors.index[0:20], height=directors['count'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
+                    plt.bar(directors_count.index[0:20], height=directors_count['count'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
                     plt.title("Number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
                     plt.xticks(rotation=60)
                     st.pyplot()
 
-                    table = directors.iloc[0:20,-1] # view as a table to read names better
+                    table = directors_count.iloc[0:20,-1] # view as a table to read names better
                     st.write(table)
+
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
 
             if selection == 'Top 20 directors with low rated movies':
 
-                    directors = directors.sort_values(by=['rating'], ascending=False)
-
-                    plt.bar(directors.index[-20:], height=directors['rating'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
+                    plt.bar(directors_rating.index[-20:], height=directors_rating['rating'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
                     plt.title("Directors with low rated movies")
                     plt.ylabel("Rating")
                     plt.xlabel("Director") 
                     plt.xticks(rotation=60)
                     st.pyplot()
 
-                    table = directors.iloc[-20:,:-1] # view as a table to read names better
+                    table = directors_rating.iloc[-20:,:-1] # view as a table to read names better
                     st.write(table)
+
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
 
             if selection == 'Top 20 directors with the least projects':
 
-                    directors = directors.sort_values(by=['count'], ascending=False)
-
-                    plt.bar(directors.index[-20:], height=directors['count'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
+                    plt.bar(directors_count.index[-20:], height=directors_count['count'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
                     plt.title("Number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
                     plt.xticks(rotation=60)
                     st.pyplot()
 
-                    table = directors.iloc[-20:,-1] # view as a table to read names better
+                    table = directors_count.iloc[-20:,-1] # view as a table to read names better
                     st.write(table)
+
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
     
 
     st.sidebar.title("About")
