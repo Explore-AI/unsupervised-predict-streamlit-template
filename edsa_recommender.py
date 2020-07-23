@@ -189,7 +189,7 @@ def main():
             plt.ylabel('')
             st.pyplot()
 
-            st.markdown('Insights on visualization', unsafe_allow_html=True)
+            st.markdown('It is the quiet clear from the graph that drama is the most popular genre with 78%, with comedy falling second with 33%. Film-Noir and IMAX genres are the least popular genres with 78% and 3% respectively. About 55% of the movies made do not have a genre listed under them.', unsafe_allow_html=True)
 
         if variable_selection == "Genres and Ratings":
             # Calculate the number of ratings per genre of movie
@@ -213,7 +213,10 @@ def main():
             plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.8, 6.5))
             st.pyplot()
 
-            st.markdown('Insights on visualization', unsafe_allow_html=True)
+            v = df_genres['genres'].value_counts()
+            st.write(v)
+
+            st.markdown('Based on the number of ratings each genre got, looking at the pie plots it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4.<br><br> Of all the genres, war movies are the highest rated movies because they have the highest percentage of movies that are rated 5 at 23.6% compared to the other genres. The movies that do not have a listed genre have the highest percentage of movies rated 0.5 of 6.68% compared to the other genres, which suggests that the movies with no listed genre are more likely to be rated lower than the other genres', unsafe_allow_html=True)
 
         if variable_selection == "Ratings":
             # Examine movie ratings from all users
@@ -224,7 +227,7 @@ def main():
             plt.ylabel('Count')
             st.pyplot()
 
-            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 26.53% of them to be precise, while the lowest rating 0.5 accounts for only 1.58% of the users. It can also be seen that the ratings are left skewed, whiich suggests that most of the movies have high ratings and also that the mean is lower than the mode.  ', unsafe_allow_html=True)
+            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 26.53% of them to be precise, while the lowest rating 0.5 accounts for only 1.58% of the users. It can also be seen that the ratings are left skewed, which suggests that most of the movies have high ratings and that the mean is lower than the mode.  ', unsafe_allow_html=True)
 
             # Five number summary
             st.write("#### Five number summary and boxplot")
@@ -248,7 +251,7 @@ def main():
 
             st.write("#### Use the selectbox below to navigate the visuals")
 
-            options = ['Top 20 movies with highest rating', 'Top 20 movies with highest number of ratings','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
+            options = ['Top 20 movies with highest rating', 'Top 20 most rated movies','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
             selection = st.selectbox("Choose Option", options)
 
             # Merge dataframes for rating analysis
@@ -261,7 +264,9 @@ def main():
                     rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
                     high_rated = rating_grouped.nlargest(20,'rating')
 
-                    plt.figure(figsize=(30,10))
+                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+
+                    plt.figure(figsize=(30,50))
                     plt.title('Top 20 movies with highest rating',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('ratings',fontsize=30)
@@ -269,12 +274,13 @@ def main():
                     plt.xlabel('movies title',fontsize=30)
                     plt.yticks(fontsize=25)
                     plt.bar(high_rated.index,high_rated['rating'],linewidth=3,edgecolor=colours,color=colours)
-                    plt.subplots_adjust(bottom=0.5)#,height=0.8)
+                    plt.subplots_adjust(bottom=0.7)
+                    plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
 
-            if selection == 'Top 20 movies with highest number of ratings':
+            if selection == 'Top 20 most rated movies':
 
                     # group movies by title and rating
                     no_ratings_df = movies_train_df.groupby('title')[['rating']].count()
