@@ -53,7 +53,7 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     st.sidebar.header('Movie Recommender Engine')
-    page_options = ["Recommender System","Solution Overview","Did you know?", "Suprise me"]
+    page_options = ["Recommender System","Solution Overview","Did you know?", "Find a movie"]
  
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -185,19 +185,54 @@ def main():
 
 
 
-        #Top 3 per genre
-        st.markdown("<h2 style='text-align: left;color: #000000;'>Top 3 most watched movies per genre</h2>", unsafe_allow_html=True)
-        genres = ['Comedy','Drama']
-        genre_selection = st.radio("What would you like to see?", genres)
-        if genre_selection == "Comedy":
-            st.write('Hello')
+    #find a movie page       
+    if page_selection == "Find a movie":
+        st.image('resources/imgs/suprise.png',use_column_width= True)
+        st.subheader('Find me a movie')
+        mov = pd.read_csv('resources/data/movies.csv')
+        romance = mov[mov['genres'].str.contains('Romance')]['title'].values
+        genres = ['Romance','Drama']
+        genre_select = st.radio('Genre',genres)
+        if genre_select == 'Romance':
+            year = [1995,1996]    
+            ryear_select = st.radio('Year', year)   
+            if ryear_select == 1995:
+                st.write(romance[5])
+            if ryear_select == 1996:
+                st.write(romance[18])
 
-    #suprise me page       
-    if page_selection == "Suprise me":
+        if genre_select == 'Drama':
+            drama = mov[mov['genres'].str.contains('Drama')]['title'].values    
+            year = [1995,1996]    
+            dyear_select = st.radio('Year', year)   
+            if dyear_select == 1995:
+                st.write(drama[5])
+            if dyear_select == 1996:
+                st.write(drama[33])        
+
         st.subheader('Here, a movie will be randomly selected for you')
         if st.button('Suprise me'):
             st.write(random.choice(title_list))
             st.balloons()
+
+        if st.button('Suprise me with a romance movie'):
+                mov = pd.read_csv('resources/data/movies.csv')
+                romance = mov[mov['genres'].str.contains('Romance')]['title'].values
+                st.write(random.choice(romance))
+                st.balloons()   
+
+        if st.button('Suprise me with a drama movie'):
+                mov = pd.read_csv('resources/data/movies.csv')
+                drama = mov[mov['genres'].str.contains('Drama')]['title'].values
+                st.write(random.choice(drama))   
+                st.balloons()     
+
+
+
+                 
+
+               
+
         
 
     #side bar description of app
