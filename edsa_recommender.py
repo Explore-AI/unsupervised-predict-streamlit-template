@@ -49,7 +49,7 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Welcome","Recommender System","View EDA",
-                    "Solution Overview", "The Rollicks"]
+                    "Solution Overview", "Meet The Rollicks"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -103,7 +103,7 @@ def main():
             ### Why a moive recommendation engine?
             + Users often struggle to find suitable movies due to the increasing amount of movie variation. As a result, recommender systems are useful for helping customers choose their preferred movies with the existing features. Recommender systems are an essential feature in our digital world, as users are often overwhelmed by choice and need help finding what they're looking for and are amongst the most popular applications of unsupervised learning. This following is an unsupervised machine learning project which seeks to predict the rating that a user will rate for a movie they have not yet viewed based on historical preferences.
             ### Model Evaluation
-            + To verify the quality of the recommender system, we adopted the root of mean squared error (RMSE) as our evaluation metric. RSME is used to measure the differences between the model predicted values and the test dataset observed values. Technically it's the square root of the average of the squares of the errors. The lower it is, the better the model is..
+            + To verify the quality of the recommender system, we adopted the root of mean squared error (RMSE) as our evaluation metric. RSME is used to measure the differences between the model predicted values and the test dataset observed values. Technically it's the square root of the average of the squares of the errors. The lower it is, the better the model will be.
             ### Singular Value Decomposition (SVD)
             + Most collaborative recommender systems perform poorly when dimensions in data increases this is often referred to as the “curse of dimensionality”. There are many dimensionality reduction algorithms such as principal component analysis (PCA) and linear discriminant analysis (LDA), but in this project, SVD algorithm was used. SVD is a well-known matrix factorization method. At a high level, SVD is an algorithm that decomposes a matrix 𝐴A into the best lower rank (i.e. smaller/simpler) approximation of the original matrix 𝐴A. For more information on SVD in recommender systems. Mathematically, it decomposes A into a two unitary matrices and a diagonal matrix
             """)
@@ -122,9 +122,7 @@ def main():
         
         st.image('resources/imgs/187-1874732_simon-james-movie-time-clipart.png',use_column_width=True)
         st.markdown(html_temp,unsafe_allow_html=True)
-##        st.write('### A Machine-Learning Movie Recommender Engine')
-##        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-        
+
 
 
     # Exploratory Data Analysis Page
@@ -136,10 +134,9 @@ def main():
 
         st.markdown(html_temp,unsafe_allow_html=True)
 
-        st.write("### Below is the data, some visuals, and insights gained from the data") 
+        st.write("### Training data for the model and visualisations to obtain insights") 
         st.write('')
 
-        #To Improve speed and cache data
         @st.cache(persist=True)
         def explore_data(dataset):
             df = pd.read_csv(os.path.join(dataset))
@@ -149,20 +146,20 @@ def main():
         data = explore_data(rating)
 
         # Show Entire Dataframe
-        tab = ['View Raw Data','Statistics','Ratings']
+        tab = ['View Raw Data','Insights','Ratings']
       ##  selection_info = st.selectbox("Select page", tab)
         selection_info = st.radio(label="Select", options=tab)
 
         if selection_info == "View Raw Data":
             st.markdown("""
-            ### About the data set
+            ### Train Data Set
             + The data we used for the model is the train set - (train.csv), which contains all movie ratings.
 
             """)
             st.dataframe(data)
 
         
-        if selection_info == "Statistics":
+        if selection_info == "Insights":
             st.markdown("""
             ### Descriptive Statistics.
             + Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.
@@ -170,21 +167,21 @@ def main():
             """)
             st.dataframe(data.describe().T)
 
-            if st.checkbox("UserId Plot"):
+            if st.checkbox("User ID"):
                 data.userId.plot(kind='box')
                 st.pyplot()
                 st.markdown("""
             ### Insights.
             + The data seems to be well distributed for the userId column.
             """)
-            elif st.checkbox("MovieId Plot"):
+            elif st.checkbox("Movie ID"):
                 data.movieId.plot(kind='box')
                 st.pyplot()
                 st.markdown("""
             ### Insights.
             + The mean is higher than the median, that shows us that we have major outliers in the high end of the data, you can see on the plot
             """)
-            elif st.checkbox("Rating Plot"):
+            elif st.checkbox("Rating"):
                 data.rating.plot(kind='box')
                 st.pyplot()
                 st.markdown("""
@@ -200,7 +197,7 @@ def main():
         
 
 # The team page.
-    if page_selection == "The Rollicks":
+    if page_selection == "Meet The Rollicks":
         html_temp = """
 			"""
         st.sidebar.markdown(html_temp)
