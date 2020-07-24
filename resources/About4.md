@@ -1,5 +1,5 @@
 ### Content-based systems
-These systems make recommendations using a user’s movie and profile features. They hypothesize that if a user was interested in a movie in the past, they will once again be interested in it in the future. Similar items are usually grouped based on their features. User profiles are constructed using historical interactions or by explicitly asking users about their interests.
+These systems make recommendations using a user's movie and profile features. They hypothesize that if a user was interested in a movie in the past, they will once again be interested in it in the future. Similar items are usually grouped based on their features. User profiles are constructed using historical interactions or by explicitly asking users about their interests.
 For instance, in a content-based movie recommender system, the similarity between the movies is calculated based on genres, the actors in the movie, the director of the movie, etc. 
 
 ### Collaborative filtering systems
