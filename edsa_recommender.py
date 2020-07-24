@@ -133,7 +133,7 @@ def main():
         st.image(i)
         st.text("     ")
         st.markdown('USERS & RATINGS')
-        st.info("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
+        st.write("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
                    0 means the user did not like the movie and 5 means the user liked the movie a lot.
                    The ratings consist of decimal numbers and integers. It is clear that the rating
                    users usually give movies is 4.0 followed by 3.0""")
@@ -151,7 +151,7 @@ def main():
         st.text("     ")
         from PIL import Image
         st.markdown('GENRES, TAGS & MOVIES')
-        st.info("""Movie tags are a user's way of identifying movies for an example a user might
+        st.write("""Movie tags are a user's way of identifying movies for an example a user might
                    identify a movie as being funny or violent or a fantasy. A movie genre is
                    determined by the plot, character, story and setting of the movie eg: comedy or
                    musical. People like different genre of movies and that can be inflenced by their
@@ -160,7 +160,7 @@ def main():
                    are oddly specific.""")
         bar_genre =Image.open("resources/imgs/l_genre.PNG")
         st.image(bar_genre, caption='Most common genres', width=650)
-        st.info("""In the above histogram we can see that the Drama genre seems to be having the
+        st.write("""In the above histogram we can see that the Drama genre seems to be having the
                  most movies tags with a little over 25000 released movies followed by the Comedy
                  genre that has over over 15000 movies. This could possible mean that most ratings
                  are coming from these two genres as well.""")
@@ -176,12 +176,18 @@ def main():
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
         st.image(movie_per, caption="Number of movies released per year", width=650)
-        st.info("""Number of movies released per year increasing almost exponentially until 2010,
+        st.write("""Number of movies released per year increasing almost exponentially until 2010,
                  then flattening and dropping signifincantly in 2011. The numbers of movies produced
                  has been increasing with each year because of availability of resources and popular use
                  of technology that was not available during 1960s. Most movies heavily depend on the use
                  of technology and some of it was not available 40 or 30 years ago. """)
         st.text("      ")
+        month =Image.open("resources/imgs/month.PNG")
+        st.image(month, caption='Number of ratings each month')
+        st.write("""The above graph is showing that most ratings are received from the month of September
+                    up until November in a year, and then start decreasing in the month of December.
+                    The decrease is not significant, but that is maybe because users are busy with holiday
+                    commitments during that time. """)
         st.markdown("MOVIE RUNTIME")
         runtime = Image.open('resources/imgs/runtime.PNG')
         st.image(runtime, caption='Top 5 movies with longest runtime in minutes', width=650)
