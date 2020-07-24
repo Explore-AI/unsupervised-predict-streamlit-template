@@ -168,7 +168,7 @@ def main():
 
         #rating distribution
         #st.markdown("<h2 style='text-align: left;color: #000000;'>Movies watched once</h2>", unsafe_allow_html=True)
-        st.image('resources/imgs/watched_once.PNG', use_column_width= True)
+        st.image('resources/imgs/rating_hist.PNG', use_column_width= True)
         st.info('From the plot above it can be observed that the integer values have taller bars than the floating values since most of the users assign rating as integer value i.e. 1, 2, 3, 4 or 5. Furthermore, it is evident that the data has a weak normal distribution with the mean of around 3.5 .')
 
         #joint plot
