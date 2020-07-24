@@ -113,25 +113,18 @@ def main():
     if page_selection == "EDA":
         st.subheader("Visualizations used to explore the data")
         if st.checkbox('Top 15 movies'):
-            #image = Image.open('top_15_movies.png')
             st.image('resources/imgs/top_15_movies.png', caption='TOP 15 MOVIES ', use_column_width=True)
         if st.checkbox('Bottom 15 Movies'):
-            #image = Image.open('bottom_15_movies.png')
             st.image('resources/imgs/bottom_15_movies.png', caption='BOTTOM 15 MOVIES', use_column_width=True)
         if st.checkbox('Frequent Genres'):
-            #image = Image.open('frequent_genres.png')
             st.image('resources/imgs/frequent_genres.png', caption='FREQUENT GENRES ', use_column_width=True)
         if st.checkbox('Genres according to Ratings'):
-            #image = Image.open('highest_rated_genres.png')
             st.image('resources/imgs/highest-rated_genres.png', caption='HIGHEST RATED GENRES', use_column_width=True)
         if st.checkbox('Director Ratings'):
-            #image = Image.open('highest_rated_directors.png')
             st.image('resources/imgs/highest-rated_directors.png', caption='HIGHEST RATED DIRECTORS', use_column_width=True)
         if st.checkbox('Runtime and score comparison'):
-            #image = Image.open('runtime_vs_score.png')
             st.image('resources/imgs/runtime_vs_score.png', caption='RUNTIME VS SCORE', use_column_width=True)
         if st.checkbox('Keywords Frequency'):
-            #image = Image.open('frequently_used_keywords.png')
             st.image('resources/imgs/frequently_used_keywords.png', caption='FREQUENTLY USED KEYWORDS', use_column_width=True)
         if st.checkbox('Keywords Frequency for Highly Rated Movies'):
             st.image('resources/imgs/keywords_for_highly-rated_movies.png', caption='FREQUENTLY USED KEYWORDS HIGHLY RATED MOVIES', use_column_width=True)
