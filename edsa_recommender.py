@@ -133,7 +133,7 @@ def main():
         st.image(i)
         st.text("     ")
         st.markdown('USERS & RATINGS')
-        st.write("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
+        st.info("""Users give a rating of movies they have watched, ratings are a scale from 0 to 5.
                    0 means the user did not like the movie and 5 means the user liked the movie a lot.
                    The ratings consist of decimal numbers and integers. It is clear that the rating
                    users usually give movies is 4.0 followed by 3.0""")
@@ -183,7 +183,7 @@ def main():
                  of technology and some of it was not available 40 or 30 years ago. """)
         st.text("      ")
         month =Image.open("resources/imgs/month.PNG")
-        st.image(month, caption='Number of ratings each month')
+        st.image(month, caption='Number of ratings each month', width=650)
         st.info("""The above graph is showing that most ratings are received from the month of September
                     up until November in a year, and then start decreasing in the month of December.
                     The decrease is not significant, but that is maybe because users are busy with holiday
@@ -219,6 +219,8 @@ def main():
         st.text("      ")
         forest = Image.open('resources/imgs/forest.PNG')
         st.image(forest,caption="Random forest RMSE score", width=650)
+        st.text("       ")
+        st.info("The model wich gave best results is ")
 
     if page_selection =="About team 5":
         st.write('### Team 5')
