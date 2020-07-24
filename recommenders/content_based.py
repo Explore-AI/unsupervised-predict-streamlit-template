@@ -37,6 +37,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',',delimiter=',')
 ratings = pd.read_csv('resources/data/ratings.csv')
+imdb = pd.read_csv('resources/data/imdb_data.csv')
 movies.dropna(inplace=True)
 
 def data_preprocessing(subset_size):
@@ -53,8 +54,22 @@ def data_preprocessing(subset_size):
         Subset of movies selected for content-based filtering.
 
     """
+    #creating dictionary of movie runtimes
+    mov_idsIMDB = imdb['movieId'].values
+    runtime = imdb['runtime'].values
+    runDict = dict(zip(mov_idsIMDB, runtime))
+    mean_run = imdb.runtime.mean()
+    
+    #adding runtime dataa to movies
+    def timeit(text):
+        mean_run = imdb.runtime.mean()
+        hold = runDict.get(text, mean_run)
+        return hold
+    movies['runtime'] = movies['movieId'].apply(timeit)
+    
     # Split genre data into individual words.
     movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    
     # Subset of the data
     movies_subset = movies[:subset_size]
     return movies_subset
@@ -81,19 +96,27 @@ def content_model(movie_list,top_n=10):
     # Initializing the empty list of recommended movies
     recommended_movies = []
     data = data_preprocessing(27000)
+    #Quick worker genre based recommendations to add to
+    genre_dummies = data['genres'].str.get_dummies(sep=',')
+    runtime = data['runtime']
+    simi_df = pd.concat([runtime, genre_dummies], axis=1)
+    genre_cosine = cosine_similarity(genre_dummies, genre_dummies)
+    '''
+    ##quick worker end
     # Instantiating and generating the count matrix
     count_vec = CountVectorizer()
     count_matrix = count_vec.fit_transform(data['keyWords'])
+    '''
     indices = pd.Series(data['title'])
-    cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    #cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
     idx_3 = indices[indices == movie_list[2]].index[0]
     # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
+    rank_1 = genre_cosine[idx_1]
+    rank_2 = genre_cosine[idx_2]
+    rank_3 = genre_cosine[idx_3]
     # Calculating the scores
     score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
