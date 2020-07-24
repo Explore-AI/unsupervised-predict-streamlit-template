@@ -134,12 +134,17 @@ def main():
             #image = Image.open('frequently_used_keywords.png')
             st.image('resources/imgs/frequently_used_keywords.png', caption='FREQUENTLY USED KEYWORDS', use_column_width=True)
         if st.checkbox('Keywords Frequency for Highly Rated Movies'):
-            #image = Image.open('keywords_for_highly_rated_movies.png')
             st.image('resources/imgs/keywords_for_highly-rated_movies.png', caption='FREQUENTLY USED KEYWORDS HIGHLY RATED MOVIES', use_column_width=True)
         if st.checkbox('Keywords Frequency for Poorly Rated Movies'):
-            #image = Image.open('keywords_for_poorly_rated_movies.png')
             st.image('resources/imgs/Keywords_for_poorly-rated_movies.png', caption='FREQUENTLY USED KEYWORDS POORLY RATED MOVIES', use_column_width=True)
-
+        if st.checkbox('User Rating Distribution'):
+            st.image('resources/imgs/User_Rating_Distribution.png', caption='USER RATED DISTRIBUTION', use_column_width=True)
+        if st.checkbox('User Rating Distribution Curve'):
+            st.image('resources/imgs/User_Rating_Distribution_Curve.png', caption='USER RATED DISTRIBUTION CURVE', use_column_width=True)
+        if st.checkbox('User Rating Toy Story Movie'):
+            st.image('resources/imgs/User_Rating_Toy_Story_1995.png', caption='USER RATED DISTRIBUTION TOY STORY 1995', use_column_width=True)
+        if st.checkbox('User 5163 Ratings'):
+            st.image('resources/imgs/User_5163_Ratings.png', caption='USER 5163 RATINGS', use_column_width=True)
 
     #----- Code for trending page-----
     # Merge train and movies tables

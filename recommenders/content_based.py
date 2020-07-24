@@ -100,7 +100,7 @@ def content_model(movie_list,top_n=10):
     genre_dummies = data['genres'].str.get_dummies(sep=',')
     runtime = data['runtime']
     simi_df = pd.concat([runtime, genre_dummies], axis=1)
-    genre_cosine = cosine_similarity(simi_df, simi_df)
+    genre_cosine = cosine_similarity(genre_dummies, genre_dummies)
     '''
     ##quick worker end
     # Instantiating and generating the count matrix
