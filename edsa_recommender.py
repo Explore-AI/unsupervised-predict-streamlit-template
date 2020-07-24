@@ -174,10 +174,10 @@ def main():
     if page_selection == "EDA and Insights":
         st.title('Exploratory Data Analysis and Insights')
         st.info("The main characteristics of the data are summarized and insights are drawn.")
-        st.write('###  Use the sidebar to view visualizations and insights for particular variables')
+        st.write('###  Use the sidebar to view visuals and insights for particular variables')
 
         # Adding to sidebar
-        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Movies","Genres and Ratings","Directors"])
+        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Genres and Ratings","Movies","Directors"])
 
         if variable_selection == "Genres":
             a = pd.melt(df_genres)
@@ -207,16 +207,13 @@ def main():
             fig.subplots_adjust(hspace=1, wspace=1)
             for i in range(1, 21):
                 plt.subplot(4, 5, i)
-                plt.pie(genre_ratings[names[i-1]], colors=colours, radius=1.8, autopct='%0.1f%%',pctdistance=1.2)
-                fig.set_size_inches(20, 16)
+                plt.pie(genre_ratings[names[i-1]], colors=colours, radius=2, autopct='%0.1f%%',pctdistance=1.2)
+                fig.set_size_inches(20, 16) 
                 plt.title(names[i-1], pad=58, fontsize=14)
-            plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.8, 6.5))
+            plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
             st.pyplot()
 
-            v = df_genres['genres'].value_counts()
-            st.write(v)
-
-            st.markdown('Based on the number of ratings each genre got, looking at the pie plots it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4.<br><br> Of all the genres, war movies are the highest rated movies because they have the highest percentage of movies that are rated 5 at 23.6% compared to the other genres. The movies that do not have a listed genre have the highest percentage of movies rated 0.5 of 6.68% compared to the other genres, which suggests that the movies with no listed genre are more likely to be rated lower than the other genres', unsafe_allow_html=True)
+            st.markdown('Based on the number of ratings each genre got, looking at the pie plots it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4.<br><br> Of all the genres, war movies are the highest rated movies because they have the highest percentage of movies that are rated 5 at 23.6% compared to the other genres.', unsafe_allow_html=True)
 
         if variable_selection == "Ratings":
             # Examine movie ratings from all users
@@ -266,7 +263,7 @@ def main():
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
 
-                    plt.figure(figsize=(30,50))
+                    plt.figure(figsize=(30,30))
                     plt.title('Top 20 movies with highest rating',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('ratings',fontsize=30)
@@ -287,7 +284,7 @@ def main():
                     rating_count_20 = no_ratings_df.nlargest(20,'rating')
 
                     # plot movies with the highest number of ratings
-                    plt.figure(figsize=(30,10))
+                    plt.figure(figsize=(30,50))
                     plt.title('Top 20 movies with highest number of ratings',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.xticks(fontsize=25,rotation=90)
@@ -295,6 +292,8 @@ def main():
                     plt.xlabel('movies title',fontsize=30)
                     plt.ylabel('ratings',fontsize=30)
                     plt.bar(rating_count_20.index,rating_count_20.rating,color=colours)
+                    plt.subplots_adjust(bottom=0.7)
+                    plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
@@ -306,7 +305,7 @@ def main():
                     genome_train_grouped = genome_movies_df.groupby(['title'])[['relevance']].sum()
                     high_relevance = genome_train_grouped.nlargest(20,'relevance')
 
-                    plt.figure(figsize=(30,10))
+                    plt.figure(figsize=(30,50))
                     plt.title('Top 20 movies with highest relevance',fontsize=40)
                     colors = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('Relevance',fontsize=30)
@@ -314,6 +313,8 @@ def main():
                     plt.xlabel('Movies title',fontsize=30)
                     plt.yticks(fontsize=25)
                     plt.bar(high_relevance.index,high_relevance['relevance'],linewidth=3,edgecolor=colors,color=colors)
+                    plt.subplots_adjust(bottom=0.7)
+                    plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
@@ -325,7 +326,7 @@ def main():
                     df_runtime = imdb_movies.groupby(['title'])[['runtime']].sum()
                     long_runtime = df_runtime.nlargest(10,'runtime')
 
-                    plt.figure(figsize=(30,10))
+                    plt.figure(figsize=(30,50))
                     plt.title('Top 10 movies with longest runtime',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','forestgreen','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('Movie runtime (in minutes)',fontsize=30)
@@ -333,6 +334,8 @@ def main():
                     plt.xlabel('Movies title',fontsize=30)
                     plt.yticks(fontsize=20)
                     plt.bar(long_runtime.index,long_runtime['runtime'],linewidth=3,edgecolor=colours,color=colours)
+                    plt.subplots_adjust(bottom=0.7)
+                    plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
