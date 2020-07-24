@@ -151,7 +151,7 @@ def main():
         st.text("     ")
         from PIL import Image
         st.markdown('GENRES, TAGS & MOVIES')
-        st.write("""Movie tags are a user's way of identifying movies for an example a user might
+        st.info("""Movie tags are a user's way of identifying movies for an example a user might
                    identify a movie as being funny or violent or a fantasy. A movie genre is
                    determined by the plot, character, story and setting of the movie eg: comedy or
                    musical. People like different genre of movies and that can be inflenced by their
@@ -160,7 +160,7 @@ def main():
                    are oddly specific.""")
         bar_genre =Image.open("resources/imgs/l_genre.PNG")
         st.image(bar_genre, caption='Most common genres', width=650)
-        st.write("""In the above histogram we can see that the Drama genre seems to be having the
+        st.info("""In the above histogram we can see that the Drama genre seems to be having the
                  most movies tags with a little over 25000 released movies followed by the Comedy
                  genre that has over over 15000 movies. This could possible mean that most ratings
                  are coming from these two genres as well.""")
@@ -176,7 +176,7 @@ def main():
         from PIL import Image
         movie_per = Image.open("resources/imgs/movie_per.PNG")
         st.image(movie_per, caption="Number of movies released per year", width=650)
-        st.write("""Number of movies released per year increasing almost exponentially until 2010,
+        st.info("""Number of movies released per year increasing almost exponentially until 2010,
                  then flattening and dropping signifincantly in 2011. The numbers of movies produced
                  has been increasing with each year because of availability of resources and popular use
                  of technology that was not available during 1960s. Most movies heavily depend on the use
@@ -184,7 +184,7 @@ def main():
         st.text("      ")
         month =Image.open("resources/imgs/month.PNG")
         st.image(month, caption='Number of ratings each month')
-        st.write("""The above graph is showing that most ratings are received from the month of September
+        st.info("""The above graph is showing that most ratings are received from the month of September
                     up until November in a year, and then start decreasing in the month of December.
                     The decrease is not significant, but that is maybe because users are busy with holiday
                     commitments during that time. """)
@@ -207,7 +207,7 @@ def main():
         st.info("""The measure of how well the model performs was defined by the RMSE score which is a value
                  between 1 and 0. It is used to measure the differences between values predicted by the
                  model and the values actually observed. The lower the RMSE, the more accurate the model""")
-        st.write(""" Firstly, we used Principal Component Analysis which is a dimentionality reduction method
+        st.info(""" Firstly, we used Principal Component Analysis which is a dimentionality reduction method
                 that is often used to reduce the dimensionality of large data sets, by transforming a large
                 set of variables into a smaller one that still contains most of the information in the large
                 set. We used it with Random Forest and XGBoost. The RMSE score we were striving for was expected
