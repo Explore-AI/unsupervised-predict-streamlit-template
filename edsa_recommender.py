@@ -90,11 +90,12 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     st.sidebar.title("Pages")
-    page_selection = st.sidebar.radio(label="",options = ["Information","EDA and Insights","Recommender System","Solution Overview"])
+    page_selection = st.sidebar.radio(label="",options = ["Information","EDA and Insights","Recommender System","Solution Overview", "Business Pitch"])
     
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
+
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
@@ -418,6 +419,54 @@ def main():
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
     
+    if page_selection == "Business Pitch":
+        st.title('Business Proposal')
+        st.write('Looking at the current and increased demand of precise and accurate movie recommender models. ')
+        st.write('We have developed an application that evaluates the appetite of viewers and utilizes aggregates that ')
+        st.write('would be able to satisfy your viewers. Considering that the structure of viewership from a ')
+        st.write('television channel (M-Net being our client) is vastly different from that of online movie ')
+        st.write('hosts, in regards that the online movies have the liberty to choose the film of their choice at') 
+        st.write('any given time whereas on television there are restriction on choice and prefered time to watch')
+        st.write('the film.')
+
+        st.write('Given that our client has a presence on TV and the internet (through DSTV), the web app will be able to render ')
+        st.write('solutions for both the platforms. We will observe the TV platform then followed by the online ')
+        st.write('platform.')
+
+        st.write('1. M-Net TV')
+        st.write('Given that there is a limitation of choice on TV we have decided to use world aggregates to ')
+        st.write('determine the top movies that would mesmerize the clients. First we will observe the top rated')
+        st.write('genres world wide: below is the top 20 rated genres.')
+        if page_selection == "Business Pitch":
+            # Calculate the number of ratings per genre of movie
+            df_genres['movieId'] = df['movieId']
+            genre_ratings = pd.merge(left=train, right=df_genres, left_on='movieId', right_on='movieId')
+            genre_ratings.drop(['userId', 'movieId', 'timestamp'], axis=1, inplace=True)
+            genre_ratings = genre_ratings.groupby(by=['rating'], axis=0).sum()
+
+            # Examine how the different movie genres are historically rated by users
+            names = list(genre_ratings.columns)
+            labels = list(genre_ratings.index)
+            colours = sns.color_palette(palette='viridis', n_colors=len(labels), desat=None)
+
+            fig = plt.figure()
+            fig.subplots_adjust(hspace=1, wspace=1)
+            for i in range(1, 21):
+                plt.subplot(4, 5, i)
+                plt.pie(genre_ratings[names[i-1]], colors=colours, radius=2, autopct='%0.1f%%',pctdistance=1.2)
+                fig.set_size_inches(20, 16) 
+                plt.title(names[i-1], pad=58, fontsize=14)
+            plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
+            st.pyplot()
+
+        st.write('Now that we have the top genres we could filter out movies and get the top movies of the top genres ')
+        st.write('and thus base our movie playlist from that perspective.')
+
+        st.write('2. M-Net Online')
+        st.write('When approaching the internet platform we will apply some of the most popular and proven ')
+        st.write('recommender algorithms to make catered recommendations for each individual. An example of ')
+        st.write('this algorithm in application can be observed on the Movie recommender page of this web app.')
+        st.write('Below you can see a table showing the top 20 movies recommended for user no. 777.')
 
     st.sidebar.title("About")
     st.sidebar.info(
