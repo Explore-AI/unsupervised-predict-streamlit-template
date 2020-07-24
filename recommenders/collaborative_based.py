@@ -32,18 +32,35 @@ import pandas as pd
 import numpy as np
 import pickle
 import copy
-from surprise import Reader, Dataset
+import streamlit as st
+from surprise import Reader, Dataset, dump
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
-movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-ratings_df = pd.read_csv('resources/data/ratings.csv')
-ratings_df.drop(['timestamp'], axis=1,inplace=True)
+# movies_df = pd.read_csv('resources/data/movies_10m.csv',sep = ',',delimiter=',')
+# ratings_df = pd.read_csv('resources/data/train.csv')
+# ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
+
+def load_data():
+    movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
+    ratings_df = pd.read_csv('resources/data/ratings.csv')
+    ratings_df.drop(['timestamp'], axis=1,inplace=True)
+
+    return movies_df, ratings_df
+
+movies_df, ratings_df = load_data()    
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+# model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+MODEL_PATH = 'resources/models/defaultParams_full_data__07-12-2020-at-23-48-40_SVD_model.dump'
+
+
+def model_loader(file_name):
+    return dump.load(file_name)
+
+_, model = model_loader(MODEL_PATH)
 
 def prediction_item(item_id):
     """Map a given favourite movie to users within the
@@ -65,9 +82,8 @@ def prediction_item(item_id):
     load_df = Dataset.load_from_df(ratings_df,reader)
     a_train = load_df.build_full_trainset()
 
-    predictions = []
-    for ui in a_train.all_users():
-        predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
+    predictions = [ model.predict(iid=item_id,uid=ui, verbose = False) for ui in a_train.all_users() ]
+    
     return predictions
 
 def pred_movies(movie_list):

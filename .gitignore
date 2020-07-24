@@ -136,3 +136,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+############################################
+#           Block Large files              #
+############################################
+resources/data/movies_10m.csv
+resources/data/train.csv
+resources/models/*.dump
+resources/models/*.h5
