@@ -131,7 +131,7 @@ def main():
         st.markdown('This section contains insights from the Movie Lens dataset which was used to build the Movie recommender system.')
         #top 3 most watched movies
         st.markdown("<h2 style='text-align: left;color: #000000;'>Top 3 most watched movies</h2>", unsafe_allow_html=True)
-        st.image('resources/imgs/Top3.png', use_column_width= True)
+        st.image('resources/imgs/top3.png', use_column_width= True)
         st.markdown('Watch **[The Shawshank Redemption](https://www.youtube.com/watch?v=6hB3S9bIaco)**')
         st.markdown('Watch **[Forrest Gump](https://www.youtube.com/watch?v=bLvqoHBptjg)**')
         st.markdown('Watch **[Pulp Fiction](https://www.youtube.com/watch?v=s7EdQ4FqbhY)**')
