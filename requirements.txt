@@ -1,4 +1,1 @@
--U streamlit numpy pandas scikit-learn 
-surprise
-markdown 
-wordcloud
+streamlit numpy pandas scikit-learn surprise markdown wordcloud
