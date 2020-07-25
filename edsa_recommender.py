@@ -129,16 +129,13 @@ def main():
     
     # Landing Page
     if page_selection == "Welcome":
-        st.image('resources/imgs/rollick-logo-primary.png',use_column_width=True)
+        st.image('resources/imgs/our_logo.png',use_column_width=True)
         html_temp = """
         <div style="background-color:;padding:10px">
         <h3 style="color:red;text-align:center;">Welcome to Rollick, A Machine-Learning Movie Recommender Engine. Our platform helps you find movies you will like using a recommendation ML model through rated movies to build a custom taste profile, then recommends other movies for you to watch based on preselections.</h3>
-        </div>"""
-        
-        
-        st.image('resources/imgs/187-1874732_simon-james-movie-time-clipart.png',use_column_width=True)
+        </div>""" 
+        st.image('resources/imgs/rollick_mascot.png',use_column_width=True)
         st.markdown(html_temp,unsafe_allow_html=True)
-
 
 
     # Exploratory Data Analysis Page
