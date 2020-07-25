@@ -432,16 +432,16 @@ def main():
     if page_selection == "Business Pitch":
         st.title('Business Proposal')
         st.write('Looking at the current and increased demand of precise and accurate movie recommender models. ')
-        st.write('We have developed an application that evaluates the appetite of viewers and utilizes aggregates that ')
-        st.write('would be able to satisfy your viewers. Considering that the structure of viewership from a ')
+        st.write('We have developed an application that evaluates the appetite of viewers and utilizes aggregates ')
+        st.write('that would be able to satisfy your viewers. Considering that the structure of viewership from a ')
         st.write('television channel (M-Net being our client) is vastly different from that of online movie ')
         st.write('hosts, in regards that the online movies have the liberty to choose the film of their choice at') 
         st.write('any given time whereas on television there are restriction on choice and prefered time to watch')
         st.write('the film.')
 
-        st.write('Given that our client has a presence on TV and the internet (through DSTV), the web app will be able to render ')
-        st.write('solutions for both the platforms. We will observe the TV platform then followed by the online ')
-        st.write('platform.')
+        st.write('Given that our client has a presence on TV and the internet (through DSTV),  the web app will ')
+        st.write('be able to render solutions for both the platforms. We will observe the TV platform then followed by')
+        st.write('the online platform.')
 
         st.write('1. M-Net TV')
         st.write('The limitation of choice on TV has led us to use world aggregates to determine the')
@@ -469,8 +469,8 @@ def main():
             plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
             st.pyplot()
 
-        st.write('Now that we have the top genres we could filter out movies and get the top movies of the top genres ')
-        st.write('and thus base our movie playlist from that perspective.')
+        st.write('Now that we have the top genres we could filter out movies and get the top movies of the')
+        st.write('top genres and thus base our movie playlist from that perspective.')
 
         st.write('2. M-Net Online')
         st.write('When approaching the internet platform we will apply some of the most popular and proven ')
