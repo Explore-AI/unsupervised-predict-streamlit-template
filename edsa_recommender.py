@@ -105,7 +105,7 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
 
-
+    st.sidebar.info('Click dropdown above to begin :popcorn:')
     if page_selection == "Solution Overview":
         html_temp = """
         <h1 style="font-size: 30px;margin-bottom: 10px;text-align: center;">Solution Overview</h1>
@@ -203,6 +203,8 @@ def main():
 
             """)
             st.dataframe(data)
+
+    
 
 # The team page.
     if page_selection == "Meet The Rollicks":
@@ -317,8 +319,6 @@ def main():
 				</div>
 			"""
         st.markdown(cl, unsafe_allow_html=True)
-
-st.sidebar.info('Select a tab from the dropdown below to begin :popcorn:')
 
 if __name__ == '__main__':
     main()
