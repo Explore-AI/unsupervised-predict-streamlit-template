@@ -178,7 +178,7 @@ def main():
         st.write('###  Use the sidebar to view visuals and insights for particular variables')
 
         # Adding to sidebar
-        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Genres and Ratings","Movies","Directors"])
+        variable_selection = st.sidebar.radio(label="Select variable(s):",options = ["Genres","Ratings","Genres and Ratings",'Runtime',"Movies","Directors"])
 
         if variable_selection == "Genres":
             a = pd.melt(df_genres)
@@ -190,7 +190,7 @@ def main():
             plt.ylabel('')
             st.pyplot()
 
-            st.markdown('It is the quiet clear from the graph that drama is the most popular genre with 78%, with comedy falling second with 33%. Film-Noir and IMAX genres are the least popular genres with 78% and 3% respectively. About 55% of the movies made do not have a genre listed under them.', unsafe_allow_html=True)
+            st.markdown("This graphs shows the number of movies in each genre, some movies are labelled with multiple genres. It is the quiet clear that drama is the most popular genre, with comedy falling second. Film-Noir and IMAX genres are the least popular genres.<br><br>Film noir is a style of filmmaking characterized by such elements as cynical heroes, stark lighting effects, frequent use of flashbacks, intricate plots, and an underlying existentialist philosophy.The genre was prevalent mostly in American crime dramas of the post-World War II era. This shows that Film noir is associated with some Western and war generes, therefore might share half of the movies in the weatern and war genres. Western and war genres seem to have a small number of movies, this shows why flim noir has an even lower number.", unsafe_allow_html=True)
 
         if variable_selection == "Genres and Ratings":
             # Calculate the number of ratings per genre of movie
@@ -214,7 +214,7 @@ def main():
             plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
             st.pyplot()
 
-            st.markdown('Based on the number of ratings each genre got, looking at the pie plots it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4.<br><br> Of all the genres, war movies are the highest rated movies because they have the highest percentage of movies that are rated 5 at 23.6% compared to the other genres.', unsafe_allow_html=True)
+            st.markdown("The pie charts show the ratings associated with each genre. Based on the number of ratings each genre got, it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4. <br><br>It is also evident that the lower ratings have small percentages for all the genres.",unsafe_allow_html=True)
 
         if variable_selection == "Ratings":
             # Examine movie ratings from all users
@@ -225,7 +225,7 @@ def main():
             plt.ylabel('Count')
             st.pyplot()
 
-            st.markdown('From the plot above it is evident that a lot of users gave the movies a rating of 4, 26.53% of them to be precise, while the lowest rating 0.5 accounts for only 1.58% of the users. It can also be seen that the ratings are left skewed, which suggests that most of the movies have high ratings and that the mean is lower than the mode.  ', unsafe_allow_html=True)
+            st.markdown("From the plot and table above it is evident that majority of users gave the movies a rating of 4, 26.53% of them to be precise, while the lowest rating 0.5 accounts for only 1.58% of the users.<br><br> It can also be seen that the ratings are left skewed, whiich suggests that most of the movies have high ratings and also that the mean is lower than the mode.", unsafe_allow_html=True)
 
             # Five number summary
             st.write("#### Five number summary and boxplot")
@@ -276,7 +276,7 @@ def main():
                     plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+                    st.markdown('This graph shows the top 20 highest rated movies. The(1994) Shawshank Redemption is the highest rated movie taking the number 1 spot. The Shawshank Redemption is a 1994 American drama film written and directed by Frank Darabont, based on the 1982 Stephen King novella Rita Hayworth and Shawshank. Following at number 2 is the pulp fiction.The ratings are grouped based on the title the calculate the sum of the ratings to get a total.', unsafe_allow_html=True)
 
             if selection == 'Top 20 most rated movies':
 
@@ -297,7 +297,7 @@ def main():
                     plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+                    st.markdown('This graph shows most rated movies. The(1994) Shawshank Redemption is the most rated movie in the dataset. If we combine these findings with the ones on the "highest rated movies" plot we can see that it is not only the most rated movie but the users are rating it very high, which can lead to the conlusion that it a satisfying movie.', unsafe_allow_html=True)
 
             if selection == 'Top 20 movies with highest relevance':
 
@@ -318,28 +318,33 @@ def main():
                     plt.xticks(rotation=60, ha='right')
                     st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+                    st.markdown('The above graph shows the top 20 most relevant movies. These are the movies that can connect to people and can also be recommended to new users that do not have a history in a platform', unsafe_allow_html=True)
 
 
-            if selection == 'Top 10 movies with longest runtime':
+        if variable_selection == 'Runtime':
 
-                    imdb_movies = pd.merge(imdb,movies, how='left',on='movieId')
-                    df_runtime = imdb_movies.groupby(['title'])[['runtime']].sum()
-                    long_runtime = df_runtime.nlargest(10,'runtime')
+            plt.figure(figsize=(6,4))
+            plt.hist(imdb['runtime'], color = 'green', edgecolor = 'black',
+                     bins = int(100/5))
+            plt.xlim(0,250)
 
-                    plt.figure(figsize=(30,50))
-                    plt.title('Top 10 movies with longest runtime',fontsize=40)
-                    colours = ['forestgreen','burlywood','gold','forestgreen','magenta','cyan','aqua','navy','lightblue','khaki']
-                    plt.ylabel('Movie runtime (in minutes)',fontsize=30)
-                    plt.xticks(fontsize=20,rotation=90)
-                    plt.xlabel('Movies title',fontsize=30)
-                    plt.yticks(fontsize=20)
-                    plt.bar(long_runtime.index,long_runtime['runtime'],linewidth=3,edgecolor=colours,color=colours)
-                    plt.subplots_adjust(bottom=0.7)
-                    plt.xticks(rotation=60, ha='right')
-                    st.pyplot()
+            # seaborn histogram
+            sns.distplot(imdb['runtime'], hist=True, kde=False, 
+                        bins=int(100/5), color = 'green',
+                        hist_kws={'edgecolor':'black'})
+            # Add labels
+            plt.title('Distribution of Movie Runtimes')
+            plt.xlabel('Runtime')
+            plt.ylabel('Movies')
+            st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+            # Getting the five number summary and boxplot of runtimes
+            st.write("#### Five number summary and boxplot")
+
+            summary = imdb['runtime'].describe(include='all')
+            st.write(summary)
+
+            st.markdown('The average runtime for a movie is 102.72 minutes, it can also be seen from the graph that there is a huge spike of frequency at the 100 minutes runtime. The shortest movie runs for 1 minute and the longest movie runs for 750 minutes, which suggests an anomaly with the value.', unsafe_allow_html=True)
 
         if variable_selection == "Directors":
             directors_movies = df[['director']]  # Create dataframe to analyse director variable
@@ -380,7 +385,7 @@ def main():
             if selection == 'Top 20 directors with the most projects':
 
                     plt.bar(directors_count.index[0:20], height=directors_count['count'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
-                    plt.title("Number of movies a director worked on")
+                    plt.title("Highest number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
                     plt.xticks(rotation=60)
@@ -408,7 +413,7 @@ def main():
             if selection == 'Top 20 directors with the least projects':
 
                     plt.bar(directors_count.index[-20:], height=directors_count['count'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
-                    plt.title("Number of movies a director worked on")
+                    plt.title("Lowest number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
                     plt.xticks(rotation=60)
@@ -434,8 +439,8 @@ def main():
         st.write('platform.')
 
         st.write('1. M-Net TV')
-        st.write('Given that there is a limitation of choice on TV we have decided to use world aggregates to ')
-        st.write('determine the top movies that would mesmerize the clients. First we will observe the top rated')
+        st.write('The limitation of choice on TV has led us to use world aggregates to determine the')
+        st.write('top movies that would mesmerize the clients. First we will observe the top rated')
         st.write('genres world wide: below is the top 20 rated genres.')
         if page_selection == "Business Pitch":
             # Calculate the number of ratings per genre of movie
