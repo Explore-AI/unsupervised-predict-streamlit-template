@@ -122,7 +122,8 @@ def main():
             ### Singular Value Decomposition (SVD)
             + Most collaborative recommender systems perform poorly when dimensions in data increases this is often referred to as the “curse of dimensionality”. There are many dimensionality reduction algorithms such as principal component analysis (PCA) and linear discriminant analysis (LDA), but in this project, SVD algorithm was used. SVD is a well-known matrix factorization method. At a high level, SVD is an algorithm that decomposes a matrix 𝐴A into the best lower rank (i.e. smaller/simpler) approximation of the original matrix 𝐴A. For more information on SVD in recommender systems. Mathematically, it decomposes A into a two unitary matrices and a diagonal matrix
             """)
-   ##     st.markdown(open('resources/Solution_Overview.md').read())
+        st.image('resources/imgs/collaborative.png',use_column_width=True)
+   ##   st.markdown(open('resources/Solution_Overview.md').read())
 
 
     
@@ -161,55 +162,47 @@ def main():
         data = explore_data(rating)
 
         # Show Entire Dataframe
-        tab = ['View Raw Data','Insights','Ratings']
+        tab = ['Visual Data & Observations', 'View Raw Data']
       ##  selection_info = st.selectbox("Select page", tab)
-        selection_info = st.radio(label="Select", options=tab)
+        selection_info = st.radio(label="Select Below", options=tab)
+        
+        if selection_info == "Visual Data & Observations":
+            if st.checkbox("User Ratings"):
+                st.markdown("""
+            ### Observations
+            + Movie that was rated the most by users is "Great Performances" Cats (1998) with the rating of 2.0, this can also tells us that the movie is being watched by most of the users as they have given it a rating.
+            + Having that in mind we can draw some insights that the movie is most prefered compared to #Female Pleasure (2018) which is rated 4.0 by only a single user.
+            + Some movies are rated high but only by a single user.
+            + The joint plot shows that one user may give a high single rating for that movie by looking at number of rating.
+            """)
+                st.image('resources/imgs/Webp.net-resizeimage.png',use_column_width=False)
+
+                st.image('resources/imgs/Webp.net-resizeimage (2).png',use_column_width=False)
+
+            elif st.checkbox("Ratings Per Genre"):
+                st.markdown("""
+            ### Observations
+            + The top 3 most popular movie genres in terms of ratings are Drama, Comedy and Action respectively, with documentary being the least popular genre.
+            + We can also tell that on our genre dataset some movie genres were not recorded,of which it maybe due to while rating the user forgot to pick the genre of that movie.
+            """)       
+                st.image('resources/imgs/genre.png',use_column_width=True)
+
+                st.markdown("""
+            ### Observations
+            + The top 3 genre are Drama ,Comedy and Thriller when looking at keyword occurance.Which tell us that these are the most prefered genres as those words still include the most rated genre.
+            + Word like Romance and Action still looked to be bold or emphasised which shows that these genres are still amoungst the top viewed genres taking into account some movie genres are not liststed.Which shows that users still prefer to watch such movies.
+            + The least viewed genre is Western and War ,which is displayed by the size of each word.
+            """)
+                st.image('resources/imgs/erwwsf.png',use_column_width=True)
+
 
         if selection_info == "View Raw Data":
             st.markdown("""
             ### Train Data Set
-            + The data we used for the model is the train set - (train.csv), which contains all movie ratings.
+            Below is the data we used to train our model in a csv file format.
 
             """)
             st.dataframe(data)
-
-        
-        if selection_info == "Insights":
-            st.markdown("""
-            ### Descriptive Statistics.
-            + Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset’s distribution, excluding NaN values.
-
-            """)
-            st.dataframe(data.describe().T)
-
-            if st.checkbox("User ID"):
-                data.userId.plot(kind='box')
-                st.pyplot()
-                st.markdown("""
-            ### Insights.
-            + The data seems to be well distributed for the userId column.
-            """)
-            elif st.checkbox("Movie ID"):
-                data.movieId.plot(kind='box')
-                st.pyplot()
-                st.markdown("""
-            ### Insights.
-            + The mean is higher than the median, that shows us that we have major outliers in the high end of the data, you can see on the plot
-            """)
-            elif st.checkbox("Rating"):
-                data.rating.plot(kind='box')
-                st.pyplot()
-                st.markdown("""
-            ### Insights.
-            + The mean is lower than the median, showings that we have outliers in the lower end of the data, you can see on the plot
-            """)
-
-        if selection_info == "Ratings":
-            st.markdown("### Movie Rating")
-            data.rating.value_counts().plot(kind='bar',color='gold')
-            st.pyplot()
-
-        
 
 # The team page.
     if page_selection == "Meet The Rollicks":
