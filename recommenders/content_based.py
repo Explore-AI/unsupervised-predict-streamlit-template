@@ -34,16 +34,15 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
+
 # change path to match location of files
-sample = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\sample_submission.csv')
-genome_scores = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\genome_scores.csv')
-genome_tags = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\genome_tags.csv')
-tags = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\\tags.csv')
-test = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\\test.csv')
-train = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\\train.csv')
-links = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\links.csv')
-imdb_data = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\imdb_data.csv')
-movies = pd.read_csv('C:\\Users\\kenma\\OneDrive\\Desktop\\Unsupervised\\Kaggle-hackathon\\Data\movies.csv')
+sample = pd.read_csv('/home/explore-student/unsupervised_data/sample_submission.csv')
+genome_scores = pd.read_csv('/home/explore-student/unsupervised_data/genome_scores.csv')
+genome_tags = pd.read_csv('/home/explore-student/unsupervised_data/genome_tags.csv')
+train = pd.read_csv('/home/explore-student/unsupervised_data/train.csv')
+links = pd.read_csv('/home/explore-student/unsupervised_data/links.csv')
+imdb_data = pd.read_csv('/home/explore-student/unsupervised_data/imdb_data.csv')
+movies = pd.read_csv('/home/explore-student/unsupervised_data/movies.csv')
 
 def unique_words(s):
 

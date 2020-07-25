@@ -30,74 +30,148 @@
 # Script dependencies
 import pandas as pd
 import numpy as np
+import bz2
+import _pickle as cPickle
 import pickle
 import copy
 from surprise import Reader, Dataset
-from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
+from surprise import SVD
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
+import surprise as surp
+
+
 
 # Importing data
-movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-ratings_df = pd.read_csv('resources/data/ratings.csv')
-ratings_df.drop(['timestamp'], axis=1,inplace=True)
-
-# We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
 model=pickle.load(open('resources/models/svd.pkl', 'rb'))
 
-def prediction_item(item_id):
-    """Map a given favourite movie to users within the
-       MovieLens dataset with the same preference.
+df_movie = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/movies.csv',sep = ',',delimiter=',')
+df_rating = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
 
-    Parameters
-    ----------
-    item_id : int
-        A MovieLens Movie ID.
+#-----------------------------#
+class CFData:
+    def __init__(self, df_rating, test_ratio=None, df_id_name_table=None, rating_scale=(1, 5)):
+            """
+            Initialize collaborative filtering data class
+            :param df_rating: pandas dataframe containing columns: 'userID', 'itemID', 'rating' in correct order
+            :param df_id_name_table: table to convert itemID to readable item name (like movie title). 
+                                     dataframe containg columns: 'itemID' and 'itemName' in correct order
+            :return: None
+            Eg: 
+                df_id_name_table = df_movie[['movieId', 'title']].\
+                    rename(index=str, columns={'movieID':'itemID', 'title':'itemName'})
+                cfdata_example = CFData(data, df_id_name_table)
+                cfdata_example.convert_name_to_id('Toy Story (1995)')
+                cfdata_example.convert_id_to_name(1)
+            """      
+            reader = surp.Reader(rating_scale=rating_scale)
+            rating_data = surp.Dataset.load_from_df(df_rating, reader)
+            self.trainset = rating_data.build_full_trainset()
+      
+            if test_ratio is not None:
+                self.trainset, self.testset = surp.model_selection.train_test_split(data=rating_data, test_size=test_ratio)
+            else:
+                self.trainset = rating_data.build_full_trainset()
+    
+            # self.__dict_id_to_name: id_1: [name1_1, name1_2...], id_2: [name2_1, name2_2....]
+            # self.__dict_name_to_id: name1: [id1_1, id1_2...], name2: [id2_1, id2_2...]
+            if df_id_name_table is not None:
+                self.__dict_id_to_name = df_id_name_table.groupby('itemID')['itemName'].apply(lambda x: x.tolist()).to_dict()
+                self.__dict_name_to_id = df_id_name_table.groupby('itemName')['itemID'].apply(lambda x: x.tolist()).to_dict()
+                  
+    def convert_name_to_id(self, item_name):
+        """
+        Convert item name to item id
+        :param item_name: item name
+        :return: item id if single id is found
+                 None if nothing or multiple id's are found
+        """  
+        if item_name not in self.__dict_name_to_id or len(self.__dict_name_to_id[item_name]) > 1:
+            return None
+        return self.__dict_name_to_id[item_name][0]
+        
+    def convert_id_to_name(self, item_id):
+        """
+        Convert item id to item name
+        :param item_id: item id
+        :return: item name if single name is found
+                 None if nothing or multiple id's are found
+        """
+        if item_id not in self.__dict_id_to_name or len(self.__dict_id_to_name[item_id]) > 1:
+            return None
+        return self.__dict_id_to_name[item_id][0]
 
-    Returns
-    -------
-    list
-        User IDs of users with similar high ratings for the given movie.
 
-    """
-    # Data preprosessing
-    reader = Reader(rating_scale=(0, 5))
-    load_df = Dataset.load_from_df(ratings_df,reader)
-    a_train = load_df.build_full_trainset()
-
-    predictions = []
-    for ui in a_train.all_users():
-        predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
-    return predictions
+#-----------------------------#
 
 
-def pred_movies(movie_list):
-    """Maps the given favourite movies selected within the app to corresponding
-    users within the MovieLens dataset.
+# Load rating data to CFData class
+df_data = df_rating[['userId','movieId', 'rating',]]
+df_data = df_data.rename(index=str, columns={'userId': 'userID', 'movieId': 'itemID', 'rating': 'rating'})
+df_id_name_table = df_movie[['movieId', 'title']]
+df_id_name_table = df_id_name_table.rename(index=str, columns={'movieId':'itemID', 'title':'itemName'})
+data_movie = CFData(df_data, test_ratio=None, df_id_name_table=df_id_name_table, rating_scale=(0.5, 5))
 
-    Parameters
-    ----------
-    movie_list : list
-        Three favourite movies selected by the app user.
 
-    Returns
-    -------
-    list
-        User-ID's of users with similar high ratings for each movie.
+def get_most_rated_movie(df_movie_in, df_rating_in, n_output):
+    movie_list_tmp1 = pd.merge(df_movie, df_rating, on='movieId', how='inner').groupby('title').count()   
+    movie_list_top_k = movie_list_tmp1['rating'].sort_values(ascending=False).index[:n_output]
+    return movie_list_top_k
 
-    """
-    # Store the id of users
-    id_store=[]
-    # For each movie selected by a user of the app,
-    # predict a corresponding user within the dataset with the highest rating
-    for i in movie_list:
-        predictions = prediction_item(item_id = i)
-        predictions.sort(key=lambda x: x.est, reverse=True)
-        # Take the top 10 user id's from each movie with highest rankings
-        for pred in predictions[:10]:
-            id_store.append(pred.uid)
-    # Return a list of user id's
-    return id_store
+movie_list_top_n = get_most_rated_movie(df_movie, df_rating, 10000)
+
+def get_similar_item(model, input_item_id, num_neighbor):
+
+    # Convert input item_id to inner id generated during training
+    input_inner_id = model.trainset.to_inner_iid(input_item_id)
+
+    # 'sim' method is used to execute get_neighbors like KNN method
+
+    if 'sim' in dir(model):
+        # get a list of inner_id. Need to convert to item_id
+        neighbor_inner_id = model.get_neighbors(input_inner_id, k=num_neighbor) 
+
+        return [model.trainset.to_raw_iid(inner_id) for inner_id in neighbor_inner_id]
+    else:
+        return __get_top_similarities(input_inner_id, num_neighbor)
+            
+
+def __get_top_similarities(item_inner_id, k):
+
+    # Get TOP-k similar item for matix factorization model
+    from math import sqrt
+    def cosine_distance(vector_a, vector_b):
+        ab = sum([i*j for (i, j) in zip(vector_a, vector_b)])
+        a2 = sum([i*i for i in vector_a])
+        b2 = sum([i*i for i in vector_b])
+        eta = 1./10**9
+        return 1.0 - ab/sqrt((a2+eta)*(b2+eta))
+
+    # obtain the vector representation of input item
+    item_vector = model.qi[item_inner_id]
+    similarity_table = []
+
+    for other_inner_id in model.trainset.all_items():
+        if other_inner_id == item_inner_id:
+            continue
+        other_item_vector = model.qi[other_inner_id]
+        similarity_table.append((cosine_distance(other_item_vector, item_vector), 
+                                 model.trainset.to_raw_iid(other_inner_id)
+                                )) 
+    similarity_table.sort()
+    if k > len(similarity_table):
+        return [i[1] for i in similarity_table]
+    else:
+        return [i[1] for i in similarity_table[0:k]]
+    
+def show_recommended_movies(movie_name, k=10): 
+        
+    # Convert user-selected movie name to movie id then obtain the top-k similar movies
+    movie_item_id = data_movie.convert_name_to_id(movie_name)
+    movie_neighbor_name = [data_movie.convert_id_to_name(i) for i in get_similar_item(model,movie_item_id, k)]
+   
+    return movie_neighbor_name
+        
+
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
@@ -118,32 +192,18 @@ def collab_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-
-    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
-    recommended_movies = []
-    # Choose top 50
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies_df['title'])[i])
+    
+    r_1 = show_recommended_movies(movie_list[0], k=10)
+    r_1 = [x for x in r_1 if x not in movie_list]
+    r_2 = show_recommended_movies(movie_list[1], k=10)
+    r_2 = [x for x in r_2 if x not in movie_list]
+    r_3 = show_recommended_movies(movie_list[2], k=10)
+    r_3 = [x for x in r_3 if x not in movie_list]
+    
+    master_list = r_1 + r_2 + r_3
+    master_list = list(set(master_list))
+    
+    
+    recommended_movies = master_list[0:10]
+    
     return recommended_movies
