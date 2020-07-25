@@ -57,6 +57,9 @@ def main():
         st.write('# Movie Recommender Engine')
         st.write('### EXPLORE Data Science Academy Unsupervised Predict')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
+        ratings_df = pd.read_csv('resources/data/ratings.csv')
+        movies_df = pd.read_csv('resources/data/movies.csv')
+        ratings_new = ratings_df.merge(movies_df, on='movieId', how='left')
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
@@ -64,9 +67,9 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
-        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        movie_1 = st.selectbox('First Option',ratings_new.title.tolist()[0:300])
+        movie_2 = st.selectbox('Second Option',ratings_new.title.tolist()[301:600])
+        movie_3 = st.selectbox('Third Option',ratings_new.title.tolist()[601:900])
         fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
@@ -101,9 +104,9 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == 'EDA':
+    if page_selection == 'Exploratory Data Analysis':
         sub_pages = ['WordClouds','Rating Distributions','Greatest Hits','Production costs over time']
-        sub_page = st.selectbox('EDA options',sub_pages)
+        sub_page = st.selectbox('Choose EDA options:',sub_pages)
         if sub_page == 'WordClouds':
             if st.checkbox('view actors wordcloud'):
                 st.image('resources/imgs/EDA_imgs/actors_wordcloud.png',caption='Actors WordCloud')
@@ -177,7 +180,7 @@ def main():
             if st.button('previous'):
                 next_prev('previous')
                 
-    if page_selection == 'Interact with App':
+    if page_selection == 'What would you like to find?':
         st.subheader('Nextflix') 
         drop_down_listings = st.selectbox('What would you like to know:',['What\'s in a genre?','Hottest Movie releases','Movie Search'])
         if drop_down_listings == 'What\'s in a genre?':
@@ -217,7 +220,7 @@ def main():
                 if st.checkbox('show genre counts in dataset'):
                     st.write(genre_count_figure)
 
-        if drop_down_listings =='Hottest Movie releases':
+        if drop_down_listings =='Find Hottest Movie releases':
             current_year=date.today().year
             min_year = 1970
             add_slider = st.slider('Choose year range:',min_year, current_year,(min_year,current_year), step=1)

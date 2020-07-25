@@ -204,6 +204,7 @@ def main():
             #Next Button
             button = 'button' #Initialise program only
             def next_prev(button):
+                '''functional streamlit button to change views'''
                 next_counter = pd.read_csv('resources/imgs/thumbnails/next_button.csv')['value']
                 next_value = next_counter[0]
                 if button == 'next':
