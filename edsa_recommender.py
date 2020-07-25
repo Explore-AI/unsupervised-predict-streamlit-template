@@ -167,9 +167,10 @@ def main():
                     data_descript = open("resources/data_description.md").read()
                     st.markdown(data_descript,unsafe_allow_html=True)
 
-        st.subheader("Raw data")
+        raw_data = pd.merge(left=train,right=movies, on='movieId') 
+        st.subheader("Raw movies data")
         if st.checkbox('Show data'):  # data is hidden if box is unchecked
-                    st.write(df.tail())  # will write the df to the page
+                    st.write(raw_data.head())  # will write the df to the page
     
     # Build EDA page
     if page_selection == "EDA and Insights":
@@ -374,7 +375,7 @@ def main():
                     plt.title("Directors with high rated movies")
                     plt.ylabel("Rating")
                     plt.xlabel("Director")
-                    plt.xticks(rotation=60)
+                    plt.xticks(rotation=90)
                     st.pyplot()
 
                     table = directors_rating.iloc[0:20,:-1] # view as a table to read names better
@@ -388,7 +389,7 @@ def main():
                     plt.title("Highest number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
-                    plt.xticks(rotation=60)
+                    plt.xticks(rotation=90)
                     st.pyplot()
 
                     table = directors_count.iloc[0:20,-1] # view as a table to read names better
@@ -402,7 +403,7 @@ def main():
                     plt.title("Directors with low rated movies")
                     plt.ylabel("Rating")
                     plt.xlabel("Director") 
-                    plt.xticks(rotation=60)
+                    plt.xticks(rotation=90)
                     st.pyplot()
 
                     table = directors_rating.iloc[-20:,:-1] # view as a table to read names better
@@ -416,7 +417,7 @@ def main():
                     plt.title("Lowest number of movies a director worked on")
                     plt.ylabel("Number of movies directed")
                     plt.xlabel("Director")
-                    plt.xticks(rotation=60)
+                    plt.xticks(rotation=90)
                     st.pyplot()
 
                     table = directors_count.iloc[-20:,-1] # view as a table to read names better
