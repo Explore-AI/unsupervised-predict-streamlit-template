@@ -12,8 +12,8 @@ import re
 # In[2]:
 
 
-train = pd.read_csv('../unsupervised_data/unsupervised_movie_data/train.csv')
-movies = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv')
+train = pd.read_csv('resources/data/ratings.csv')
+movies = pd.read_csv('resources/data/movies.csv')
 df = pd.merge(train,movies, on='movieId')
 
 
