@@ -41,7 +41,7 @@ data_path = '../unsupervised_data/unsupervised_movie_data/'
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
-#Movies_list Data
+#Movies_list EDA data
 titles = ['The Shawshank Redemption (1994)', 'Pulp Fiction (1994)', 'Forrest Gump (1994)',
           'The Silence of The Lambs (1991)',
           'The MATRIX (1999)', 'Star Wars: Episode IV - A New Hope (1977)', 'Schindler\'s List (1993)',
@@ -104,9 +104,9 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('First Option',ratings_new.title.tolist()[0:300])
-        movie_2 = st.selectbox('Second Option',ratings_new.title.tolist()[301:600])
-        movie_3 = st.selectbox('Third Option',ratings_new.title.tolist()[601:900])
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
@@ -150,7 +150,7 @@ def main():
                     </div>
                     </div>
                     """, unsafe_allow_html=True)
-        sub_pages = ['WordClouds','Rating Distributions','Greatest Hits','Production costs over time']
+        sub_pages = ['WordClouds','Rating Distributions','Greatest Hits']
         sub_page = st.selectbox('Choose EDA options:',sub_pages)
         if sub_page == 'WordClouds':
             st.markdown("""
@@ -235,7 +235,7 @@ def main():
                               'Romance','Sci-fi',
                               'Thriller','War','Western']
             genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
-#        st.write(genres)
+
             if len(genres) > 0:
                 def genre_count(filename,list1):
                     '''Plots the distribution of genres in the movies dataset'''

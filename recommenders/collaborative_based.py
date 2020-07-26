@@ -17,6 +17,8 @@
 import pandas as pd
 import numpy as np
 import pickle
+import bz2
+import _pickle as cPickle
 import copy
 from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
@@ -27,8 +29,24 @@ from sklearn.feature_extraction.text import CountVectorizer
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
+
+#Manupulate ratings_df and movies_df
+ratings_df = pd.merge(movies['movieId'], ratings, on='movieId', how='outer')
+ratings_df['rating'] = ratings['rating'].fillna(ratings['rating'].mean())
+ratings_df['userId'] = ratings['userId'].fillna(ratings['userId'].mode()[0])
+ratings_df['userId'] = ratings['userId'].astype(int)
+ratings_df['rating'] = np.round(ratings['rating'] , 1)
+ratings_df = ratings_df[['userId','movieId','rating']]
+
+#Load and decompress model
+def decompress_pickle(file):
+    data = bz2.BZ2File(file,'rb')
+    data = cPickle.load(data)
+    return(data)
+model = decompress_pickle('~/pickled_files/full_compressed.pbz2')
+
 # Building the Model
-model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+#model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
 
 def prediction_item(item_id):
     """Short summary.
