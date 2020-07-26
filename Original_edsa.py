@@ -46,7 +46,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ['Recommender System','EDA','Interact with App','Solution Overview','About us']
+    page_options = ['Recommender System','Exploratory Data Analysis','What would you like to find?','Solution Overview','About us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -182,7 +182,7 @@ def main():
                 
     if page_selection == 'What would you like to find?':
         st.subheader('Nextflix') 
-        drop_down_listings = st.selectbox('What would you like to know:',['What\'s in a genre?','Hottest Movie releases','Movie Search'])
+        drop_down_listings = st.selectbox('What would you like to know:',['What\'s in a genre?','Find Hottest Movie releases','Movie Search'])
         if drop_down_listings == 'What\'s in a genre?':
             genres_setlist = ['Action','Adventure','Animation',
                               'Children','Comedy',
