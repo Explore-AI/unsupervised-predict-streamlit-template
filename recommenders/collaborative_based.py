@@ -88,7 +88,7 @@ def pred_movies(movie_list):
         predictions = prediction_item(item_id = movies_df.title.tolist().index(i))
         predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
-        for pred in predictions[:10]:
+        for pred in predictions[:4]:
             id_store.append(pred.uid)
     # return a list of  user id's
     return id_store
@@ -112,16 +112,7 @@ def collab_model(movie_list,top_n):
     df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
     for i in movie_ids :
         df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    a = {}
-    for movieid in df_init_users.movieId.unique():
-            count = len(df_init_users[df_init_users['movieId']==movieid])
-            average = df_init_users[df_init_users['movieId']==movieid].rating.mean()
-            a[movieid] = count*average
-    sorted_a = sorted(a.items(), key=lambda x: x[1],reverse=True)[:10]
-    movieLists = []
-    for i in sorted_a:
-        movieLists.append(indices[i[0]])
-    return(movieLists)
+    return(pred_movies(movie_list))
     # Getting the cosine similarity matrix
 #    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
 #    idx_1 = indices[indices == movie_list[0]].index[0]
