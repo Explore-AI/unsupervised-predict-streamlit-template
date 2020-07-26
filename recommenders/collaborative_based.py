@@ -67,7 +67,7 @@ def prediction_item(item_id):
 
     predictions = []
     for ui in a_train.all_users():
-        predictions.append(model.predict(iid=movies_df.title.tolist().index(i),uid=ui, verbose = False))
+        predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
     return predictions
 
 def pred_movies(movie_list):
@@ -85,7 +85,7 @@ def pred_movies(movie_list):
     id_store=[]
     # In each movie predict a user with the highest rating
     for i in movie_list:
-        predictions = prediction_item(item_id = i)
+        predictions = prediction_item(item_id = movies_df.title.tolist().index(i))
         predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
         for pred in predictions[:10]:
