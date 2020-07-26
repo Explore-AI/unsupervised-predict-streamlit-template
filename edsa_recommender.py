@@ -37,6 +37,9 @@ import random
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+from recommenders.genre_popularity import build_chart
+from recommenders.movie_popularity import popularity_number
+from recommenders.yearly_popularity import popular_per_year
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
@@ -52,8 +55,9 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
+    st.sidebar.image('resources/imgs/Movie_pic.jpg', use_column_width= True)
     st.sidebar.header('Movie Recommender Engine')
-    page_options = ["Recommender System","Solution Overview","Did you know?", "Find a movie"]
+    page_options = ["Recommender System","Find a movie","Solution Overview","Did you know?"]
  
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -177,55 +181,71 @@ def main():
 
         #ave rating per year
         st.image('resources/imgs/ave_ratings.png', use_column_width= True)
-        st.info('')
 
         #number of ratings per ratings
         st.image('resources/imgs/number_ratings.png', use_column_width= True)
-        st.info('')
-
-
+        st.info('It seems that a dip in average ratings corresponds with a peak in ratings count.')
 
     #find a movie page       
     if page_selection == "Find a movie":
         st.image('resources/imgs/suprise.png',use_column_width= True)
+        movie = pd.read_csv('resources/data/movies.csv')
         st.subheader('Find me a movie')
-        mov = pd.read_csv('resources/data/movies.csv')
-        romance = mov[mov['genres'].str.contains('Romance')]['title'].values
-        genres = ['Romance','Drama']
-        genre_select = st.radio('Genre',genres)
-        if genre_select == 'Romance':
-            year = [1995,1996]    
-            ryear_select = st.radio('Year', year)   
-            if ryear_select == 1995:
-                st.write(romance[5])
-            if ryear_select == 1996:
-                st.write(romance[18])
+        select_opt = ['Genre','Year','Number of most popular titles']
+        select_opt_select = st.selectbox('Select an option', select_opt)
+        if select_opt_select == 'Genre':
+            genre_list = ['Action','Adventure', 'Animation', 'Children', 'Comedy','Crime','Drama',
+            'Fantasy','Horror','IMAX', 'Romance','Musical', 'Mystery','Sci-Fi','Thriller','War']
+            genre_select = st.radio('Top 10 movies per genre',genre_list)
+            if genre_select == 'Adventure':
+                st.write(build_chart('Adventure'))
+            if genre_select == 'Animation':
+                st.write(build_chart('Animation')) 
+            if genre_select == 'Action':
+                st.write(build_chart('Action'))
+            if genre_select == 'Children':
+                st.write(build_chart('Children'))    
+            if genre_select == 'Comedy':
+                st.write(build_chart('Comedy'))
+            if genre_select == 'Crime':
+                st.write(build_chart('Crime'))
+            if genre_select == 'Drama':
+                st.write(build_chart('Drama'))    
+            if genre_select == 'Fantasy':
+                st.write(build_chart('Fantasy'))
+            if genre_select == 'Horror':
+                st.write(build_chart('Horror'))  
+            if genre_select == 'IMAX':
+                st.write(build_chart('IMAX'))   
+            if genre_select == 'Romance':
+                st.write(build_chart('Romance'))
+            if genre_select == 'Musical':
+                st.write(build_chart('Musical'))
+            if genre_select == 'Mystery':
+                st.write(build_chart('Mystery'))    
+            if genre_select == 'Sci-Fi':
+                st.write(build_chart('Sci-Fi'))
+            if genre_select == 'Thriller':
+                st.write(build_chart('Thriller'))
+            if genre_select == 'War':
+                st.write(build_chart('War')) 
+        if select_opt_select == 'Number of most popular titles':
+            pop_no_select = st.text_input("Enter the number of titles you'd like to see","Type Here")
+            if st.button("Search titles"):
+                st.write(popularity_number(int(pop_no_select)))
+    
+        if select_opt_select == 'Year':
+            year = st.text_input("Enter the year","Type Here")
+            if st.button("Search for the top movies from this year"):
+                #vect_text = tweet_cv.transform([year]).toarray()
+                st.write(popular_per_year(int(year)))
 
-        if genre_select == 'Drama':
-            drama = mov[mov['genres'].str.contains('Drama')]['title'].values    
-            year = [1995,1996]    
-            dyear_select = st.radio('Year', year)   
-            if dyear_select == 1995:
-                st.write(drama[5])
-            if dyear_select == 1996:
-                st.write(drama[33])        
 
         st.subheader('Here, a movie will be randomly selected for you')
         if st.button('Suprise me'):
             st.write(random.choice(title_list))
             st.balloons()
-
-        if st.button('Suprise me with a romance movie'):
-                mov = pd.read_csv('resources/data/movies.csv')
-                romance = mov[mov['genres'].str.contains('Romance')]['title'].values
-                st.write(random.choice(romance))
-                st.balloons()   
-
-        if st.button('Suprise me with a drama movie'):
-                mov = pd.read_csv('resources/data/movies.csv')
-                drama = mov[mov['genres'].str.contains('Drama')]['title'].values
-                st.write(random.choice(drama))   
-                st.balloons()     
+   
 
 
 
@@ -236,7 +256,8 @@ def main():
         
 
     #side bar description of app
-    st.sidebar.info('This app has been developed by SS4_JHB_Unsupervised team :movie_camera:')        
+    st.sidebar.info('This app has been developed by SS4_JHB_Unsupervised team :movie_camera:')  
+    st.sidebar.image('resources/imgs/EDSA_logo.png', use_column_width= True )      
 
 
 
