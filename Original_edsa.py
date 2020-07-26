@@ -30,16 +30,53 @@ import matplotlib.style as style
 sns.set(font_scale=1)
 import matplotlib.pyplot as plt
 from datetime import date
-#import plotly.figure_factory as ff
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+st.markdown("""<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">""",unsafe_allow_html=True)
 
 data_path = '../unsupervised_data/unsupervised_movie_data/'
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+
+#Movies_list Data
+titles = ['The Shawshank Redemption (1994)', 'Pulp Fiction (1994)', 'Forrest Gump (1994)',
+          'The Silence of The Lambs (1991)',
+          'The MATRIX (1999)', 'Star Wars: Episode IV - A New Hope (1977)', 'Schindler\'s List (1993)',
+          'Fight Club (1999)',
+          'Star Wars: Episode V - The empire Strikes Back (1980)', 'Braveheart (1995)',
+          'The Usual Suspects (1995)',
+          'Jurassic Park (1993)', 'Terminator 2: Judgment Day (1991)',
+          'The Lord of The Rings (TFOTR) (2001)', 'Raisers of The Lost Ark (1981)']
+
+images = ['resources/imgs/thumbnails/shawshank_redemption.png',
+          'resources/imgs/thumbnails/pulp_fiction.png',
+          'resources/imgs/thumbnails/forest_gump.png', 'resources/imgs/thumbnails/silence_of_the_lambs.png',
+          'resources/imgs/thumbnails/the_matrix.png', 'resources/imgs/thumbnails/star_wars.png',
+          'resources/imgs/thumbnails/schindlers_list.png', 'resources/imgs/thumbnails/fight_club.png',
+          'resources/imgs/thumbnails/star_wars_2.png', 'resources/imgs/thumbnails/braveheart.png',
+          'resources/imgs/thumbnails/the_usual_suspects.png', 'resources/imgs/thumbnails/jurassic_park.png',
+          'resources/imgs/thumbnails/terminator_2.png', 'resources/imgs/thumbnails/LOTR_FLOTR.png',
+          'resources/imgs/thumbnails/raiders_of_lost_ark.png']
+
+descriptions = ['Genre: Drama  \nRealese year:1994  \nRuntime: 2h 22min  \nStoryline:  \nChronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man\'s unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.',
+                'Genre: Comedy, Crime  \nRuntime: 2h.58min  \nStoryline:  \nJules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising a series of funny, bizarre and uncalled-for incidents.',
+                'Genre: Drama, Romance  \nRuntime: 2h.22min  \nStoryline:  \nForrest Gump is a simple man with a low I.Q. but good intentions. He is running through childhood with his best and only friend Jenny. His \'mama\' teaches him the ways of life and leaves him to choose his destiny. Forrest joins the army for service in Vietnam, finding new friends called Dan and Bubba, he wins medals, creates a famous shrimp fishing fleet, inspires people to jog, starts a ping-pong craze, creates the smiley, writes bumper stickers and songs, donates to people and meets the president several times. However, this is all irrelevant to Forrest who can only think of his childhood sweetheart Jenny Curran, who has messed up her life. Although in the end all he wants to prove is that anyone can love anyone.',
+                'Genre: Crime, Drama, Thriller  \nRuntime: 1h.58min  \nStoryline:  \nF.B.I. trainee Clarice Starling (Jodie Foster) works hard to advance her career, while trying to hide or put behind her West Virginia roots, of which if some knew, would automatically classify her as being backward or white trash. After graduation, she aspires to work in the agency\'s Behavioral Science Unit under the leadership of Jack Crawford (Scott Glenn). While she is still a trainee, Crawford asks her to question Dr. Hannibal Lecter (Sir Anthony Hopkins), a psychiatrist imprisoned, thus far, for eight years in maximum security isolation for being a serial killer who cannibalized his victims. Clarice is able to figure out the assignment is to pick Lecter\'s brains to help them solve another serial murder case, that of someone coined by the media as "Buffalo Bill" (Ted Levine), who has so far killed five victims, all located in the eastern U.S.',
+                'Genre: Action, Sci-Fi  \nRuntime: 2h.16min  \nStoryline:  \nThomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government. As a rebel against the machines, Neo must confront the agents: super-powerful computer programs devoted to stopping Neo and the entire human rebellion.',
+                'Genre: Action, Adventure, Fantasy  \nRuntime: 2h.1min  \nStoryline:  \nThe Imperial Forces, under orders from cruel Darth Vader, hold Princess Leia hostage in their efforts to quell the rebellion against the Galactic Empire. Luke Skywalker and Han Solo, captain of the Millennium Falcon, work together with the companionable droid duo R2-D2 and C-3PO to rescue the beautiful princess, help the Rebel Alliance and restore freedom and justice to the Galaxy.',
+                'Release year: 1993  \nGenre: Biography, Drama, History  \nRuntime: 3h.15min  \nStoryline:  \nOskar Schindler is a vain and greedy German businessman who becomes an unlikely humanitarian amid the barbaric German Nazi reign when he feels compelled to turn his factory into a refuge for Jews. Based on the true story of Oskar Schindler who managed to save about 1100 Jews from being gassed at the Auschwitz concentration camp, it is a testament to the good in all of us.',
+                'Genre: Drama  \nRuntime: 2h.19min  \nStoryline:  \nA nameless first person narrator (Edward Norton) attends support groups in an attempt to subdue his emotional state and relieve his insomniac state. When he meets Marla (Helena Bonham Carter), another fake attendee of support groups, his life seems to become a little more bearable. However when he associates himself with Tyler (Brad Pitt) he is dragged into an underground fight club and soap making scheme. Together the two men spiral out of control and engage in competitive rivalry for love and power. When the narrator is exposed to the hidden agenda of Tyler\'s fight club, he must accept the awful truth that Tyler may not be who he says he is.',
+                'Genre:  Action, Adventure, Fantasy  \nRuntime: 2h.4min  \nStoryline:  \nLuke Skywalker, Han Solo, Princess Leia and Chewbacca face attack by the Imperial forces and its AT-AT walkers on the ice planet Hoth. While Han and Leia escape in the Millennium Falcon, Luke travels to Dagobah in search of Yoda. Only with the Jedi Master\'s help will Luke survive when the Dark Side of the Force beckons him into the ultimate duel with Darth Vader.',
+                'Genre: Biography, Drama, History  \nRuntime: 2h.58min  \nStoryline:  \nWilliam Wallace is a Scottish rebel who leads an uprising against the cruel English ruler Edward the Longshanks, who wishes to inherit the crown of Scotland for himself. When he was a young boy, William Wallace\'s father and brother, along with many others, lost their lives trying to free Scotland. Once he loses another of his loved ones, William Wallace begins his long quest to make Scotland free once and for all, along with the assistance of Robert the Bruce.',
+                'Genre: Crime, Mystery, Thriller  \nRuntime: 1h.46min  \nStoryline:  \nFollowing a truck hijack in New York, five criminals are arrested and brought together for questioning. As none of them are guilty, they plan a revenge operation against the police. The operation goes well, but then the influence of a legendary mastermind criminal called Keyser Söze is felt. It becomes clear that each one of them has wronged Söze at some point and must pay back now. The payback job leaves 27 men dead in a boat explosion, but the real question arises now: Who actually is Keyser Söze?',
+                'Genre: Action, Advecture, Sci-Fi  \nRuntime: 2h.7min  \nStoryline:  \nHuge advancements in scientific technology have enabled a mogul to create an island full of living dinosaurs. John Hammond has invited four individuals, along with his two grandchildren, to join him at Jurassic Park. But will everything go according to plan? A park employee attempts to steal dinosaur embryos, critical security systems are shut down and it now becomes a race for survival with dinosaurs roaming freely over the island.',
+                'Release year: 1991  \nGenre: Action, Sci-Fi  \nRuntime: 2h.17min \nStoryline:  \nOver 10 years have passed since the first machine called The Terminator tried to kill Sarah Connor and her unborn son, John. The man who will become the future leader of the human resistance against the Machines is now a healthy young boy. However, another Terminator, called the T-1000, is sent back through time by the supercomputer Skynet. This new Terminator is more advanced and more powerful than its predecessor and it\'s mission is to kill John Connor when he\'s still a child. However, Sarah and John do not have to face the threat of the T-1000 alone. Another Terminator (identical to the same model that tried and failed to kill Sarah Conner in 1984) is also sent back through time to protect them. Now, the battle for tomorrow has begun.',
+                'Genre: Action, Adventure, Drama  \nRuntime: 2h.58min \nStoryline:  \nAn ancient Ring thought lost for centuries has been found, and through a strange twist of fate has been given to a small Hobbit named Frodo. When Gandalf discovers the Ring is in fact the One Ring of the Dark Lord Sauron, Frodo must make an epic quest to the Cracks of Doom in order to destroy it. However, he does not go alone. He is joined by Gandalf, Legolas the elf, Gimli the Dwarf, Aragorn, Boromir, and his three Hobbit friends Merry, Pippin, and Samwise. Through mountains, snow, darkness, forests, rivers and plains, facing evil and danger at every corner the Fellowship of the Ring must go. Their quest to destroy the One Ring is the only hope for the end of the Dark Lords reign.',
+                'Genre: Action, Adventure  \nRuntime: 1h.55m  \nRatings: 4.1 \nStoryline:  \nThe year is 1936. An archeology professor named Indiana Jones is venturing in the jungles of South America searching for a golden statue. Unfortunately, he sets off a deadly trap but miraculously escapes. Then, Jones hears from a museum curator named Marcus Brody about a biblical artifact called The Ark of the Covenant, which can hold the key to humanely existence. Jones has to venture to vast places such as Nepal and Egypt to find this artifact. However, he will have to fight his enemy Rene Belloq and a band of Nazis in order to reach it.']
+
 
 # App declaration
 def main():
@@ -105,9 +142,23 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == 'Exploratory Data Analysis':
+        st.markdown("""
+                    <div class="w3-display-container" style="margin-bottom:15px">
+                    <img src="https://www.deluxetheatre.co.nz/images/index/slider/slider_1_bg.jpg" style="width:100%">
+                    <div class="w3-display-bottomleft w3-container w3-pale-red w3-hover-blue w3-hide-small" style="bottom:7%;opacity:0.7;width:60%">
+                    <h2><b>Exploratory Data Analysis</b></h2>
+                    </div>
+                    </div>
+                    """, unsafe_allow_html=True)
         sub_pages = ['WordClouds','Rating Distributions','Greatest Hits','Production costs over time']
         sub_page = st.selectbox('Choose EDA options:',sub_pages)
         if sub_page == 'WordClouds':
+            st.markdown("""
+                        <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                        <p style="padding-top: 10px;">Let's get a better understaning of our data</p>
+                        <p>Use the checkbox to view the Word Clouds</p>
+                        </div>
+                        """, unsafe_allow_html=True)
             if st.checkbox('view actors wordcloud'):
                 st.image('resources/imgs/EDA_imgs/actors_wordcloud.png',caption='Actors WordCloud')
                 st.subheader('Observations:')
@@ -117,41 +168,23 @@ def main():
                 st.subheader('Observations:')
                 st.markdown('''* Tom Hanks: Aerican actor and filmmaker. Known for both his comedic and dramatic roles, Hanks is one of the most popular and recognizable film stars worldwide, and is widely regarded as an American cultural icon.  \n* Ben Stiller: Throughout his career he has written, starred in, directed, or produced more than 50 films including The Secret Life of Walter Mitty, Zoolander, The Cable Guy and There's Something About Mary.  \n* Eddie Murphy and Chris Rock are both successful comedians turned actors who have starred in numerous films throughout their careers.''')
         if sub_page == 'Rating Distributions':
+            st.markdown("""
+                        <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                        <p style="padding-top: 10px;">Let's get a better understaning of our data</p>
+                        <p>Take a look at the <i>Rating Distributions</i></p>
+                        </div>
+                        """, unsafe_allow_html=True)
             st.image(['resources/imgs/EDA_imgs/movielens_distribution_donut.png','resources/imgs/EDA_imgs/average_distributions.png'],width=400,
                      caption=['','User rating distributions'])
             st.subheader('Observations:')
             st.markdown('''* 4 Star ratings make up the largest portion of ratings in the MovieLens dataset, accounting for 26.5% of the overall ratings.  \n* 5 star ratings make up 14.5% of the overall ratings (3rd largest portion).  \n* 0.5 star ratings account for the smallest portion of the ratings at a mere 1.6%.  \n* Most of the movies have received less than 2500 ratings. While the number of movies having more than 5000 ratings is very low.  \n* The ratings follow a normal distribution that is slightly skewed to the right. It seems like users are generally generous with thier ratings.''')
         if sub_page == 'Greatest Hits':
-            titles = ['The Shawshank Redemption (1994)','Pulp Fiction (1994)','Forrest Gump (1994)','The Silence of The Lambs (1991)',
-                      'The MATRIX (1999)','Star Wars: Episode IV - A New Hope (1977)','Schindler\'s List (1993)','Fight Club (1999)',
-                      'Star Wars: Episode V - The empire Strikes Back (1980)','Braveheart (1995)','The Usual Suspects (1995)',
-                      'Jurassic Park (1993)','Terminator 2: Judgment Day (1991)','The Lord of The Rings (TFOTR) (2001)','Raisers of The Lost Ark (1981)']
-            #Images List
-            images = ['resources/imgs/thumbnails/shawshank_redemption.png','resources/imgs/thumbnails/pulp_fiction.png',
-                      'resources/imgs/thumbnails/forest_gump.png','resources/imgs/thumbnails/silence_of_the_lambs.png',
-                      'resources/imgs/thumbnails/the_matrix.png','resources/imgs/thumbnails/star_wars.png',
-                      'resources/imgs/thumbnails/schindlers_list.png','resources/imgs/thumbnails/fight_club.png',
-                      'resources/imgs/thumbnails/star_wars_2.png','resources/imgs/thumbnails/braveheart.png',
-                      'resources/imgs/thumbnails/the_usual_suspects.png','resources/imgs/thumbnails/jurassic_park.png',
-                      'resources/imgs/thumbnails/terminator_2.png','resources/imgs/thumbnails/LOTR_FLOTR.png',
-                      'resources/imgs/thumbnails/raiders_of_lost_ark.png']
-            descriptions = ['Genre: Drama  \nRealese year:1994  \nRuntime: 2h 22min  \nStoryline:  \nChronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man\'s unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.',
-                            'Genre: Comedy, Crime  \nRuntime: 2h.58min  \nStoryline:  \nJules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising a series of funny, bizarre and uncalled-for incidents.',
-                            'Genre: Drama, Romance  \nRuntime: 2h.22min  \nStoryline:  \nForrest Gump is a simple man with a low I.Q. but good intentions. He is running through childhood with his best and only friend Jenny. His \'mama\' teaches him the ways of life and leaves him to choose his destiny. Forrest joins the army for service in Vietnam, finding new friends called Dan and Bubba, he wins medals, creates a famous shrimp fishing fleet, inspires people to jog, starts a ping-pong craze, creates the smiley, writes bumper stickers and songs, donates to people and meets the president several times. However, this is all irrelevant to Forrest who can only think of his childhood sweetheart Jenny Curran, who has messed up her life. Although in the end all he wants to prove is that anyone can love anyone.',
-                            'Genre: Crime, Drama, Thriller  \nRuntime: 1h.58min  \nStoryline:  \nF.B.I. trainee Clarice Starling (Jodie Foster) works hard to advance her career, while trying to hide or put behind her West Virginia roots, of which if some knew, would automatically classify her as being backward or white trash. After graduation, she aspires to work in the agency\'s Behavioral Science Unit under the leadership of Jack Crawford (Scott Glenn). While she is still a trainee, Crawford asks her to question Dr. Hannibal Lecter (Sir Anthony Hopkins), a psychiatrist imprisoned, thus far, for eight years in maximum security isolation for being a serial killer who cannibalized his victims. Clarice is able to figure out the assignment is to pick Lecter\'s brains to help them solve another serial murder case, that of someone coined by the media as "Buffalo Bill" (Ted Levine), who has so far killed five victims, all located in the eastern U.S.',
-                            'Genre: Action, Sci-Fi  \nRuntime: 2h.16min  \nStoryline:  \nThomas A. Anderson is a man living two lives. By day he is an average computer programmer and by night a hacker known as Neo. Neo has always questioned his reality, but the truth is far beyond his imagination. Neo finds himself targeted by the police when he is contacted by Morpheus, a legendary computer hacker branded a terrorist by the government. As a rebel against the machines, Neo must confront the agents: super-powerful computer programs devoted to stopping Neo and the entire human rebellion.',
-                            'Genre: Action, Adventure, Fantasy  \nRuntime: 2h.1min  \nStoryline:  \nThe Imperial Forces, under orders from cruel Darth Vader, hold Princess Leia hostage in their efforts to quell the rebellion against the Galactic Empire. Luke Skywalker and Han Solo, captain of the Millennium Falcon, work together with the companionable droid duo R2-D2 and C-3PO to rescue the beautiful princess, help the Rebel Alliance and restore freedom and justice to the Galaxy.',
-                            'Release year: 1993  \nGenre: Biography, Drama, History  \nRuntime: 3h.15min  \nStoryline:  \nOskar Schindler is a vain and greedy German businessman who becomes an unlikely humanitarian amid the barbaric German Nazi reign when he feels compelled to turn his factory into a refuge for Jews. Based on the true story of Oskar Schindler who managed to save about 1100 Jews from being gassed at the Auschwitz concentration camp, it is a testament to the good in all of us.',
-                            'Genre: Drama  \nRuntime: 2h.19min  \nStoryline:  \nA nameless first person narrator (Edward Norton) attends support groups in an attempt to subdue his emotional state and relieve his insomniac state. When he meets Marla (Helena Bonham Carter), another fake attendee of support groups, his life seems to become a little more bearable. However when he associates himself with Tyler (Brad Pitt) he is dragged into an underground fight club and soap making scheme. Together the two men spiral out of control and engage in competitive rivalry for love and power. When the narrator is exposed to the hidden agenda of Tyler\'s fight club, he must accept the awful truth that Tyler may not be who he says he is.',
-                            'Genre:  Action, Adventure, Fantasy  \nRuntime: 2h.4min  \nStoryline:  \nLuke Skywalker, Han Solo, Princess Leia and Chewbacca face attack by the Imperial forces and its AT-AT walkers on the ice planet Hoth. While Han and Leia escape in the Millennium Falcon, Luke travels to Dagobah in search of Yoda. Only with the Jedi Master\'s help will Luke survive when the Dark Side of the Force beckons him into the ultimate duel with Darth Vader.',
-                            'Genre: Biography, Drama, History  \nRuntime: 2h.58min  \nStoryline:  \nWilliam Wallace is a Scottish rebel who leads an uprising against the cruel English ruler Edward the Longshanks, who wishes to inherit the crown of Scotland for himself. When he was a young boy, William Wallace\'s father and brother, along with many others, lost their lives trying to free Scotland. Once he loses another of his loved ones, William Wallace begins his long quest to make Scotland free once and for all, along with the assistance of Robert the Bruce.',
-                            'Genre: Crime, Mystery, Thriller  \nRuntime: 1h.46min  \nStoryline:  \nFollowing a truck hijack in New York, five criminals are arrested and brought together for questioning. As none of them are guilty, they plan a revenge operation against the police. The operation goes well, but then the influence of a legendary mastermind criminal called Keyser Söze is felt. It becomes clear that each one of them has wronged Söze at some point and must pay back now. The payback job leaves 27 men dead in a boat explosion, but the real question arises now: Who actually is Keyser Söze?',
-                            'Genre: Action, Advecture, Sci-Fi  \nRuntime: 2h.7min  \nStoryline:  \nHuge advancements in scientific technology have enabled a mogul to create an island full of living dinosaurs. John Hammond has invited four individuals, along with his two grandchildren, to join him at Jurassic Park. But will everything go according to plan? A park employee attempts to steal dinosaur embryos, critical security systems are shut down and it now becomes a race for survival with dinosaurs roaming freely over the island.',
-                            'Release year: 1991  \nGenre: Action, Sci-Fi  \nRuntime: 2h.17min \nStoryline:  \nOver 10 years have passed since the first machine called The Terminator tried to kill Sarah Connor and her unborn son, John. The man who will become the future leader of the human resistance against the Machines is now a healthy young boy. However, another Terminator, called the T-1000, is sent back through time by the supercomputer Skynet. This new Terminator is more advanced and more powerful than its predecessor and it\'s mission is to kill John Connor when he\'s still a child. However, Sarah and John do not have to face the threat of the T-1000 alone. Another Terminator (identical to the same model that tried and failed to kill Sarah Conner in 1984) is also sent back through time to protect them. Now, the battle for tomorrow has begun.',
-                            'Genre: Action, Adventure, Drama  \nRuntime: 2h.58min \nStoryline:  \nAn ancient Ring thought lost for centuries has been found, and through a strange twist of fate has been given to a small Hobbit named Frodo. When Gandalf discovers the Ring is in fact the One Ring of the Dark Lord Sauron, Frodo must make an epic quest to the Cracks of Doom in order to destroy it. However, he does not go alone. He is joined by Gandalf, Legolas the elf, Gimli the Dwarf, Aragorn, Boromir, and his three Hobbit friends Merry, Pippin, and Samwise. Through mountains, snow, darkness, forests, rivers and plains, facing evil and danger at every corner the Fellowship of the Ring must go. Their quest to destroy the One Ring is the only hope for the end of the Dark Lords reign.',
-                            'Genre: Action, Adventure  \nRuntime: 1h.55m  \nRatings: 4.1 \nStoryline:  \nThe year is 1936. An archeology professor named Indiana Jones is venturing in the jungles of South America searching for a golden statue. Unfortunately, he sets off a deadly trap but miraculously escapes. Then, Jones hears from a museum curator named Marcus Brody about a biblical artifact called The Ark of the Covenant, which can hold the key to humanely existence. Jones has to venture to vast places such as Nepal and Egypt to find this artifact. However, he will have to fight his enemy Rene Belloq and a band of Nazis in order to reach it.'
-            ]
-            
+            st.markdown("""
+                        <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                        <p style="padding-top: 10px;">Let's get a better understaning of our data</p>
+                        <p>Here are the <i>Greatest Hits</i>, use the 'next' and 'previous' buttons to navigate</p>
+                        </div>
+                        """, unsafe_allow_html=True)
             #Next Button
             button = 'button' #Initialise program only
             def next_prev(button):
@@ -181,6 +214,17 @@ def main():
                 next_prev('previous')
                 
     if page_selection == 'What would you like to find?':
+        st.markdown("""
+                    <div class="w3-display-container" style="margin-bottom:15px">
+                    <img src="https://png.pngtree.com/thumb_back/fw800/back_our/20190619/ourmid/pngtree-european-business-movie-poster-board-vector-background-material-image_134683.jpg" style="width:100%">
+                    <div class="w3-display-bottomleft w3-container w3-pale-red w3-hover-blue w3-hide-small" style="bottom:7%;opacity:0.7;width:60%">
+                    <h2><b>NEXTFLIX Special</b></h2>
+                    </div>
+                    </div>
+                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                    <p style="padding-top: 10px;">Let's have some fun... Find your NEXTFLIX</p>
+                    </div>
+                    """, unsafe_allow_html=True)
         st.subheader('Nextflix') 
         drop_down_listings = st.selectbox('What would you like to know:',['What\'s in a genre?','Find Hottest Movie releases','Movie Search'])
         if drop_down_listings == 'What\'s in a genre?':
@@ -332,35 +376,44 @@ def main():
                     plt.show()
                     return(ax.figure)
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
+
     if page_selection == "Solution Overview":
-        #st.title("Solution Overview")
-        #st.write("Describe your winning approach on this page")
         sol_page = """
-                    <div class="w3-light-grey w3-padding-64 w3-margin-bottom w3-center">
-                    <h1 class="w3-jumbo">Solution Overview</h1>
+                    <div class="w3-display-container" style="margin-bottom:15px">
+                    <img src="https://www2.cs.duke.edu/courses/fall16/compsci101/assign/assign8-recommender/netflix1.png" style="width:100%">
+                    <div class="w3-display-bottomleft w3-container w3-pale-red w3-hover-blue w3-hide-small" style="bottom:7%;opacity:0.7;width:60%">
+                    <h2><b>Solution Overview</b></h2>
                     </div>
-​
-                    <div class="w3-row-padding w3-content" style="max-width:1400px">
-                    <div class="w3-twothird">
-                    <img src="https://trello-attachments.s3.amazonaws.com/5f03a5ce9c3e440f72126d34/500x434/52d0ca01f0acd3d463ed9c23b7a2b18b/netflix-because-you-watched-rick-and-morty-theory-every-thing-28570667.png" alt="Notebook" style="width:100%">
+                    </div>
+
+                    <div class="w3-row-padding w3-content" style="max-width:100%;">
+                    <div style="padding-left: 0;">
                     <div class="w3-justify">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                    <p style="padding-top: 10px;width: 100%;"><b>The Solution</b>></p>
+                    </div>
+                    
+                    <p><img src="https://www.scielo.br/img/revistas/jistm/v13n3//1807-1775-jistm-13-03-0497-gf01.jpg" alt="" height="320" width="280" style="float: right;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</p>
+                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
+                    <p style="padding-top: 10px;"><b>How it Works</b>></p>
+                    </div>
+                    <h3>Model based methods</h3>
+                    <p>Model based collaborative approaches only rely on user-item interactions information and assume a latent model supposed to explain these interactions. For example, matrix factorisation algorithms consists in decomposing the huge and sparse user-item interaction matrix into a product of two smaller and dense matrices: a user-factor matrix (containing users representations) that multiplies a factor-item matrix (containing items representations).</p>
+                    <img src="https://miro.medium.com/max/700/1*Na5M52RRnAjYRyPLN29TgA.png" alt="" height="280" width="450">
+                    <h3>Singular Vector Decomposition (SVD)</h3>
+                    <p>We used singular value decomposition to build our recommender engine. We utilize the results of SVD to fill the vacant ratings and then use the item based method to produce the prediction of unrated items.</p>
+                    <p>Formally, SVD is the decomposition of a matrix R which is the utility matrix with m equal to the number of users and m number exposed items (movies) into the product of three matrices:</p>
+                    <ul>
+                    <li>U is a left singular orthogonal matrix, representing the relationship between users and latent factors (Hopcroft & Kannan, 2012)</p></li>
+                    <li>Σ is a diagonal matrix (with positive real values) describing the strength of each latent factor</p></li>
+                    <li>VT(transpose) is a right singular orthogonal matrix, indicating the similarity between items and latent factors.</p></li>
+                    </ul>
+                    <img src="https://miro.medium.com/max/697/1*bFmQ2DzGokaBUssGkFR3gg.png" alt="" height="250" width="450">
+                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+                    <p style="padding-top: 10px;"><b>The Advantages</b>></p>
+                    </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     </div>
-                    </div>
-                    <div class="w3-third">
-                    <div class="w3-container w3-light-grey">
-                    <h2>Very New News!</h2>
-                    <p class="w3-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                    <br>
-                    <div class="w3-container w3-light-grey w3-justify">
-                    <h2>Recommender Systems</h2>
-                    <p class="w3-justify"><b>Content-based recommenders:</b> suggest similar items based on a particular item. This system uses item metadata, such as genre, director, description, actors, etc. for movies, to make these recommendations. The general idea behind these recommender systems is that if a person likes a particular item, he or she will also like an item that is similar to it.</p>
-                    <p class="w3-justify"><b>Collaborative filtering engines:</b> these systems are widely used, and they try to predict the rating or preference that a user would give an item-based on past ratings and preferences of other users. Collaborative filters do not require item metadata like its content-based counterparts.</p>
                     </div>
                     </div>
                     </div>
@@ -372,7 +425,7 @@ def main():
                     <h1 style="color:black;padding-bottom: 15px"><b>Meet the team that made it happen</b></h1>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
-                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C5603AQEWhdBCaiNRew/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=6x86nCawTfIS8XsbPtLZ0DRfSUQEjikSrasKzMTc_00" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Nicole Meinie</h3>
                     <p style="">Project Manager</p>
                     <ul>
@@ -384,6 +437,7 @@ def main():
                     </li>
                     </ul>
                     </div>
+                    <br>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C5603AQHcTe4c3SNhdA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=wlzH7LmLPCnoO5b1LagSO9lr4WyDFCfWfIBcR0MuZUs" alt="Pineapple" width="170" height="170">
@@ -398,6 +452,7 @@ def main():
                     </li>
                     </ul>
                     </div>
+                    <br>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 10px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C4E03AQFvPi_4_Kd6tA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=cVHjEqDL_hzLxHgiSEBVob8I2kQ_CGdATmorzaanQFI" alt="Pineapple" width="170" height="170">
@@ -412,6 +467,7 @@ def main():
                     </li>
                     </ul>
                     </div>
+                    <br>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://avatars0.githubusercontent.com/u/60364030?s=400&u=b1b36e92c09ad91e06ff145924ad8b5457639ccd&v=4" alt="Pineapple" width="170" height="170">
@@ -426,9 +482,10 @@ def main():
                     </li>
                     </ul>
                     </div>
+                    <br>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
-                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Pineapple" width="170" height="170">
+                    <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C4D03AQFIvWYBmngunw/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=a0sOMsogyTNiwBkSOROQCjrxCWZsqtL8MU8336mnAC4" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Noah Kaekae</h3>
                     <p style="">Software Developer</p>
                     <ul>
@@ -441,7 +498,8 @@ def main():
                     </ul>
                     </div>
                     """
-        st.markdown(the_team, unsafe_allow_html=True)
+        st.markdown(the_team,unsafe_allow_html=True)
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
