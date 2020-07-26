@@ -65,9 +65,12 @@ def prediction_item(item_id):
     reader = Reader(rating_scale=(0, 5))
     load_df = Dataset.load_from_df(ratings_df,reader)
     a_train = load_df.build_full_trainset()
+    
+    print("Data loaded")
 
     predictions = []
     for ui in a_train.all_users():
+        print("predicting")
         predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
     return predictions
 
