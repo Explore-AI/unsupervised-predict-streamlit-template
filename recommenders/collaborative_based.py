@@ -85,7 +85,8 @@ def pred_movies(movie_list):
     id_store=[]
     # In each movie predict a user with the highest rating
     for i in movie_list:
-        id_store.append(ratings_df[ratings_all.title==i].movieId.unique()[0])
+        movieid = ratings_all[ratings_all.title==i].movieId.unique()[0]
+        id_store.append(movieid)
 #        predictions = prediction_item(item_id = ratings_df[ratings_df.title==i]))
 #        predictions.sort(key=lambda x: x.est, reverse=True)
 #        # take the top 5 user id's from each movie with highest rankings
