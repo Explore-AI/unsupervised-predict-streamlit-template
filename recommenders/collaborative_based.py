@@ -43,10 +43,10 @@ def decompress_pickle(file):
     data = bz2.BZ2File(file,'rb')
     data = cPickle.load(data)
     return(data)
-model = decompress_pickle('../pickled_files/full_compressed.pbz2')
+#model = decompress_pickle('../pickled_files/full_compressed.pbz2')
 
 # Building the Model
-#model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
 
 def prediction_item(item_id):
     """Short summary.
