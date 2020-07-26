@@ -43,7 +43,9 @@ ratings_df = ratings_all[['userId','movieId','rating']]
 #model = decompress_pickle('../pickled_files/full_compressed.pbz2')
 
 # Building the Model
-model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
+
+#model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
+model = pickle.load(open('resources/models/SVD.pkl','rb'))
 
 def prediction_item(item_id):
     """Short summary.
