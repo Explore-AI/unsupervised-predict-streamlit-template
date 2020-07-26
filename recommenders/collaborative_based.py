@@ -108,11 +108,11 @@ def collab_model(movie_list,top_n):
         Description of returned object.
     """
 
-    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
+#    indices = pd.Series(movies_df['title'])
+#    movie_ids = pred_movies(movie_list)
+##    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
+#    for i in movie_ids :
+#        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
     return(pred_movies(movie_list))
     # Getting the cosine similarity matrix
 #    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
