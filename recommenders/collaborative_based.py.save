@@ -28,7 +28,7 @@ movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 # Building the Model
-trained_model= pickle.load(open('resources/models/SVD.pkl', 'rb'))
+model=pickle.load(open('../pickled_model/SVD_3.pkl', 'rb'))
 
 def prediction_item(item_id):
     """Short summary.
@@ -49,7 +49,8 @@ def prediction_item(item_id):
 
     predictions = []
     for ui in a_train.all_users():
-        predictions.append(trained_model.predict(iid=item_id,uid=ui, verbose = False))
+        predictions.append(model.predict(1,200))
+    #    predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
     return predictions
 
 #def pred_movies(movie_list):
