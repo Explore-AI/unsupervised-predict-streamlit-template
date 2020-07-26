@@ -31,12 +31,12 @@ ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 #Manupulate ratings_df and movies_df
-ratings_df = pd.merge(movies_df['movieId'], ratings_df, on='movieId', how='outer')
-ratings_df['rating'] = ratings_df['rating'].fillna(ratings_df['rating'].mean())
-ratings_df['userId'] = ratings_df['userId'].fillna(ratings_df['userId'].mode()[0])
-ratings_df['userId'] = ratings_df['userId'].astype(int)
-ratings_df['rating'] = np.round(ratings_df['rating'] , 1)
-ratings_df = ratings_df[['userId','movieId','rating']]
+ratings_all = pd.merge(movies_df, ratings_df, on='movieId', how='outer')
+ratings_all['rating'] = ratings_df['rating'].fillna(ratings_df['rating'].mean())
+ratings_all['userId'] = ratings_df['userId'].fillna(ratings_df['userId'].mode()[0])
+ratings_all['userId'] = ratings_df['userId'].astype(int)
+ratings_all['rating'] = np.round(ratings_df['rating'] , 1)
+ratings_df = ratings_all[['userId','movieId','rating']]
 
 #Load and decompress model
 def decompress_pickle(file):
@@ -85,7 +85,7 @@ def pred_movies(movie_list):
     id_store=[]
     # In each movie predict a user with the highest rating
     for i in movie_list:
-        id_store.append(ratings_df[ratings_df.title==i])
+        id_store.append(ratings_df[ratings_all.title==i].movieId.unique())
 #        predictions = prediction_item(item_id = ratings_df[ratings_df.title==i]))
 #        predictions.sort(key=lambda x: x.est, reverse=True)
 #        # take the top 5 user id's from each movie with highest rankings
