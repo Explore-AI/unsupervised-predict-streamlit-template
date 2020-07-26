@@ -195,7 +195,7 @@ def main():
         if selection_info == "View Raw Data":
             st.markdown("""
             ### Train Data Set
-            Below is the data we used to train our model in a csv file format.
+            Below is the dataset we used to train our model in a csv file format.
 
             """)
             st.dataframe(data)
