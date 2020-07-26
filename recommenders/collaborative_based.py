@@ -86,7 +86,7 @@ def pred_movies(movie_list):
         predictions = prediction_item(item_id = movieid)
         predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
-        for pred in predictions[:10]:
+        for pred in predictions[:3]:
             id_store.append(pred.uid)
     # return a list of  user id's
     return id_store
