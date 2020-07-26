@@ -62,8 +62,8 @@ def main():
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
-                       ('Collaborative Based Filtering',
-                        ))
+                       ('Content Based Filtering',
+                        'Collaborative Based Filtering'))
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
@@ -86,7 +86,6 @@ def main():
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-
 
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
