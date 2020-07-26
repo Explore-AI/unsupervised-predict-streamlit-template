@@ -70,8 +70,8 @@ def prediction_item(item_id):
 
     predictions = []
     for ui in a_train.all_users():
-        print("predicting")
         predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
+    print("Colab prediction succesful")
     return predictions
 
 def pred_movies(movie_list):
@@ -100,6 +100,7 @@ def pred_movies(movie_list):
         for pred in predictions[:10]:
             id_store.append(pred.uid)
     # Return a list of user id's
+    print("users of similar high ratings succesful")
     return id_store
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
