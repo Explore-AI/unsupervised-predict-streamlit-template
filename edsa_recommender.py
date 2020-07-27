@@ -360,7 +360,7 @@ def main():
                     data = data*100/data.sum()
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
-                    count_plot = sns.countplot(x=data.index,y=data,palette='pastel')
+                    count_plot = sns.countplot(data=data,palette='pastel')
                     count_plot.set(title='Number of movies in genre',
                                   xlabel='Genre_count',ylabel='Genre')
                     plt.show()
