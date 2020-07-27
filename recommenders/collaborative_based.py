@@ -89,14 +89,13 @@ def pred_movies(movie_list):
         movieid = movies_df[movies_df.title==str(i)].movieId
         movieids = pd.concat([movieids,movieid],axis=0)
     for movie in movieids.loc[:,0].tolist():
-        id_store.append(movie)
-#        predictions = prediction_item(item_id = movieid)
-#        predictions.sort(key=lambda x: x.est, reverse=True)
+        predictions = prediction_item(item_id = movie)
+        predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
 #        for pred in predictions[:3]:
 #            id_store.append(pred.uid)
     # return a list of  user id's
-    return id_store
+    return predictions
 
 def collab_model(movie_list,top_n):
     """Short summary.
