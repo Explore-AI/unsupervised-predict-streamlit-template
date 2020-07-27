@@ -41,7 +41,7 @@ import random
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-ratings_df = pd.read_csv('resources/data/train.csv')
+ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 #Top 100 listed movies
