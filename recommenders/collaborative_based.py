@@ -114,10 +114,21 @@ def collab_model(movie_list,top_n):
     user_ids = pred_movies(movie_list)
     for user in set(user_ids):
         all_users = pd.concat([all_users,ratings_df[ratings_df['userId']==user]])
+    a = {}
+    for movieid in all_users.movieId.unique():
+        if movieid in movies.movieId:
+            count = len(df_init_users[df_init_users['movieId']==movieid])
+            average = df_init_users[df_init_users['movieId']==movieid].rating.mean()
+            a[movieid] = count*average
+    sorted_a = sorted(a.items(), key=lambda x: x[1],reverse=True)[:10]
+    movieLists = []
+    for i in sorted_a:
+        movieLists.append(indices[i[0]])
+    return(movieLists)
 #    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
 #    for i in movie_ids :
 #        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    return(all_users)
+#    return(all_users)
     # Getting the cosine similarity matrix
 #    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
 #    idx_1 = indices[indices == movie_list[0]].index[0]
