@@ -28,7 +28,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-movies_df.movieId = movies_df.movieId.astype(int)
+#movies_df.movieId = movies_df.movieId.astype(int)
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
