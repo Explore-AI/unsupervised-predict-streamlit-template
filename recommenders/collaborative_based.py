@@ -116,7 +116,7 @@ def collab_model(movie_list,top_n):
         all_users = pd.concat([all_users,ratings_df[ratings_df['userId']==user]])
     a = {}
     for movieid in all_users.movieId.unique():
-        if movieid in movies.movieId:
+        if movieid in movies_df.movieId:
             count = len(df_init_users[df_init_users['movieId']==movieid])
             average = df_init_users[df_init_users['movieId']==movieid].rating.mean()
             a[movieid] = count*average
