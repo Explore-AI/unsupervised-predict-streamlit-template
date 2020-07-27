@@ -356,8 +356,8 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    order = sorted(data.rating.unique(),reverse=True)
                     data = data[['rating']].astype(int) #Rounds decimal ratings UP to integer
+                    order = sorted(data.rating.unique(),reverse=True)
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
                     count_plot = sns.countplot(y='rating',data=data,order=order)
