@@ -358,11 +358,14 @@ def main():
                         data = pd.concat([chunk,data])
                     data = data.rating.value_counts()
                     data = data*100/data.sum()
-                    fig = plt.figure(figsize=(25,10))
-                    ax = fig.add_subplot(111)
-                    labels = [str(round(index,2))+' stars' for index in data.index]
+                    plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
-                    count_plot = ax.countplot(x=data.index,y=data.rating)
+                    count_plot = sns.countplot(x=data.index,y=data.rating,palette='pastel')
+                    count_plot.set(title='Number of movies in genre',
+                                  xlabel='Genre_count',ylabel='Genre')
+                    plt.show()
+                    return (count_plot)
+                    count_plot = sns.countplot(x=data.index,y=data.rating)
 
                     return(ax.figure)
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
