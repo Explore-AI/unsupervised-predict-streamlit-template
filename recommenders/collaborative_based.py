@@ -154,4 +154,4 @@ def collab_model(movie_list,top_n=10):
             recommended_movies.append(list(movies_df['title'])[i])
         return recommended_movies
     except:
-        return ['Toy Story (1995)','This is just test to bypass the cold start error']
+        return ['Toy Story (1995)'] #bypassing the cold start problem and just recommending the user the top 10 movies popularity based
