@@ -35,15 +35,15 @@ ratings_df.drop(['timestamp'], axis=1,inplace=True)
 #ratings_all = pd.merge(movies_df, ratings_df, on='movieId', how='outer')
 
 #Load and decompress model
-#def decompress_pickle(file):
-#    data = bz2.BZ2File(file,'rb')
-#    data = cPickle.load(data)
-#    return(data)
-#model = decompress_pickle('../pickled_files/full_compressed.pbz2')
+def decompress_pickle(file):
+    data = bz2.BZ2File(file,'rb')
+    data = cPickle.load(data)
+    return(data)
+model = decompress_pickle('../pickled_files/full_compressed.pbz2')
 
 # Building the Model
 
-model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
+#model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
 #model = pickle.load(open('resources/models/SVD.pkl','rb'))
 
 def prediction_item(item_id):
@@ -110,11 +110,14 @@ def collab_model(movie_list,top_n):
     """
 
 #    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
+    all_users = pd.DataFrame()
+    user_ids = pred_movies(movie_list)
+    for user in set(user_ids):
+        all_users = pd.concat([all_users,ratings_df[ratings_df['userId']==user]])
 #    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
 #    for i in movie_ids :
 #        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    return(movie_ids)
+    return(all_users)
     # Getting the cosine similarity matrix
 #    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
 #    idx_1 = indices[indices == movie_list[0]].index[0]
