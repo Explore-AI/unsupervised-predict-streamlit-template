@@ -362,7 +362,7 @@ def main():
                     order = sorted(data.rating.unique(),reverse=True)
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
-                    count_plot = sns.countplot(y='rating',data=data,order=order)
+                    count_plot = sns.countplot(y='rating',data=data,order=order,palette='Reds_r')
                     count_plot.set(title='Movie Rating Distribution',
                                   xlabel='Rating_counts',ylabel='Rating')
                     plt.show()
