@@ -365,7 +365,7 @@ def main():
                                   xlabel='Genre_count',ylabel='Genre')
                     plt.show()
                     return (count_plot)
-                st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
+                st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
 
     if page_selection == "Solution Overview":
         
