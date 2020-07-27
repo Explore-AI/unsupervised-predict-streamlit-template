@@ -88,7 +88,7 @@ def pred_movies(movie_list):
     for i in movie_list:
         movieid = movies_df[movies_df.title==str(i)].movieId
         movieids = pd.concat([movieids,movieid],axis=0)
-    for movie in movieids.tolist():
+    for movie in movieids.loc[:,0].tolist():
         id_store.append(movie)
 #        predictions = prediction_item(item_id = movieid)
 #        predictions.sort(key=lambda x: x.est, reverse=True)
