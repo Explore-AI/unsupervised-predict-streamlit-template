@@ -58,7 +58,8 @@ tags = pd.read_csv('resources/data/tags.csv')
 train = pd.read_csv('resources/data/train.csv')
 g_tags = pd.read_csv('resources/data/genome_tags.csv')
 g_scores = pd.read_csv('resources/data/genome_scores.csv')
-
+test1 = pd.read_csv('resources/data/testfrac.csv')
+svdpkl = joblib.load('resources/models/SVD.pkl')
  
 # Drop duplicates from movies dataset
 movies.drop_duplicates(keep='first', inplace=True)
@@ -479,6 +480,21 @@ def main():
         st.write('recommender algorithms to make catered recommendations for each individual. An example of ')
         st.write('this algorithm in application can be observed on the Movie recommender page of this web app.')
         st.write('Below you can see a table showing the top 20 movies recommended for user no. 777.')
+        if st.button('Show Recommendation'):
+            test = test1[['userId', 'movieId']]
+            test.columns = ['uid', 'iid']
+            x = []
+            for a,b in zip(test['uid'].values,test['iid'].values):
+                x.append(svdpkl.predict(a,b))
+            y=[]
+            for i in x:
+                y.append(i.est)
+            test['ratings'] = y
+            uspec = test[test['uid'] ==777]
+            recommen = movies[movies['movieId'].isin(list(uspec['iid']))]
+            recommen.reset_index(drop = True, inplace = True)
+            st.write(recommen[['movieId','title']].head(10))
+
 
     st.sidebar.title("About")
     st.sidebar.info(
