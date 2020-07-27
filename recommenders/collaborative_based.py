@@ -117,15 +117,15 @@ def collab_model(movie_list,top_n):
     piv_df_2 = piv_df.fillna(0)
     cosine_sim = pd.DataFrame(cosine_similarity(piv_df_2,piv_df_2),index=piv_df_2.index,columns=piv_df_2.index)
     for i in piv_df.index:
-    similarities = np.array(cosine_sim[i])
-    for movie in piv_df.columns:
-        if np.isnan(piv_df.loc[i,movie]):
-            numerator = sum(piv_df_2.loc[:,movie].values*similarities)
-            denominator = sum(similarities[np.array([i for i,v in enumerate(piv_df_2.loc[:,movie]) if v > 0])])
-            if numerator > 0:
-                piv_df.loc[i][movie] = numerator/denominator
-            else:
-                piv_df.loc[i][movie] = 0
+        similarities = np.array(cosine_sim[i])
+        for movie in piv_df.columns:
+            if np.isnan(piv_df.loc[i,movie]):
+                numerator = sum(piv_df_2.loc[:,movie].values*similarities)
+                denominator = sum(similarities[np.array([i for i,v in enumerate(piv_df_2.loc[:,movie]) if v > 0])])
+                if numerator > 0:
+                    piv_df.loc[i][movie] = numerator/denominator
+                else:
+                    piv_df.loc[i][movie] = 0
     averages = pd.DataFrame()
     for movie in piv_df.columns:
         if movie in movies_df.movieId:
