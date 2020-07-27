@@ -117,8 +117,8 @@ def collab_model(movie_list,top_n):
     a = {}
     sorted_a = []
     for movieid in set(all_users.movieId.tolist()):
-        sorted_a.append(movieid)
-#        if movieid in movies_df.movieId:
+        if movieid in movies_df.movieId:
+            sorted_a.append(movieid)
 #            count = len(all_users[all_users['movieId']==movieid])
 #            average = all_users[all_users['movieId']==movieid].rating.mean()
 #            a[movieid] = count*average
