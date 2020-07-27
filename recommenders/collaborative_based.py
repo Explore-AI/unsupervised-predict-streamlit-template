@@ -120,13 +120,13 @@ def collab_model(movie_list,top_n):
         if movieid in movies_df.movieId:
             count = len(all_users[all_users['movieId']==movieid])
             average = all_users[all_users['movieId']==movieid].rating.mean()
-            temp_df = pd.concat([temp_df,pd.DataFrame({'movieId':movieid,'popularity':count*average})],axis=0)
+            temp_1 = pd.DataFrame({'movieId':movieid,'popularity':count*average})
 #            a[movieid] = count*average
 #    sorted_a = sorted(a.items(), key=lambda x: x[1],reverse=True)[:10]
 #    movieLists = []
 #    for i in sorted_a:
 #        movieLists.append(indices[i[0]])
-    return(temp_df)
+    return(temp_1)
 #    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
 #    for i in movie_ids :
 #        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
