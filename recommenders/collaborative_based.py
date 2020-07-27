@@ -124,6 +124,5 @@ def collab_model(movie_list,top_n):
                 temp_df = pd.concat([temp_df,temp_1])
         temp_df = temp_df.sort_values(by='popularity',ascending=False)
         top10 = [i[0] for i in temp_df.head(10).title]
-        st.write(temp_df)
 
     return(top10)
