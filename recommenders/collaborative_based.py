@@ -133,7 +133,7 @@ def collab_model(movie_list,top_n):
             temp_df = pd.DataFrame({'movieId':[movie],'average':[average]})
             averages = pd.concat([averages,temp_df])
     averages = averages.sort_values(by='average',ascending=False).head(10)
-    averages = [movies_df[movies_df.movieId == i].title for i in averages.movieId]
+    averages = [movies_df[movies_df.movieId == i].title.tolist() for i in averages.movieId]
     #    a = {}
 #    temp_df = pd.DataFrame()
 #    for movieid in set(all_users.movieId.tolist()):
