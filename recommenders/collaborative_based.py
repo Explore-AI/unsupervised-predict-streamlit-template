@@ -60,7 +60,7 @@ def prediction_item(item_id):
         Description of returned object.
     """
     # data preprosessing
-    reader = Reader(rating_scale=(0, 5))
+    reader = Reader(rating_scale=(0.5, 5))
     load_df = Dataset.load_from_df(ratings_df,reader)
     a_train = load_df.build_full_trainset()
 
@@ -85,14 +85,14 @@ def pred_movies(movie_list):
     id_store=[]
     # In each movie predict a user with the highest rating
     for i in movie_list:
-        movieid = movies_df[movies_df.title==str(i)].movieId.values[0]
-        predictions = prediction_item(item_id = movieid)
-        predictions.sort(key=lambda x: x.est, reverse=True)
+        movieid = movies_df[movies_df.title==str(i)].movieId
+#        predictions = prediction_item(item_id = movieid)
+#        predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
 #        for pred in predictions[:3]:
 #            id_store.append(pred.uid)
     # return a list of  user id's
-    return predictions
+    return movieid
 
 def collab_model(movie_list,top_n):
     """Short summary.
