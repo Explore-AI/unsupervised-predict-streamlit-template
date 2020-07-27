@@ -356,11 +356,11 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    data = data.rating.value_counts()
+#                    data = data.rating.value_counts()
                     data = data*100/data.sum()
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
-                    count_plot = sns.countplot(x='rating',data=data,palette='pastel')
+                    count_plot = sns.countplot(y=data.index,data=data,palette='pastel')
                     count_plot.set(title='Number of movies in genre',
                                   xlabel='Genre_count',ylabel='Genre')
                     plt.show()
