@@ -78,7 +78,7 @@ def main():
             if st.button("Recommend"):
                 try:
                     with st.spinner('Crunching the numbers...'):
-                        top_recommendations = content_model(movie_list=fav_movies,
+                        top_recommendations = collab_model(movie_list=fav_movies,
                                                             top_n=10)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
@@ -91,7 +91,7 @@ def main():
             if st.button("Recommend"):
                 try:
                     with st.spinner('Crunching the numbers...'):
-                        top_recommendations = collab_model(movie_list=fav_movies,
+                        top_recommendations = content_model(movie_list=fav_movies,
                                                            top_n=10)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
@@ -118,10 +118,17 @@ def main():
             + Users often struggle to find suitable movies due to the increasing amount of movie variation. As a result, recommender systems are useful for helping customers choose their preferred movies with the existing features. Recommender systems are an essential feature in our digital world, as users are often overwhelmed by choice and need help finding what they're looking for and are amongst the most popular applications of unsupervised learning. This following is an unsupervised machine learning project which seeks to predict the rating that a user will rate for a movie they have not yet viewed based on historical preferences.
             ### Model Evaluation
             + To verify the quality of the recommender system, we adopted the root of mean squared error (RMSE) as our evaluation metric. RSME is used to measure the differences between the model predicted values and the test dataset observed values. Technically it's the square root of the average of the squares of the errors. The lower it is, the better the model will be.
-            ### Singular Value Decomposition (SVD)
-            + Most collaborative recommender systems perform poorly when dimensions in data increases this is often referred to as the “curse of dimensionality”. There are many dimensionality reduction algorithms such as principal component analysis (PCA) and linear discriminant analysis (LDA), but in this project, SVD algorithm was used. SVD is a well-known matrix factorization method. At a high level, SVD is an algorithm that decomposes a matrix 𝐴A into the best lower rank (i.e. smaller/simpler) approximation of the original matrix 𝐴A. For more information on SVD in recommender systems. Mathematically, it decomposes A into a two unitary matrices and a diagonal matrix
+            ### Collaborative Based Filtering: Singular Value Decomposition (SVD)
+            + Most collaborative recommender systems perform poorly when dimensions in data increases this is often referred to as the “curse of dimensionality”. There are many dimensionality reduction algorithms such as principal component analysis (PCA) and linear discriminant analysis (LDA), but in this project, SVD algorithm was used. SVD is a well-known matrix factorization method. At a high level, SVD is an algorithm that decomposes a matrix 𝐴A into the best lower rank (i.e. smaller/simpler) approximation of the original matrix 𝐴A. For more information on SVD in recommender systems. Mathematically, it decomposes A into a two unitary matrices and a diagonal matrix.
             """)
         st.image('resources/imgs/collaborative.png',use_column_width=True)
+        st.markdown("""
+            ### Content Based Filtering
+            + Content here refers to the content or attributes of the products or item of interest. So, the idea in content-based filtering is to tag products using certain keywords, understand what the user likes, look up those keywords in the database and recommend different products with the same attributes.
+            + However in this notebook what we do is to try and figure if a certain user is going to like a certain movie, and whether or not they like it is gauged on the rating the would give the movie from 0 (dislike the movie) to 5 (highly liking the movie) based on movie meta-data data like cast, director and keywords.
+            + So We altermately want to predict rating of a movie based on its contents, basically appraoching this like we would a classification problem. With that in mind the idea we had is to extract all meta-data from the dataset and and merge everything to to data-frames, one containing movieId, megered meta-data and weighted-rating for each movie in the the train dataset and the other movieId and merged meta-data for each movie in the test dataset.
+            """)
+        st.image('resources/imgs/1_O_GU8xLVlFx8WweIzKNCNw.png',use_column_width=True)
    ##   st.markdown(open('resources/Solution_Overview.md').read())
 
 
@@ -131,7 +138,7 @@ def main():
         st.image('resources/imgs/our_logo.png',use_column_width=True)
         html_temp = """
         <div style="background-color:;padding:10px">
-        <h3 style="color:red;text-align:center;">Welcome to Rollick, A Machine-Learning Movie Recommender Engine. Our platform helps you find movies you will like using a recommendation ML model through rated movies to build a custom taste profile, then recommends other movies for you to watch based on preselections.</h3>
+        <h3 style="color:#16284c;text-align:center;">Welcome to Rollick, A Machine-Learning Movie Recommender Engine. Our platform helps you find movies you will like using a recommendation ML model through rated movies to build a custom taste profile, then recommends other movies for you to watch based on preselections.</h3>
         </div>""" 
         st.image('resources/imgs/rollick_mascot.png',use_column_width=True)
         st.markdown(html_temp,unsafe_allow_html=True)
@@ -191,6 +198,13 @@ def main():
             """)
                 st.image('resources/imgs/erwwsf.png',use_column_width=True)
 
+            elif st.checkbox("Movie Release Distribution"):
+                st.markdown("""
+            ### Observations
+            + Although the train dataset does not represent the entire ccollection of movies released since the making of movies, it gives an indication of how the movies were released.
+            + The gradual increase in movie releases from the early 1900s onwards with a sharp rise from early 2000s.
+            """)       
+                st.image('resources/imgs/Movie Release.png',use_column_width=True)
 
         if selection_info == "View Raw Data":
             st.markdown("""
@@ -256,7 +270,7 @@ def main():
 							<img src="https://media-exp1.licdn.com/dms/image/C5603AQEEzz8gjEkK1w/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=k9xAqxxsU9qQ2JUHZB6TH6HdK9duyUgi7FCWX6CfYUc" alt="Team_image" style="width: 100px;height: 100px;padding: 5px;border-radius: 50%">
 						</div>
 						<h3 style="color: black;font-family: "Comic Sans MS", cursive, sans-serif;font-size: 26px;margin-top: 50px;">Bongani Msimanaga</h3>
-						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Sofware Developer</p>
+						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Data Engineer</p>
 						<div style="justify-content: center;position: relative;">
 						<ul>
   							<li style="display:inline;">
@@ -276,7 +290,7 @@ def main():
 							<img src="https://media-exp1.licdn.com/dms/image/C4E03AQGLQHxMNcVgLQ/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=sIG5IeSFmZgFcI2KLlBFjrSQn62Zsb4i_YBcKu_0fbY" alt="Team_image" style="width: 100px;height: 100px;padding: 5px;border-radius: 50%">
 						</div>
 						<h3 style="color: black;font-family: "Comic Sans MS", cursive, sans-serif;font-size: 26px;margin-top: 50px;">Chris Mahlangu</h3>
-						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Data SCientist</p>
+						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Data Scientist</p>
 						<div style="justify-content: center;position: relative;">
 						<ul>
   							<li style="display:inline;">
@@ -296,7 +310,7 @@ def main():
 							<img src="https://ca.slack-edge.com/TSHE6M7T9-USB324Y81-fbaf5dc6b1b0-512" alt="Team_image" style="width: 100px;height: 100px;padding: 5px;border-radius: 50%">
 						</div>
 						<h3 style="color: black;font-family: "Comic Sans MS", cursive, sans-serif;font-size: 26px;margin-top: 50px;">Evans Marema</h3>
-						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Data Engineer</p>
+						<p style="color: #6770c2;margin: 12px 0;font-size: 17px;text-transform: uppercase;">Data Scientist</p>
 						<div style="justify-content: center;position: relative;">
 						<ul>
   							<li style="display:inline;">
