@@ -259,4 +259,4 @@ def collab_model(movie_list,top_n=10):
             if movie not in rec_list:
                 rec_list.append(movie)
                 i = i + 1
-        return ['Sabrina (1995)','Tom and Huck (1995)','GoldenEye (1995)']
+        return rec_list
