@@ -360,6 +360,7 @@ def main():
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
                     count_plot = sns.countplot(y='rating',data=data)
+                    count_plot.set_yticklabels([5,4,3,2,1,0])
                     count_plot.set(title='movie rating distribution',
                                   xlabel='counts',ylabel='rating')
                     plt.show()
