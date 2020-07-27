@@ -152,7 +152,8 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.write("As movie watchers we are always looking for new movies to watch; however, it is usually a herculean task simply finding the right one to watch from the millions of movies available in the catalogue. For this reason; we created both content-based and collaborative-based recommender systems with the given dataset. The purpose of this recommendation system is to search for content that would be interesting to the user. Moreover, it involves a number of factors to create personalised lists of useful and interesting content specific to each user.")
+        st.write("In Content-based Filtering, we seek to make recommendations based on how similar the properties or features of an item are to other items, and this proved to be a challenge for our content-based recommender system. Furthermore; as a result of the lack of computing capacity, cosine transformation was only performed on a small fraction of the data. Collaborative-based filtering is the best performing recommendation system with an impressive RMSE score, which focuses around actual ratings given by users to movies, and are compared against ratings predicted by an algorithm.")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
