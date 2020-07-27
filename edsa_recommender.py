@@ -356,7 +356,7 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    data = data[['rating']].sort_values(by='rating',ascending=False)
+                    data = data[['rating']].astype(int)
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
                     count_plot = sns.countplot(y='rating',data=data)
