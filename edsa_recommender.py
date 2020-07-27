@@ -174,8 +174,8 @@ def main():
                         <p>Take a look at the <i>Rating Distributions</i></p>
                         </div>
                         """, unsafe_allow_html=True)
-            st.image(['resources/imgs/EDA_imgs/movielens_distribution_donut.png','resources/imgs/EDA_imgs/average_distributions.png'],width=400,
-                     caption=['','User rating distributions'])
+            st.image(['resources/imgs/EDA_imgs/movielens_distribution_donut.png'],width=400,
+                     caption=['User rating distributions'])
             st.subheader('Observations:')
             st.markdown('''* 4 Star ratings make up the largest portion of ratings in the MovieLens dataset, accounting for 26.5% of the overall ratings.  \n* 5 star ratings make up 14.5% of the overall ratings (3rd largest portion).  \n* 0.5 star ratings account for the smallest portion of the ratings at a mere 1.6%.  \n* Most of the movies have received less than 2500 ratings. While the number of movies having more than 5000 ratings is very low.  \n* The ratings follow a normal distribution that is slightly skewed to the right. It seems like users are generally generous with thier ratings.''')
         if sub_page == 'Greatest Hits':
