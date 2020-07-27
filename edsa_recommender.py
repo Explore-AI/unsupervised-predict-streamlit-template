@@ -356,12 +356,12 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    data = data[['rating']].astype(int)
+                    data = data[['rating']].astype(int) #Rounds decimal ratings UP to integer
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
                     count_plot = sns.countplot(y='rating',data=data)
-                    count_plot.set(title='movie rating distribution',
-                                  xlabel='counts',ylabel='rating')
+                    count_plot.set(title='Movie Rating Distribution',
+                                  xlabel='Rating_counts',ylabel='Rating')
                     plt.show()
                     return (count_plot)
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
