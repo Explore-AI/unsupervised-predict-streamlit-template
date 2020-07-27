@@ -254,5 +254,6 @@ def collab_model(movie_list,top_n=10):
     except:
         rec_list = []
         for i in range(10):
-            rec_list.append(TOP_100[random.randint(0,100)])
+            movie = random.choice(TOP_100)
+            rec_list.append(movie)
         return rec_list
