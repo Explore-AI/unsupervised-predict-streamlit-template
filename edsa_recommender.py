@@ -105,7 +105,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
