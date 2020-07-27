@@ -134,6 +134,6 @@ def collab_model(movie_list,top_n):
             averages = pd.concat([averages,temp_df])
     averages = averages.sort_values(by='average',ascending=False).head(10)
     averages = [movies_df[movies_df.movieId == i].title.tolist() for i in averages.movieId]
-    averages = [i[0] for i in averages if len(i)>0 else 'empty list']
+    averages = [i[0] if len(i) > 0 for i in in averages else 'empty list']
 
     return(averages)
