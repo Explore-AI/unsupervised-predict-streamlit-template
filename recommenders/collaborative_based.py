@@ -253,7 +253,10 @@ def collab_model(movie_list,top_n=10):
         return recommended_movies
     except:
         rec_list = []
-        for i in range(10):
+        i = 0
+        while i < 10:
             movie = random.choice(TOP_100)
-            rec_list.append(movie)
+            if movie not in rec_list:
+                rec_list.append(movie)
+                i = i + 1
         return rec_list
