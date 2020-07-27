@@ -32,9 +32,7 @@ ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 #Manupulate ratings_df and movies_df
-ratings_all = pd.merge(movies_df, ratings_df, on='movieId', how='outer')
-ratings_all['userId'] = ratings_df['userId'].astype(int)
-ratings_df = ratings_all[['userId','movieId','rating']]
+#ratings_all = pd.merge(movies_df, ratings_df, on='movieId', how='outer')
 
 #Load and decompress model
 #def decompress_pickle(file):
@@ -92,10 +90,10 @@ def pred_movies(movie_list):
         predictions = prediction_item(item_id = movie)
         predictions.sort(key=lambda x: x.est, reverse=True)
         # take the top 5 user id's from each movie with highest rankings
-#        for pred in predictions[:3]:
-#            id_store.append(pred.uid)
+        for pred in predictions[:10]:
+            id_store.append(pred.uid)
     # return a list of  user id's
-    return predictions
+    return id_store
 
 def collab_model(movie_list,top_n):
     """Short summary.
