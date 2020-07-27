@@ -128,7 +128,7 @@ def collab_model(movie_list,top_n):
                     piv_df.loc[i][movie] = 0
     averages = pd.DataFrame()
     for movie in piv_df.columns:
-        if movie in movies_df.movieId:
+        if movie in movies_df.movieId.unique().tolist():
             average = piv_df.loc[:,movie].mean()
             temp_df = pd.DataFrame({'movieId':[movie],'average':[average]})
             averages = pd.concat([averages,temp_df])
