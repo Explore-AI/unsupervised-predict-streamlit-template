@@ -378,47 +378,41 @@ def main():
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
 
     if page_selection == "Solution Overview":
-        sol_page = """
-                    <div class="w3-display-container" style="margin-bottom:15px">
-                    <img src="https://www2.cs.duke.edu/courses/fall16/compsci101/assign/assign8-recommender/netflix1.png" style="width:100%">
-                    <div class="w3-display-bottomleft w3-container w3-pale-red w3-hover-blue w3-hide-small" style="bottom:7%;opacity:0.7;width:60%">
-                    <h2><b>Solution Overview</b></h2>
-                    </div>
-                    </div>
-
-                    <div class="w3-row-padding w3-content" style="max-width:100%;">
-                    <div style="padding-left: 0;">
-                    <div class="w3-justify">
-                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
-                    <p style="padding-top: 10px;width: 100%;"><b>The Solution</b>></p>
-                    </div>
-                    
-                    <p><img src="https://www.scielo.br/img/revistas/jistm/v13n3//1807-1775-jistm-13-03-0497-gf01.jpg" alt="" height="320" width="280" style="float: right;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.</p>
-                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
-                    <p style="padding-top: 10px;"><b>How it Works</b>></p>
-                    </div>
-                    <h3>Model based methods</h3>
-                    <p>Model based collaborative approaches only rely on user-item interactions information and assume a latent model supposed to explain these interactions. For example, matrix factorisation algorithms consists in decomposing the huge and sparse user-item interaction matrix into a product of two smaller and dense matrices: a user-factor matrix (containing users representations) that multiplies a factor-item matrix (containing items representations).</p>
-                    <img src="https://miro.medium.com/max/700/1*Na5M52RRnAjYRyPLN29TgA.png" alt="" height="280" width="450">
-                    <h3>Singular Vector Decomposition (SVD)</h3>
-                    <p>We used singular value decomposition to build our recommender engine. We utilize the results of SVD to fill the vacant ratings and then use the item based method to produce the prediction of unrated items.</p>
-                    <p>Formally, SVD is the decomposition of a matrix R which is the utility matrix with m equal to the number of users and m number exposed items (movies) into the product of three matrices:</p>
-                    <ul>
-                    <li>U is a left singular orthogonal matrix, representing the relationship between users and latent factors (Hopcroft & Kannan, 2012)</p></li>
-                    <li>Σ is a diagonal matrix (with positive real values) describing the strength of each latent factor</p></li>
-                    <li>VT(transpose) is a right singular orthogonal matrix, indicating the similarity between items and latent factors.</p></li>
-                    </ul>
-                    <img src="https://miro.medium.com/max/697/1*bFmQ2DzGokaBUssGkFR3gg.png" alt="" height="250" width="450">
-                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
-                    <p style="padding-top: 10px;"><b>The Advantages</b>></p>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    """
-        st.markdown(sol_page, unsafe_allow_html=True)
+    sol_page = """
+                <div class="w3-display-container" style="margin-bottom:15px">
+                <img src="https://www2.cs.duke.edu/courses/fall16/compsci101/assign/assign8-recommender/netflix1.png" style="width:100%">
+                <div class="w3-display-bottomleft w3-container w3-pale-red w3-hover-blue w3-hide-small" style="bottom:7%;opacity:0.7;width:60%">
+                <h2><b>Solution Overview</b></h2>
+                </div>
+                </div>
+                <div class="w3-row-padding w3-content" style="max-width:100%;">
+                <div style="padding-left: 0;">
+                <div class="w3-justify">
+                <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
+                <p style="padding-top: 10px;"><b>The Solution</b></p>
+                </div>
+                <p><img src="https://www.scielo.br/img/revistas/jistm/v13n3//1807-1775-jistm-13-03-0497-gf01.jpg" alt="" height="320" width="280" style="float: right;">Build a Collaborative filtering recommendation engine. Based on a users' historic movie data we first predict how a user will rate a movie they have not yet rated, once we have the estimated ratings, we then recommend the topN highly rated(estimated ratings) movies. To arrive at the best rating estimates, <b>RMSE</b>(root mean squared error) is the cost function to be minimized, we want to achieve an RMSE score less than or equal <b>0.85</b>. <br>The fundamental assumption behind <b>collaborative filtering</b> technique is that similar user preferences over the items could be exploited to recommend those items to a user who has not seen or used it before. In simpler terms, we assume that users who agreed in the past (viewed the same movie) will agree in the future.<br></p>
+                <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
+                <p style="padding-top: 10px;"><b>How it Works</b></p>
+                </div>
+                <h3>Model based methods</h3>
+                <p>Model based collaborative approaches only rely on user-item interactions information and assume a latent model supposed to explain these interactions. For example, matrix factorisation algorithms consists in decomposing the huge and sparse user-item interaction matrix into a product of two smaller and dense matrices: a user-factor matrix (containing users representations) that multiplies a factor-item matrix (containing items representations).</p>
+                <img src="https://miro.medium.com/max/700/1*Na5M52RRnAjYRyPLN29TgA.png" alt="" height="280" width="450">
+                <h3>Singular Vector Decomposition (SVD)</h3>
+                <p>We used singular value decomposition to build our recommender engine. We utilize the results of SVD to fill the vacant ratings and then use the item based method to produce the prediction of unrated items.</p>
+                <p>Formally, SVD is the decomposition of a matrix R which is the utility matrix with m equal to the number of users and m number exposed items (movies) into the product of three matrices:</p>
+                <ul>
+                <li>U is a left singular orthogonal matrix, representing the relationship between users and latent factors (Hopcroft & Kannan, 2012)</p></li>
+                <li>Σ is a diagonal matrix (with positive real values) describing the strength of each latent factor</p></li>
+                <li>VT(transpose) is a right singular orthogonal matrix, indicating the similarity between items and latent factors.</p></li>
+                </ul>
+                <img src="https://miro.medium.com/max/697/1*bFmQ2DzGokaBUssGkFR3gg.png" alt="" height="250" width="450">
+                </div>
+                </div>
+                </div>
+                </div>
+                """
+    st.markdown(sol_page, unsafe_allow_html=True)
     
     if page_selection == "About us":
         the_team = """
