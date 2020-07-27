@@ -82,7 +82,12 @@ df = pd.merge(left=df,right=imdb, left_on='movieId', right_on='movieId')
 df['year'] = df['title'].str.extract('(\d\d\d\d)')
 df['budget'] = df['budget'].str.replace('$', '').str.replace(',','')
 
+# changing background colour
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+local_css('style.css')
 #@st.cache(persist=True)
 # App declaration
 def main():
@@ -191,7 +196,7 @@ def main():
             plt.ylabel('')
             st.pyplot()
 
-            st.markdown("This graphs shows the number of movies in each genre, some movies are labelled with multiple genres. It is the quiet clear that drama is the most popular genre, with comedy falling second. Film-Noir and IMAX genres are the least popular genres.<br><br>Film noir is a style of filmmaking characterized by such elements as cynical heroes, stark lighting effects, frequent use of flashbacks, intricate plots, and an underlying existentialist philosophy.The genre was prevalent mostly in American crime dramas of the post-World War II era. This shows that Film noir is associated with some Western and war generes, therefore might share half of the movies in the weatern and war genres. Western and war genres seem to have a small number of movies, this shows why flim noir has an even lower number.", unsafe_allow_html=True)
+            st.markdown("This graphs shows the number of movies in each genre, some movies are labelled with multiple genres. It is quite clear that drama is the most popular genre, with comedy falling second. Film-Noir and IMAX genres are the least popular genres.<br><br>Film noir is a style of filmmaking characterized by such elements as cynical heroes, stark lighting effects, frequent use of flashbacks, intricate plots, and an underlying existentialist philosophy.The genre was prevalent mostly in American crime dramas of the post-World War II era. This shows that Film noir is associated with some Western and war genres, therefore might share half of the movies in the western and war genres. Western and war genres seem to have a small number of movies, this shows why film noir has an even lower number.", unsafe_allow_html=True)
 
         if variable_selection == "Genres and Ratings":
             # Calculate the number of ratings per genre of movie
@@ -215,7 +220,7 @@ def main():
             plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
             st.pyplot()
 
-            st.markdown("The pie charts show the ratings associated with each genre. Based on the number of ratings each genre got, it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4. <br><br>It is also evident that the lower ratings have small percentages for all the genres.",unsafe_allow_html=True)
+            st.markdown("The pie charts show the ratings associated with each genre. Based on the number of ratings attained by each genre, it can be seen that the rating of 4 has the bigger piece of the pie for all of the genres. This supports the findings on the ratings distribution graph which showed that a vast majority of the movies are rated 4. <br><br>It is also evident that the lower ratings have small percentages for all the genres.",unsafe_allow_html=True)
 
         if variable_selection == "Ratings":
             # Examine movie ratings from all users
@@ -428,16 +433,16 @@ def main():
     if page_selection == "Business Pitch":
         st.title('Business Proposal')
         st.write('Looking at the current and increased demand of precise and accurate movie recommender models. ')
-        st.write('We have developed an application that evaluates the appetite of viewers and utilizes aggregates that ')
-        st.write('would be able to satisfy your viewers. Considering that the structure of viewership from a ')
+        st.write('We have developed an application that evaluates the appetite of viewers and utilizes aggregates ')
+        st.write('that would be able to satisfy your viewers. Considering that the structure of viewership from a ')
         st.write('television channel (M-Net being our client) is vastly different from that of online movie ')
         st.write('hosts, in regards that the online movies have the liberty to choose the film of their choice at') 
         st.write('any given time whereas on television there are restriction on choice and prefered time to watch')
         st.write('the film.')
 
-        st.write('Given that our client has a presence on TV and the internet (through DSTV), the web app will be able to render ')
-        st.write('solutions for both the platforms. We will observe the TV platform then followed by the online ')
-        st.write('platform.')
+        st.write('Given that our client has a presence on TV and the internet (through DSTV),  the web app will ')
+        st.write('be able to render solutions for both the platforms. We will observe the TV platform then followed by')
+        st.write('the online platform.')
 
         st.write('1. M-Net TV')
         st.write('The limitation of choice on TV has led us to use world aggregates to determine the')
@@ -465,8 +470,8 @@ def main():
             plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
             st.pyplot()
 
-        st.write('Now that we have the top genres we could filter out movies and get the top movies of the top genres ')
-        st.write('and thus base our movie playlist from that perspective.')
+        st.write('Now that we have the top genres we could filter out movies and get the top movies of the')
+        st.write('top genres and thus base our movie playlist from that perspective.')
 
         st.write('2. M-Net Online')
         st.write('When approaching the internet platform we will apply some of the most popular and proven ')
