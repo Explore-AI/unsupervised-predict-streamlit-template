@@ -35,15 +35,15 @@ ratings_df.drop(['timestamp'], axis=1,inplace=True)
 #ratings_all = pd.merge(movies_df, ratings_df, on='movieId', how='outer')
 
 #Load and decompress model
-def decompress_pickle(file):
-    data = bz2.BZ2File(file,'rb')
-    data = cPickle.load(data)
-    return(data)
-model = decompress_pickle('../pickled_files/full_compressed.pbz2')
+#def decompress_pickle(file):
+#    data = bz2.BZ2File(file,'rb')
+#    data = cPickle.load(data)
+#    return(data)
+#model = decompress_pickle('../pickled_files/full_compressed.pbz2')
 
 # Building the Model
 
-#model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
+model=pickle.load(open('../pickled_files/training_df_1.pkl', 'rb'))
 #model = pickle.load(open('resources/models/SVD.pkl','rb'))
 
 def prediction_item(item_id):
