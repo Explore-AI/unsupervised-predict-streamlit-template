@@ -365,9 +365,6 @@ def main():
                                   xlabel='Genre_count',ylabel='Genre')
                     plt.show()
                     return (count_plot)
-                    count_plot = sns.countplot(x=data.index,y=data.rating)
-
-                    return(ax.figure)
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
 
     if page_selection == "Solution Overview":
