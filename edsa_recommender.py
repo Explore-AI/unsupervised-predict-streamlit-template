@@ -356,7 +356,7 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    order = data.sort_values(by='rating',ascending=False)
+                    order = sorted(data.rating.unique(),reverse=True)
                     data = data[['rating']].astype(int) #Rounds decimal ratings UP to integer
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
