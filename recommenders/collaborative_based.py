@@ -37,11 +37,114 @@ from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 from compress_pickle import dump, load
+import random
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
 ratings_df = pd.read_csv('resources/data/train.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
+
+#Top 100 listed movies
+TOP_100=['Trainspotting (1996)',
+ 'Ghost (1990)',
+ '2001: A Space Odyssey (1968)',
+ 'Bourne Identity, The (2002)',
+ 'Taxi Driver (1976)',
+ 'Home Alone (1990)',
+ 'Spider-Man (2002)',
+ 'Clockwork Orange, A (1971)',
+ 'Shining, The (1980)',
+ 'Being John Malkovich (1999)',
+ 'Minority Report (2002)',
+ 'Green Mile, The (1999)',
+ 'Batman Begins (2005)',
+ 'Twister (1996)',
+ 'Incredibles, The (2004)',
+ 'Stargate (1994)',
+ 'American History X (1998)',
+ 'Batman Forever (1995)',
+ 'Babe (1995)',
+ 'Aliens (1986)',
+ "Ocean's Eleven (2001)",
+ 'Beautiful Mind, A (2001)',
+ 'Dumb & Dumber (Dumb and Dumber) (1994)',
+ 'Rock, The (1996)',
+ 'Ghostbusters (a.k.a. Ghost Busters) (1984)',
+ 'Star Wars: Episode I - The Phantom Menace (1999)',
+ 'X-Men (2000)',
+ 'Goodfellas (1990)',
+ 'Eternal Sunshine of the Spotless Mind (2004)',
+ 'Fifth Element, The (1997)',
+ 'Die Hard: With a Vengeance (1995)',
+ 'Kill Bill: Vol. 1 (2003)',
+ 'Truman Show, The (1998)',
+ 'Léon: The Professional (a.k.a. The Professional) (Léon) (1994)',
+ 'Godfather: Part II, The (1974)',
+ "Amelie (Fabuleux destin d'Amélie Poulain, Le) (2001)",
+ 'Mrs. Doubtfire (1993)',
+ 'Monsters, Inc. (2001)',
+ 'E.T. the Extra-Terrestrial (1982)',
+ 'Pretty Woman (1990)',
+ 'Finding Nemo (2003)',
+ 'Mask, The (1994)',
+ 'Reservoir Dogs (1992)',
+ 'Beauty and the Beast (1991)',
+ "One Flew Over the Cuckoo's Nest (1975)",
+ 'Alien (1979)',
+ 'Blade Runner (1982)',
+ 'Die Hard (1988)',
+ 'Mission: Impossible (1996)',
+ 'Pirates of the Caribbean: The Curse of the Black Pearl (2003)',
+ 'Titanic (1997)',
+ 'Groundhog Day (1993)',
+ 'Ace Ventura: Pet Detective (1994)',
+ 'Monty Python and the Holy Grail (1975)',
+ 'Princess Bride, The (1987)',
+ 'Good Will Hunting (1997)',
+ 'Indiana Jones and the Last Crusade (1989)',
+ 'Inception (2010)',
+ 'Terminator, The (1984)',
+ 'Men in Black (a.k.a. MIB) (1997)',
+ 'Memento (2000)',
+ 'Speed (1994)',
+ 'Dark Knight, The (2008)',
+ 'True Lies (1994)',
+ 'Dances with Wolves (1990)',
+ 'Shrek (2001)',
+ 'Lion King, The (1994)',
+ 'Aladdin (1992)',
+ 'Batman (1989)',
+ 'Gladiator (2000)',
+ 'Sixth Sense, The (1999)',
+ 'Saving Private Ryan (1998)',
+ 'Twelve Monkeys (a.k.a. 12 Monkeys) (1995)',
+ 'Fargo (1996)',
+ 'Apollo 13 (1995)',
+ 'Independence Day (a.k.a. ID4) (1996)',
+ 'Back to the Future (1985)',
+ 'Fugitive, The (1993)',
+ 'Seven (a.k.a. Se7en) (1995)',
+ 'Lord of the Rings: The Two Towers, The (2002)',
+ 'Lord of the Rings: The Return of the King, The (2003)',
+ 'Godfather, The (1972)',
+ 'American Beauty (1999)',
+ 'Star Wars: Episode VI - Return of the Jedi (1983)',
+ 'Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)',
+ 'Usual Suspects, The (1995)',
+ 'Lord of the Rings: The Fellowship of the Ring, The (2001)',
+ 'Star Wars: Episode V - The Empire Strikes Back (1980)',
+ 'Toy Story (1995)',
+ 'Terminator 2: Judgment Day (1991)',
+ 'Fight Club (1999)',
+ 'Braveheart (1995)',
+ "Schindler's List (1993)",
+ 'Jurassic Park (1993)',
+ 'Star Wars: Episode IV - A New Hope (1977)',
+ 'Matrix, The (1999)',
+ 'Silence of the Lambs, The (1991)',
+ 'Pulp Fiction (1994)',
+ 'Forrest Gump (1994)',
+ 'Shawshank Redemption, The (1994)']
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
 model = load('resources/models/gzip_compressed_data', compression='lzma', set_default_extension=False)
@@ -149,4 +252,7 @@ def collab_model(movie_list,top_n=10):
             recommended_movies.append(list(movies_df['title'])[i])
         return recommended_movies
     except:
-        return ['Yes 2020', 'Fuck you 1010']
+        rec_list = []
+        for i in range(10):
+            rec_list.append(TOP_100[random_ind = random.randint(0,100)])
+        return rec_list
