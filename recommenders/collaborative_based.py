@@ -154,4 +154,8 @@ def collab_model(movie_list,top_n=10):
             recommended_movies.append(list(movies_df['title'])[i])
         return recommended_movies
     except:
-        return ['Toy Story (1995)'] #bypassing the cold start problem and just recommending the user the top 10 movies popularity based
+        #bypassing the cold start problem and just recommending the user the top 10 movies popularity based
+        return ['Dances with Wolves (1995)','Aladdin (1992)',\
+                'Jurassic Park (1993)','Men in Black (a.k.a MIB) (1997)','True Lies (1994)','Speed (1994)',\
+                    'Titanic (1994)','Batman (1989)','Independence Day (a.k.a ID4) (1996)',\
+                    'Ace Ventura: Pet Detective (1994)'] 
