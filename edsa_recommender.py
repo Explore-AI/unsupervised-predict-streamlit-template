@@ -255,7 +255,7 @@ def main():
 
             st.write("#### Use the selectbox below to navigate the visuals")
 
-            options = ['Top 20 movies with highest rating', 'Top 20 most rated movies','Top 20 movies with highest relevance','Top 10 movies with longest runtime']
+            options = ['Top 20 movies with highest rating', 'Top 20 most rated movies','Top 20 movies with highest relevance']
             selection = st.selectbox("Choose Option", options)
 
             # Merge dataframes for rating analysis
@@ -267,8 +267,6 @@ def main():
                     # group movies by title and rating 
                     rating_grouped = movies_train_df.groupby(['title'])[['rating']].sum()
                     high_rated = rating_grouped.nlargest(20,'rating')
-
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
 
                     plt.figure(figsize=(30,30))
                     plt.title('Top 20 movies with highest rating',fontsize=40)
@@ -291,7 +289,7 @@ def main():
                     rating_count_20 = no_ratings_df.nlargest(20,'rating')
 
                     # plot movies with the highest number of ratings
-                    plt.figure(figsize=(30,50))
+                    plt.figure(figsize=(30,30))
                     plt.title('Top 20 movies with highest number of ratings',fontsize=40)
                     colours = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.xticks(fontsize=25,rotation=90)
@@ -312,7 +310,7 @@ def main():
                     genome_train_grouped = genome_movies_df.groupby(['title'])[['relevance']].sum()
                     high_relevance = genome_train_grouped.nlargest(20,'relevance')
 
-                    plt.figure(figsize=(30,50))
+                    plt.figure(figsize=(30,30))
                     plt.title('Top 20 movies with highest relevance',fontsize=40)
                     colors = ['forestgreen','burlywood','gold','azure','magenta','cyan','aqua','navy','lightblue','khaki']
                     plt.ylabel('Relevance',fontsize=30)
@@ -330,7 +328,7 @@ def main():
         if variable_selection == 'Runtime':
 
             plt.figure(figsize=(6,4))
-            plt.hist(imdb['runtime'], color = 'green', edgecolor = 'black',
+            plt.hist(imdb['runtime'], color = 'skyblue', edgecolor = 'black',
                      bins = int(100/5))
             plt.xlim(0,250)
 
@@ -371,64 +369,66 @@ def main():
 
             st.write("#### Use the selectbox below to navigate the visuals")
 
-            options = ['Top 20 directors with high rated movies', 'Top 20 directors with low rated movies','Top 20 directors with the most projects','Top 20 directors with the least projects']
+            options = ['Highest ranking directors', "Highest number of movies a director worked on","Lowest number of movies a director worked on"]
             selection = st.selectbox("Choose Option", options)
 
-            if selection == 'Top 20 directors with high rated movies':
-                    
-                    plt.bar(directors_rating.index[0:20], height=directors_rating['rating'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
-                    plt.title("Directors with high rated movies")
-                    plt.ylabel("Rating")
-                    plt.xlabel("Director")
-                    plt.xticks(rotation=90)
+            if selection == 'Highest ranking directors':
+
+                    # Examine performance of directors
+                    # Because each director has directed different number of movies, we will calculate a weighted score for each using their mean movie rating and number of movies directed
+                    directors = df[['director', 'movieId']]
+                    directors = pd.merge(left=directors, right=train, left_on='movieId', right_on='movieId')
+                    directors.drop(['userId', 'timestamp'], axis=1, inplace=True)
+                    directors = directors.groupby('director', as_index=False).agg({'movieId': 'count', 'rating': 'mean'})
+                    all_movies = directors['movieId'].sum()
+                    directors['movieId'] = directors['movieId'] / all_movies * 100
+                    directors['score'] = directors['movieId'] * directors['rating']
+                    directors = directors.sort_values('score', ascending=False)
+                    directors = directors.set_index('director')
+
+                    # Examine top 10 rated directors
+                    fig, ax = plt.subplots(figsize=(12, 9))  #(15, 10)
+
+                    people = directors.index[:10]
+                    y_pos = np.arange(len(people))
+
+                    performance = directors['score'][:10]
+
+                    ax.barh(y_pos, performance, align='center', color=sns.color_palette(palette='viridis', n_colors=10))
+                    ax.set_yticks(y_pos)
+                    ax.set_yticklabels(people)
+                    ax.invert_yaxis()  # labels read top-to-bottom
+                    ax.set_xlabel('Score (weighted mean rating)',fontsize=13)
+                    ax.set_title('Highest ranking directors', pad=20, fontsize=30)
                     st.pyplot()
 
-                    table = directors_rating.iloc[0:20,:-1] # view as a table to read names better
-                    st.write(table)
+                    st.markdown('Here we examined the best directors by calculating a weighted score comprising the number of movies directed and the rating of each movie. The results indicate the Quentin Tarantino has directed the most, high rating movies in the database. This is followed by a number of authors and directors suggesting that there may be an error in the data.', unsafe_allow_html=True)
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+            if selection == "Highest number of movies a director worked on":
 
-            if selection == 'Top 20 directors with the most projects':
-
+                    plt.xticks(rotation=90,fontsize=7)
+                    plt.subplots_adjust(bottom=0.3)
                     plt.bar(directors_count.index[0:20], height=directors_count['count'][0:20], color=sns.color_palette(palette='viridis', n_colors=20))
-                    plt.title("Highest number of movies a director worked on")
-                    plt.ylabel("Number of movies directed")
-                    plt.xlabel("Director")
-                    plt.xticks(rotation=90)
+                    plt.title("Highest number of movies a director worked on",fontsize=12, pad=20)
+                    plt.ylabel("Number of movies directed",fontsize=8)
+                    plt.xlabel("Director",fontsize=8)
                     st.pyplot()
-
-                    table = directors_count.iloc[0:20,-1] # view as a table to read names better
-                    st.write(table)
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
 
-            if selection == 'Top 20 directors with low rated movies':
+            if selection == "Lowest number of movies a director worked on":
 
-                    plt.bar(directors_rating.index[-20:], height=directors_rating['rating'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
-                    plt.title("Directors with low rated movies")
-                    plt.ylabel("Rating")
-                    plt.xlabel("Director") 
-                    plt.xticks(rotation=90)
+                    plt.bar(directors.index[-20:], height=directors['count'][-20:],
+                    color=sns.color_palette(palette='viridis', n_colors=20))
+                    plt.xticks(rotation=90,fontsize=7)
+                    plt.subplots_adjust(bottom=0.3)
+                    plt.title("Lowest number of movies a director worked on",fontsize=12, pad=20)
+                    plt.ylabel("Number of movies directed",fontsize=8)
+                    plt.xlabel("Director",fontsize=8)
                     st.pyplot()
-
-                    table = directors_rating.iloc[-20:,:-1] # view as a table to read names better
-                    st.write(table)
 
                     st.markdown('Insights on visualization', unsafe_allow_html=True)
 
-            if selection == 'Top 20 directors with the least projects':
-
-                    plt.bar(directors_count.index[-20:], height=directors_count['count'][-20:], color=sns.color_palette(palette='viridis', n_colors=20))                    
-                    plt.title("Lowest number of movies a director worked on")
-                    plt.ylabel("Number of movies directed")
-                    plt.xlabel("Director")
-                    plt.xticks(rotation=90)
-                    st.pyplot()
-
-                    table = directors_count.iloc[-20:,-1] # view as a table to read names better
-                    st.write(table)
-
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
     
     if page_selection == "Business Pitch":
         st.title('Business Proposal')
