@@ -89,7 +89,7 @@ def pred_movies(movie_list):
     for movie in movieids.loc[:,0].tolist():
         predictions = prediction_item(item_id = movie)
         predictions.sort(key=lambda x: x.est, reverse=True)
-        # take the top 5 user id's from each movie with highest rankings
+        # take the top 10 user id's from each movie with highest rankings
         for pred in predictions[:10]:
             id_store.append(pred.uid)
     # return a list of  user id's
@@ -118,10 +118,10 @@ def collab_model(movie_list,top_n):
         if movieid in movies_df.movieId:
             count = len(all_users[all_users['movieId']==movieid])
             average = all_users[all_users['movieId']==movieid].rating.mean()
-
-            temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
-                                                 'popularity':count*average}])
-            temp_df = pd.concat([temp_df,temp_1])
+            if count < 12:
+                temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
+                                                     'popularity':count*average}])
+                temp_df = pd.concat([temp_df,temp_1])
         temp_df = temp_df.sort_values(by='popularity',ascending=False)
         top10 = [i[0] for i in temp_df.head(10).title]
 
