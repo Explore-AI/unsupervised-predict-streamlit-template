@@ -361,20 +361,9 @@ def main():
                     fig = plt.figure(figsize=(25,10))
                     ax = fig.add_subplot(111)
                     labels = [str(round(index,2))+' stars' for index in data.index]
-                    theme = plt.get_cmap('Reds')
-                    ax.set_prop_cycle("color", [theme(1. * i / len(labels)) for i in range(len(labels))])
                     sns.set(font_scale=2)
-                    pie = ax.pie(data,autopct='%1.1f%%',shadow=True,
-                                 startangle=10,pctdistance=1.115,
-                                 explode = tuple([0.1 for i in range(len(labels))]))
-                    centre_circle = plt.Circle((0,0),0.70,fc='white')
-                    fig = plt.gcf()
-                    fig.gca().add_artist(centre_circle)
-                    plt.legend(pie[0], labels, loc="lower left")
-                    ax.set_title(f'Rating distribution for {value}', fontsize=35)
-                    plt.tight_layout()
-                    plt.show()
-                    return(ax.figure)
+
+                    return(data)
                 st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv'))
 
     if page_selection == "Solution Overview":
