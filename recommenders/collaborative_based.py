@@ -122,7 +122,7 @@ def collab_model(movie_list,top_n):
             average = all_users[all_users['movieId']==movieid].rating.mean()
 #            temp_1 = pd.DataFrame({'movieId':movies_df[movies_df['movieId']==movieid].title.tolist()
 #                                   ,'popularity':[count*average]})
-            temp_1 = pd.DataFrame.from_records([{ 'movieId':movies_df[movies_df['movieId']==movieid].title.tolist()[0],
+            temp_1 = pd.DataFrame.from_records([{ 'movieId':movies_df[movies_df['movieId']==movieid].title[0],
                                                  'popularity':count*average}])
             temp_df = pd.concat([temp_df,temp_1])
         temp_df = temp_df.sort_values(by='popularity',ascending=False)
