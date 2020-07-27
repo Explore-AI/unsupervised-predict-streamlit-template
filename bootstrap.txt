@@ -64,7 +64,7 @@
 <div class="container marketing">
         <div class="row featurette",id="first_row">
           <div class="col-md-7">
-            <h2 class="featurette-heading">Welcome to our WhatsNext, our movie recommending app<span class="text-danger" style="color:#FF0000"> Let's get to recommending!</span></h2>
+            <h2 class="featurette-heading">Welcome to WhatsNext, our movie recommendation app<span class="text-danger" style="color:#FF0000"> Let's get to recommending!</span></h2>
             <p class="lead">Our app uses amazing algorithms,combined with machine learning algorithms to recommend movies to the user.</p>
           </div>
           <div class="col-md-5">
