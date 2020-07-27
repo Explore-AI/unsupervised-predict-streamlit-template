@@ -24,6 +24,7 @@ from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
@@ -112,17 +113,37 @@ def collab_model(movie_list,top_n):
     user_ids = pred_movies(movie_list)
     for user in set(user_ids):
         all_users = pd.concat([all_users,ratings_df[ratings_df['userId']==user]])
-    a = {}
-    temp_df = pd.DataFrame()
-    for movieid in set(all_users.movieId.tolist()):
-        if movieid in movies_df.movieId:
-            count = len(all_users[all_users['movieId']==movieid])
-            average = all_users[all_users['movieId']==movieid].rating.mean()
-            temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
-                                                 'popularity':count*average}])
-            temp_df = pd.concat([temp_df,temp_1])
-        temp_df = temp_df[temp_df['popularity'] < 30]
-        temp_df = temp_df.sort_values(by='popularity',ascending=False)
-        top10 = [i[0] for i in temp_df.head(10).title]
+    piv_df = pd.pivot_table(all_users,index='userId',columns='movieId',values='rating')
+    piv_df_2 = piv_df.fillna(0)
+    cosine_sim = pd.DataFrame(cosine_similarity(piv_df_2,piv_df_2),index=piv_df_2.index,columns=piv_df_2.index)
+    for i in piv_df.index:
+    similarities = np.array(cosine_sim[i])
+    for movie in piv_df.columns:
+        if np.isnan(piv_df.loc[i,movie]):
+            numerator = sum(piv_df_2.loc[:,movie].values*similarities)
+            denominator = sum(similarities[np.array([i for i,v in enumerate(piv_df_2.loc[:,movie]) if v > 0])])
+            if numerator > 0:
+                piv_df.loc[i][movie] = numerator/denominator
+            else:
+                piv_df.loc[i][movie] = 0
+    averages = pd.DataFrame()
+    for movie in piv_df.columns:
+        if movie in movies_df.movieId:
+            average = piv_df.loc[:,movie].mean()
+            temp_df = pd.DataFrame({'movieId':[movie],'average':[average]})
+            averages = pd.concat([averages,temp_df])
+    averages = averages.sort_values(by='average',ascending=False)
+    #    a = {}
+#    temp_df = pd.DataFrame()
+#    for movieid in set(all_users.movieId.tolist()):
+#        if movieid in movies_df.movieId:
+#            count = len(all_users[all_users['movieId']==movieid])
+#            average = all_users[all_users['movieId']==movieid].rating.mean()
+#            temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
+#                                                 'popularity':count*average}])
+#            temp_df = pd.concat([temp_df,temp_1])
+#        temp_df = temp_df[temp_df['popularity'] < 30]
+#        temp_df = temp_df.sort_values(by='popularity',ascending=False)
+#        top10 = [i[0] for i in temp_df.head(10).title]
 
-    return(top10)
+    return(averages)
