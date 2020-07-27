@@ -24,6 +24,7 @@ import pandas as pd
 import numpy as np
 import re
 from PIL import Image
+import math
 #Plots
 import seaborn as sns
 import matplotlib.style as style 
@@ -356,7 +357,8 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-                    data = data[['rating']].astype(int) #Rounds decimal ratings UP to integer
+                    data.rating = data.rating.apply(lambda x: math.ceil(x))#Rounds decimal ratings UP to integer
+                    data = data[['rating']]
                     order = sorted(data.rating.unique(),reverse=True)
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
