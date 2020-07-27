@@ -356,11 +356,10 @@ def main():
                     for chunk in chunks:
                         chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
                         data = pd.concat([chunk,data])
-#                    data = data.rating.value_counts()
-                    data = data*100/data.sum()
+                    data = data[['rating']]
                     plt.figure(figsize=(10,5))
                     sns.set(font_scale=2)
-                    count_plot = sns.countplot(y='rating',data=data[['rating']])
+                    count_plot = sns.countplot(y='rating',data=data)
                     count_plot.set(title='movie rating distribution',
                                   xlabel='counts',ylabel='rating')
                     plt.show()
