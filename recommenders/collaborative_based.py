@@ -118,10 +118,10 @@ def collab_model(movie_list,top_n):
         if movieid in movies_df.movieId:
             count = len(all_users[all_users['movieId']==movieid])
             average = all_users[all_users['movieId']==movieid].rating.mean()
-            if count < 10:
-                temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
-                                                     'popularity':count*average}])
-                temp_df = pd.concat([temp_df,temp_1])
+            temp_1 = pd.DataFrame.from_records([{ 'title':movies_df[movies_df['movieId']==movieid].title.tolist(),
+                                                 'popularity':count*average}])
+            temp_df = pd.concat([temp_df,temp_1])
+        temp_df = temp_df[temp_df['popularity'] < 30]
         temp_df = temp_df.sort_values(by='popularity',ascending=False)
         top10 = [i[0] for i in temp_df.head(10).title]
 
