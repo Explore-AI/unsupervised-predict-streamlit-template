@@ -153,11 +153,15 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("As movie watchers we are always looking for new movies to watch; however, it is usually a herculean task simply finding the right one to watch from the millions of movies available in the catalogue. For this reason; we created both content-based and collaborative-based recommender systems with the given dataset. The purpose of this recommendation system is to search for content that would be interesting to the user. Moreover, it involves a number of factors to create personalised lists of useful and interesting content specific to each user.")
-        st.write("In Content-based Filtering, we seek to make recommendations based on how similar the properties or features of an item are to other items, and this proved to be a challenge for our content-based recommender system. Furthermore; as a result of the lack of computing capacity, cosine transformation was only performed on a small fraction of the data. Collaborative-based filtering is the best performing recommendation system with an impressive RMSE score, which focuses around actual ratings given by users to movies, and are compared against ratings predicted by an algorithm.")
 
-    # You may want to add more sections here for aspects such as an EDA,
-    # or to provide your business pitch.
+        st.write("### Content-Based Recommender system")
+        st.write("A Content-based recommender system tries to recommend items to users, based on their profile. The user’s profile revolves around the user’s preferences and tastes, or based on the user ratings. Furthermore; contents of the movie such as cast or keyword are used to find similarities with other movies. Then the movies that are most likely to be similar are recommended.")
+        st.write("Term Frequency-Inverse Document Frequency (TF-IDF) vectors were computed to find a matrix where each column represents a word in the genre vocabulary. A cosine similarity matrix was then computed to build a model that would estimate user ratings of new movies")
+
+        st.write("### Collaborative Filtering")
+        st.write("#### The SVD Model from SurPRISE")
+        st.write("Surprise is a Python scikit for building and analysing recommender systems that deals with rating data (Nicolas Hug, https://surprise.readthedocs.io/en/stable/getting_started.html). Within this library is a collection of algorithms for prediction experiments. For this competition, we have evaluated three of the algorithms (SVD, SVDpp and KNNWithMeans) in our collaborative-based models. We will discuss the SVD model in further detail as it proved to be the best scoring algorithm overall with an RMSE of 0.78675.")
+        st.write("A training dataset is given, it comprises of movie Id, user IDs and the rating (1-5) that the user gave the respective movie. This data can be visualised as a sparse matrix with users as row indexes, movies as column name and ratings as values. It is assumed that every movie can be described in terms of attributes such as genre or cast; and every user's likes and dislikes can be described from their historical ratings. Therefore, it is possible to describe these patterns using fewer numbers than is present in the full matrix, for example, a single value representing comedy may be sufficient to explain why many comedy-lovers rated a particular movie highly. Essentially, we are aiming to decompose the original sparse matrix into two low-rank matrices that represent user factors and item factors. The SVD model uses matrix factorisation to compute these parameters accordingly (Simon Funk, https://sifter.org/~simon/journal/20061211.html).") 
 
 
     # Build information page
@@ -416,7 +420,7 @@ def main():
                     plt.xlabel("Director",fontsize=8)
                     st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
+                    st.markdown('The plot above shows us the directors that worked on the most projects compared to others. Woody Allen and Luc Besson seem to be the busiest directors with 23 and 22 projects they have respectively worked on. Looking the top two directors and the third one, the difference in the number of projects is not that big, but when you consider the context of data and the scale of making a movie, one could argue that it is a big deal to for a director to surpass another by even one project.', unsafe_allow_html=True)
 
             if selection == "Lowest number of movies a director worked on":
 
@@ -429,8 +433,7 @@ def main():
                     plt.xlabel("Director",fontsize=8)
                     st.pyplot()
 
-                    st.markdown('Insights on visualization', unsafe_allow_html=True)
-
+                    st.markdown('From the plot it can be seen that the lowest number of movies a director has worked on is 1, this coud be because of a lot of factors i.e. new directors, failed careers etc.', unsafe_allow_html=True)
     
     if page_selection == "Business Pitch":
         st.title('Business Proposal')
