@@ -233,7 +233,7 @@ def main():
                               'Children','Comedy',
                               'Crime','Documentary',
                               'Drama','Fantasy','Horror','Mystery',
-                              'Romance','Sci-fi',
+                              'Romance',#'Sci-fi',
                               'Thriller','War','Western']
             genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
 
