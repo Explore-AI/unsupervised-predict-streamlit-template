@@ -371,7 +371,10 @@ def main():
                                   xlabel='Rating_counts',ylabel='Rating')
                     plt.show()
                     return (count_plot)
-                st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
+                if len(options) < 1:
+                    st.warning('Please select a movie title')
+                else:
+                    st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
 
     if page_selection == "Solution Overview":
         
