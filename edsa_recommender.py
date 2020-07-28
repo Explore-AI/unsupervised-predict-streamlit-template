@@ -129,9 +129,6 @@ def main():
             + So We altermately want to predict rating of a movie based on its contents, basically appraoching this like we would a classification problem. With that in mind the idea we had is to extract all meta-data from the dataset and and merge everything to to data-frames, one containing movieId, megered meta-data and weighted-rating for each movie in the the train dataset and the other movieId and merged meta-data for each movie in the test dataset.
             """)
         st.image('resources/imgs/1_O_GU8xLVlFx8WweIzKNCNw.png',use_column_width=True)
-   ##   st.markdown(open('resources/Solution_Overview.md').read())
-
-
     
     # Landing Page
     if page_selection == "Welcome":
@@ -174,7 +171,7 @@ def main():
                 st.markdown("""
             ### Observations
             + Movie that was rated the most by users is "Great Performances" Cats (1998) with the rating of 2.0, this can also tells us that the movie is being watched by most of the users as they have given it a rating.
-            + Having that in mind we can draw some insights that the movie is most prefered compared to #Female Pleasure (2018) which is rated 4.0 by only a single user.
+            + Having that in mind we can draw some insights that the movie is most prefered compared to Female Pleasure (2018) which is rated 4.0 by only a single user.
             + Some movies are rated high but only by a single user.
             + The joint plot shows that one user may give a high single rating for that movie by looking at number of rating.
             """)
@@ -204,7 +201,14 @@ def main():
             + Although the train dataset does not represent the entire ccollection of movies released since the making of movies, it gives an indication of how the movies were released.
             + The gradual increase in movie releases from the early 1900s onwards with a sharp rise from early 2000s.
             """)       
-                st.image('resources/imgs/Movie Release.png',use_column_width=True)
+                
+            
+            elif st.checkbox("Top 10 Most Rated Movies"):
+                st.markdown("""
+            ### Observations
+            + Although the train dataset does not represent the entire collection of movies released since the making of movies, it gives an indication of how the movies were released. There has been a gradual increase in movie releases from the early 1900s onwards with a sharp rise from early 2000s.
+            """) 
+                st.image('resources/imgs/Movie.png',use_column_width=True)
 
         if selection_info == "View Raw Data":
             st.markdown("""
@@ -214,9 +218,8 @@ def main():
             """)
             st.dataframe(data)
 
-    
 
-# The team page.
+# Meet the Team.
     if page_selection == "Meet The Rollicks":
         html_temp = """
 			"""
