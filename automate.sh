@@ -5,5 +5,5 @@ cd ~/
 sudo apt-get install automake autotools-dev fuse g++ git libcurl4-gnutls-dev libfuse-dev libssl-dev libxml2-dev make pkg-config -y
 cd unsupervised-predict-streamlit-template/
 pip install -r requirements.txt
-streamlit run --server.port 5000 edsa_recommender.py
+
 
