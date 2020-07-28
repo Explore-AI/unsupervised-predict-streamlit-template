@@ -233,7 +233,7 @@ def main():
                               'Children','Comedy',
                               'Crime','Documentary',
                               'Drama','Fantasy','Horror','Mystery',
-                              'Romance',#'Sci-fi',
+                              'Romance','Sci-fi',
                               'Thriller','War','Western']
             genres = st.multiselect('Pick your favourie genre(s) for some fun facts',genres_setlist)
 
@@ -241,13 +241,14 @@ def main():
                 def genre_count(filename,list1):
                     '''Plots the distribution of genres in the movies dataset'''
                     filename = data_path+str(filename)
+                    list_1 = [i.lower() for i in list_1]
                     chunks = pd.read_csv(filename,chunksize=10000)
                     data = pd.DataFrame()
                     count = 0
                     dict_genres = {}
                     for chunk in chunks:
                         chunk_genres = ','.join([genres.replace('|',',') for genres in chunk.genres]).split(',')
-                        chunk_genres = [item for item in chunk_genres if item in list1]
+                        chunk_genres = [item for item in chunk_genres if item.lower() in list1]
                         for genre in chunk_genres:
                             if genre in dict_genres:
                                 dict_genres[genre]+=1
