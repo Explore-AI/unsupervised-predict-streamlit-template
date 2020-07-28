@@ -347,7 +347,7 @@ def main():
                 options = [title for title in options if title==title]
             value = st.selectbox("title", options)
             if st.button('view ratings'):
-                if len(value) < 1:
+                if len(options) < 1:
                     st.warning('Please select a movie title')
                 else:
                     def movieId(filename):
