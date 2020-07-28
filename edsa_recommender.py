@@ -141,37 +141,30 @@ def main():
         st.markdown('Watch **[Pulp Fiction](https://www.youtube.com/watch?v=s7EdQ4FqbhY)**')
 
         #bar graph most watched 
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Top 10 watched movies</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/top_10.png', use_column_width= True)
         st.info("The 1990's were a great decade for films, we can see that 9 out of the top 10 movies were made then.")
 
         #word cloud for most common genre
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Most watched genres</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/genres.png', use_column_width= True)
         st.info("Above, we can see the most common film genres. It clear that Sci-fi, Comedy-Drama and Action-Adventure are popular.")
 
         #word cloud for most common tags
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Most common tags</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/Tags.png', use_column_width= True)
         st.info("'based-on'(a true story), 'sci-fi', and 'twist ending' are commonly occuring tags.")
 
         #word cloud for most common plot_key_words
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Most plot keywords</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/plot_key_words.png', use_column_width= True)
         st.info('In the common plot key words, again we see "based-on", suggesting that movies based on true stories or books are popular. We also see "female protagonist" and "front nudity" which supports the idea that sex sells.')
 
         #word cloud for most common directors
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Directors</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/Director.png', use_column_width= True)
         st.info('The most occuring directors include Michael Crichton (authored and directed Jurassic Park), Quentin Tarantino (directed Pulp Fiction) and Lilly Wachowski (directed the Matrix). ')
 
         #word cloud for movies that were watched once
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Movies watched once</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/watched_once.png', use_column_width= True)
         st.info('Some movies were only watched once :cry:')
 
         #rating distribution
-        #st.markdown("<h2 style='text-align: left;color: #000000;'>Movies watched once</h2>", unsafe_allow_html=True)
         st.image('resources/imgs/rating_hist.png', use_column_width= True)
         st.info('From the plot above it can be observed that the integer values have taller bars than the floating values since most of the users assign rating as integer value i.e. 1, 2, 3, 4 or 5. Furthermore, it is evident that the data has a weak normal distribution with the mean of around 3.5 .')
 
@@ -237,7 +230,6 @@ def main():
         if select_opt_select == 'Year':
             year = st.text_input("Enter the year","Type Here")
             if st.button("Search for the top movies from this year"):
-                #vect_text = tweet_cv.transform([year]).toarray()
                 st.write(popular_per_year(int(year)))
 
 
