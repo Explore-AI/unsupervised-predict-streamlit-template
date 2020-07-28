@@ -537,7 +537,7 @@ def main():
 					<img style="width: 150px;height: 150px;border-radius: 50%;" src="https://media-exp1.licdn.com/dms/image/C5603AQEtkA_hyaeciA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=i2wG9MJ8LyVMEYkssSfzhKKIoCCmruWTIlt92QEFT9U">
 					<div style="margin: 5px;text-transform: uppercase;">Philani Mkhize</div>
 					<div style="font-style: italic;color: #3498db;">Data Analyst</div>
-					<div style=";color: #f63366;"><p>A problem is easier when broken into smaller easier problem.</p></div>
+					<div style=";color: #f63366;"><p>The world is one big data problem inspired by Andrew McAfee.</p></div>
 					<div style="margin-top: 6px;">
 						<a href="https://www.linkedin.com/in/philani-mkhize-519995149/" style="margin: 0 4px;display: inline-block;width: 30px;height: 30px;transition: 0.4s;"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
 					</div>
