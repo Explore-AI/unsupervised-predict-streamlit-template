@@ -301,7 +301,7 @@ def main():
         st.write("""All these latent features are taken into account when a user rates a movie. By using the known, true user ratings, Stochastic Gradient
         descent is used to find the optimum weightings of the latent features that will most closely approximate the actual rating. The predicted
         rating is equal to the dot product of the user vector and the item vector""")
-	st.write("""A common issue with Collaborative filtering is Cold-start, that is, no ratings for any one of the three movie titles input by the user. In this instance,
+        st.write("""A common issue with Collaborative filtering is Cold-start, that is, no ratings for any one of the three movie titles input by the user. In this instance,
 	we provide recommendations based on the top 100 most rated films in the MovieLense Data, however, other methods of handling cold start would include deep learning,
 	or implementation of a hybrid approach that uses content-based filtering as well.""")
         st.image("https://github.com/Pilasande/unsupervised-predict-streamlit-template/blob/master/resources/imgs/sol_overview.png?raw=true", use_column_width=True)
