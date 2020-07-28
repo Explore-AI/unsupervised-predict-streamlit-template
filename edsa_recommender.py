@@ -129,9 +129,6 @@ def main():
             + So We altermately want to predict rating of a movie based on its contents, basically appraoching this like we would a classification problem. With that in mind the idea we had is to extract all meta-data from the dataset and and merge everything to to data-frames, one containing movieId, megered meta-data and weighted-rating for each movie in the the train dataset and the other movieId and merged meta-data for each movie in the test dataset.
             """)
         st.image('resources/imgs/1_O_GU8xLVlFx8WweIzKNCNw.png',use_column_width=True)
-   ##   st.markdown(open('resources/Solution_Overview.md').read())
-
-
     
     # Landing Page
     if page_selection == "Welcome":
@@ -221,9 +218,8 @@ def main():
             """)
             st.dataframe(data)
 
-    
 
-# The team page.
+# Meet the Team.
     if page_selection == "Meet The Rollicks":
         html_temp = """
 			"""
