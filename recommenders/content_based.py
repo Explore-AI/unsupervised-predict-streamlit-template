@@ -34,12 +34,12 @@ def data_preprocessing(df):
     """Prepare data for use within Content filtering algorithm.
     Parameters
     ----------
-    subset_size : int
-        Number of movies to use within the algorithm.
+    df : pandas
+        the dataframe to be preprocessed
     Returns
     -------
     Pandas Dataframe
-        Subset of movies selected for content-based filtering.
+        preprocessed dataframe with new column called keyWords
     """
     lmovies = df.copy()
     # Split genre data into individual words.
