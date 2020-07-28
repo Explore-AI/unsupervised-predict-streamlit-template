@@ -1,0 +1,183 @@
+#--
+
+#HEAD
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Landing Page - Start Bootstrap Theme</title>
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/landing-page.min.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+#HEAD_END
+
+#RAW_DATA
+<div class="card bg-danger">
+<div class="card-header"><h3>$$</h3><br><p>&&</p></div>
+</div>
+#RAW_DATA_END
+
+#HOME_PAGE
+<div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fa fa-desktop m-auto fa-5x fa-align-center"></i>
+            </div>
+            <h3>Fully Responsive</h3>
+            <p class="lead mb-0">This web app will look great on any device, no matter the size!</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mb-5 mb-lg-0 mb-lg-3">
+              <div class="features-icons-icon d-flex">
+              <i class="fa fa-pie-chart m-auto fa-5x fa-align-center"></i>
+              </div>
+            <h3>Visualizations</h3>
+            <p class="lead mb-0">Providing you meaning insights and beautiful data visualizations!</p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+            <div class="features-icons-icon d-flex">
+              <i class="fa fa-window-maximize m-auto fa-5x fa-align-center"></i>
+            </div>
+            <h3>Friendly Interface</h3>
+            <p class="lead mb-0">Our interface is is pretty easy to use and is stunning visually!</p>
+          </div>
+        </div>
+      </div>
+</div>
+<hr/>
+<div class="container marketing">
+        <div class="row featurette",id="first_row">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Welcome to WhatsNext, our movie recommendation app<span class="text-danger" style="color:#FF0000"> Let's get to recommending!</span></h2>
+            <p class="lead">Our app uses amazing algorithms,combined with machine learning algorithms to recommend movies to the user.</p>
+          </div>
+          <div class="col-md-5">
+          <img style="width: 300px; height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/home_1.png">
+          </div>
+        </div>
+        <hr />
+        <div class="row featurette",id="first_row">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">A look at the data and useful insights</h2>
+            <p class="lead">Not only do we allow access to our smart machine learning models, we've got pages that'll provide useful insights on the twitter data</p>
+          </div>
+          <div class="col-md-5">
+            <img style="width: 300px; height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/chart_1.png">
+          </div>
+        </div>
+        <hr/>
+        <div class="row featurette",id="first_row">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Where to start?</h2>
+            <p class="lead">On the left hand side of the web app, you should see the following selector. These options will direct you to their corresponding pages<br>
+            <ul>
+            <li><b>Getting recommendations</b> - use our powerful recommendation system to get movie recommendations that match the users taste</li>
+            <li><b>Data and Insights</b> - Have a look at the raw data and the insights gained</li>
+            <li><b>Best movies (1995-2019)</b> - have a look at the top movies from any year</li>
+            <li><b>Meet our team</b> - Meet the amazing team that put the entire app together</li>
+            </ul>
+            </p>
+          </div>
+          <div class="col-md-5">
+            <img style="width: 300px; height: 300px;" src="https://www.vippng.com/png/detail/347-3475816_data-visualization-research-icons-cartoon.png">
+          </div>
+        </div>
+        <hr />
+        <div class="row featurette",id="first_row">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Upcoming features</h2>
+            <ul>
+            <li><b>Youtube Trailers</b> - Once you've received you recommended movie, you should see a youtube trailer video appear</li>
+            </ul>
+            </p>
+          </div>
+          <div class="col-md-5">
+            <img style="width: 250px; height: 250px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/code_1.jpg">
+          </div>
+        </div>
+        </div>
+#HOME_PAGE_END
+
+#ABOUT
+<div class="container">
+  <div class="row">
+    <!-- Iveno Carolus -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="width: 100%; height: 350px;" src="https://github.com/IvenoCarolus/portfolio_test/raw/master/client/images/pic01.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">Iveno Carolus</h5>
+          <div class="card-text text-black-50">Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/in/iveno-carolus-413375159/'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+        </div>
+      </div>
+    </div>
+    <!-- Vinita -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/Vi.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">Vinita Maharaj</h5>
+          <div class="card-text text-black-50">Team Lead,Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/in/vinita-maharaj-79932419b/'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+        </div>
+      </div>
+    </div>
+    <!-- Confidence -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/Confy.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">Confidence Ledwaba</h5>
+          <div class="card-text text-black-50">Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/mwlite/in/confidence-ledwaba'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+        </div>
+      </div>
+    </div>
+    <!-- Toby -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/Tobi.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <div class="card-text text-black-50">Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/in/toby-masuku-087707140/'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+      </div>
+    </div>
+  </div>
+  <!-- Shradda -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/Shradda.png" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">Shraddha Rajcoomar</h5>
+          <div class="card-text text-black-50">Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/in/shraddha-rajcoomar-4b9276110/'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+      </div>
+    </div>
+  </div>
+  <!-- Toby -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img style="height: 350px;" src="https://github.com/IvenoCarolus/unsupervised-predict-streamlit-template/raw/master/resources/imgs/Gugu.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <h5 class="card-title mb-0">Amanda Mtonjeni</h5>
+          <div class="card-text text-black-50">Data Scientist<br><li class="list-inline-item"><a href='https://www.linkedin.com/in/amanda-mtonjeni-959a55a0'><i class="fa fa-linkedin social-icon" aria-hidden="true"></i></a></li></div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+</div>
+#ABOUT_END
+--#
