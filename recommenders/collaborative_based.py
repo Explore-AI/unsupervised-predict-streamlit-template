@@ -30,15 +30,12 @@
 # Script dependencies
 import pandas as pd
 import numpy as np
-import bz2
-import _pickle as cPickle
 import pickle
 import copy
 from surprise import Reader, Dataset
-from surprise import SVD
+from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
-import surprise as surp
-
+from sklearn.feature_extraction.text import CountVectorizer
 
 
 # Importing data
@@ -47,7 +44,7 @@ model=pickle.load(open('resources/models/svd.pkl', 'rb'))
 df_movie = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/movies.csv',sep = ',',delimiter=',')
 df_rating = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
 
-#-----------------------------#
+# We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
 class CFData:
     def __init__(self, df_rating, test_ratio=None, df_id_name_table=None, rating_scale=(1, 5)):
             """
@@ -100,10 +97,6 @@ class CFData:
             return None
         return self.__dict_id_to_name[item_id][0]
 
-
-#-----------------------------#
-
-
 # Load rating data to CFData class
 df_data = df_rating[['userId','movieId', 'rating',]]
 df_data = df_data.rename(index=str, columns={'userId': 'userID', 'movieId': 'itemID', 'rating': 'rating'})
@@ -137,7 +130,7 @@ def get_similar_item(model, input_item_id, num_neighbor):
 
 def __get_top_similarities(item_inner_id, k):
 
-    # Get TOP-k similar item for matix factorization model
+  
     from math import sqrt
     def cosine_distance(vector_a, vector_b):
         ab = sum([i*j for (i, j) in zip(vector_a, vector_b)])
@@ -172,7 +165,6 @@ def show_recommended_movies(movie_name, k=10):
     return movie_neighbor_name
         
 
-
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def collab_model(movie_list,top_n=10):
@@ -201,8 +193,7 @@ def collab_model(movie_list,top_n=10):
     r_3 = [x for x in r_3 if x not in movie_list]
     
     master_list = r_1 + r_2 + r_3
-    master_list = list(set(master_list))
-    
+    master_list = list(set(master_list)) 
     
     recommended_movies = master_list[0:10]
     
