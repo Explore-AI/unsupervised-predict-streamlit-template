@@ -371,7 +371,7 @@ def main():
                                   xlabel='Rating_counts',ylabel='Rating')
                     plt.show()
                     return (count_plot)
-                if len(options) < 1:
+                if len(value) < 1:
                     st.warning('Please select a movie title')
                 else:
                     st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
