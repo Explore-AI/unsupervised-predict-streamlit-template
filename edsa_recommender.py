@@ -241,7 +241,7 @@ def main():
                 def genre_count(filename,list1):
                     '''Plots the distribution of genres in the movies dataset'''
                     filename = data_path+str(filename)
-                    list_1 = [i.lower() for i in list_1]
+                    list1 = [i.lower() for i in list1]
                     chunks = pd.read_csv(filename,chunksize=10000)
                     data = pd.DataFrame()
                     count = 0
