@@ -352,6 +352,7 @@ def main():
                             return(chunk[chunk.title==value.lower()])
                 selid = movieId('resources/data/movies.csv').movieId.values[0]
                 def rate(filename):
+                    '''Function to upload large csv files in chunks'''
                     chunks = pd.read_csv(filename,chunksize=50000)
                     data = pd.DataFrame()
                     for chunk in chunks:
@@ -381,25 +382,22 @@ def main():
                     <div class="w3-row-padding w3-content" style="max-width:100%;">
                     <div style="padding-left: 0;">
                     <div class="w3-justify">
-                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
-                    <p style="padding-top: 10px;"><b>The Solution</b></p>
-                    </div>
-                    <p><img src="https://www.scielo.br/img/revistas/jistm/v13n3//1807-1775-jistm-13-03-0497-gf01.jpg" alt="" height="320" width="280" style="float: right;">Build a Collaborative filtering recommendation engine. Based on a users' historic movie data we first predict how a user will rate a movie they have not yet rated, once we have the estimated ratings, we then recommend the topN highly rated(estimated ratings) movies. To arrive at the best rating estimates, <b>RMSE</b>(root mean squared error) is the cost function to be minimized, we want to achieve an RMSE score less than or equal <b>0.85</b>. <br>The fundamental assumption behind <b>collaborative filtering</b> technique is that similar user preferences over the items could be exploited to recommend those items to a user who has not seen or used it before. In simpler terms, we assume that users who agreed in the past (viewed the same movie) will agree in the future.<br></p>
-                    <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue"  style="margin-top: 70px;">
-                    <p style="padding-top: 10px;"><b>How it Works</b></p>
-                    </div>
-                    <h3>Model based methods</h3>
+                    <img src="https://lh4.googleusercontent.com/ETrfhFmcdKSxpXsoqwvEOtUGLzD-5fPBNLqVOIm-kQrwngMUyeYrgShhsZwGDXSPylWyPx7C81rJp69-Ho83F-YngmJ8Of4LWw8X9h_drKGCVaUO-c6mnEho1T1ebMGJ6Hhhylbh" alt="" style="width: 100%;height: 80%;">
+                    <h2 "w3-text-blue"><b>Collaborative Based Filtering</b></h2>
+                    <p>Collaborative methods for recommender systems are methods that are based solely on the past interactions recorded between users and items in order to produce new recommendations. These methods do not require item meta-data like their content-based counterparts. This makes them less memory intensive which is great news since the movielens dataset has more than a million entries.</p>
+                    <h3 "w3-text-blue"><b>Model based methods</b></h3>
                     <p>Model based collaborative approaches only rely on user-item interactions information and assume a latent model supposed to explain these interactions. For example, matrix factorisation algorithms consists in decomposing the huge and sparse user-item interaction matrix into a product of two smaller and dense matrices: a user-factor matrix (containing users representations) that multiplies a factor-item matrix (containing items representations).</p>
-                    <img src="https://miro.medium.com/max/700/1*Na5M52RRnAjYRyPLN29TgA.png" alt="" height="280" width="450">
-                    <h3>Singular Vector Decomposition (SVD)</h3>
-                    <p>We used singular value decomposition to build our recommender engine. We utilize the results of SVD to fill the vacant ratings and then use the item based method to produce the prediction of unrated items.</p>
-                    <p>Formally, SVD is the decomposition of a matrix R which is the utility matrix with m equal to the number of users and m number exposed items (movies) into the product of three matrices:</p>
+                    <h4 "w3-text-blue">Singular Vector Decomposition (SVD)</h4>
+                    <p>We  used SVD to build our recommender engine which relies on user-item interactions and assumes a latent model to explain these interactions. We utilize the results of SVD to fill the vacant ratings and then use the user based method to produce the prediction of unrated items.</p>
+                    <p>Formally, SVD is the decomposition of an m by n matrix, A. The dimensions m and n refer to the number of users and movies respectfully</p>
                     <ul>
-                    <li>U is a left singular orthogonal matrix, representing the relationship between users and latent factors (Hopcroft & Kannan, 2012)</p></li>
-                    <li>Σ is a diagonal matrix (with positive real values) describing the strength of each latent factor</p></li>
-                    <li>VT(transpose) is a right singular orthogonal matrix, indicating the similarity between items and latent factors.</p></li>
+                    <li>A is broken down into the product of three matrices:</li>
+                    <li>U represents the relationship between users and latent factors</li> 
+                    <li>Σ describes the strength of each latent factor</li>
+                    <li>V(transpose) indicates the similarity between movies and latent factors</li>
                     </ul>
-                    <img src="https://miro.medium.com/max/697/1*bFmQ2DzGokaBUssGkFR3gg.png" alt="" height="250" width="450">
+                    <p>Using this method it's possible to predict how users would rate unseen movies based on their historical preferences. This allows us to make recommendations which are a list of movies our user hasn't  seen or rated yet but would definitely enjoy based on what they have seen and liked so far</p>
+                    <img src="https://lh6.googleusercontent.com/lusw4pYWLxCK2p9gtCpT1lMQoDSSKHTlSEknuFnh-28iID6rKfxCZGQLQooJPBM4vTg0-IvctuTeNDx2gTY4t6a8gZ6l1I8liO0JL3iemm2L7bxpgEO7NXmAFZ6ohi6Xg8V2Q0zL" alt="" style="width: 100%; height: 70%;">
                     </div>
                     </div>
                     </div>
@@ -408,16 +406,17 @@ def main():
         st.markdown(sol_page, unsafe_allow_html=True)
     
     if page_selection == "About us":
+        
         the_team = """
                     <h1 style="color:black;padding-bottom: 15px"><b>Meet the team that made it happen</b></h1>
                     <!-----------One Member--------------->
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C5603AQEWhdBCaiNRew/profile-displayphoto-shrink_800_800/0?e=1600905600&v=beta&t=6x86nCawTfIS8XsbPtLZ0DRfSUQEjikSrasKzMTc_00" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Nicole Meinie</h3>
-                    <p style="">Project Manager</p>
+                    <p style="">Data Scientist</p>
                     <ul>
                     <li style="display:inline;">
-                    <a href="www.linkedin.com/in/nicole-meinie/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    <a href="https://www.linkedin.com/in/nicole-meinie/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
                     </li>
                     <li style="display:inline;">
                     <a href="https://github.com/NicoleMeinie"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
@@ -429,10 +428,10 @@ def main():
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C5603AQHcTe4c3SNhdA/profile-displayphoto-shrink_800_800/0?e=1600300800&v=beta&t=wlzH7LmLPCnoO5b1LagSO9lr4WyDFCfWfIBcR0MuZUs" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Marcio Maluka</h3>
-                    <p style="">Tech Lead</p>
+                    <p style="">Data Scientist</p>
                     <ul>
                     <li style="display:inline;">
-                    <a href="linkedin.com/in/marcio-maluka-74b4065a"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    <a href="https://linkedin.com/in/marcio-maluka-74b4065a"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
                     </li>
                     <li style="display:inline;">
                     <a href="https://github.com/xmaluka"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
@@ -459,7 +458,7 @@ def main():
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://avatars0.githubusercontent.com/u/60364030?s=400&u=b1b36e92c09ad91e06ff145924ad8b5457639ccd&v=4" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Karabo Leso</h3>
-                    <p style="">Data Engineer</p>
+                    <p style="">Data Scientist</p>
                     <ul>
                     <li style="display:inline;">
                     <a href="https://www.linkedin.com/in/karabo-leso-191a01189/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
@@ -474,13 +473,13 @@ def main():
                     <div style="overflow: auto;background-color: #f0f2f6;border-radius: 5px;margin: auto;width: 100%;padding: 10px;">
                     <img style="float: left;padding-right: 15px;border-radius: 2.5px" src="https://media-exp1.licdn.com/dms/image/C4D03AQFIvWYBmngunw/profile-displayphoto-shrink_200_200/0?e=1600905600&v=beta&t=a0sOMsogyTNiwBkSOROQCjrxCWZsqtL8MU8336mnAC4" alt="Pineapple" width="170" height="170">
                     <h3 style="margin-bottom: 2px">Noah Kaekae</h3>
-                    <p style="">Software Developer</p>
+                    <p style="">Data Scientist</p>
                     <ul>
                     <li style="display:inline;">
-                    <a href="#"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
+                    <a href="https://www.linkedin.com/in/noah-kaekae/"><img border="0" alt="Linkein" src="https://image.flaticon.com/icons/svg/1384/1384014.svg" width="25" height="25"></a>
                     </li>
                     <li style="display:inline;">
-                    <a href="#"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
+                    <a href="https://github.com/Kaekaefx"><img border="0" alt="Github" src="https://image.flaticon.com/icons/svg/25/25231.svg" width="25" height="25"></a>
                     </li>
                     </ul>
                     </div>
