@@ -57,7 +57,7 @@ def main():
     # you are welcome to add more options to enrich your app.
     st.sidebar.image('resources/imgs/Movie_pic.jpg', use_column_width= True)
     st.sidebar.header('Movie Recommender Engine')
-    page_options = ["Recommender System","Find a movie","Solution Overview","Did you know?"]
+    page_options = ["Recommender System","Find a movie","Solution Overview","Did you know?", "About this app", "Profile"]
  
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -237,18 +237,22 @@ def main():
         if st.button('Suprise me'):
             st.write(random.choice(title_list))
             st.balloons()
-   
 
 
+    if page_selection == 'About this app':
+        st.subheader('About this App')
+        st.markdown(open('resources/background.md').read())    
 
-                 
-
-               
-
-        
+    if page_selection == 'Profile':
+        name = st.text_input("Name","")
+        email = st.text_input("Email","")
+        password = st.text_input("Password","", type= 'password')
+        if st.button("Confirm details"):
+            st.write(f'Thanks {name} your details are confirmed')
+                
 
     #side bar description of app
-    st.sidebar.info('This app has been developed by SS4_JHB_Unsupervised team :movie_camera:')  
+    st.sidebar.info('This app has been developed by SS4_JHB_Unsupervised team. For more info see **About this app** :movie_camera:')  
     st.sidebar.image('resources/imgs/EDSA_logo.png', use_column_width= True )      
 
 
