@@ -347,33 +347,33 @@ def main():
                 options = [title for title in options if title==title]
             value = st.selectbox("title", options)
             if st.button('view ratings'):
-                def movieId(filename):
-                    chunks = pd.read_csv(filename,chunksize=10000)
-                    for chunk in chunks:
-                        chunk.title = chunk.title.apply(lambda x: str(x).lower())
-                        if len(chunk[chunk.title==value.lower()]):
-                            return(chunk[chunk.title==value.lower()])
-                selid = movieId('resources/data/movies.csv').movieId.values[0]
-                def rate(filename):
-                    '''Function to upload large csv files in chunks'''
-                    chunks = pd.read_csv(filename,chunksize=50000)
-                    data = pd.DataFrame()
-                    for chunk in chunks:
-                        chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
-                        data = pd.concat([chunk,data])
-                    data.rating = data.rating.apply(lambda x: math.ceil(x))#Rounds decimal ratings UP to integer
-                    data = data[['rating']]
-                    order = sorted(data.rating.unique(),reverse=True)
-                    plt.figure(figsize=(10,5))
-                    sns.set(font_scale=2)
-                    count_plot = sns.countplot(y='rating',data=data,order=order,palette='Reds_r')
-                    count_plot.set(title='Movie Rating Distribution',
-                                  xlabel='Rating_counts',ylabel='Rating')
-                    plt.show()
-                    return (count_plot)
                 if len(value) < 1:
                     st.warning('Please select a movie title')
                 else:
+                    def movieId(filename):
+                        chunks = pd.read_csv(filename,chunksize=10000)
+                        for chunk in chunks:
+                            chunk.title = chunk.title.apply(lambda x: str(x).lower())
+                            if len(chunk[chunk.title==value.lower()]):
+                                return(chunk[chunk.title==value.lower()])
+                    selid = movieId('resources/data/movies.csv').movieId.values[0]
+                    def rate(filename):
+                        '''Function to upload large csv files in chunks'''
+                        chunks = pd.read_csv(filename,chunksize=50000)
+                        data = pd.DataFrame()
+                        for chunk in chunks:
+                            chunk = chunk[chunk['movieId']==selid][['movieId','rating']]
+                            data = pd.concat([chunk,data])
+                        data.rating = data.rating.apply(lambda x: math.ceil(x))#Rounds decimal ratings UP to integer
+                        data = data[['rating']]
+                        order = sorted(data.rating.unique(),reverse=True)
+                        plt.figure(figsize=(10,5))
+                        sns.set(font_scale=2)
+                        count_plot = sns.countplot(y='rating',data=data,order=order,palette='Reds_r')
+                        count_plot.set(title='Movie Rating Distribution',
+                                      xlabel='Rating_counts',ylabel='Rating')
+                        plt.show()
+                        return (count_plot)
                     st.write(rate('../unsupervised_data/unsupervised_movie_data/train.csv').figure)
 
     if page_selection == "Solution Overview":
