@@ -339,9 +339,9 @@ def main():
             if len(value)==0 and len(actor)==0:
                 options = ''
             if len(value)==0 and len(actor) > 0:
-                options = [title for title in actors_and_dir.title]
+                options = [title for title in actors_and_dir.title if not np.isnan(title)]
             if len(value)>0 and len(actor)>0:
-                options = [title for title in actors_and_dir.title if title in options]
+                options = [title for title in actors_and_dir.title if (title in options and not np.isnan(title))]
             value = st.selectbox("title", options)
             if st.button('view ratings'):
                 def movieId(filename):
