@@ -433,41 +433,42 @@ def main():
 
     
     if page_selection == "Business Pitch":
-                st.title('Business Proposal')
-                st.write("Looking at the current and increased demand of precise and accurate movie recommender models. We have developed an application that evaluates the appetite of viewers and utilizes aggregates that would be able to satisfy your viewers. Considering that the structure of viewership from a television channel is vastly different from that of online movie hosts, in regards that the online movie viewers have the liberty to choose the film of their choice at any given time whereas on television there are restriction on choice and prefered time to watch the film.")
-                st.write("Given that a high population of the world uses the internet and television to view movies,  we have structured our web app so that it would be able to render solutions and insights for both the platforms. We will observe the TV platform then followed by the online platform.")
+        st.title('Business Proposal')
+        st.write("Looking at the current and increased demand of precise and accurate movie recommender models. We have developed an application that evaluates the appetite of viewers and utilizes aggregates that would be able to satisfy your viewers. Considering that the structure of viewership from a television channel is vastly different from that of online movie hosts, in regards that the online movie viewers have the liberty to choose the film of their choice at any given time whereas on television there are restriction on choice and prefered time to watch the film.")
+        st.write("Given that a high population of the world uses the internet and television to view movies,  we have structured our web app so that it would be able to render solutions and insights for both the platforms. We will observe the TV platform then followed by the online platform.")
 
-                st.write('### 1. Television Platform')
-                st.write('The limitation of choice on TV has led us to use world aggregates to determine the top movies that would mesmerize the clients. First we will observe the top rated genres world wide: below are pie charts showing each genre and their respective ratings.')
+        st.write('### 1. Television Platform')
+        st.write('The limitation of choice on TV has led us to use world aggregates to determine the top movies that would mesmerize the clients. First we will observe the top rated genres world wide: below are pie charts showing each genre and their respective ratings.')
 
 
-                # Calculate the number of ratings per genre of movie
-                df_genres['movieId'] = df['movieId']
-                genre_ratings = pd.merge(left=train, right=df_genres, left_on='movieId', right_on='movieId')
-                genre_ratings.drop(['userId', 'movieId', 'timestamp'], axis=1, inplace=True)
-                genre_ratings = genre_ratings.groupby(by=['rating'], axis=0).sum()
+        # Calculate the number of ratings per genre of movie
+        df_genres['movieId'] = df['movieId']
+        genre_ratings = pd.merge(left=train, right=df_genres, left_on='movieId', right_on='movieId')
+        genre_ratings.drop(['userId', 'movieId', 'timestamp'], axis=1, inplace=True)
+        genre_ratings.drop('(no genres listed)', axis = 1, inplace = True)
+        genre_ratings = genre_ratings.groupby(by=['rating'], axis=0).sum()
 
-                # Examine how the different movie genres are historically rated by users
-                names = list(genre_ratings.columns)
-                labels = list(genre_ratings.index)
-                colours = sns.color_palette(palette='viridis', n_colors=len(labels), desat=None)
+        # Examine how the different movie genres are historically rated by users
+        names = list(genre_ratings.columns)
+        labels = list(genre_ratings.index)
+        colours = sns.color_palette(palette='viridis', n_colors=len(labels), desat=None)
 
-                fig = plt.figure()
-                fig.subplots_adjust(hspace=1, wspace=1)
-                for i in range(1, 21):
-                        plt.subplot(4, 5, i)
-                        plt.pie(genre_ratings[names[i-1]], colors=colours, radius=2, autopct='%0.1f%%',pctdistance=1.2)
-                        fig.set_size_inches(20, 16) 
-                        plt.title(names[i-1], pad=58, fontsize=14)
-                plt.legend(labels, title='Rating', fancybox=True, loc=6, bbox_to_anchor=(1.7,6.8))
-                st.pyplot()
+        fig = plt.figure()
+        fig.subplots_adjust(hspace=1, wspace=1)
+        for i in range(1, 20):
+            plt.subplot(4, 5, i)
+            plt.pie(genre_ratings[names[i-1]], colors=colours, radius=2, autopct='%0.1f%%',pctdistance=1.2)
+            fig.set_size_inches(20, 16) 
+            plt.title(names[i-1], pad=58, fontsize=14)
+        plt.legend(labels, title='Rating', fancybox=True, loc=4, bbox_to_anchor=(3,0))
+        st.pyplot()
 
-                st.write('Now that we have the top genres we could filter out movies and get the top movies of the top genres and thus base our movie playlist from that perspective.')
+        st.write('Now that we have the top genres we could filter out movies and get the top movies of the top genres and thus base our movie playlist from that perspective.')
 
-                st.write('### 2. Online Movie Platform')
-                st.write('When approaching the internet platform we will apply some of the most popular and proven recommender algorithms to make catered recommendations for each individual. The application is based primarily on the concept shown on the Recommender System page, where a content and a collaborative model were used to make movie predictions. The following is an example of results produced for a specific user in our dataset. Below you can see a table showing the top 10 movies recommended for user no. 777.')
-                userx = pd.read_csv('resources/data/userec.csv')
-                st.write(userx['title'][:10])
+        st.write('### 2. Online Movie Platform')
+        st.write('When approaching the internet platform we will apply some of the most popular and proven recommender algorithms to make catered recommendations for each individual. The application is based primarily on the concept shown on the Recommender System page, where a content and a collaborative model were used to make movie predictions. The following is an example of results produced for a specific user in our dataset. Below you can see a table showing the top 10 movies recommended for user no. 777.')
+        userx = pd.read_csv('resources/data/userec.csv')
+        st.write(userx['title'][:10])
 
 
     st.sidebar.title("About")
