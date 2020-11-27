@@ -31,6 +31,7 @@
 import pandas as pd
 import numpy as np
 import pickle
+import dill
 import copy
 from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
