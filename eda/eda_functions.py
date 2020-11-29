@@ -1,7 +1,8 @@
 """
 Functions to build EDA page in streamlit app
 
-Authored by: JHB_team_RM4
+Author: Roberto Rocha
+
 """
 
 
