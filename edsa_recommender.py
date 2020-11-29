@@ -260,7 +260,7 @@ def main():
 
     if page_selection == "Introduction":
         st.sidebar.markdown(open('resources/markdown/introduction/contrib.md').read(), unsafe_allow_html=True)
-        st.markdown("<h2 style='text-align: center;'>Team RM4 TheFlixters</h1>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center;'>Roberto Rocha</h1>", unsafe_allow_html=True)
         st.image('resources/imgs/banner.png',use_column_width=True)
         #st.sidebar.markdown(open('resources/markdown/introduction/info.md').read(), unsafe_allow_html=True)
         info_pages = ["Select Option", "General Information", "Contributors"]
