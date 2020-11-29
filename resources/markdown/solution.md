@@ -1,0 +1,5 @@
+In this project, we succeeded in building an unsupervised machine learning model that is able to recommend movies based on content-based or collaborative filtering and is capable of accurately predicting how a user will rate a movie they have not yet viewed, based on their historical preferences. Our top performing model has a root mean squared error (RMSE) of 0.78, based on a testing set submitted to the EDSA Kaggle competition.
+
+The figure below shows RMSE values for six collaborative filtering algorithms, based on a small subset of the data. The SVD and BaselineOnly models performed the best on this subset and after completing cross validation and hyperparameter tuning, we found that the SVD model outperformed BaselineOnly.
+
+The singular value decomposition (SVD) algorithm is a baseline approach to recommender systems, as it has a broad range of applications including dimensionality reduction, solving linear inverse problems, and data fitting. The SVD algorithm generally performs better on large datasets compared to some other models as it decomposes a matrix into constituent arrays of feature vectors corresponding to each row and each column.

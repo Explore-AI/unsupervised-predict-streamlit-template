@@ -1,6 +1,17 @@
 # Streamlit-based Recommender System
 #### EXPLORE Data Science Academy Unsupervised Predict
 
+This library was created to learn how to build recommender systems and inplement unsupervised learning algorithms
+
+## building this package locally
+`python setup.py sdist`
+
+## installing this package from GitHub
+`pip install git+https://github.com/Lizette95/unsupervised-predict-streamlit-template.git`
+
+## updating this package from GitHub
+`pip install --upgrade git+https://github.com/Lizette95/unsupervised-predict-streamlit-template.git`
+
 ## 1) Overview
 
 ![Movie_Recommendations](resources/imgs/Image_header.png)
