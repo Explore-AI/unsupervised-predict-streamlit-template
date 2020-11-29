@@ -16,7 +16,7 @@ import surprise
 import pickle
 
 # Importing datasets
-ratings = pd.read_csv('ratings.csv')
+ratings = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
 ratings.drop('timestamp',axis=1,inplace=True)
 
 def svd_pp(save_path):
