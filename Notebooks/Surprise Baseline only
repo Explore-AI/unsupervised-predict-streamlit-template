@@ -1,0 +1,86 @@
+# 1. Importing necessary libraries
+import numpy as np 
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from surprise import Dataset 
+from surprise import Reader
+from surprise.model_selection import train_test_split
+from surprise import accuracy
+from surprise.model_selection import GridSearchCV,RandomizedSearchCV
+from sklearn.metrics import confusion_matrix, precision_score, recall_score,classification_report
+from surprise import BaselineOnly
+
+# 2. Loading data
+train = pd.read_csv('/kaggle/input/edsa-recommender-system-predict/train.csv')
+test = pd.read_csv('/kaggle/input/edsa-recommender-system-predict/test.csv')
+df_movies = pd.read_csv('/kaggle/input/edsa-recommender-system-predict/movies.csv')
+df_samp = pd.read_csv('/kaggle/input/edsa-recommender-system-predict/sample_submission.csv')
+df_imdb = pd.read_csv('/kaggle/input/edsa-recommender-system-predict/imdb_data.csv')
+df_gtags = pd.read_csv("/kaggle/input/edsa-recommender-system-predict/genome_tags.csv")
+df_scores = pd.read_csv("/kaggle/input/edsa-recommender-system-predict/genome_scores.csv")
+df_tags = pd.read_csv("/kaggle/input/edsa-recommender-system-predict/tags.csv")
+df_links = pd.read_csv("/kaggle/input/edsa-recommender-system-predict/links.csv")
+#samp = pd.read_csv("../input/train-sample/train_samp_5.csv")
+train.head()
+
+# 3. Data preprocessing
+## 3.1 Checking for missing values column wise
+train.isna().sum()
+3.2 Checking for duplicate records
+dup_bool = train.duplicated(['userId','movieId','rating'])
+print("Number of duplicate records:",sum(dup_bool))
+
+# 4. Basic data exploration
+## 4.1 Total number of users, movies and ratings
+#Total number of users, movies and ratings
+print("Total no of ratings :",train.shape[0])
+print("No. of unique users:", train["userId"].nunique())
+print("No. of unique movies:", train["movieId"].nunique())
+## 4.3 Ratings per user
+ratings_per_user = train.groupby(by='userId')['rating'].count()#.sort_values(ascending=False)
+ratings_per_user.describe()
+## 4.4 Ratings per movie
+ratings_per_movie = train.groupby(by='movieId')['rating'].count()
+ratings_per_movie.describe()
+### Minimum number of ratings to a movie = 1
+### Maximum number of ratings to a movie = 341
+### average ratings per movie = 11
+
+# 5. Loading as Surprise dataframe and train-test split
+reader = Reader()
+ratings = Dataset.load_from_df(train[['userId', 'movieId', 'rating']], reader)
+## Splitting into train and test set
+train_ratings, test_ratings = train_test_split(ratings, test_size=.20, random_state = 42)
+print("Size of trainset: ", train_ratings.n_ratings)
+print("Size of testset: ", len(test_ratings))
+
+# 6. ML models for recommendation from Surprise library¶
+## 6.1 Baseline method
+## 6.1.a Fitting Baseline model
+baseline_model = BaselineOnly(verbose = False)
+baseline_model.fit(train_ratings)
+## 6.1.b Evaluating the results
+train_predictions = baseline_model.test(train_ratings.build_testset())
+test_predictions = baseline_model.test(test_ratings)
+print("RMSE on training data : ", accuracy.rmse(train_predictions,verbose = False))
+print("RMSE on test data: ", accuracy.rmse(test_predictions,verbose = False))
+
+# 7. Iterate over rows
+train = []
+for _, row in test.iterrows():
+    train.append(baseline_model.predict(row.userId, row.movieId).est)
+
+train
+test['rating'] = train
+test['movieId'] = test['movieId'].astype(int)
+test['movieId'] = test['movieId'].astype(str)
+test['Id'] = test[['userId', 'movieId']].astype(str).agg('_'.join, axis=1)
+test.drop(columns=['movieId', 'userId'], inplace=True)
+test = test[["Id", "rating"]]
+
+# 8. View submission file
+test
+## 9. Create submission folder
+test.to_csv("basline_model.csv", index=False)
