@@ -1,36 +1,39 @@
 """
-
     Streamlit webserver-based Recommender Engine.
-
     Author: Explore Data Science Academy.
-
     Note:
     ---------------------------------------------------------------------
     Please follow the instructions provided within the README.md file
     located within the root of this repository for guidance on how to use
     this script correctly.
-
     NB: !! Do not remove/modify the code delimited by dashes !!
-
     This application is intended to be partly marked in an automated manner.
     Altering delimited code may result in a mark of 0.
     ---------------------------------------------------------------------
-
     Description: This file is used to launch a minimal streamlit web
-	application. You are expected to extend certain aspects of this script
+    application. You are expected to extend certain aspects of this script
     and its dependencies as part of your predict project.
-
-	For further help with the Streamlit framework, see:
-
-	https://docs.streamlit.io/en/latest/
-
+    For further help with the Streamlit framework, see:
+    https://docs.streamlit.io/en/latest/
 """
 # Streamlit dependencies
 import streamlit as st
 
+# Import seaborn library
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# To create interactive plots
+from plotly.offline import init_notebook_mode, plot, iplot
+import plotly.graph_objs as go
+init_notebook_mode(connected=True)
+import plotly.express as px
+
+
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import codecs
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -40,12 +43,44 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+# Importing data
+movies = pd.read_csv('resources/data/movies.csv')
+train = pd.read_csv('resources/data/ratings.csv')
+
+# Merging the train and the movies
+df_merge1 = train.merge(movies, on = 'movieId')
+
+from datetime import datetime
+# Convert timestamp to year column representing the year the rating was made on merged dataframe
+df_merge1['rating_year'] = df_merge1['timestamp'].apply(lambda timestamp: datetime.fromtimestamp(timestamp).year)
+df_merge1.drop('timestamp', axis=1, inplace=True)
+
+# -------------- Create a Figure that shows us that shows us how the Ratigs are distriuted. ----------------# 
+# Get the data
+data = df_merge1['rating'].value_counts().sort_index(ascending=False)
+
+# Create trace
+trace = go.Bar(x = data.index,
+               text = ['{:.1f} %'.format(val) for val in (data.values / df_merge1.shape[0] * 100)],
+               textposition = 'auto',
+               textfont = dict(color = '#000000'),
+               y = data.values,
+               marker = dict(color = '#db0000'))
+# Create layout
+layout = dict(title = 'Distribution Of {} Netflix-ratings'.format(df_merge1.shape[0]),
+              xaxis = dict(title = 'rating'),
+              yaxis = dict(title = 'Count'))
+# Create plot
+fig = go.Figure(data=[trace], layout=layout)
+iplot(fig)
+# ------------------------------ CODE FOR THE FIGURE ENDS HERE ------------------------------------# 
+
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","EDA", "Solution Overview", "About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,9 +135,57 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    if page_selection == "EDA":
+    	st.markdown("<h1 style='text-align: center; color: black;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
+    	st.markdown("""To make these recommender system application, it was implemented using a large dataset, from the data we had to
+    		explore it using Visuals. This page provides us with those:""")
+
+    	# fig, ax = plt.subplots(1, 1, figsize = (12, 6))
+    	# ax1 = train.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
+    	
+    	# st.pyplot(fig.tight_layout())
+    	st.info("View the Dataset")
+    	if st.sidebar.checkbox("View the Dataset"):
+    		st.write(df_merge1)
+
+    	st.info("The ratings done per year...")
+    	fig, ax = plt.subplots(1, 1, figsize = (12, 6))
+    	ax1 = df_merge1.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
+    	st.write(fig)
+
+
+    	# data = df_merge1['rating'].value_counts().sort_index(ascending=False)
+    	# # Create trace
+    	# trace = go.Bar(x = data.index,
+     #           text = ['{:.1f} %'.format(val) for val in (data.values / df_merge1.shape[0] * 100)],
+     #           textposition = 'auto',
+     #           textfont = dict(color = '#000000'),
+     #           y = data.values,
+     #           marker = dict(color = '#db0000'))
+    	# layout = dict(title = 'Distribution Of {} movie-ratings'.format(df_merge1.shape[0]),
+     #          xaxis = dict(title = 'rating'),
+     #          yaxis = dict(title = 'Count'))
+    	# st.pyplot(iplot(go.Figure(data=trace[trace], layout=layout)))
+
+    	if st.checkbox("How ratings are distributed"):
+    		f = px.histogram(df_merge1["rating"], x="rating", nbins=10, title="The Distribution of the Movie Ratings")
+    		f.update_xaxes(title="Ratings")
+    		f.update_yaxes(title="Number of Movies per rating")
+    		st.plotly_chart(f)
+    		#st.bar_chart(df_merge1['rating'])
+
+        
+
+			
+
+
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+
+    if page_selection == "About Us":
+    	st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
+    	st.info("Here are the people responsibe for building this application:")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
