@@ -47,6 +47,7 @@ title_list = load_movie_titles('resources/data/movies.csv')
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv')
 train = pd.read_csv('resources/data/ratings.csv')
+df_imdb = pd.read_csv('resources/data/imdb_data.csv')
 
 # Merging the train and the movies
 df_merge1 = train.merge(movies, on = 'movieId')
@@ -64,7 +65,85 @@ ratings_df = pd.DataFrame()
 ratings_df['Mean_Rating'] = df_merge1.groupby('title')['rating'].mean().values
 ratings_df['Num_Ratings'] = df_merge1.groupby('title')['rating'].count().values
 
-# ------------------------------ CODE FOR THE FIGURE ENDS HERE ------------------------------------# 
+genre_df = pd.DataFrame(df_merge1['genres'].str.split('|').tolist(), index=df_merge1['movieId']).stack()
+genre_df = genre_df.reset_index([0, 'movieId'])
+genre_df.columns = ['movieId', 'Genre']
+
+def make_bar_chart(dataset, attribute, bar_color='#3498db', edge_color='#2980b9', title='Title', xlab='X', ylab='Y', sort_index=False):
+    if sort_index == False:
+        xs = dataset[attribute].value_counts().index
+        ys = dataset[attribute].value_counts().values
+    else:
+        xs = dataset[attribute].value_counts().sort_index().index
+        ys = dataset[attribute].value_counts().sort_index().values
+        
+    
+    fig, ax = plt.subplots(figsize=(14, 7))
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.set_title(title, fontsize=24, pad=20)
+    ax.set_xlabel(xlab, fontsize=16, labelpad=20)
+    ax.set_ylabel(ylab, fontsize=16, labelpad=20)
+    
+    plt.bar(x=xs, height=ys, color=bar_color, edgecolor=edge_color, linewidth=2)
+    plt.xticks(rotation=45)
+    
+ # Merging the merge data earlier on with the df_imbd
+df_merge3 = df_merge1.merge(df_imdb, on = "movieId" )   
+
+num_ratings = pd.DataFrame(df_merge3.groupby('movieId').count()['rating']).reset_index()
+df_merge3 = pd.merge(left=df_merge3, right=num_ratings, on='movieId')
+df_merge3.rename(columns={'rating_x': 'rating', 'rating_y': 'numRatings'}, inplace=True)
+
+# pre_process the budget column
+
+# remove commas
+df_merge3['budget'] = df_merge3['budget'].str.replace(',', '')
+# remove currency signs like "$" and "GBP"
+df_merge3['budget'] = df_merge3['budget'].str.extract('(\d+)', expand=False)
+#convert the feature into a float
+df_merge3['budget'] = df_merge3['budget'].astype(float)
+#remove nan values and replacing with 0
+df_merge3['budget'] = df_merge3['budget'].replace(np.nan,0)
+#convert the feature into an integer
+df_merge3['budget'] = df_merge3['budget'].astype(int)
+
+df_merge3['release_year'] = df_merge3.title.str.extract('(\(\d\d\d\d\))', expand=False)
+df_merge3['release_year'] = df_merge3.release_year.str.extract('(\d\d\d\d)', expand=False)
+
+data_1= df_merge3.drop_duplicates('movieId')
+
+# Movies published by year:
+
+years = []
+
+for title in df_merge3['title']:
+    year_subset = title[-5:-1]
+    try: years.append(int(year_subset))
+    except: years.append(9999)
+        
+df_merge3['moviePubYear'] = years
+print('The Number of Movies Published each year:',len(df_merge3[df_merge3['moviePubYear'] == 9999]))
+
+def make_histogram(dataset, attribute, bins=25, bar_color='#3498db', edge_color='#2980b9', title='Title', xlab='X', ylab='Y', sort_index=False):
+    if attribute == 'moviePubYear':
+        dataset = dataset[dataset['moviePubYear'] != 9999]
+        
+    fig, ax = plt.subplots(figsize=(14, 7))
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.set_title(title, fontsize=24, pad=20)
+    ax.set_xlabel(xlab, fontsize=16, labelpad=20)
+    #ax.set_yticklabels([yticklabels(item, 'M') for item in ax.get_yticks()])
+    ax.set_ylabel(ylab, fontsize=16, labelpad=20)
+    
+    plt.hist(dataset[attribute], bins=bins, color=bar_color, ec=edge_color, linewidth=2)
+    
+    plt.xticks(rotation=45)
+
+
+
+# ------------------------------ CODE FOR THE FIGURES ENDS HERE ------------------------------------# 
 
 # App declaration
 def main():
@@ -136,16 +215,17 @@ def main():
         obj_cols = df_merge1.columns.values
 
         if st.sidebar.checkbox("Data preview", True):
+            
             st.subheader("Data preview")
-            st.markdown(f"Shape of dataset : {df_merge1.shape[0]} rows, {df_merge1.shape[1]} columns")
+            st.markdown(f"Shape of dataset : {df_merge3.shape[0]} rows, {df_merge3.shape[1]} columns")
             if st.checkbox("Data types"):
-                st.dataframe(df_merge1.dtypes)
+                st.dataframe(df_merge3.dtypes)
             if st.checkbox("Pandas Summary"):
                 st.write(df_merge1.describe())
             cols_to_style = st.multiselect(
                 "Choose numeric columns to apply BG gradient", numeric_cols
                 )
-            st.dataframe(df_merge1.head(50).style.background_gradient(subset=cols_to_style, cmap="BuGn"))
+            st.dataframe(df_merge3.head(50).style.background_gradient(subset=cols_to_style, cmap="BuGn"))
             st.markdown("---")
         #st.markdown("<h1 style='text-align: center; color: black;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
         st.markdown("""The Data Visualisation done on this page was extracted from the a kaggle notebook which can be found from the link: 
@@ -175,10 +255,23 @@ def main():
 
                 plt.scatter(ratings_df['Mean_Rating'], ratings_df['Num_Ratings'], alpha=0.5, color='green')
                 st.pyplot(fig)
+
+        if st.sidebar.checkbox("Visuals on Genres"):
+            st.info("The number of movie per genre")
+            fig=make_bar_chart(genre_df, 'Genre', title='Most Popular Movie Genres', xlab='Genre', ylab='Counts')
+            st.pyplot(fig)
+
+        if st.sidebar.checkbox("Movie published"):
+            st.info("Movies published by year")
+            st.pyplot(make_histogram(df_merge3, 'moviePubYear', title='Movies Published per Year', xlab='Year', ylab='Counts'))
+
+
+    st.sidebar.header("About")
+    st.sidebar.text("Team name : Team_5_EDSAJuly2020")
+    st.sidebar.text(
+        "Code : https://github.com/Thami-ex/unsupervised-predict-streamlit-template"
+    )
     		
-
-        
-
 			
 
 
