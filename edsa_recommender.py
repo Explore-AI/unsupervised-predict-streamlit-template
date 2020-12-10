@@ -279,6 +279,23 @@ def main():
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
 
+        st.markdown("""A `Recommender System (RS)` is no doubt one of the most obvious ways in which companies are enhancing the user
+            experience in the platform that they provide their customers services. Companies Like Facebook, Netflix, Amazon, and Youtube
+            are using RS to do so. More likely, these companies and other companies that are implementing the RS are doing 
+            so in introducing machine learning into these companies. There are a 3 available approaches into building a recommender system. 
+            As part of this project we explore two of these which were the `Content Based Filtering (CBF)` and `Collaborative Filtering (CF)` algorithm.
+
+            """)
+
+        st.markdown("**Collaborative Filtering (CF)**")
+        st.markdown("""This recommender engine was easy to implement in this work as it provides us with the recommendation of the 10 movies
+            easily as compared to the other approach. On the other hand, the CF is one of the most popular implemented recommender 
+            engines and it is based on the assumption that the people were in agreement in the past and there us a high chance that they
+            in agreement in the future. An example indicating what is meant by the statement about agreement is considering that a friend
+            and the other friend have probably liked identical range of books in the past. Because the friend has now read new books that the other has
+            not read there is a high chance that the other friend will enjoy and probably like those same books. This logic describes what
+            is known as `user-based` collaborative filtering which was implemented in this application. """)
+
     if page_selection == "About Us":
         st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
         image = Image.open("about_.png")
