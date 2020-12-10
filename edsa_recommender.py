@@ -22,6 +22,7 @@ import streamlit as st
 # Import seaborn library
 import seaborn as sns
 import matplotlib.pyplot as plt
+from PIL import Image
 
 # To create interactive plots
 from plotly.offline import init_notebook_mode, plot, iplot
@@ -59,20 +60,6 @@ df_merge1.drop('timestamp', axis=1, inplace=True)
 # Get the data
 data = df_merge1['rating'].value_counts().sort_index(ascending=False)
 
-# Create trace
-trace = go.Bar(x = data.index,
-               text = ['{:.1f} %'.format(val) for val in (data.values / df_merge1.shape[0] * 100)],
-               textposition = 'auto',
-               textfont = dict(color = '#000000'),
-               y = data.values,
-               marker = dict(color = '#db0000'))
-# Create layout
-layout = dict(title = 'Distribution Of {} Netflix-ratings'.format(df_merge1.shape[0]),
-              xaxis = dict(title = 'rating'),
-              yaxis = dict(title = 'Count'))
-# Create plot
-fig = go.Figure(data=[trace], layout=layout)
-iplot(fig)
 # ------------------------------ CODE FOR THE FIGURE ENDS HERE ------------------------------------# 
 
 # App declaration
@@ -154,25 +141,12 @@ def main():
     	st.write(fig)
 
 
-    	# data = df_merge1['rating'].value_counts().sort_index(ascending=False)
-    	# # Create trace
-    	# trace = go.Bar(x = data.index,
-     #           text = ['{:.1f} %'.format(val) for val in (data.values / df_merge1.shape[0] * 100)],
-     #           textposition = 'auto',
-     #           textfont = dict(color = '#000000'),
-     #           y = data.values,
-     #           marker = dict(color = '#db0000'))
-    	# layout = dict(title = 'Distribution Of {} movie-ratings'.format(df_merge1.shape[0]),
-     #          xaxis = dict(title = 'rating'),
-     #          yaxis = dict(title = 'Count'))
-    	# st.pyplot(iplot(go.Figure(data=trace[trace], layout=layout)))
-
     	if st.checkbox("How ratings are distributed"):
     		f = px.histogram(df_merge1["rating"], x="rating", nbins=10, title="The Distribution of the Movie Ratings")
     		f.update_xaxes(title="Ratings")
     		f.update_yaxes(title="Number of Movies per rating")
     		st.plotly_chart(f)
-    		#st.bar_chart(df_merge1['rating'])
+    		
 
         
 
@@ -184,8 +158,9 @@ def main():
         st.write("Describe your winning approach on this page")
 
     if page_selection == "About Us":
-    	st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
-    	st.info("Here are the people responsibe for building this application:")
+        st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
+        image = Image.open("about_.png")
+        st.image(image, use_column_width=True)
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
