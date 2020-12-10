@@ -60,6 +60,10 @@ df_merge1.drop('timestamp', axis=1, inplace=True)
 # Get the data
 data = df_merge1['rating'].value_counts().sort_index(ascending=False)
 
+ratings_df = pd.DataFrame()
+ratings_df['Mean_Rating'] = df_merge1.groupby('title')['rating'].mean().values
+ratings_df['Num_Ratings'] = df_merge1.groupby('title')['rating'].count().values
+
 # ------------------------------ CODE FOR THE FIGURE ENDS HERE ------------------------------------# 
 
 # App declaration
@@ -123,29 +127,54 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "EDA":
-    	st.markdown("<h1 style='text-align: center; color: black;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
-    	st.markdown("""To make these recommender system application, it was implemented using a large dataset, from the data we had to
-    		explore it using Visuals. This page provides us with those:""")
+        st.header("Movie Recommender System Datasets explorer")
+        st.markdown(""" This dataset shown below was extracted from set of data available from a kaggle competition obtained from the link https://www.kaggle.com/c/edsa-recommender-system-predict/data""")
+        st.sidebar.header("Configuration")
+        st.sidebar.subheader("Available Visuals obtained from the segmented sections below:")
+        all_cols = df_merge1.columns.values
+        numeric_cols = df_merge1.columns.values
+        obj_cols = df_merge1.columns.values
 
-    	# fig, ax = plt.subplots(1, 1, figsize = (12, 6))
-    	# ax1 = train.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
-    	
-    	# st.pyplot(fig.tight_layout())
-    	st.info("View the Dataset: Click on the sidebar")
-    	if st.sidebar.checkbox("View the Dataset"):
-    		st.write(df_merge1)
+        if st.sidebar.checkbox("Data preview", True):
+            st.subheader("Data preview")
+            st.markdown(f"Shape of dataset : {df_merge1.shape[0]} rows, {df_merge1.shape[1]} columns")
+            if st.checkbox("Data types"):
+                st.dataframe(df_merge1.dtypes)
+            if st.checkbox("Pandas Summary"):
+                st.write(df_merge1.describe())
+            cols_to_style = st.multiselect(
+                "Choose numeric columns to apply BG gradient", numeric_cols
+                )
+            st.dataframe(df_merge1.head(50).style.background_gradient(subset=cols_to_style, cmap="BuGn"))
+            st.markdown("---")
+        #st.markdown("<h1 style='text-align: center; color: black;'>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
+        st.markdown("""The Data Visualisation done on this page was extracted from the a kaggle notebook which can be found from the link: 
+            https://www.kaggle.com/kundaninetshiongolwe/team-5-recommenders""")
 
-    	st.info("The ratings done per year...")
-    	fig, ax = plt.subplots(1, 1, figsize = (12, 6))
-    	ax1 = df_merge1.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
-    	st.write(fig)
 
 
-    	if st.checkbox("How ratings are distributed"):
-    		f = px.histogram(df_merge1["rating"], x="rating", nbins=10, title="The Distribution of the Movie Ratings")
-    		f.update_xaxes(title="Ratings")
-    		f.update_yaxes(title="Number of Movies per rating")
-    		st.plotly_chart(f)
+        if st.sidebar.checkbox("Visuals on Ratings"):
+            if st.checkbox("Ratings count by year"):
+                fig, ax = plt.subplots(1, 1, figsize = (12, 6))
+                ax1 = df_merge1.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
+                st.write(fig)
+
+
+            if st.checkbox("How ratings are distributed: histogram"):
+                f = px.histogram(df_merge1["rating"], x="rating", nbins=10, title="The Distribution of the Movie Ratings")
+                f.update_xaxes(title="Ratings")
+                f.update_yaxes(title="Number of Movies per rating")
+                st.plotly_chart(f)
+            if st.checkbox("How ratings are distributed: scatter plot"):
+                fig, ax = plt.subplots(figsize=(14, 7))
+                ax.spines['top'].set_visible(False)
+                ax.spines['right'].set_visible(False)
+                ax.set_title('Rating vs. Number of Ratings', fontsize=24, pad=20)
+                ax.set_xlabel('Rating', fontsize=16, labelpad=20)
+                ax.set_ylabel('Number of Ratings', fontsize=16, labelpad=20)
+
+                plt.scatter(ratings_df['Mean_Rating'], ratings_df['Num_Ratings'], alpha=0.5, color='green')
+                st.pyplot(fig)
     		
 
         
