@@ -131,7 +131,7 @@ def main():
     	# ax1 = train.groupby('rating_year')['rating'].count().plot(kind='bar', title='Ratings by year')
     	
     	# st.pyplot(fig.tight_layout())
-    	st.info("View the Dataset")
+    	st.info("View the Dataset: Click on the sidebar")
     	if st.sidebar.checkbox("View the Dataset"):
     		st.write(df_merge1)
 

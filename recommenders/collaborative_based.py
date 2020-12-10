@@ -41,13 +41,15 @@ from sklearn.feature_extraction.text import CountVectorizer
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv')
 ratings = pd.read_csv('resources/data/ratings.csv')
+train = ratings.copy()
 
-title_movie = pd.merge(ratings,movies, on= 'movieId', how = 'left')
-title_movie = title_movie.drop(['genres','rating','userId','timestamp'], axis = 1)
-title_movie = title_movie.drop_duplicates()
-title_movie = title_movie.dropna()
+mt = pd.merge(train,movies, on= 'movieId', how = 'left')
+mt = mt.drop(['genres','rating','userId','timestamp'], axis = 1)
+mt = mt.drop_duplicates()
+mt = mt.dropna()
+movietitle = mt.copy()
 
-model_load_path = "resources/models/SVDT.pkl"
+model_load_path = "resources/models/SVD_model.pkl"
 with open(model_load_path,'rb') as file:
     model_tuned = pickle.load(file)
 
@@ -68,11 +70,11 @@ def prediction_item(item_id):
     """
     # Data preprosessing
     reader = Reader(rating_scale=(0, 5))
-    load_df = Dataset.load_from_df(ratings[['userId','movieId','rating']],reader)
-    a_ratings = load_df.build_full_ratingsset()
+    load_df = Dataset.load_from_df(train[['userId','movieId','rating']],reader)
+    a_train = load_df.build_full_trainset()
 
     predictions = []
-    for ui in a_ratings.all_users():
+    for ui in a_train.all_users():
         predictions.append(model_tuned.predict(iid=item_id,uid=ui, verbose = False))
     return predictions
 
@@ -96,7 +98,7 @@ def pred_movies(movie_list):
     # For each movie selected by a user of the app,
     # predict a corresponding user within the dataset with the highest rating
     for i in movie_list:
-        #movie_id = title_movie[title_movie['title'] == i]['movieId'].values[0]
+        #movie_id = movietitle[movietitle['title'] == i]['movieId'].values[0]
         predictions = prediction_item(item_id = i)
         predictions.sort(key=lambda x: x.est, reverse=True)
         # Take the top 10 user id's from each movie with highest rankings
@@ -124,12 +126,12 @@ def collab_model(movie_list,top_n=10):
     """
     # indices1 = pd.Series(movies['title'])
     movie_ids = pred_movies(movie_list)
-    df_init_users = ratings[ratings['userId']==movie_ids[0]]
+    df_init_users = train[train['userId']==movie_ids[0]]
     for i in movie_ids[1:]:
-        df_init_users=df_init_users.append(ratings[ratings['userId']==i])
+        df_init_users=df_init_users.append(train[train['userId']==i])
         
     # Getting the user-item matrix
-    df_init_users = pd.merge(df_init_users, title_movie, on = 'movieId', how = 'left')
+    df_init_users = pd.merge(df_init_users, movietitle, on = 'movieId', how = 'left')
     df_init_users = df_init_users.dropna()
     users_matrix = df_init_users.groupby(['title','userId'])['rating'].max().unstack()
     for i in movie_list:
