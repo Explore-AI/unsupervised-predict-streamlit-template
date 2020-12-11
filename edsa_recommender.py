@@ -209,7 +209,7 @@ def main():
         st.header("Movie Recommender System Datasets explorer")
         st.markdown(""" This dataset shown below was extracted from set of data available from a kaggle competition obtained from the link https://www.kaggle.com/c/edsa-recommender-system-predict/data""")
         st.sidebar.header("Configuration")
-        st.sidebar.subheader("Available Visuals obtained from the segmented sections below:")
+        st.sidebar.subheader("Available Visuals obtained from the sections below:")
         all_cols = df_merge1.columns.values
         numeric_cols = df_merge1.columns.values
         obj_cols = df_merge1.columns.values
@@ -282,12 +282,14 @@ def main():
         st.markdown("""A `Recommender System (RS)` is no doubt one of the most obvious ways in which companies are enhancing the user
             experience in the platform that they provide their customers services. Companies Like Facebook, Netflix, Amazon, and Youtube
             are using RS to do so. More likely, these companies and other companies that are implementing the RS are doing 
-            so in introducing machine learning into these companies. There are a 3 available approaches into building a recommender system. 
-            As part of this project we explore two of these which were the `Content Based Filtering (CBF)` and `Collaborative Filtering (CF)` algorithm.
+            so in introducing machine learning into these companies. It is therefore important for aspiring Data Scientist to develop skills
+            in such areas. At `Explore Data Science Academy (EDSA)`, this team was given a task to build a RS. There are a 3 available 
+            approaches into building a recommender system. As part of this project the team explored two of these which were the 
+            `Content Based Filtering (CBF)` and `Collaborative Filtering (CF)` algorithm.
 
             """)
 
-        st.markdown("**Collaborative Filtering (CF)**")
+        st.subheader("**Collaborative Filtering (CF)**")
         st.markdown("""This recommender engine was easy to implement in this work as it provides us with the recommendation of the 10 movies
             easily as compared to the other approach. On the other hand, the CF is one of the most popular implemented recommender 
             engines and it is based on the assumption that the people were in agreement in the past and there us a high chance that they
@@ -296,9 +298,30 @@ def main():
             not read there is a high chance that the other friend will enjoy and probably like those same books. This logic describes what
             is known as `user-based` collaborative filtering which was implemented in this application. """)
 
+        st.subheader("**Building the Recommender Sytem**")
+        st.markdown("""The recommender system application was built mainly for consumers to have an experience of watching movies that
+            they are likely to enjoy based three movies they have selected. Figure below shows a recommender engine from Netflix showing new
+            release movies. Ideally, more recommender systems looks like the one from the figure below, however, the approach to building this one was
+            somehow different. """)
+        
+
+        image=Image.open("./images/rs.jpg")
+        st.image(image, use_column_width=True)
+
+        st.markdown("""In building this web application, a couple of steps were followed starting with forking the repository from Github given by
+            EDSA, using the dataset provided and obtained from the repository to build the recommender system. Following that was working with the 
+            script of the collaborative filtering algorithm by editing te code to obtain a movie prediction when using the main script run with 
+            streamlit. The `about us` has link to the Github repo for if the intention is to attain better grasp on how the code works using
+            python code.  
+            """)
+
+        st.markdown("""This recommender engine is considered to be user friendly and one can easily use it to get movies that others have enjoyed
+            and are related to the movies that they enjoy. This is done by only selecting three movies and press `Recommend` and 10 movies
+            will be suggested. """ )
+
     if page_selection == "About Us":
-        st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
-        image = Image.open("about_.png")
+        # st.markdown("<h1 style='text-align: center; color: black;'>About Us</h1>", unsafe_allow_html=True)
+        image = Image.open("./images/about_us3.jpeg")
         st.image(image, use_column_width=True)
 
     # You may want to add more sections here for aspects such as an EDA,
