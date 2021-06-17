@@ -84,10 +84,10 @@ def content_model(movie_list,top_n=10):
     recommended_movies = []
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
-    count_vec = TfidfVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
-    count_matrix = count_vec.fit_transform(movies['genres'])
+    count_vec = CountVectorizer()
+    count_matrix = count_vec.fit_transform(data['keyWords'])
     indices = pd.Series(data['title'])
-    cosine_sim = linear_kernel(count_matrix, count_matrix)
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
