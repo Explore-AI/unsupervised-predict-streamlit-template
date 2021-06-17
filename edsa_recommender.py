@@ -100,7 +100,7 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
+    if page_selection == "Solution Overviews":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
     # You may want to add more sections here for aspects such as an EDA,
@@ -110,8 +110,8 @@ def main():
     if page_selection == "Suprise me":
         st.subheader('Here, a movie will be randomly selected for you')
         if st.button('Suprise me'):
-            st.write(random.choice(title_list))
-            st.balloons()
+           st.write(random.choice(title_list))
+           st.balloons()
 
 if __name__ == '__main__':
     main()
