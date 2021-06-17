@@ -103,10 +103,11 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-	st.write("Have not found anything")
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-   if page_selection == "Suprise me":
+	
+    # Surprise Me
+    if page_selection == "Suprise me":
         st.subheader('Here, a movie will be randomly selected for you')
         if st.button('Suprise me'):
             st.write(random.choice(title_list))
