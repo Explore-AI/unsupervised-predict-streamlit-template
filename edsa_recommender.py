@@ -105,12 +105,6 @@ def main():
         st.write("Describe your winning approach on this pages")
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-#suprise me page       
-    if page_selection == "Suprise me":
-        st.subheader('Here, a movie will be randomly selected for you')
-        if st.button('Suprise me'):
-            st.write(random.choice(title_list))
-            st.balloons()
 		
 if __name__ == '__main__':
     main()
