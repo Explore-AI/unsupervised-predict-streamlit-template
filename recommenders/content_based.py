@@ -34,10 +34,32 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
-# Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',',delimiter=',')
-ratings = pd.read_csv('resources/data/ratings.csv')
-movies.dropna(inplace=True)
+
+# change path to match location of files
+sample = pd.read_csv('/home/explore-student/unsupervised_data/sample_submission.csv')
+genome_scores = pd.read_csv('/home/explore-student/unsupervised_data/genome_scores.csv')
+genome_tags = pd.read_csv('/home/explore-student/unsupervised_data/genome_tags.csv')
+train = pd.read_csv('/home/explore-student/unsupervised_data/train.csv')
+links = pd.read_csv('/home/explore-student/unsupervised_data/links.csv')
+imdb_data = pd.read_csv('/home/explore-student/unsupervised_data/imdb_data.csv')
+movies = pd.read_csv('/home/explore-student/unsupervised_data/movies.csv')
+
+def unique_words(s):
+
+    """
+    Takes in a string and and returns a string.
+
+    Parameters:
+    s (str): A string of words or a sentence.
+
+    Returns:
+    (str): A string of unique words.
+
+    """
+    unique_list = []
+    l = s.split()
+    [unique_list.append(x) for x in l if x not in unique_list]
+    return ' '.join(unique_list)
 
 def data_preprocessing(subset_size):
     """Prepare data for use within Content filtering algorithm.
@@ -53,14 +75,73 @@ def data_preprocessing(subset_size):
         Subset of movies selected for content-based filtering.
 
     """
-    # Split genre data into individual words.
-    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    # List of movies in test dataset
+    test_movies = list(set(test.movieId))
+
+    # List of movies in movies dataset
+    movie_movies = list(movies.movieId)
+
+    # List of movies in train dataset
+    train_movies = list(set(train.movieId))
+
+    # List of movies in tag dataset
+    tag_movies = list(set(tags.movieId))
+    
+    # Merging all tags of each movie into a sentence like string
+    tag4all = []
+    for i in tag_movies:
+        tag4all.append(' '.join(tags[tags.movieId==i].tag.fillna('').apply(
+            lambda x: x.lower().replace(' ',''))))
+    
+    # Data-frame of merged tags
+    tag_df = pd.DataFrame({'movieId':tag_movies,
+                           'tag_mash':tag4all},
+                          columns=['movieId','tag_mash'])
+        
+    # Merging all meta-data for each movie in imdb dataset    
+    imdb_data.title_cast = imdb_data.title_cast.fillna('').apply(
+      lambda x: ' '.join(x.lower().replace(' ','').split('|')))
+    
+    imdb_data.director = imdb_data.director.fillna('').apply(
+      lambda x:x.lower().replace(' ',''))
+    
+    imdb_data.plot_keywords = imdb_data.plot_keywords.fillna('').apply(
+      lambda x: ' '.join(x.lower().replace(' ','').split('|')))
+  
+    merge_list = []
+    for i in imdb_data.index:
+        merge_list.append(
+            imdb_data.title_cast[i]+' '+imdb_data.director[i]+' '+imdb_data.plot_keywords[i])
+    
+    new_imdb = pd.DataFrame({'movieId':imdb_data.movieId,
+                             'meta_mash':pd.Series(merge_list)},
+                            columns=['movieId','meta_mash'])    
+
+    new_train = pd.Series(train_movies).to_frame('movieId')
+    
+    movies.genres = movies.genres.apply(lambda x:" ".join(x.lower().split("|")))
+    
+    # copy1-movies, copy2-tag_df, copy3-new_imdb
+    # Meging all meta-data to train dataset
+    train_gen = pd.merge(new_train, movies, on='movieId',how='left')
+  
+    train_gen = pd.merge(train_gen, tag_df, on='movieId',how='left').fillna('')
+
+    train_gen = pd.merge(train_gen, new_imdb, on='movieId',how='left').fillna('')
+
+    mash_list = []
+    for i in train_gen.index:
+        mash_list.append(
+            train_gen.genres[i]+' '+train_gen.tag_mash[i]+' '+train_gen.meta_mash[i])
+
+    train_gen['merge_of_all'] = pd.Series(mash_list)
+    train_gen.merge_of_all = train_gen.merge_of_all.apply(lambda x: unique_words(x))
+
     # Subset of the data
-    movies_subset = movies[:subset_size]
+    #movies_subset = movies[:subset_size]
+    movies_subset = train_gen[:subset_size]
     return movies_subset
 
-# !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
-# You are, however, encouraged to change its content.  
 def content_model(movie_list,top_n=10):
     """Performs Content filtering based upon a list of movies supplied
        by the app user.
@@ -79,11 +160,10 @@ def content_model(movie_list,top_n=10):
 
     """
     # Initializing the empty list of recommended movies
-    recommended_movies = []
-    data = data_preprocessing(27000)
+    data = data_preprocessing(1000) # increase to 27000 for streamlit app
     # Instantiating and generating the count matrix
     count_vec = CountVectorizer()
-    count_matrix = count_vec.fit_transform(data['keyWords'])
+    count_matrix = count_vec.fit_transform(data['merge_of_all'])
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
@@ -99,7 +179,7 @@ def content_model(movie_list,top_n=10):
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
     score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
     # Getting the indexes of the 10 most similar movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+    listings = score_series_1.append(score_series_1).append(score_series_2).append(score_series_3).sort_values(ascending = False)
 
     # Store movie names
     recommended_movies = []
@@ -110,3 +190,6 @@ def content_model(movie_list,top_n=10):
     for i in top_indexes[:top_n]:
         recommended_movies.append(list(movies['title'])[i])
     return recommended_movies
+
+print(data) # choose three titles from dataframe
+print(content_model(['<list of chosen movies>']))

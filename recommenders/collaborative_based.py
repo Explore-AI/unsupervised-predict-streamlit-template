@@ -37,28 +37,24 @@ from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
-# Importing data
-movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-ratings_df = pd.read_csv('resources/data/ratings.csv')
-ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
-# We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+# Importing data
+model=pickle.load(open('resources/models/svd.pkl', 'rb'))
+
+df_movie = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/movies.csv',sep = ',',delimiter=',')
+df_rating = pd.read_csv('/home/explore-student/unsupervised_data/unsupervised_movie_data/train.csv')
 
 def prediction_item(item_id):
     """Map a given favourite movie to users within the
        MovieLens dataset with the same preference.
-
     Parameters
     ----------
     item_id : int
         A MovieLens Movie ID.
-
     Returns
     -------
     list
         User IDs of users with similar high ratings for the given movie.
-
     """
     # Data preprosessing
     reader = Reader(rating_scale=(0, 5))
@@ -73,17 +69,14 @@ def prediction_item(item_id):
 def pred_movies(movie_list):
     """Maps the given favourite movies selected within the app to corresponding
     users within the MovieLens dataset.
-
     Parameters
     ----------
     movie_list : list
         Three favourite movies selected by the app user.
-
     Returns
     -------
     list
         User-ID's of users with similar high ratings for each movie.
-
     """
     # Store the id of users
     id_store=[]
@@ -103,19 +96,16 @@ def pred_movies(movie_list):
 def collab_model(movie_list,top_n=10):
     """Performs Collaborative filtering based upon a list of movies supplied
        by the app user.
-
     Parameters
     ----------
     movie_list : list (str)
         Favorite movies chosen by the app user.
     top_n : type
         Number of top recommendations to return to the user.
-
     Returns
     -------
     list (str)
         Titles of the top-n movie recommendations to the user.
-
     """
 
     indices = pd.Series(movies_df['title'])
