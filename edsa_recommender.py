@@ -91,7 +91,7 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.write("I tried to approach this task with an open mind. While having to juggle a full time job, studies and being a parent of 6 it wasnt easy to find the time to do what needed to be done. None the less I am happy that I managed to get this app deployed to my S3 bucket and running on my instance")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
