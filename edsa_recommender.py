@@ -103,11 +103,18 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-	st.write("Changing the collaborative filtering system and then ding something else")
-	
+        st.write("The approach to the different recommender systems is to find which recommender system provides the most accurate recommendation to the user based on the options chosen. In Content-based Filtering, we seek to make recommendations based on how similar the properties or features of an item are to other items, this proved to be challenging for our content-based recommender system. The issue with the Content-based recommender system is the lack of computing capacity and the cosine transformation was only performed on a small fraction of the data.This makes the collaborative-based filtering, the best performing recommendation system, this focuses around actual ratings given by users to movies, and are compared against ratings predicted by an algorithm.")
+        st.title("Business Pitch")
+        st.write("As movie watchers we are always looking for the best movies to watch; however, it is usually a very difficult task to simply find the right one to watch from the millions of movies available in the catalogue. In order to solve this problem, we have created both content-based and collaborative-based recommender systems with the given dataset.The purpose of this recommendation system is to search for content that would be interesting to the user, which involves a number of factors to create personalised lists of useful and interesting content specific to each user to determine what movies these users would enjoy.This leads to the users enjoying the recommendation made by the filtering systems, which means that more users would be coming back to the site to find more recommended movies to watch and more revenue is made.")
+        st.title("Surprise me!")
+        st.subheader('Here is a movie recommendation randomly selected for you')
+        st.button('Surprise me')
+        st.write(np.random.choice(title_list))
+        st.balloons()
+            
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-	
-	
+
+		
 if __name__ == '__main__':
     main()
