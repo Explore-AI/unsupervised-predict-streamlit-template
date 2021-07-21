@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","About this App", "Exploratory Data Analysis","Meet the Team","Contact Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -103,6 +103,27 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+        
+    if page_selection == "About this App":
+        st.image('unsupervised-predict-streamlit-template/resources/imgs/movieposter.jpg',use_column_width=True)
+        st.title("About this App")
+        st.markdown(open('unsupervised-predict-streamlit-template/about this app.md').read())
+        st.image(['unsupervised-predict-streamlit-template/resources/imgs/images.jpg'], width=350)
+        
+    if page_selection == "Meet the Team": 
+        st.title("Meet the Team")
+        st.markdown(open('unsupervised-predict-streamlit-template/meet the team2.md').read())
+        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index.jpg'], width=300)
+        
+    if page_selection == "Contact Us":
+        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index4.png'], width=300)
+        st.title("Contact Us")
+        st.markdown(open('unsupervised-predict-streamlit-template/contactus.md').read())
+        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index5.jpg'], width=300)
+        
+        
+        
+        
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
