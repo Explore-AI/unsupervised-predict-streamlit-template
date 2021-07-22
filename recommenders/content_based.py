@@ -35,8 +35,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',',delimiter=',')
+movies = pd.read_csv('resources/data/movies.csv',delimiter=',')
 ratings = pd.read_csv('resources/data/ratings.csv')
+imdb =pd.read_csv('resources/data/imdb_data.csv')
 movies.dropna(inplace=True)
 
 def data_preprocessing(subset_size):
@@ -53,11 +54,25 @@ def data_preprocessing(subset_size):
         Subset of movies selected for content-based filtering.
 
     """
-    # Split genre data into individual words.
-    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
-    # Subset of the data
-    movies_subset = movies[:subset_size]
+    df_movies2 = movies.merge(imdb, how='left')
+    
+    # Remove NaN values
+
+    df_movies2['genres'] = df_movies2['genres'].str.replace('|', ' ').str.lower()
+    df_movies2['title_cast'] = df_movies2['title_cast'].str.replace(' ', '').str.replace('|',' ').str.lower()
+    df_movies2['director'] = df_movies2['director'].str.replace(' ', '').str.lower()
+    df_movies2['plot_keywords'] = df_movies2['plot_keywords'].str.replace('|', ' ')
+    df_movies2['content'] = df_movies2['plot_keywords']+' '+df_movies2['genres']+' '+df_movies2['title_cast']+' '+df_movies2['director']
+    df_movies2['content'] = df_movies2['content']
+   
+    movies_subset = df_movies2[:subset_size]
     return movies_subset
+    
+    # Split genre data into individual words.
+    #movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    # Subset of the data
+    #movies_subset = movies[:subset_size]
+    #return movies_subset
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
@@ -83,7 +98,7 @@ def content_model(movie_list,top_n=10):
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
     count_vec = CountVectorizer()
-    count_matrix = count_vec.fit_transform(data['keyWords'])
+    count_matrix = count_vec.fit_transform(data['content'].fillna(''))
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
