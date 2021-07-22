@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview","About this App", "Exploratory Data Analysis","Meet the Team","Contact Us"]
+    page_options = ["Recommender System","About this App", "Exploratory Data Analysis","Meet the Team","Contact Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,47 +100,47 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+    #if page_selection == "Solution Overview":
+        #st.title("Solution Overview")
+        #st.write("Describe your winning approach on this page")
         
     if page_selection == "About this App":
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/movieposter.jpg',use_column_width=True)
+        st.image('resources/imgs/movieposter.jpg',use_column_width=True)
         st.title("About this App")
-        st.markdown(open('unsupervised-predict-streamlit-template/about this app.md').read())
-        st.image(['unsupervised-predict-streamlit-template/resources/imgs/images.jpg'], width=350)
+        st.markdown(open('about this app.md').read())
+        st.image(['resources/imgs/images.jpg'], width=350)
         
     if page_selection == "Meet the Team": 
         st.title("Meet the Team")
-        st.markdown(open('unsupervised-predict-streamlit-template/untitled3.md').read())
-        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index.jpg'], width=300)
+        st.markdown(open('untitled3.md').read())
+        st.image(['resources/imgs/index.jpg'], width=300)
         
     if page_selection == "Contact Us":
-        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index4.png'], width=300)
+        st.image(['index4.png'], width=300)
         st.title("Contact Us")
-        st.markdown(open('unsupervised-predict-streamlit-template/contactus.md').read())
-        st.image(['unsupervised-predict-streamlit-template/resources/imgs/index5.jpg'], width=300)
+        st.markdown(open('contactus.md').read())
+        st.image(['index5.jpg'], width=300)
         
     if page_selection == "Exploratory Data Analysis":
-        st.image("unsupervised-predict-streamlit-template/resources/imgs/eda2.jpg",width=300)
+        st.image("eda2.jpg",width=300)
         st.title("Exploratory Data Analysis")
         st.markdown("This section will present a brief insight into the data used to build the recommender system for this app. ")
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (31).png',use_column_width=True)
+        st.image('Screenshot (31).png',use_column_width=True)
         st.info("Figure 1 Above we can see the most common film genres in the data set. It clear that Drama, Comedy and Thriller are most common, whereas Film-Noir and Imax are the least common.")
         
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (33).png',use_column_width=True)
+        st.image('Screenshot (33).png',use_column_width=True)
         st.info("Figure 2 presents the 15 most highly rated movies in the data set. The top 3 rated movies include The Shawshank Redemption, Forrest Gump and Pulp Fiction, all of which were released in 1994.")
         
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (35).png',use_column_width=True)
+        st.image('Screenshot (35).png',use_column_width=True)
         st.info("Figure 3 presents a word cloud of the distribution of words appearing in movie titles. The most prominent words are Girl, Love and Boy.")
         
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (37).png',use_column_width=True)
+        st.image('Screenshot (37).png',use_column_width=True)
         st.info("Figure 4 presents the number of movies per director. As can be seen Luc Besson, Woody Allen and Stephen King directed the most movies in the data set.")
         
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (39).png',use_column_width=True)
+        st.image('Screenshot (39).png',use_column_width=True)
         st.info("Figure 5 presents the most common movie tags in the data set. As can be seen 'based-on'(a true story), 'Comedy', and 'Book' are commonly occuring tags, suggesting that comedies and movies based on true stories or books are popular.")
         
-        st.image('unsupervised-predict-streamlit-template/resources/imgs/Screenshot (41).png',use_column_width=True)
+        st.image('Screenshot (41).png',use_column_width=True)
         st.info("Figure 5 present the number of times a genre tag appears in the data set. Most commonly occuring tags include sci-fi, atmospheric and action.")
 
     # You may want to add more sections here for aspects such as an EDA,
