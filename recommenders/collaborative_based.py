@@ -118,7 +118,7 @@ def collab_model(movie_list,top_n=10):
 
     """
 
-    indices = pd.Series(movies_df['title'])
+    indices = pd.DataFrame(movies_df['title'])
     movie_ids = pred_movies(movie_list)
     df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
     for i in movie_ids :
@@ -129,9 +129,9 @@ def collab_model(movie_list,top_n=10):
     idx_2 = indices[indices == movie_list[1]].index[0]
     idx_3 = indices[indices == movie_list[2]].index[0]
     # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
+    rank_1 = cosine_sim[idx_1].astype(int)
+    rank_2 = cosine_sim[idx_2].astype(int)
+    rank_3 = cosine_sim[idx_3].astype(int)
     # Calculating the scores
     score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
