@@ -1,0 +1,1 @@
+The purpose of this app was to create a movie recommender system which can recommend movies to app users based on the profile of previously watched movies. This is done to enable the app users to gain a greater insight into the nature of similar movies and also better the movie watching experience by narrowing down movie options based on personal preference. 
