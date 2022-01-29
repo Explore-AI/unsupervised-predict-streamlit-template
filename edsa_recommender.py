@@ -111,6 +111,6 @@ def main():
     if page_selection == "Home":
         st.title("Home")
         st.write('#')
-        st.image('pictures/Rinae.jpg',use_column_width=True)
+        st.image('pictures/app_name.jpg',use_column_width=True)
 if __name__ == '__main__':
     main()
