@@ -92,14 +92,21 @@ def content_model(movie_list,top_n=10):
     genre_list = mlb.classes_
     nmovies = nmovies[~nmovies['title'].isin(movie_list)] # remove selected movies
     mgen = nmovies
+
+    #looping over genres for similarity
     for gen in genre_list:
+
         mgen = mgen[mgen['bag_of_words'].str.contains(gen)]
+
         if len(mgen)<=top_n:
+
             break
             
         mgen2 = mgen
         
         
     asscr = ratings[ratings['movieId'].isin(mgen2['movieId'].values)][['movieId', 'rating']]
+
     top_movies = (asscr.groupby(['movieId']).mean().reset_index()).sort_values('rating', ascending =False)[:top_n]
+    
     return list((nmovies[nmovies['movieId'].isin(top_movies['movieId'].values)]['title']).values)
