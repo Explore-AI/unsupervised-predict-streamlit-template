@@ -37,7 +37,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 
 # Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',')#,delimiter=',')
+movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
 movies.dropna(inplace=True)
 
@@ -86,14 +86,14 @@ def content_model(movie_list,top_n=10):
     
 
 
-    
-    mlb2 =  MultiLabelBinarizer()
-    mlb2.fit_transform(genre_list)
-    genre_list = mlb2.classes_
-    nmovies = nmovies[~nmovies['title'].isin(movie_list)]
+    #instantiate the multilabelbinarizer for sparsity
+    mlb =  MultiLabelBinarizer()
+    mlb.fit_transform(genre_list)
+    genre_list = mlb.classes_
+    nmovies = nmovies[~nmovies['title'].isin(movie_list)] # remove selected movies
     mgen = nmovies
     for gen in genre_list:
-        mgen = mgen[mgen['keyWords'].str.contains(gen)]
+        mgen = mgen[mgen['bag_of_words'].str.contains(gen)]
         if len(mgen)<=top_n:
             break
             
