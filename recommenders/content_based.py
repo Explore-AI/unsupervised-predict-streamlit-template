@@ -32,7 +32,9 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.feature_extraction.text import CountVectorizer
+
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')#,delimiter=',')
@@ -54,7 +56,7 @@ def data_preprocessing(data):
     movies = data.copy()
     # Separate genre using a ',' instead of '|'.
     movies['bag_of_words'] = movies['genres'].str.replace('|', ' ')
-    
+
     movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
     return movies
 
@@ -84,7 +86,7 @@ def content_model(movie_list,top_n=10):
     
 
 
-    from sklearn.preprocessing import MultiLabelBinarizer
+    
     mlb2 =  MultiLabelBinarizer()
     mlb2.fit_transform(genre_list)
     genre_list = mlb2.classes_
