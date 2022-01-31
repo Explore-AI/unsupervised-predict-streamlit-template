@@ -55,7 +55,7 @@ def main():
         # Header contents
         st.write('# Movie Recommender Engine')
         st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-        st.image("https://149695847.v2.pressablecdn.com/wp-content/uploads/2020/11/recommender.jpg",use_column_width=True)
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
         #st.image('pictures/Capture.JPG',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
@@ -64,7 +64,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('First Option',title_list[14930:15200])
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
