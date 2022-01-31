@@ -53,7 +53,8 @@ def data_preprocessing(data):
     """
     movies = data.copy()
     # Separate genre using a ',' instead of '|'.
-    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    movies['bag_of_words'] = movies['genres'].str.replace('|', ' ')
+    
     movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
     return movies
 
