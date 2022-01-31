@@ -112,7 +112,7 @@ movies.dropna(inplace=True)
  #   return recommended_movies
 
     
-def data_preprocessing(df):
+def data_preprocessing(data):
     """Prepare data for use within Content filtering algorithm.
     Parameters
     ----------
@@ -123,7 +123,7 @@ def data_preprocessing(df):
     Pandas Dataframe
         Subset of movies selected for content-based filtering.
     """
-    movies = df.copy()
+    movies = data.copy()
     # Split genre data into individual words.
     movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
