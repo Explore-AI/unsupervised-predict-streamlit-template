@@ -42,6 +42,8 @@ movies_df = pd.read_csv('resources/data/movies.csv',delimiter=',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
+movies_df = movies_df[:27000]
+
 ratings_df = ratings_df[:27000]
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
