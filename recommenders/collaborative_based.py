@@ -45,7 +45,7 @@ ratings_df.drop(['timestamp'], axis=1,inplace=True)
 ratings_df = ratings_df[:27000]
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model = pickle.load(open('resources/models/svd_algo.pkl', 'rb'))
+model = pickle.load(open('resources/models/svd_.pkl', 'rb'))
 
 def prediction_item(item_id):
     """Map a given favourite movie to users within the
