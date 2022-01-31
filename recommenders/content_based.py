@@ -52,7 +52,7 @@ def data_preprocessing(data):
         Subset of movies selected for content-based filtering.
     """
     movies = data.copy()
-    # Split genre data into individual words.
+    # Separate genre using a ',' instead of '|'.
     movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
     return movies
