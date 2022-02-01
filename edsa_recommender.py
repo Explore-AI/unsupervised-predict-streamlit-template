@@ -40,6 +40,8 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+title_list = title_list[:27000]
+
 # App declaration
 def main():
 
