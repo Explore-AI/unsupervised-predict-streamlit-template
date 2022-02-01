@@ -36,11 +36,13 @@ import numpy as np
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+from recommenders.content_based import data_preprocessing
 
-# Data Loading
+
+
+
 title_list = load_movie_titles('resources/data/movies.csv')
 
-title_list = title_list[:27000]
 
 # App declaration
 def main():
