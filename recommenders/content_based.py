@@ -79,10 +79,10 @@ def content_model(movie_list,top_n=10):
     """
     #global movies
     # removing the favorite movie list
-    nmovies = data_preprocessing(movies)
+    movies_df = data_preprocessing(movies)
     genre_list = []
     for i in movie_list:
-        genre_list.append(list(nmovies[nmovies['title']==i]['genres'])[0])
+        genre_list.append(list(movies_df[movies_df['title']==i]['genres'])[0])
     
 
 
@@ -90,23 +90,23 @@ def content_model(movie_list,top_n=10):
     mlb =  MultiLabelBinarizer()
     mlb.fit_transform(genre_list)
     genre_list = mlb.classes_
-    nmovies = nmovies[~nmovies['title'].isin(movie_list)] # remove selected movies
-    mgen = nmovies
+    movies_df = movies_df[~movies_df['title'].isin(movie_list)] # remove selected movies
+    movie_genre = movies_df
 
     #looping over genres for similarity
-    for gen in genre_list:
+    for i in genre_list:
 
-        mgen = mgen[mgen['bag_of_words'].str.contains(gen)]
+        movie_genre = movie_genre[movie_genre['bag_of_words'].str.contains(i)]
 
-        if len(mgen)<=top_n:
+        if len(movie_genre) <= top_n:
 
             break
             
-        mgen2 = mgen
+        movie_genre_2 = movie_genre
         
         
-    asscr = ratings[ratings['movieId'].isin(mgen2['movieId'].values)][['movieId', 'rating']]
+    movie_rating = ratings[ratings['movieId'].isin(movie_genre_2['movieId'].values)][['movieId', 'rating']]
 
-    top_movies = (asscr.groupby(['movieId']).mean().reset_index()).sort_values('rating', ascending =False)[:top_n]
+    top_movies = (movie_rating.groupby(['movieId']).mean().reset_index()).sort_values('rating', ascending =False)[:top_n]
     
-    return list((nmovies[nmovies['movieId'].isin(top_movies['movieId'].values)]['title']).values)
+    return list((movies_df[movies_df['movieId'].isin(top_movies['movieId'].values)]['title']).values)
