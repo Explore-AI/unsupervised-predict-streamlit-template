@@ -130,11 +130,18 @@ def main():
     if page_selection == "Solution Overview":
 
         st.title("Solution Overview")
+        st.write(""" After weighing on the differences between the collaborative filtering and content based filtering, the former approach wins. The criteria is not
+        only based on the implementation.
+        
+        
+Content-based filtering:
+- Would not recommend products that have less content: if less information about a certain product, it would not be easy to find similar products for recommendations.
+- Would not recommend popular products to users who have never used them. 
 
-        st.write("Collaborative filtering is the process of predicting the interests of a user by identifying preferences and information from many users. This is done by filtering data for information or patterns using techniques involving collaboration among multiple agents, data sources, etc. The underlying intuition behind collaborative filtering is that if user A and B have similar taste in a product, then A and B are likely to have similar taste in other products as well.")
-        #st.image("model-based.png")
-        st.write("Memory based approaches — also often referred to as neighbourhood collaborative filtering. Essentially, ratings of user-item combinations are predicted on the basis of their neighbourhoods. This can be further split into user based collaborative filtering and item based collaborative filtering. User based essentially means that likeminded users are going to yield strong and similar recommendations. Item based collaborative filtering recommends items based on the similarity between items calculated using user ratings of those items.")
-        st.write("Model based approaches — are predictive models using machine learning. Features associated to the dataset are parameterized as inputs of the model to try to solve an optimization related problem. Model based approaches include using things like decision trees, rule based approaches, latent factor models etc.")
+The collaborative filtering solves the novelty problem. The collaborative filtering is easy to implement. Similarities between the ratings that users give to certain products can be modelled
+way better than in the content-based recommmender systems. We use the rating data with user information(movies they have seen and also the ratings given to those movies). The Singular Value Decomposition
+is used to make the predictions on the ratings that a user would give to a movie they have never seen. Similarities are computed between the users and the movie ratings. Ten most similar movies to the ones that the user likes will be recommended to the user.""")
+        
 
 
     
