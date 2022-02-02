@@ -59,7 +59,7 @@ ratings_df = ratings_df[:30000]
 model_knn = pickle.load(open('resources/models/model_kn_1.pkl', 'rb'))
 
 
-def data_preprocessing(df,ratings):
+def data_preprocessing(movies_df,ratings_df):
     """Map a given favourite movie to users within the
        MovieLens dataset with the same preference.
 
@@ -85,9 +85,11 @@ def data_preprocessing(df,ratings):
     
     return popular_movies
 
-def collab_model(movie_list,top_n=10):
 
-     """Performs Collaborative filtering based upon a list of movies supplied
+# !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
+# You are, however, encouraged to change its content.  
+def collab_model(movie_list,top_n=10):
+    """Performs Collaborative filtering based upon a list of movies supplied
        by the app user.
 
     Parameters
@@ -103,14 +105,11 @@ def collab_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-   
-     
     popular_movies = data_preprocessing(movies_df,ratings_df)
     movie_features_df = popular_movies.pivot_table(index='title',columns='userId',values='rating').fillna(0)
     movie_features_df_matrix = csr_matrix(movie_features_df.values)
     df = movie_features_df
 
-    movie_list = ['Dinner for Schmucks (2010)']
 
     movies_1 = []
 
@@ -124,13 +123,13 @@ def collab_model(movie_list,top_n=10):
                      iloc[query_index,:].values.reshape(1, -1),n_neighbors = 6)
   
         for i in range(0, len(distances.flatten())):
+
             if i != 0:
                 movies_1.append(movie_features_df.index[indices.flatten()[i]])
     
-    
-    
-
-    recommended_movie = [movies_1]
+            recommended_movies = movies_1
 
     #recommended_movies = random.sample(recommended_movie, 10)
-    return recommended_movie
+
+    
+    return recommended_movies
