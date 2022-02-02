@@ -112,6 +112,16 @@ def main():
     if page_selection == "About App":
         st.title("TEQSPHERE by Rinae Apps")
         st.write('#')
+        st.write("""Watching a movie is fun, but finding the next movie is a stressful experience. You scroll Netflix endlessly, watch trailers, wasting about an hour 
+        but you still can't decide what to watch; ring a bell?. TEQSPHERE Recommendation system got you; it answers the "what to watch next?" question. Say goodbye to
+         wasting time searching for what to watch next, and hello to TEQSPHERE movie recommendations that display only movies relevant to you.""")  
+        st.write('#') 
+        st.title('Why choose TEQSPHERE ?') 
+        st.write(""" - TEQSPHERE Recommendation system asks a user to select three favourite movies, and then it recommends ten movies similar to their favourite movies. 
+        It has two parts; content-based filtering and collaborative-based filtering parts. Content-based filtering recommends movies that a user may like based 
+        on the similarities of three movies that a user entered.The idea behind collaborative filtering is to consider users' rankings of the three movies the user
+         entered and the opinion of other similar types of users.
+        """)
 
     if page_selection == "Exploratory Data Analysis":
         st.title('Visualising Your Data')
