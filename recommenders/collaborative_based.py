@@ -1,34 +1,5 @@
-"""
-
-    Content-based filtering for item recommendation.
-
-    Author: Explore Data Science Academy.
-
-    Note:
-    ---------------------------------------------------------------------
-    Please follow the instructions provided within the README.md file
-    located within the root of this repository for guidance on how to use
-    this script correctly.
-
-    NB: You are required to extend this baseline algorithm to enable more
-    efficient and accurate computation of recommendations.
-
-    !! You must not change the name and signature (arguments) of the
-    prediction function, `content_model` !!
-
-    You must however change its contents (i.e. add your own content-based
-    filtering algorithm), as well as altering/adding any other functions
-    as part of your improvement.
-
-    ---------------------------------------------------------------------
-
-    Description: Provided within this file is a baseline content-based
-    filtering algorithm for rating predictions on Movie data.
-
-"""
 
 # Script dependencies
-import os
 import pandas as pd
 import numpy as np
 import pickle
@@ -54,7 +25,7 @@ movietitle = pred_movies.copy()
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
 model_load_path = "resources/models/SVD.pkl"
 with open(model_load_path,'rb') as file:
-    model = pickle.load(file)
+    model_tuned = pickle.load(file)
 
 def prediction_item(item_id):
     """Map a given favourite movie to users within the
@@ -75,7 +46,7 @@ def prediction_item(item_id):
 
     predictions = []
     for ui in a_train.all_users():
-        predictions.append(model.predict(iid=item_id, uid=ui, verbose=False))
+        predictions.append(model_tuned.predict(iid=item_id, uid=ui, verbose=False))
     return predictions
 
 def pred_movies(movie_list):
@@ -132,7 +103,7 @@ def collab_model(movie_list,top_n=10):
     users_matrix = df_init_users.groupby(['title', 'userId'])['rating'].max().unstack()
     for i in movie_list:
         if i not in users_matrix.index.values.tolist():
-            df_nan = pd.DataFrame([[(np.NaN)] * len(users_matrix.columns)], index = [i], columns = users_matrix.columns)
+            df_nan = pd.DataFrame([[(np.NaN)] * len(users_matrix.columns)], index=[i], columns=users_matrix.columns)
             users_matrix = users_matrix.append(df_nan)
 
     # Getting the cosine similarity matrix
