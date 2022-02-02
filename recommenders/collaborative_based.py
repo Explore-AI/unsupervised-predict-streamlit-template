@@ -1,6 +1,6 @@
 """
 
-    Collaborative-based filtering for item recommendation.
+    Content-based filtering for item recommendation.
 
     Author: Explore Data Science Academy.
 
@@ -14,122 +14,101 @@
     efficient and accurate computation of recommendations.
 
     !! You must not change the name and signature (arguments) of the
-    prediction function, `collab_model` !!
+    prediction function, `content_model` !!
 
-    You must however change its contents (i.e. add your own collaborative
+    You must however change its contents (i.e. add your own content-based
     filtering algorithm), as well as altering/adding any other functions
     as part of your improvement.
 
     ---------------------------------------------------------------------
 
-    Description: Provided within this file is a baseline collaborative
+    Description: Provided within this file is a baseline content-based
     filtering algorithm for rating predictions on Movie data.
 
 """
 
 # Script dependencies
-import pandas as pd
 import os
+import pandas as pd
 import numpy as np
-import pickle
-import copy
 import random
-from surprise import Reader, Dataset
-from scipy.sparse import csr_matrix
-from sklearn.neighbors import NearestNeighbors
-from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.feature_extraction.text import CountVectorizer
 
+
 # Importing data
+movies = pd.read_csv('resources/data/movies.csv', sep = ',')
+ratings = pd.read_csv('resources/data/ratings.csv')
+movies.dropna(inplace=True)
 
 
-movies_df = pd.read_csv('resources/data/movies.csv', usecols=['movieId','title'], dtype={'movieId':'int32','title':'str'})
-
-movies_df = movies_df[:27000]
-
-ratings_df = pd.read_csv('resources/data/ratings.csv',
-    usecols  =['userId', 'movieId', 'rating'],dtype={'userId': 'int32', 'movieId': 'int32', 'rating': 'float32'})
-
-ratings_df = ratings_df[:30000]
-
-
-
-# We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model_knn = pickle.load(open('resources/models/model_kn_1.pkl', 'rb'))
-
-
-def data_preprocessing(movies_df,ratings_df):
-    """Map a given favourite movie to users within the
-       MovieLens dataset with the same preference.
-
+def data_preprocessing(data):
+    """ Preprocess data for use within for content-based filtering algorithm.
     Parameters
     ----------
-    movies : dataframe
-        movie data.
-    ratings : dataframe
-        ratings data
+    subset_size : int
+        Number of movies to use within the algorithm.
     Returns
     -------
-    dataframe
-        matrix of high rated movies.
-
+    Pandas Dataframe
+        Subset of movies selected for content-based filtering.
     """
-    # Data preprocessing
-    movies_merged_df = movies_df[14900:15200].merge(ratings_df, on = 'movieId')
-    movies_average_rating=movies_merged_df.groupby('title')['rating'].mean().sort_values(ascending=False).reset_index().rename(columns={'rating':'Average Rating'})
-    movies_rating_count=movies_merged_df.groupby('title')['rating'].count().sort_values(ascending=True).reset_index().rename(columns={'rating':'Rating Count'}) #ascending=False
-    rating_with_RatingCount = movies_merged_df.merge(movies_rating_count, left_on = 'title', right_on = 'title', how = 'left')
-    popularity_threshold = 0
-    popular_movies= rating_with_RatingCount[rating_with_RatingCount['Rating Count']>=popularity_threshold]
-    
-    return popular_movies
+    movies = data.copy()
+    # Separate genre using a ',' instead of '|'.
+    movies['bag_of_words'] = movies['genres'].str.replace('|', ' ')
 
+    movies['genres'] = movies['genres'].apply(str).apply(lambda x: x.split('|'))
+    return movies
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def collab_model(movie_list,top_n=10):
-    """Performs Collaborative filtering based upon a list of movies supplied
+    """
+    Performs Content filtering using a list of movies supplied
        by the app user.
-
     Parameters
     ----------
     movie_list : list (str)
-        Favorite movies chosen by the app user.
+        Favorite movies selected by the app user.
     top_n : type
-        Number of top recommendations to return to the user.
-
+        number of top recommendations to return to the user.
     Returns
     -------
     list (str)
         Titles of the top-n movie recommendations to the user.
-
     """
-    popular_movies = data_preprocessing(movies_df,ratings_df)
-    movie_features_df = popular_movies.pivot_table(index='title',columns='userId',values='rating').fillna(0)
-    movie_features_df_matrix = csr_matrix(movie_features_df.values)
-    df = movie_features_df
-
-
-    movies_1 = []
-
-    for i in range(0,len(movie_list)):
-
-        t = movie_list[i]
-        base = df.index.get_loc(t)
-
-        query_index = base
-        distances, indices = model_knn.kneighbors(movie_features_df.
-                     iloc[query_index,:].values.reshape(1, -1),n_neighbors = 6)
-  
-        for i in range(0, len(distances.flatten())):
-
-            if i != 0:
-                movies_1.append(movie_features_df.index[indices.flatten()[i]])
+    #global movies
+    # removing the favorite movie list
+    nmovies = data_preprocessing(movies)
+    genre_list = []
+    for i in movie_list:
+        genre_list.append(list(nmovies[nmovies['title']==i]['genres'])[0])
     
-            recommended_movies = movies_1
 
-    #recommended_movies = random.sample(recommended_movie, 10)
 
-    
-    return recommended_movies
+    #instantiate the multilabelbinarizer for sparsity
+    mlb =  MultiLabelBinarizer()
+    mlb.fit_transform(genre_list)
+    genre_list = mlb.classes_
+    nmovies = nmovies[~nmovies['title'].isin(movie_list)] # remove selected movies
+    mgen = nmovies
+
+    #looping over genres for similarity
+    for gen in genre_list:
+
+        mgen = mgen[mgen['bag_of_words'].str.contains(gen)]
+
+        if len(mgen)<=top_n:
+
+            break
+            
+        mgen2 = mgen
+        
+        
+    asscr = ratings[ratings['movieId'].isin(mgen2['movieId'].values)][['movieId', 'rating']]
+
+    top_movies = (asscr.groupby(['movieId']).mean().reset_index()).sort_values('rating', ascending =False)[:top_n + 5]
+    top_list = list((nmovies[nmovies['movieId'].isin(top_movies['movieId'].values)]['title']).values)
+
+    return random.sample(top_list, top_n)
