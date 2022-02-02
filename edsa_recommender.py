@@ -117,11 +117,9 @@ def main():
          wasting time searching for what to watch next, and hello to TEQSPHERE movie recommendations that display only movies relevant to you.""")  
         st.write('#') 
         st.title('Why choose TEQSPHERE ?') 
-        st.write(""" - TEQSPHERE Recommendation system asks a user to select three favourite movies, and then it recommends ten movies similar to their favourite movies. 
-        It has two parts; content-based filtering and collaborative-based filtering parts. Content-based filtering recommends movies that a user may like based 
-        on the similarities of three movies that a user entered.The idea behind collaborative filtering is to consider users' rankings of the three movies the user
-         entered and the opinion of other similar types of users.
-        """)
+        st.write(""" - TEQSPHERE asks the user to select three favourite movies, and then recommends ten movies similar to their favourite movies. """)
+        st.write(""" - You choose your preferred recommendation method; content-based or collaborative-based. """)
+
 
     if page_selection == "Exploratory Data Analysis":
         st.title('Visualising Your Data')
