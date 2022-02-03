@@ -110,8 +110,8 @@ def main():
         st.image('pictures/appname.png',use_column_width=True)
 
     if page_selection == "About App":
-        st.image('pictures/our_app.jpg',use_column_width=True)
         st.title("TEQSPHERE by Rinae Apps")
+        st.image('pictures/our_app.jpg',use_column_width=True)
         st.write("""Watching a movie is fun, but finding the next movie is a stressful experience. You scroll Netflix endlessly, watch trailers, wasting about an hour 
         but you still can't decide what to watch; ring a bell?. TEQSPHERE Recommendation system got you; it answers the "what to watch next?" question. Say goodbye to
          wasting time searching for what to watch next, and hello to TEQSPHERE movie recommendations that display only movies relevant to you.""")  
