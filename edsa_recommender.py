@@ -105,7 +105,7 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
 
     if page_selection == "Home":
-        st.title("Home")
+        st.title('Home')
         st.write('#')
         st.image('pictures/appname.png',use_column_width=True)
 
@@ -125,6 +125,43 @@ def main():
     if page_selection == "Exploratory Data Analysis":
         st.title('Visualising Your Data')
         st.write('#')
+        st.write('#')
+        st.write('### Distribution of Ratings')
+        st.write('#')
+        st.image('pictures/Capture.png',use_column_width=True)
+        st.write('#')
+        st.write('The plot plot shows the distribution of ratings/movie popularity with 653 popular movies and 45760 unpopular movies.')
+        st.write('##')
+        st.write('### Movie Ratings from the Users')
+        st.write('#')
+        st.image('Dis.jpg',use_column_width=True)
+        st.write('#')
+        st.write(""" 
+        Most movies recieved ratings of 4, while others recieved less. It was expected that there would be a normal distrubtion with a mean rating of 3.
+        Instead, we observe that users tend to rate movies quite favourably and tend to avoid negative ratings. This skew might be explained by the tendency
+        of users to rate movies they liked.In other words, if a user doesn't like a movie, it is unlikely that they will watch it through to the end, let alone rate it.
+        """)
+        st.write('### Movie Genres')
+        st.write('#')
+        st.image('populargenres.jpeg')
+        st.write('#')
+        st.write("""Drama, Comedy and Action are top 3 most common movie genres. """)
+        st.write('#')
+        st.write('### Popular cast')
+        st.write('#')
+        st.image('popularcast.jpeg')
+        st.write('#')
+        st.write("""The most well-known cast members are Samuel L. Jackson and Steve Buscemi, with the remaining members having a slight variation in recognition.""")
+        st.write('#')
+        st.write('### Movie Runtime')
+        st.write('An average movie plays for 100 minutes.')
+        st.image('longtail.jpeg',use_column_width=True)
+        st.write('#')
+        st.write('### Top Tags')
+        st.write('#')
+        st.image('Toptags.jpg',use_column_width=True)
+        st.write('#')
+        st.write("""Sci-fi is the most popular tag while classic has the least number of counts. Science fiction movies have pioneered the development of artificial intelligence, science and technology in general""")
 
 
     if page_selection == "Solution Overview":
