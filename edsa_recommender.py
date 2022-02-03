@@ -140,7 +140,7 @@ Content-based filtering:
 
 The collaborative filtering solves the novelty problem. The collaborative filtering is easy to implement. Similarities between the ratings that users give to certain products can be modelled
 way better than in the content-based recommmender systems. We use the rating data with user information(movies they have seen and also the ratings given to those movies). The Singular Value Decomposition
-is used to make the predictions on the ratings that a user would give to a movie they have never seen. Similarities are computed between the users and the movie ratings. Ten most similar movies to the ones that the user likes will be recommended to the user.""")
+is used to make the predictions on the ratings that a user would give to a movie they have never seen. Similarities are computed between the users, the same is computed for movie ratings. Ten most similar movies to the ones that the user likes will be recommended to the user.""")
         
 
 
