@@ -125,8 +125,8 @@ def main():
     if page_selection == "Exploratory Data Analysis":
         st.title('Visualising Your Data')
         st.write('#')
-        st.write('#')
-        st.write('### Distribution of Ratings')
+        st.write('Data visualization gives us a clear idea of what the information means by giving it visual context through maps or graphs. This makes the data more natural for the human mind to comprehend and therefore makes it easier to identify trends, patterns, and outliers within large data sets.')
+        st.write('### Distribution of Ratings per movie')
         st.write('#')
         st.image('pictures/Capture.png',use_column_width=True)
         st.write('#')
