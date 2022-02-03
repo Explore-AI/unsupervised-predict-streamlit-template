@@ -154,14 +154,14 @@ def main():
         st.write("""The most well-known cast members are Samuel L. Jackson and Steve Buscemi, with the remaining members having a slight variation in recognition.""")
         st.write('#')
         st.write('### Movie Runtime')
-        st.write('An average movie plays for 100 minutes.')
-        st.image('longtail.jpeg',use_column_width=True)
         st.write('#')
+        st.image('longtail.jpeg',use_column_width=True)
+        st.write('An average movie plays for 100 minutes.')
         st.write('### Top Tags')
         st.write('#')
         st.image('Toptags.jpg',use_column_width=True)
         st.write('#')
-        st.write("""Sci-fi is the most popular tag while classic has the least number of counts. Science fiction movies have pioneered the development of artificial intelligence, science and technology in general""")
+        st.write("""Sci-fi is the most popular tag while classic has the least number of counts. Science fiction movies have pioneered the development of artificial intelligence, science and technology in general.""")
 
 
     if page_selection == "Solution Overview":
