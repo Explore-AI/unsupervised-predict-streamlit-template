@@ -146,3 +146,4 @@ def collab_model(movie_list,top_n=10):
     for i in top_indexes[:top_n]:
         recommended_movies.append(list(movies_df['title'])[i])
     return recommended_movies
+
