@@ -36,7 +36,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 
 # Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',')
+movies = pd.read_csv('resources/data/movies.csv', sep =',')
 ratings = pd.read_csv('resources/data/ratings.csv')
 movies.dropna(inplace=True)
 
