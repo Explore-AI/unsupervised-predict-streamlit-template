@@ -54,7 +54,7 @@ def main():
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('### Thirteen Analytics Group')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
@@ -63,7 +63,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
@@ -103,6 +103,12 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+
+
+        st.title("Exploratory Data Analysis")
+        st.image('resources/imgs/distribution_rating.png',use_column_width=True)
+        st.write("A simple distribution of ratings on the data obtained from GroupLens Research Group. \
+                  Most users preferred a rating of 3.0.")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
