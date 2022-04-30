@@ -31,6 +31,8 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import surprise
+
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
