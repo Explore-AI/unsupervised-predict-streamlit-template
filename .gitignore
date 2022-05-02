@@ -139,3 +139,6 @@ cython_debug/
 *.csv
 *.zip
 Notebook/recommender_model.ipynb
+svd.pkl
+submission_csv
+Untitled.ipynb
