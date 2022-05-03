@@ -308,7 +308,7 @@ def main():
 		
 		""" * Recommendation system is a self-service platform used by Cinemas to recommend movies to their customers"""
 		"""* The platform is also available to the public. Users can recommend movies amongst each other with the help of recommender algorithms for a better user experience """
-		"""* We charge Cinemas a price of \$20 per customer.The public can access the platform with a yearly subscription of \$120."""
+		"""* We charge Cinemas a price of \$5 per customer.The public can access the platform with a yearly subscription of \$60."""
 		st.write("")
 		st.header('Problem Statement')
 		"""* With the current era of an endless supply of movies ,it can be overwhelming for a user to choose a movie"""
