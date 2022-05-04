@@ -99,11 +99,7 @@ def pred_movies(movie_list):
     return id_store
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
-<<<<<<< HEAD
 # You are, however, encouraged to change its content.
-=======
-# You are, however, encouraged to change its content.  
->>>>>>> parent of c46fbb5 (minor additions)
 def collab_model(movie_list,top_n=10):
     """Performs Collaborative filtering based upon a list of movies supplied
        by the app user.
@@ -121,7 +117,6 @@ def collab_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-<<<<<<< HEAD
     names = movies_df.copy()
     names.set_index('movieId',inplace=True)
     indices = pd.Series(names['title'])
@@ -155,16 +150,6 @@ def collab_model(movie_list,top_n=10):
     # Transpose matrix
     user_sim_df = user_sim_df.T
     # Find IDs of chosen load_movie_titles
-=======
-
-    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
->>>>>>> parent of c46fbb5 (minor additions)
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
     idx_3 = indices[indices == movie_list[2]].index[0]
@@ -176,23 +161,14 @@ def collab_model(movie_list,top_n=10):
     score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
     score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-<<<<<<< HEAD
     # Appending the names of movies
     listings = score_series_1.append(score_series_2).append(score_series_3).sort_values(ascending = False)
-=======
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
-    recommended_movies = []
->>>>>>> parent of c46fbb5 (minor additions)
     # Choose top 50
     top_50_indexes = list(listings.iloc[1:50].index)
     # Removing chosen movies
     top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-<<<<<<< HEAD
     # Get titles of recommended movies
     recommended_movies = []
-=======
->>>>>>> parent of c46fbb5 (minor additions)
     for i in top_indexes[:top_n]:
         recommended_movies.append(list(movies_df[movies_df['movieId']==i]['title']))
     # Return list of movies
