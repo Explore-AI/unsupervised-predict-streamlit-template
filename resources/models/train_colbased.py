@@ -17,7 +17,7 @@ import pickle
 from surprise.model_selection import cross_validate
 
 # Importing datasets
-ratings = pd.read_csv('/Users/jack/Documents/GitHub/unsupervised-predict-streamlit-template/data/train.csv')
+ratings = pd.read_csv('/Users/jack/Documents/GitHub/unsupervised-predict-streamlit-template/resources/data/ratings.csv')
 ratings.drop('timestamp',axis=1,inplace=True)
 
 def svd_pp(save_path):
