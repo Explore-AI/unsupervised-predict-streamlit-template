@@ -306,7 +306,7 @@ def main():
 		st.title("Company Information & Background")
 		st.header('About Us')
 		
-		""" * Recommendation system is a self-service platform used by Cinemas to recommend movies to their customers"""
+		""" * Skycheck is a self-service platform used by Cinemas to recommend movies to their customers"""
 		"""* The platform is also available to the public. Users can recommend movies amongst each other with the help of recommender algorithms for a better user experience """
 		"""* We charge Cinemas a price of \$5 per customer.The public can access the platform with a yearly subscription of \$60."""
 		st.write("")
@@ -316,7 +316,7 @@ def main():
 		"""* This can be costly for someone who paid to watch that movie at the cinema.This problem worsen when a family or group of friends decides to watch a movie together"""
 		
 		st.write("")
-		st.header('Recommendation system Proposed Solution')
+		st.header('Skycheck Proposed Solution')
 		"""* During movie night-out/at the cinema –A group of friends or family can enter a list of their most liked movies into the recommendation system Self-Service platform"""
 		"""* The platform will then use recommender algorithms to suggest movies that the user/users will probably like"""
 		st.header('How Will Cinemas Benefit From Using Our Service ')
