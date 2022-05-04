@@ -139,6 +139,8 @@ cython_debug/
 *.csv
 *.zip
 Notebook/recommender_model.ipynb
-svd.pkl
 submission_csv
-Untitled.ipynb
+svd.pkl
+Movie Recommender System Team 13.ipynb
+Final Notebook for Explore Team 13.ipynb
+movie-recommender.ipynb
