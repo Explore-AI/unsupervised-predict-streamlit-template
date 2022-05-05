@@ -163,7 +163,7 @@ def main():
                 st.write("Movies with between 1 to 4 genres have the most number of ratings for the 25 years, with an average rating for these of roughly bewteen 3.5 to 3.6. Movies with 2 and 3 genres movies get the lions share of the ratings.")
                 #components.html()
             if st.checkbox("Count of Movies per Release year"):
-
+                #this is a comment
                 # st.write("## Count of Movies per Release year")
                 st.image('resources/img/r-year.png',use_column_width=True)
                 st.write("It was observed that there is a sharp increase in the number of movies released from year 2000. 2015 had the highest number of released movies with 2500+ movies, the least number of movies were released in 1993, with less than 700 movies released.")
