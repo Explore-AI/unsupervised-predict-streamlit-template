@@ -31,12 +31,16 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+from sympy import im
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
-
+import functions.youtube_scrapper as top_trailers
+import menu.trailers as t
+import menu.data_professionals as dreamers
+import menu.statistics as stat
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -45,7 +49,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System", "Solution Overview", "Trailers", "Statistics", "The Dream Team"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -63,7 +67,7 @@ def main():
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_1 = st.selectbox('First Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
@@ -78,10 +82,11 @@ def main():
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
+                        # the alteration is here
+                        top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-
 
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
@@ -92,21 +97,24 @@ def main():
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
+                        top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-
-
     # -------------------------------------------------------------------
 
-    # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
+    # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
+    elif page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-
+    elif page_selection == "Trailers":
+        t.vids()
+    elif page_selection == "The Dream Team":
+        dreamers.data_professionals()
+    elif page_selection == "Statistics":
+        stat.visuals()
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-
 
 if __name__ == '__main__':
     main()
