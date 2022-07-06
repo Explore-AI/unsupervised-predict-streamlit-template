@@ -136,3 +136,11 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+*.csv
+*.zip
+Notebook/recommender_model.ipynb
+submission_csv
+svd.pkl
+Movie Recommender System Team 13.ipynb
+Final Notebook for Explore Team 13.ipynb
+movie-recommender.ipynb
