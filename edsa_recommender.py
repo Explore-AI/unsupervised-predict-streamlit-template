@@ -59,7 +59,7 @@ def main():
         # Header contents
         st.write('# Movie Recommender Engine')
         st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-        st.image('resources/imgs/Image_header.png',use_column_width=True)
+        st.image('resources/imgs/Header.gif',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
@@ -112,7 +112,10 @@ def main():
     elif page_selection == "The Dream Team":
         dreamers.data_professionals()
     elif page_selection == "Statistics":
+        st.title("Explore the Statistics")
+        st.write("**Welcome** viewer, here you can find some interesting stats about our progress.")
         stat.visuals()
+
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
