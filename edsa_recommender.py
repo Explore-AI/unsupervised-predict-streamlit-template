@@ -114,10 +114,21 @@ def main():
     elif page_selection == "Statistics":
         st.title("Explore the Statistics")
         st.write("**Welcome** viewer, here you can find some interesting stats about our progress.")
-        stat.visuals()
+        st.markdown("")
+        st.write("Due to the popularity of movies since 1974 we can definitely agree that there has been a influx of movies per annum.")
+        st.image('resources/imgs/newplot2.png')
+        st.markdown("")
+        st.write("Below you can find the most popular genres rated for #appname") 
+        st.image('resources/imgs/newplot3.png')
+        st.markdown("")
+        st.write("")
+        st.image('resources/imgs/newplot4.png')
+        st.markdown("")
+        st.write("")
+        st.image('resources/imgs/newplot5.png')
     elif page_selection == "Help Page":
         st.title("Need Help?")
-        st.write(
+        st.write("**Welcome** viewer, Not sure what to do or where to be? We have the support you need.")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
