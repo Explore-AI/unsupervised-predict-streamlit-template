@@ -114,7 +114,7 @@ def main():
         st.write("Peter Selolo")
         st.write("Mandlenkosi Ngidi")
         st.write("Sboniso Shandu")
-        st.write("Our company specialise in provinding tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.")
+        st.write("#### Our company specialise in provinding tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.")
         
 
     if page_selection == "EDA":
