@@ -103,6 +103,12 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+        
+    if page_selection == "Team Information":
+        st.title("Team Information")
+        st.write("The company name is 21st Century Tech Solutions")
+
+    
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
