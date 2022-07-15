@@ -111,7 +111,7 @@ def main():
     if page_selection == "EDA":
         st.title("## Explore Data Analysis")
         st.write("Here are the highlights of our dataset")
-        st.image("resources/imgs/Image_header.png",use_column_width=True)
+        st.image("resources/imgs/eda screenshot.png",use_column_width=True)
 
     
 
