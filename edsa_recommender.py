@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System", "Solution Overview", "Team Information", "EDA"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -107,6 +107,11 @@ def main():
     if page_selection == "Team Information":
         st.title("Team Information")
         st.write("The company name is 21st Century Tech Solutions")
+
+    if page_selection == "EDA":
+        st.title("## Explore Data Analysis")
+        st.write("Here are the highlights of our dataset")
+        st.image("resources/imgs/Image_header.png",use_column_width=True)
 
     
 
