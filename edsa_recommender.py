@@ -106,10 +106,19 @@ def main():
         
     if page_selection == "Team Information":
         st.title("Team Information")
-        st.write("The company name is 21st Century Tech Solutions")
+        st.write("The company name is:")
+        st.write("## 21st Century Tech Solutions")
+        st.write("#### It consist of five members:")
+        st.write("Anathi Ncayiyane(Leader)")
+        st.write("Tsidiso Maselela")
+        st.write("Peter Selolo")
+        st.write("Mandlenkosi Ngidi")
+        st.write("Sboniso Shandu")
+        st.write("Our company specialise in provinding tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.")
+        
 
     if page_selection == "EDA":
-        st.title("## Explore Data Analysis")
+        st.title("Explore Data Analysis")
         st.write("Here are the highlights of our dataset")
         st.image("resources/imgs/eda screenshot.png",use_column_width=True)
 
