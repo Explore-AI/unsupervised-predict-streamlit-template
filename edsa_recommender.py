@@ -41,6 +41,7 @@ import functions.youtube_scrapper as top_trailers
 import menu.trailers as t
 import menu.data_professionals as dreamers
 import menu.statistics as stat
+import menu.helper as h
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -114,8 +115,7 @@ def main():
     elif page_selection == "Statistics":
         stat.visuals()
     elif page_selection == "Help Page":
-        st.title("Need Help?")
-        st.write("**Welcome** viewer, Not sure what to do or where to be? We have the support you need.")
+        h.helppage()
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
