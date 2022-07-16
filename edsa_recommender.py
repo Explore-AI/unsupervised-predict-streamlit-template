@@ -33,6 +33,7 @@ import menu.trailers as t
 import menu.data_professionals as dreamers
 import menu.statistics as stat
 import menu.helper as h
+import menu.About as a
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -49,8 +50,8 @@ def main():
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
     if page_selection == "Recommender System":
         # Header contents
-        st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('# Movie Xplorer')
+        # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
         st.image('resources/imgs/Header2L.gif',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
@@ -58,10 +59,10 @@ def main():
                         'Collaborative Based Filtering'))
 
         # User-based preferences
-        st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('First Option',title_list[14930:15200])
-        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        st.write('### Select Your Three Favorite Movies')
+        movie_1 = st.selectbox('1ˢᵗ Movie',title_list[14930:15200])
+        movie_2 = st.selectbox('2ⁿᵈ Movie',title_list[25055:25255])
+        movie_3 = st.selectbox('3ʳᵈ Movie',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
@@ -97,8 +98,7 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
     elif page_selection == "About":
-        st.title("About the app")
-        st.write("Describe your winning approach on this page")
+        a.about()
     elif page_selection == "Trailers":
         t.vids()
     elif page_selection == "The Dream Team":
