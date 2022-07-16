@@ -1,29 +1,20 @@
 """
-
     Streamlit webserver-based Recommender Engine.
-
     Author: Explore Data Science Academy.
-
     Note:
     ---------------------------------------------------------------------
     Please follow the instructions provided within the README.md file
     located within the root of this repository for guidance on how to use
     this script correctly.
-
     NB: !! Do not remove/modify the code delimited by dashes !!
-
     This application is intended to be partly marked in an automated manner.
     Altering delimited code may result in a mark of 0.
     ---------------------------------------------------------------------
-
     Description: This file is used to launch a minimal streamlit web
 	application. You are expected to extend certain aspects of this script
     and its dependencies as part of your predict project.
-
 	For further help with the Streamlit framework, see:
-
 	https://docs.streamlit.io/en/latest/
-
 """
 # Streamlit dependencies
 import streamlit as st
@@ -50,7 +41,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System", "Solution Overview", "Trailers", "Statistics", "The Dream Team", "Help Page"]
+    page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -105,8 +96,8 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
-    elif page_selection == "Solution Overview":
-        st.title("Solution Overview")
+    elif page_selection == "About":
+        st.title("About the app")
         st.write("Describe your winning approach on this page")
     elif page_selection == "Trailers":
         t.vids()

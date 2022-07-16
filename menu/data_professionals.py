@@ -34,8 +34,6 @@ def data_professionals():
     members, team, = st.columns(2)
 
     with members:
-        st.write("")
-        st.write("")
         st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
     with team:
         st.write("")

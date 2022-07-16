@@ -1,6 +1,9 @@
 import csv
 import streamlit as st
 
+COMMENT_TEMPLATE_MD = """{} - {}
+> {}"""
+
 def select(): 
     # opening the CSV file
     with open('./resources/data/comments.csv', mode='r') as c:
@@ -9,6 +12,5 @@ def select():
         # displaying the contents of the CSV file
         next(csvFile)
         for lines in csvFile:
-                st.write(lines[0] + "\n\nComment : " + lines[1])
-                # f'<a target="_blank" href="{link6}">Riaan James-Verwey</a>'
+                st.markdown(COMMENT_TEMPLATE_MD.format(lines[0], lines[2], lines[1]))
                 
