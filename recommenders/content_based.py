@@ -26,7 +26,6 @@
     filtering algorithm for rating predictions on Movie data.
 
 """
-
 # Script dependencies
 import os
 import pandas as pd
@@ -57,21 +56,12 @@ def data_preprocessing(subset_size):
     Pandas Dataframe
         Subset of movies selected for content-based filtering.
     """
-    # Split genre data into individual words.
-    # Split genre , title and keywords into individual words
+    
+    # Split genre , cast and keywords into individual words
     df_title['keyWords'] = df_title['plot_keywords'].str.replace('|', ' ')
     df_title['genre'] = df_title['genres'].str.replace('|', ' ')
     df_title['cast'] = df_title['title_cast'].str.replace('|', ' ')
-    # Split movie title by title and year
-    split_values_m = df_title['title'].str.split("(", n=1, expand = True)
-    #Set movie name to title only - remove year
-    df_title.title = split_values_m[0]
-    # Create new column for year
-    df_title['year'] = split_values_m[1]
-    df_title['year'] = df_title['year'].str.strip(')')
-    df_title['title'] = df_title['title'].str.rstrip()
-    #movies['keyWords'] = movies['genres'].str.replace('|', ' ')
-    # Subset of the data
+    
     movies_subset = df_title[:subset_size]
                            
     return movies_subset
@@ -97,7 +87,7 @@ def content_model(movie_list,top_n=10):
     """
     # Initializing the empty list of recommended movies
     
-    data = data_preprocessing(200000)
+    data = data_preprocessing(27000)
     
     # Select Features relevant for recommendations
     select_features = ['cast', 'director', 'keyWords', 'genre', 'title']

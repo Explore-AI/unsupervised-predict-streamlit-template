@@ -18,6 +18,7 @@
 """
 # Streamlit dependencies
 import streamlit as st
+import hydralit_components as hc
 
 # Data handling dependencies
 import pandas as pd
@@ -34,29 +35,55 @@ import menu.data_professionals as dreamers
 import menu.statistics as stat
 import menu.helper as h
 import menu.About as a
+import time
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
+
+over_theme = {'txc_inactive': '#FFFFFF'}
+
+# specify the primary menu definition
+menu_data = [
+    {'icon': "far fa-copy", 'label':"About"},
+    {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
+    {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
+    {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"}
+]
+
 # App declaration
 def main():
+    
+    menu_id = hc.nav_bar(
+    menu_definition=menu_data,
+    override_theme=over_theme,
+    home_name='Home',
+    # login_name='Logout',
+    hide_streamlit_markers=False, #will show the st hamburger as well as the navbar now!
+    sticky_nav=True, #at the top or not
+    sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
+)
 
+    page_selection = f"{menu_id}"
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
+    # page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
-    page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if page_selection == "Recommender System":
+    # page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    if page_selection == "Home":
         # Header contents
         st.write('# Movie Xplorer')
         # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
         st.image('resources/imgs/Header2L.gif',use_column_width=True)
         # Recommender System algorithm selection
+        st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
+        st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
         sys = st.radio("Select an algorithm",
-                       ('Content Based Filtering',
-                        'Collaborative Based Filtering'))
+                     ("Content Based Filtering",
+                      "Collaborative Based Filtering"))
 
         # User-based preferences
         st.write('### Select Your Three Favorite Movies')
@@ -69,9 +96,10 @@ def main():
         if sys == 'Content Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with st.spinner('Crunching the numbers...'):
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
                         top_recommendations = content_model(movie_list=fav_movies,
                                                             top_n=10)
+                        time.sleep(5)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
@@ -84,9 +112,10 @@ def main():
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with st.spinner('Crunching the numbers...'):
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,):
                         top_recommendations = collab_model(movie_list=fav_movies,
                                                            top_n=10)
+                        time.sleep(5)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
