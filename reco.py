@@ -1,0 +1,153 @@
+"""
+
+	Streamlit webserver-based Recommender Engine.
+
+	Author: Explore Data Science Academy.
+
+	Note:
+	---------------------------------------------------------------------
+	Please follow the instructions provided within the README.md file
+	located within the root of this repository for guidance on how to use
+	this script correctly.
+
+	NB: !! Do not remove/modify the code delimited by dashes !!
+
+	This application is intended to be partly marked in an automated manner.
+	Altering delimited code may result in a mark of 0.
+	---------------------------------------------------------------------
+
+	Description: This file is used to launch a minimal streamlit web
+	application. You are expected to extend certain aspects of this script
+	and its dependencies as part of your predict project.
+
+	For further help with the Streamlit framework, see:
+
+	https://docs.streamlit.io/en/latest/
+
+"""
+# Streamlit dependencies
+import streamlit as st
+
+# Data handling dependencies
+import pandas as pd
+import numpy as np
+
+# Custom Libraries
+from utils.data_loader import load_movie_titles
+from recommenders.collaborative_based import collab_model
+from recommenders.content_based import content_model
+
+from streamlit_option_menu import option_menu
+import altair as alt
+# Data Loading
+title_list = load_movie_titles('resources/data/movies.csv')
+
+raw = pd.read_csv("resources/data/ratings.csv")
+
+# App declaration
+def main():
+
+	# DO NOT REMOVE the 'Recommender System' option below, however,
+	# you are welcome to add more options to enrich your app.
+	with st.sidebar:
+		selection = option_menu("Main Menu", ["Home", 'visualisation','Top Rated', 'Development team','Contact Us'], 
+		icons=['house', 'pie-chart', 'star-fill','people-fill', 'envelope'], menu_icon="cast", default_index=0)
+	
+
+	# -------------------------------------------------------------------
+	# ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
+	# -------------------------------------------------------------------
+	#page_selection = st.sidebar.selectbox("Choose Option", page_options)
+	if selection == "Home":
+		# Header contents
+		st.image('logo.png', width=200)
+		st.write('# Movie Recommender Engine')
+		st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+		st.image('resources/imgs/Image_header.png',use_column_width=True)
+		# Recommender System algorithm selection
+		sys = st.radio("Select an algorithm",
+					   ('Content Based Filtering',
+						'Collaborative Based Filtering'))
+
+		# User-based preferences
+		st.write('### Enter Your Three Favorite Movies')
+		movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+		movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+		movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+		fav_movies = [movie_1,movie_2,movie_3]
+
+		# Perform top-10 movie recommendation generation
+		if sys == 'Content Based Filtering':
+			if st.button("Recommend"):
+				try:
+					with st.spinner('Crunching the numbers...'):
+						top_recommendations = content_model(movie_list=fav_movies,
+															top_n=10)
+					st.title("We think you'll like:")
+					for i,j in enumerate(top_recommendations):
+						st.subheader(str(i+1)+'. '+j)
+				except:
+					st.error("Oops! Looks like this algorithm does't work.\
+							  We'll need to fix it!")
+
+
+		if sys == 'Collaborative Based Filtering':
+			if st.button("Recommend"):
+				try:
+					with st.spinner('Crunching the numbers...'):
+						top_recommendations = collab_model(movie_list=fav_movies,
+														   top_n=10)
+					st.title("We think you'll like:")
+					for i,j in enumerate(top_recommendations):
+						st.subheader(str(i+1)+'. '+j)
+				except:
+					st.error("Oops! Looks like this algorithm does't work.\
+							  We'll need to fix it!")
+
+
+	# -------------------------------------------------------------------
+
+	# ------------- SAFE FOR ALTERING/EXTENSION -------------------
+	elif selection == "visualisation":
+		st.title("Visualisation of the Raw Data")
+		st.write("Describe your winning approach on this page")
+
+		opt = st.radio('Visualise data aspects:',['Total number of ratings', 'Top ten users by number of ratings'])
+
+		if opt =='Total number of ratings':
+			xx = raw['rating'].value_counts()
+			col1, mid, col2 = st.columns([20,2,80])
+			with col1:
+				st.write(xx)
+			with col2:
+				xx = pd.DataFrame(xx).reset_index()
+				xx.columns = ['rating','number of ratings']
+				cc = alt.Chart(xx).mark_bar().encode(
+				x = f'{xx.columns[0]}:N',
+				y = xx.columns[1],
+				color ='rating:N')
+				st.altair_chart(cc, use_container_width=True)
+
+		if opt =='Top ten users by number of ratings':
+			xy = raw['userId'].value_counts().sort_values(ascending=False).head(10)
+			col1, mid, col2 = st.columns([20,2,80])
+			with col1:
+				st.write(xy)
+			with col2:
+				xz = pd.DataFrame(xy).reset_index()
+				xz.columns = ['user','count']
+		
+		
+				c = alt.Chart(xz).mark_bar().encode(
+			x = alt.X(f'{xz.columns[0]}:N',sort='-y'),
+			y = xz.columns[1],
+			color ='user:N'
+			)
+				st.altair_chart(c, use_container_width=True)
+		#st.bar_chart(xy)
+	# You may want to add more sections here for aspects such as an EDA,
+	# or to provide your business pitch.
+
+
+if __name__ == '__main__':
+	main()
