@@ -2,6 +2,7 @@
 import streamlit as st
 # data dependencies
 import pandas as pd
+import base64
 from PIL import Image
 
 def data_professionals():
@@ -24,7 +25,12 @@ def data_professionals():
     link4 = "https://github.com/Shoki2"
     link5 = "https://github.com/ElelwaniTshikovhi"
     link6 = "https://github.com/SoulR95"
-    dream_team = Image.open('./resources/imgs/dream_works.gif')
+    # dream_team = Image.open('./resources/imgs/dream_works.gif')
+    dream_works = open('./resources/imgs/dream_works.gif', 'rb')
+    dream_team = dream_works.read()
+    data_url = base64.b64encode(dream_team).decode("utf-8")
+    dream_works.close()
+    
     # define Pandas data frame with team members that developed the models, and the app
     df = pd.DataFrame(
         {
@@ -41,20 +47,19 @@ def data_professionals():
         
     )
     
-    contact, members, team, = st.columns([2, 2, 3])
+    team, members, contact, = st.columns([2, 2, 3])
 
     with contact:
         st.header(":mailbox: Get in touch with us!")
         st.markdown(contact_form, unsafe_allow_html=True)
         local_css("./utils/style.css")
-    with members:
-        st.image(dream_team, caption='')
     with team:
         st.write("")
         st.write("")
         st.write("")
         st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
-    
+    with members:
+        st.markdown(f'<img src="data:image/gif;base64,{data_url}" alt="Dream Team">',unsafe_allow_html=True)
     # footer display image with caption 
     # image = Image.open('./resources/imgs/EDSA_logo.png')
     # st.image(image, caption='© The Dream Team', use_column_width=True)

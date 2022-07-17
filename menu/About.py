@@ -2,7 +2,7 @@ import streamlit as st
 
 def about():
     #about page title
-    st.title("Trends Analytics" + "fas fa-tachometer-alt")
+    st.title("Trends Analytics")
     # company behind the app infomation
     st.write("**About Trends Analytics**.")
     st.info("Founded in 2022, Trends Analytics is a data driven company which provides data and business solutions. " +
