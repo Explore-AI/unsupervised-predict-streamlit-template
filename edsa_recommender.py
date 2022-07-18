@@ -1,32 +1,24 @@
 """
-
     Streamlit webserver-based Recommender Engine.
-
     Author: Explore Data Science Academy.
-
     Note:
     ---------------------------------------------------------------------
     Please follow the instructions provided within the README.md file
     located within the root of this repository for guidance on how to use
     this script correctly.
-
     NB: !! Do not remove/modify the code delimited by dashes !!
-
     This application is intended to be partly marked in an automated manner.
     Altering delimited code may result in a mark of 0.
     ---------------------------------------------------------------------
-
     Description: This file is used to launch a minimal streamlit web
 	application. You are expected to extend certain aspects of this script
     and its dependencies as part of your predict project.
-
 	For further help with the Streamlit framework, see:
-
 	https://docs.streamlit.io/en/latest/
-
 """
 # Streamlit dependencies
 import streamlit as st
+import hydralit_components as hc
 
 # Data handling dependencies
 import pandas as pd
@@ -42,44 +34,72 @@ import menu.trailers as t
 import menu.data_professionals as dreamers
 import menu.statistics as stat
 import menu.helper as h
+import menu.About as a
+import time
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
+
+over_theme = {'txc_inactive': '#FFFFFF'}
+
+# specify the primary menu definition
+menu_data = [
+    {'icon': "far fa-copy", 'label':"About"},
+    {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
+    {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
+    {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"}
+]
+
 # App declaration
 def main():
+    
+    menu_id = hc.nav_bar(
+    menu_definition=menu_data,
+    override_theme=over_theme,
+    home_name='Home',
+    # login_name='Logout',
+    hide_streamlit_markers=False, #will show the st hamburger as well as the navbar now!
+    sticky_nav=True, #at the top or not
+    sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
+)
 
+    page_selection = f"{menu_id}"
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System", "Solution Overview", "Trailers", "Statistics", "The Dream Team", "Help Page"]
+    # page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
-    page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if page_selection == "Recommender System":
+    # page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    if page_selection == "Home":
         # Header contents
-        st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('# Movie Xplorer')
+        # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
         st.image('resources/imgs/Header2L.gif',use_column_width=True)
         # Recommender System algorithm selection
+        st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
+        st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
         sys = st.radio("Select an algorithm",
-                       ('Content Based Filtering',
-                        'Collaborative Based Filtering'))
+                     ("Content Based Filtering",
+                      "Collaborative Based Filtering"))
 
         # User-based preferences
-        st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('First Option',title_list[14930:15200])
-        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        st.write('### Select Your Three Favorite Movies')
+        movie_1 = st.selectbox('1ˢᵗ Movie',title_list[14930:15200])
+        movie_2 = st.selectbox('2ⁿᵈ Movie',title_list[25055:25255])
+        movie_3 = st.selectbox('3ʳᵈ Movie',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with st.spinner('Crunching the numbers...'):
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
                         top_recommendations = content_model(movie_list=fav_movies,
                                                             top_n=10)
+                        time.sleep(5)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
@@ -92,9 +112,10 @@ def main():
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with st.spinner('Crunching the numbers...'):
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,):
                         top_recommendations = collab_model(movie_list=fav_movies,
                                                            top_n=10)
+                        time.sleep(5)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
@@ -105,9 +126,8 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
-    elif page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+    elif page_selection == "About":
+        a.about()
     elif page_selection == "Trailers":
         t.vids()
     elif page_selection == "The Dream Team":
