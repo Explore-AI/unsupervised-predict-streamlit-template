@@ -48,7 +48,7 @@ menu_data = [
     {'icon': "far fa-copy", 'label':"About"},
     {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
     {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
-    {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"},
+    {'id':'Contact Us','icon': "fas fa-laptop", 'label':"Contact Us"},
     {'id':'Help', 'label':"Help"}
 ]
 
@@ -131,7 +131,7 @@ def main():
         a.about()
     elif page_selection == "Trailers":
         t.vids()
-    elif page_selection == "The Dream Team":
+    elif page_selection == "Contact Us":
         dreamers.data_professionals()
     elif page_selection == "Statistics":
         stat.visuals()
