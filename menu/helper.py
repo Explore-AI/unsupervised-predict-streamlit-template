@@ -56,11 +56,10 @@ def helppage():
         st.title("Trailers")
         
     #Add trailer help video.    
-        t_vid = open('./resources/vids/trailers.mp4', 'rb')
-        t_play = t_vid.read()
-        st.video(t_play)
+        st.video('https://youtu.be/AYgxUezGG1A')
     
     #create the Step by step guide for the Trailers Page.
+        st.title("Steps")
         st.write(
             """ 
             -  Move the slider to select years.
