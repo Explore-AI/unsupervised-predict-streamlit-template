@@ -37,9 +37,9 @@ import menu.helper as h
 import menu.About as a
 import time
 # Data Loading
-title_list = load_movie_titles('resources/data/movies.csv')
+title_list = load_movie_titles('https://raw.githubusercontent.com/Dream-Team-Unsupervised/Data/main/movies.csv')
 
-st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
+st.set_page_config(layout='wide', initial_sidebar_state='auto',)
 
 over_theme = {'txc_inactive': '#FFFFFF'}
 
@@ -81,16 +81,15 @@ def main():
         # Recommender System algorithm selection
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
         st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
-        sys = st.radio("Select an algorithm",
-                     ("Content Based Filtering",
-                      "Collaborative Based Filtering"))
+        sys = st.radio("", ("Content Based Filtering", "Collaborative Based Filtering"))
 
         # User-based preferences
         st.write('### Select Your Three Favorite Movies')
         movie_1 = st.selectbox('1ˢᵗ Movie',title_list[14930:15200])
         movie_2 = st.selectbox('2ⁿᵈ Movie',title_list[25055:25255])
         movie_3 = st.selectbox('3ʳᵈ Movie',title_list[21100:21200])
-        fav_movies = [movie_1,movie_2,movie_3]
+        # fav_movies = [movie_1,movie_2,movie_3]
+        fav_movies = ['So Proudly We Hail! (1943)', 'Star Wars: Episode VII - The Force Awakens (2015)', 'Sabotage (2014)']
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
@@ -112,7 +111,7 @@ def main():
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,):
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
                         top_recommendations = collab_model(movie_list=fav_movies,
                                                            top_n=10)
                         time.sleep(5)

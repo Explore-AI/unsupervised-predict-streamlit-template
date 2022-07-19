@@ -2,6 +2,7 @@
 import streamlit as st
 # data dependencies
 import pandas as pd
+import numpy as np
 import base64
 from PIL import Image
 
@@ -60,9 +61,31 @@ def data_professionals():
         st.write(df.to_html(escape=False, index=False), unsafe_allow_html=True)
     with members:
         st.markdown(f'<img src="data:image/gif;base64,{data_url}" alt="Dream Team">',unsafe_allow_html=True)
-    # footer display image with caption 
-    # image = Image.open('./resources/imgs/EDSA_logo.png')
-    # st.image(image, caption='© The Dream Team', use_column_width=True)
+        
+    st.write("")
+    with st.expander("We are based at"):
+        address, dream_map = st.columns([2, 3.5])
+        with address:
+            st.write('<style>div.st-bf{flex-direction:column;padding-top:12px;} div.st-ag{font-size:24px;font-weight:bold;text-align:center;}</style>', unsafe_allow_html=True)
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+            st.markdown("2ⁿᵈ floor")
+            st.markdown("420 Milton Street")
+            st.markdown("Marshaltown")
+            st.markdown("Johannesburg 2000")
+            st.markdown("Tel no: 011 668 4397(moviexp)")
+        with dream_map:
+            df = pd.DataFrame(
+            np.random.randn(1, 2) / [50, 50] + [-26.204103, 28.047305],
+            columns=['lat', 'lon'])
+            st.map(df)
     
 def local_css(file_name):
     with open(file_name) as f:
