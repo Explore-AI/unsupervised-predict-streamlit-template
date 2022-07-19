@@ -4,7 +4,7 @@ import streamlit as st
 def helppage():
     #Create the title and intro
     st.title("Need Help?")
-    st.write("**Welcome** viewer, Not sure what to do or where to be? We have the support you need.")
+    st.write("**Welcome** Xplorer, Not sure what to do or where to be? We have the support you need.")
     
     with st.expander("Home"):
             
@@ -63,13 +63,13 @@ def helppage():
     #create the Step by step guide for the Trailers Page.
         st.write(
             """ 
-            - 1. Move the slider to select years.
-            - 2. Choose which years drop down to select and click it.
-            - 3. Play the vid.
-            - 4. Feel free to read the comments or leave a comment.
-            - 5. To leave comment type name in the name box.
-            - 6. Leave your comment in comment section.
-            - 7. Press the share comment button to upload your comment.
+            -  Move the slider to select years.
+            -  Choose which years drop down to select and click it.
+            -  Play the vid.
+            -  Feel free to read the comments or leave a comment.
+            -  To leave comment type name in the name box.
+            -  Leave your comment in comment section.
+            -  Press the share comment button to upload your comment.
             """
                 )
         

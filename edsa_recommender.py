@@ -49,7 +49,7 @@ menu_data = [
     {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
     {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
     {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"},
-    {'id':'Help Page', 'label':"Help Page"}
+    {'id':'Help', 'label':"Help"}
 ]
 
 # App declaration
@@ -135,7 +135,7 @@ def main():
         dreamers.data_professionals()
     elif page_selection == "Statistics":
         stat.visuals()
-    elif page_selection == "Help Page":
+    elif page_selection == "Help":
         h.helppage()
 
     # You may want to add more sections here for aspects such as an EDA,
