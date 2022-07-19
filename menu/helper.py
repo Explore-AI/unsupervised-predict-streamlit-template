@@ -85,12 +85,23 @@ def helppage():
         st.title("Contact Us")
     
     #Add Contact help video
-    #a_vid = open('./resources/vids/.mp4', 'rb')
-    #a_play = a_vid.read()
     #st.video(a_play)
     
     #create the Step by step guide for the Contact Us Page.
-        st.write("")
+        st.title("Steps")
+        st.write(
+            """
+            As you can see Contact Us is pretty simple, but should you require any assistance feel free to reach out.
+            
+            - Add your name.
+            - Add your email.
+            - Leave your message or any concerns.
+            - Or if you feel like reaching out telephonically use the drop down.
+            - To find where we are based use the drop down as well.
+            - Trends Analytics strife to make the world a better place data at a time.
+        
+            """
+                )
     
         
     
