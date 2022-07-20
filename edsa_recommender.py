@@ -122,12 +122,13 @@ def main():
         st.write("Here are the highlights of our dataset")
         data = st.selectbox('Fisrt Option',title_list[14930:15200])
         st.image("resources/imgs/eda screenshot.png",use_column_width=True)
+        st.image("resources/imgs/ratings.png",use_column_width=True)
 
     if page_selection == "About The App":
         title_about = """
         <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
-        <h1 style="color:black;text-align:center;">  The Company </h1>
-        <h3 style="color:black;text-align:right;">We Create ML Solutions for a better world sprint.</h3>
+        <h1 style="color:black;text-align:center;">  21st Century Tech Solutions </h1>
+        <h3 style="color:black;text-align:right;">We provide tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.</h3>
         """
 
         mission = """
@@ -141,12 +142,13 @@ def main():
         <h1 style="color:black;text-align:center;">  Members </h1>
         <h3 style="color:black;text-align:center;">Mandlenkosi Ngidi</h3>
         <h3 style="color:black;text-align:center;">Sboniso Shandu</h3>
-        <h3 style="color:black;text-align:center;">Anathie</h3>
-        <h3 style="color:black;text-align:center;">Ramos</h3>
-        <h3 style="color:black;text-align:center;">Dawn_Hawks</h3>
+        <h3 style="color:black;text-align:center;">Anathi Ncayiyane</h3>
+        <h3 style="color:black;text-align:center;">Tsidiso Maselela</h3>
+        <h3 style="color:black;text-align:center;">Peter Selolo</h3>
 
         """
 
+        st.image("resources/imgs/TECHSAVE.png",use_column_width=True)
         st.markdown(title_about, unsafe_allow_html=True)
         st.markdown(mission, unsafe_allow_html=True)
         st.markdown(contributors, unsafe_allow_html=True) 
