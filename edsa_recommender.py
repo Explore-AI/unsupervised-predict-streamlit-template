@@ -152,11 +152,11 @@ def main():
         st.image("resources/imgs/TECHSAV.png",use_column_width=True)
         st.markdown(title_about, unsafe_allow_html=True)
         st.markdown(mission, unsafe_allow_html=True)
-        st.markdown(contributors, unsafe_allow_html=True) 
+        st.markdown(contributors, unsafe_allow_html=True)
         
         st.info("Github repo url: https://github.com/Sboniso-Shandu/unsupervised-predict-streamlit-template")
-		st.info("Kaggle submission url: https://www.kaggle.com/competitions/edsa-movie-recommendation-2022/submissions")
-		st.info("AWS EC2 instance url:  ")
+        st.info("Kaggle submission url: https://www.kaggle.com/competitions/edsa-movie-recommendation-2022/submissions")
+        st.info("AWS EC2 instance url:  ")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
