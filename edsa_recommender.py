@@ -40,6 +40,7 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
+
 # App declaration
 def main():
 
@@ -128,7 +129,7 @@ def main():
         title_about = """
         <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
         <h1 style="color:black;text-align:center;">  21st Century Tech Solutions </h1>
-        <h3 style="color:black;text-align:right;">We provide tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.</h3>
+        <h3 style="color:black;text-align:center;"> We provide tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs. </h3>
         """
 
         mission = """
@@ -148,10 +149,14 @@ def main():
 
         """
 
-        st.image("resources/imgs/TECHSAVE.png",use_column_width=True)
+        st.image("resources/imgs/TECHSAV.png",use_column_width=True)
         st.markdown(title_about, unsafe_allow_html=True)
         st.markdown(mission, unsafe_allow_html=True)
         st.markdown(contributors, unsafe_allow_html=True) 
+        
+        st.info("Github repo url: https://github.com/Sboniso-Shandu/unsupervised-predict-streamlit-template")
+		st.info("Kaggle submission url: https://www.kaggle.com/competitions/edsa-movie-recommendation-2022/submissions")
+		st.info("AWS EC2 instance url:  ")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
