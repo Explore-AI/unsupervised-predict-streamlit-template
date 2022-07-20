@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System", "Solution Overview", "Team Information", "EDA"]
+    page_options = ["Recommender System", "Solution Overview", "Team Information", "EDA", "About The App"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -109,20 +109,47 @@ def main():
         st.write("The company name is:")
         st.write("## 21st Century Tech Solutions")
         st.write("#### It consist of five members:")
-        st.write("Anathi Ncayiyane(Leader)")
-        st.write("Tsidiso Maselela")
-        st.write("Peter Selolo")
-        st.write("Mandlenkosi Ngidi")
-        st.write("Sboniso Shandu")
+        st.write("Anathi Ncayiyane(CEO)")
+        st.write("Tsidiso Maselela(COO)")
+        st.write("Peter Selolo(Data Scientist)")
+        st.write("Mandlenkosi Ngidi(Data Scientist)")
+        st.write("Sboniso Shandu(Software Engineer)")
         st.write("#### Our company specialise in provinding tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.")
         
 
     if page_selection == "EDA":
         st.title("Explore Data Analysis")
         st.write("Here are the highlights of our dataset")
+        data = st.selectbox('Fisrt Option',title_list[14930:15200])
         st.image("resources/imgs/eda screenshot.png",use_column_width=True)
 
-    
+    if page_selection == "About The App":
+        title_about = """
+        <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
+        <h1 style="color:black;text-align:center;">  The Company </h1>
+        <h3 style="color:black;text-align:right;">We Create ML Solutions for a better world sprint.</h3>
+        """
+
+        mission = """
+        <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
+        <h1 style="color:black;text-align:center;">  Our Objective  </h1>
+        <h3 style="color:black;text-align:center;"> Provide insight from data to provide data driven solutions . &#128515</h3>
+        """
+
+        contributors = """
+        <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
+        <h1 style="color:black;text-align:center;">  Members </h1>
+        <h3 style="color:black;text-align:center;">Mandlenkosi Ngidi</h3>
+        <h3 style="color:black;text-align:center;">Sboniso Shandu</h3>
+        <h3 style="color:black;text-align:center;">Anathie</h3>
+        <h3 style="color:black;text-align:center;">Ramos</h3>
+        <h3 style="color:black;text-align:center;">Dawn_Hawks</h3>
+
+        """
+
+        st.markdown(title_about, unsafe_allow_html=True)
+        st.markdown(mission, unsafe_allow_html=True)
+        st.markdown(contributors, unsafe_allow_html=True) 
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
