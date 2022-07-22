@@ -31,6 +31,7 @@
 import os
 import pandas as pd
 import numpy as np
+import streamlit as st
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -58,7 +59,7 @@ def data_preprocessing(subset_size):
     # Subset of the data
     movies_subset = movies[:subset_size]
     return movies_subset
-
+@st.cache(show_spinner=False, suppress_st_warning=True)
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def content_model(movie_list,top_n=10):

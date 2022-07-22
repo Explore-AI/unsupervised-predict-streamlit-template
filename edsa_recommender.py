@@ -53,6 +53,7 @@ menu_data = [
 ]
 
 # App declaration
+
 def main():
     
     menu_id = hc.nav_bar(
@@ -99,7 +100,7 @@ def main():
                         top_recommendations = content_model(movie_list=fav_movies,
                                                             top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         # the alteration is here
@@ -115,7 +116,7 @@ def main():
                         top_recommendations = collab_model(movie_list=fav_movies,
                                                            top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         top_trailers.youtubeScrapper(top_recommendations[i])
