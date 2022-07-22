@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
+import plotly.express as px
 from streamlit_tags import st_tags
 import base64
 movies = pd.read_csv('https://raw.githubusercontent.com/Dream-Team-Unsupervised/Data/main/movies.csv')

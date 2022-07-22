@@ -41,7 +41,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importing data
-movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
+movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
 
 def data_preprocessing(subset_size):
     # Split genres column into individual words
@@ -99,5 +99,5 @@ def content_model(movie_list,top_n=10):
     movie_three_list = movie_three_list[0:3] # Keep top four 
     
     recommended_movies = movie_one_list + movie_two_list + movie_three_list
-    #recommended_movies = str(recommended_movies).replace('"', "'")
+    
     return recommended_movies

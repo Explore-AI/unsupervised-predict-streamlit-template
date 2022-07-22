@@ -39,7 +39,7 @@ import time
 # Data Loading
 title_list = load_movie_titles('https://raw.githubusercontent.com/Dream-Team-Unsupervised/Data/main/movies.csv')
 
-st.set_page_config(layout='wide', initial_sidebar_state='auto',)
+st.set_page_config(page_icon='resources/imgs/MovieXplorer.png', page_title= 'Movie Xplorer', layout='wide', initial_sidebar_state='auto')
 
 over_theme = {'txc_inactive': '#FFFFFF'}
 
@@ -49,7 +49,7 @@ menu_data = [
     {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
     {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
     {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"},
-    {'id':'Help', 'label':"Help"}
+    {'id':'Help', 'icon': 'fas fa-question', 'label':"Help"}
 ]
 
 # App declaration
@@ -64,7 +64,6 @@ def main():
     sticky_nav=True, #at the top or not
     sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
 )
-
     page_selection = f"{menu_id}"
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
@@ -130,13 +129,12 @@ def main():
         a.about()
     elif page_selection == "Trailers":
         t.vids()
-    elif page_selection == "The Dream Team":
+    elif page_selection == "Contact Us":
         dreamers.data_professionals()
     elif page_selection == "Statistics":
         stat.visuals()
     elif page_selection == "Help":
         h.helppage()
-
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 

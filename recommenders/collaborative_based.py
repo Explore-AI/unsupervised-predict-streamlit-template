@@ -42,7 +42,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importing data
-# Importing data
 movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)

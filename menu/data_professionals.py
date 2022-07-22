@@ -48,7 +48,7 @@ def data_professionals():
         
     )
     
-    team, members, contact, = st.columns([2, 2, 3])
+    team, members, contact, = st.columns([2, 1.5, 1.5])
 
     with contact:
         st.header(":mailbox: Get in touch with us!")
