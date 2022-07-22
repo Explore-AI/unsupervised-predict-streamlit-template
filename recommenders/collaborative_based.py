@@ -1,5 +1,4 @@
 """
-
     Collaborative-based filtering for item recommendation.
 
     Author: Explore Data Science Academy.
@@ -24,7 +23,6 @@
 
     Description: Provided within this file is a baseline collaborative
     filtering algorithm for rating predictions on Movie data.
-
 """
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
