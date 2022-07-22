@@ -26,7 +26,6 @@
     filtering algorithm for rating predictions on Movie data.
 
 """
-
 # Script dependencies
 import os
 import pandas as pd
