@@ -39,7 +39,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importing data
-movies_df = pd.read_csv('https://raw.githubusercontent.com/Dream-Team-Unsupervised/Data/main/imdb_data.csv')
+movies_df = pd.read_csv('resources/data/movies.csv')
 
 def data_preprocessing(subset_size):
     # Split genres column into individual words
