@@ -39,6 +39,8 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+raw_movies = pd.read_csv("resources/data/movies.csv")
+raw_ratings = pd.read_csv("resources/data/ratings.csv")
 
 
 # App declaration
@@ -46,7 +48,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System", "Solution Overview", "Team Information", "EDA", "About The App"]
+    page_options = ["Recommender System", "About The App", "EDA", "Team Information"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -101,31 +103,44 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
+    #if page_selection == "Solution Overview":
+        #st.title("Solution Overview")
+        #st.write("Describe your winning approach on this page")
+        
+    if page_selection == "About The App":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
-        
-    if page_selection == "Team Information":
-        st.title("Team Information")
-        st.write("The company name is:")
-        st.write("## 21st Century Tech Solutions")
-        st.write("#### It consist of five members:")
-        st.write("Anathi Ncayiyane(CEO)")
-        st.write("Tsidiso Maselela(COO)")
-        st.write("Peter Selolo(Data Scientist)")
-        st.write("Mandlenkosi Ngidi(Data Scientist)")
-        st.write("Sboniso Shandu(Software Engineer)")
-        st.write("#### Our company specialise in provinding tailormade solutions for our clients. We pride ourselves in our ability to provide solution which are specifical designed for your needs.")
-        
+        st.info("Predict Overview: EDSA Movie Recommendation 2022")
+		# You can read a markdown file from supporting resources folder
+        st.write("""In today’s technology driven world, recommender systems are socially and economically critical to ensure that individuals can make optimised choices surrounding the content they engage with on a daily basis. One application where this is especially true is movie recommendations; where intelligent algorithms can help viewers find great titles from tens of thousands of options.
+
+The goal is to construct a recommendation algorithm based on content or collaborative filtering, capable of accurately predicting how a user will rate a movie they have not yet viewed, based on their historical preferences.
+
+Providing an accurate and robust solution to this challenge has immense economic potential, with users of the system being personalised recommendations - generating platform affinity for the streaming services which best facilitates their audience's viewing.""")
+    
+
+        st.image("resources/imgs/Image_header.png",use_column_width=True)
+    
+        st.subheader("Raw data")
+        if st.checkbox('Show movies data'): # data is hidden if box is unchecked
+            st.write(raw_movies[['movieId', 'title', 'genres']]) # will write the df to the page
+
+        if st.checkbox('Show ratings data'): # data is hidden if box is unchecked
+            st.write(raw_ratings[['userId', 'movieId', 'rating', 'timestamp']])
+
 
     if page_selection == "EDA":
         st.title("Explore Data Analysis")
+
+        st.info(""" Exploratory Data Analysis(EDA) allows us to gain a better understanding of our data without having to make any
+ assumptions. EDA is a necessary component before moving on to the modeling phase since it provides context and 
+ recommendations on how to proceed when creating the proper model. It will also aid in the proper interpretation
+ of the results. You will not be able to properly comprehend your data unless you use EDA.""")
+
         st.write("Here are the highlights of our dataset")
-        data = st.selectbox('Fisrt Option',title_list[14930:15200])
         st.image("resources/imgs/eda screenshot.png",use_column_width=True)
         st.image("resources/imgs/ratings.png",use_column_width=True)
 
-    if page_selection == "About The App":
+    if page_selection == "Team Information":
         title_about = """
         <div style="background-color:#464e5f00;padding:10px;border-radius:10px;margin:10px;">
         <h1 style="color:black;text-align:center;">  21st Century Tech Solutions </h1>
@@ -143,7 +158,7 @@ def main():
         <h1 style="color:black;text-align:center;">  Members </h1>
         <h3 style="color:black;text-align:center;">Mandlenkosi Ngidi</h3>
         <h3 style="color:black;text-align:center;">Sboniso Shandu</h3>
-        <h3 style="color:black;text-align:center;">Anathi Ncayiyane</h3>
+        <h3 style="color:black;text-align:center;">Anathi Ncayiyana</h3>
         <h3 style="color:black;text-align:center;">Tsidiso Maselela</h3>
         <h3 style="color:black;text-align:center;">Peter Selolo</h3>
 
@@ -153,7 +168,7 @@ def main():
         st.markdown(title_about, unsafe_allow_html=True)
         st.markdown(mission, unsafe_allow_html=True)
         st.markdown(contributors, unsafe_allow_html=True)
-        
+
         st.info("Github repo url: https://github.com/Sboniso-Shandu/unsupervised-predict-streamlit-template")
         st.info("Kaggle submission url: https://www.kaggle.com/competitions/edsa-movie-recommendation-2022/submissions")
         st.info("AWS EC2 instance url:  ")
