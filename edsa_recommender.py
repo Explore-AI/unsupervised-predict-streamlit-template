@@ -53,6 +53,7 @@ menu_data = [
 ]
 
 # App declaration
+
 def main():
     
     menu_id = hc.nav_bar(
@@ -88,8 +89,7 @@ def main():
         movie_1 = st.selectbox('1ˢᵗ Movie',title_list[14930:15200])
         movie_2 = st.selectbox('2ⁿᵈ Movie',title_list[25055:25255])
         movie_3 = st.selectbox('3ʳᵈ Movie',title_list[21100:21200])
-        # fav_movies = [movie_1,movie_2,movie_3]
-        fav_movies = ['So Proudly We Hail! (1943)', 'Star Wars: Episode VII - The Force Awakens (2015)', 'Sabotage (2014)']
+        fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
@@ -99,7 +99,7 @@ def main():
                         top_recommendations = content_model(movie_list=fav_movies,
                                                             top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         # the alteration is here
@@ -115,7 +115,7 @@ def main():
                         top_recommendations = collab_model(movie_list=fav_movies,
                                                            top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         top_trailers.youtubeScrapper(top_recommendations[i])

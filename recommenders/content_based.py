@@ -30,6 +30,7 @@
 import os
 import pandas as pd
 import numpy as np
+import streamlit as st
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from mlxtend.preprocessing import TransactionEncoder
@@ -42,24 +43,27 @@ warnings.filterwarnings('ignore')
 movies_df = pd.read_csv('resources/data/movies.csv')
 
 def data_preprocessing(subset_size):
-    # Split genres column into individual words
-    genre = movies_df['genres'].str.split('|')
-    # Initiate TransactionEncoder
-    te = TransactionEncoder()
-    genre = te.fit_transform(genre)  # Fit genre values
-    genre = pd.DataFrame(genre, columns = te.columns_)  # Convert to DataFrame
-    # Convert boolean values to integers
-    genre = genre.astype('int')
-    # Insert the movie title
-    genre.insert(0, 'movie_title', movies_df['title'])
-    # Set movie title as index
-    genre = genre.set_index('movie_title')
-    # Transpose dataframe - movie title as column and genre as row
-    genre = genre.transpose()  
-    
-    return genre
-    
-# Using correlation to find similar movies
+    """Prepare data for use within Content filtering algorithm.
+
+    Parameters
+    ----------
+    subset_size : int
+        Number of movies to use within the algorithm.
+
+    Returns
+    -------
+    Pandas Dataframe
+        Subset of movies selected for content-based filtering.
+
+    """
+    # Split genre data into individual words.
+    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    # Subset of the data
+    movies_subset = movies[:subset_size]
+    return movies_subset
+@st.cache(show_spinner=False, suppress_st_warning=True)
+# !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
+# You are, however, encouraged to change its content.  
 def content_model(movie_list,top_n=10):
     genre = data_preprocessing(movies_df)
     indices = pd.Series(movies_df['title'])    # List of all index for movies

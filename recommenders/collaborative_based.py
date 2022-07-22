@@ -32,6 +32,7 @@ ratings_df.drop(['timestamp'], axis=1,inplace=True)
  # Script dependencies
 import pandas as pd
 import numpy as np
+import streamlit as st
 from sklearn.neighbors import NearestNeighbors
 from scipy.sparse import csr_matrix
 
@@ -55,7 +56,7 @@ def movie_data(movie):
     return movie_pivot
 
     # Below function finds nearest neighbors and returns recommended movie list using cosine similarity between movies
-
+@st.cache(show_spinner=False, suppress_st_warning=True)
 def collab_model(movie_list,top_n=10):
     # Use function to merge dataframse and select subset based on highest coutn of movie ratings 
     movie = movies_df.merge(ratings_df, how = 'left', on='movieId')
