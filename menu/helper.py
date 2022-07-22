@@ -13,14 +13,12 @@ def helppage():
         st.title("Home")
     
     #Add the recoomend video.
-        r_vid = open('./resources/vids/Recommend.mp4', 'rb')
-        r_play = r_vid.read()
-
-        st.video(r_play)
+        st.video('https://youtu.be/hebG9vo5D0E')
             
     
     #create the Step by step guide for the Home page.
-        st.write("1. Choose Between Content based or Collaborative based filtering.")
+        st.title("Steps")
+        st.write("- Choose Between Content based or Collaborative based filtering.")
         
         st.info(
             """
@@ -33,9 +31,9 @@ def helppage():
         
         st.write(
             """
-        2. Select 1st, 2nd & 3rd favourite movie.
-        3. Press the Recommend button.
-        4. Enjoy the selection of recommended films and their trailers.
+        - Select 1st, 2nd & 3rd favourite movie.
+        - Press the Recommend button.
+        - Enjoy the selection of recommended films and their trailers.
         """
                 )
     
@@ -44,8 +42,6 @@ def helppage():
         st.title("About")
     
     #Add About help video
-    #a_vid = open('./resources/vids/.mp4', 'rb')
-    #a_play = a_vid.read()
     #st.video(a_play)
     
     #create the Step by step guide for the About Page.
@@ -56,11 +52,10 @@ def helppage():
         st.title("Trailers")
         
     #Add trailer help video.    
-        t_vid = open('./resources/vids/trailers.mp4', 'rb')
-        t_play = t_vid.read()
-        st.video(t_play)
+        st.video('https://youtu.be/AYgxUezGG1A')
     
     #create the Step by step guide for the Trailers Page.
+        st.title("Steps")
         st.write(
             """ 
             -  Move the slider to select years.
@@ -90,12 +85,23 @@ def helppage():
         st.title("Contact Us")
     
     #Add Contact help video
-    #a_vid = open('./resources/vids/.mp4', 'rb')
-    #a_play = a_vid.read()
     #st.video(a_play)
     
     #create the Step by step guide for the Contact Us Page.
-        st.write("")
+        st.title("Steps")
+        st.write(
+            """
+            As you can see Contact Us is pretty simple, but should you require any assistance feel free to reach out.
+            
+            - Add your name.
+            - Add your email.
+            - Leave your message or any concerns.
+            - Or if you feel like reaching out telephonically use the drop down.
+            - To find where we are based use the drop down as well.
+            - Trends Analytics strife to make the world a better place data at a time.
+        
+            """
+                )
     
         
     

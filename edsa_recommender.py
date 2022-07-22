@@ -129,7 +129,7 @@ def main():
         a.about()
     elif page_selection == "Trailers":
         t.vids()
-    elif page_selection == "The Dream Team":
+    elif page_selection == "Contact Us":
         dreamers.data_professionals()
     elif page_selection == "Statistics":
         stat.visuals()
