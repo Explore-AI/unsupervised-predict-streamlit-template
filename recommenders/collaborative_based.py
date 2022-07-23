@@ -25,6 +25,8 @@
     filtering algorithm for rating predictions on Movie data.
 """
 # Importing data
+import pandas as pd
+
 movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
