@@ -96,8 +96,7 @@ def main():
             if st.button("Recommend"):
                 try:
                     with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
-                        top_recommendations = content_model(movie_list=fav_movies,
-                                                            top_n=10)
+                        top_recommendations = content_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
                     st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
@@ -112,8 +111,7 @@ def main():
             if st.button("Recommend"):
                 try:
                     with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
-                        top_recommendations = collab_model(movie_list=fav_movies,
-                                                           top_n=10)
+                        top_recommendations = collab_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
                     st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
