@@ -1,5 +1,4 @@
 """
-
     Collaborative-based filtering for item recommendation.
 
     Author: Explore Data Science Academy.
@@ -24,11 +23,13 @@
 
     Description: Provided within this file is a baseline collaborative
     filtering algorithm for rating predictions on Movie data.
-
 """
+# Importing data
+movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
+ratings_df = pd.read_csv('resources/data/ratings.csv')
+ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
-  
-# Script dependencies
+ # Script dependencies
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -41,7 +42,6 @@ warnings.filterwarnings('ignore')
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
-
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
@@ -70,7 +70,6 @@ def collab_model(movie_list,top_n=10):
     # Initiate KNN model using NearestNeighbors and Cosine similarity
     knn_item = NearestNeighbors(metric = 'cosine', algorithm = 'brute', n_neighbors = 20, n_jobs = -1)
     knn_item.fit(csr_item)
-    # Remove year from movie title
     #movie_list2 = [x[:-7] for x in movie_list]
     # Empty list to store recommended movieID's
     full_list = []
@@ -94,7 +93,7 @@ def collab_model(movie_list,top_n=10):
         movie_index_2 = movie_pivot[movie_pivot['movieId'] == movie_index_2a].index[0]
         distances_2 , indices_2 = knn_item.kneighbors(csr_item[movie_index_2],n_neighbors=top_n+1)  
         recommend_movie_indices_2 = sorted(list(zip(indices_2.squeeze().tolist(),distances_2.squeeze().tolist())),key=lambda x: x[1])[:0:-1] 
-        recommend_movie_indices_2 = recommend_movie_indices_2[0:2]
+        recommend_movie_indices_2 = recommend_movie_indices_2[0:2]\
         
     if len(movie_list_3):
         movie_index_3a = movie_list_3.iloc[0]['movieId']  
