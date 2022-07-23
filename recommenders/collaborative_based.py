@@ -41,7 +41,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Importing data
-movies_df = pd.read_csv('resources/data/movies.csv')
+movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
@@ -57,6 +57,8 @@ def movie_data(movie):
 
     # Below function finds nearest neighbors and returns recommended movie list using cosine similarity between movies
 @st.cache(show_spinner=False, suppress_st_warning=True)
+# !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
+# You are, however, encouraged to change its content.
 def collab_model(movie_list,top_n=10):
     # Use function to merge dataframse and select subset based on highest coutn of movie ratings 
     movie = movies_df.merge(ratings_df, how = 'left', on='movieId')
@@ -68,6 +70,7 @@ def collab_model(movie_list,top_n=10):
     # Initiate KNN model using NearestNeighbors and Cosine similarity
     knn_item = NearestNeighbors(metric = 'cosine', algorithm = 'brute', n_neighbors = 20, n_jobs = -1)
     knn_item.fit(csr_item)
+    #movie_list2 = [x[:-7] for x in movie_list]
     # Empty list to store recommended movieID's
     full_list = []
     # Check if selected movie is in the moevie dataframe
@@ -81,7 +84,7 @@ def collab_model(movie_list,top_n=10):
         distances_1 , indices_1 = knn_item.kneighbors(csr_item[movie_index_1],n_neighbors=top_n+1)  # find 10 most similar movies with KNN model (index of movie and distance)
         # index of recommended movies with distance in sorted list - most similar first
         recommend_movie_indices_1 = sorted(list(zip(indices_1.squeeze().tolist(),distances_1.squeeze().tolist())),key=lambda x: x[1])[:0:-1] # excluding the selected movie
-        recommend_movie_indices_1 = recommend_movie_indices_1[0:2]
+        recommend_movie_indices_1 = recommend_movie_indices_1[0:4]
                        
         # Calculate the same for movie 2 and 3 as per movie 1 from movie list: 
         
@@ -90,7 +93,7 @@ def collab_model(movie_list,top_n=10):
         movie_index_2 = movie_pivot[movie_pivot['movieId'] == movie_index_2a].index[0]
         distances_2 , indices_2 = knn_item.kneighbors(csr_item[movie_index_2],n_neighbors=top_n+1)  
         recommend_movie_indices_2 = sorted(list(zip(indices_2.squeeze().tolist(),distances_2.squeeze().tolist())),key=lambda x: x[1])[:0:-1] 
-        recommend_movie_indices_2 = recommend_movie_indices_2[0:4]
+        recommend_movie_indices_2 = recommend_movie_indices_2[0:2]\
         
     if len(movie_list_3):
         movie_index_3a = movie_list_3.iloc[0]['movieId']  
