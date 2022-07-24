@@ -42,10 +42,16 @@ def helppage():
         st.title("About")
     
     #Add About help video
-    #st.video(a_play)
+        st.video('https://youtu.be/5q-vSzaKFik')
     
     #create the Step by step guide for the About Page.
-        st.write("")
+        st.write(
+            """
+        - Find out about the Company Trends Analytics.
+        - Find out more about the updates for the app.
+        - More info coming soon.
+        """
+        )
     
     #create help section for trailers page.    
     with st.expander("Trailers"):

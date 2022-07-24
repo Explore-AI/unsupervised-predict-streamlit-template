@@ -49,7 +49,7 @@ menu_data = [
     {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
     {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
     {'id':'Contact Us','icon': "fas fa-laptop", 'label':"Contact Us"},
-    {'id':'Help', 'label':"Help"}
+    {'id':'Help', 'icon': 'fas fa-question', 'label':"Help"}
 ]
 
 # App declaration
