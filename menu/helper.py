@@ -91,7 +91,7 @@ def helppage():
         st.title("Contact Us")
     
     #Add Contact help video
-    #st.video(a_play)
+        st.video('https://youtu.be/aKhkhLJyxCM')
     
     #create the Step by step guide for the Contact Us Page.
         st.title("Steps")
@@ -104,7 +104,7 @@ def helppage():
             - Leave your message or any concerns.
             - Or if you feel like reaching out telephonically use the drop down.
             - To find where we are based use the drop down as well.
-            - Trends Analytics strife to make the world a better place data at a time.
+            - Trends Analytics strife to make the world a better place Data at a time.
         
             """
                 )
