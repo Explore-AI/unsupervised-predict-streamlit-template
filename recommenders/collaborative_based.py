@@ -24,13 +24,6 @@
     Description: Provided within this file is a baseline collaborative
     filtering algorithm for rating predictions on Movie data.
 """
-# Importing data
-import pandas as pd
-
-movies_df = pd.read_csv('resources/data/movies.csv', sep = ',')
-ratings_df = pd.read_csv('resources/data/ratings.csv')
-ratings_df.drop(['timestamp'], axis=1,inplace=True)
-
  # Script dependencies
 import pandas as pd
 import numpy as np
@@ -58,7 +51,7 @@ def movie_data(movie):
     return movie_pivot
 
     # Below function finds nearest neighbors and returns recommended movie list using cosine similarity between movies
-@st.cache(show_spinner=False, suppress_st_warning=True)
+# @st.cache(show_spinner=False, suppress_st_warning=True)
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.
 def collab_model(movie_list,top_n=10):
@@ -95,19 +88,19 @@ def collab_model(movie_list,top_n=10):
         movie_index_2 = movie_pivot[movie_pivot['movieId'] == movie_index_2a].index[0]
         distances_2 , indices_2 = knn_item.kneighbors(csr_item[movie_index_2],n_neighbors=top_n+1)  
         recommend_movie_indices_2 = sorted(list(zip(indices_2.squeeze().tolist(),distances_2.squeeze().tolist())),key=lambda x: x[1])[:0:-1] 
-        recommend_movie_indices_2 = recommend_movie_indices_2[0:2]\
+        recommend_movie_indices_2 = recommend_movie_indices_2[4:7]
         
     if len(movie_list_3):
         movie_index_3a = movie_list_3.iloc[0]['movieId']  
         movie_index_3 = movie_pivot[movie_pivot['movieId'] == movie_index_3a].index[0]
         distances_3 , indices_3 = knn_item.kneighbors(csr_item[movie_index_3],n_neighbors=top_n+1)  
         recommend_movie_indices_3 = sorted(list(zip(indices_3.squeeze().tolist(),distances_3.squeeze().tolist())),key=lambda x: x[1])[:0:-1] 
-        recommend_movie_indices_3 = recommend_movie_indices_3[0:4]
+        recommend_movie_indices_3 = recommend_movie_indices_3[7:10]
         
                         
      # Combine above three lists and sort from closest to lowest distance
     full_list = recommend_movie_indices_1 + recommend_movie_indices_2 + recommend_movie_indices_3
-    full_list = sorted(full_list, key = lambda x:x[1], reverse = True)
+    full_list = sorted(full_list, key = lambda x:x[1], reverse = False)
         
     recommend_list = []        # list for recommended movies
     for item in full_list:     # loop through recommended movies to find title of movies
