@@ -48,7 +48,7 @@ menu_data = [
     {'icon': "far fa-copy", 'label':"About"},
     {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
     {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
-    {'id':'The Dream Team','icon': "fas fa-laptop", 'label':"The Dream Team"},
+    {'id':'Contact Us','icon': "fas fa-laptop", 'label':"Contact Us"},
     {'id':'Help', 'icon': 'fas fa-question', 'label':"Help"}
 ]
 
