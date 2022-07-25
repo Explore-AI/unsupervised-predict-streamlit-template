@@ -37,9 +37,9 @@ import menu.helper as h
 import menu.About as a
 import time
 # Data Loading
-title_list = load_movie_titles('resources/data/movies.csv')
+title_list = load_movie_titles('https://raw.githubusercontent.com/Dream-Team-Unsupervised/Data/main/movies.csv')
 
-st.set_page_config(layout='wide',initial_sidebar_state='collapsed',)
+st.set_page_config(page_icon='resources/imgs/MovieXplorer.png', page_title= 'Movie Xplorer', layout='wide', initial_sidebar_state='auto')
 
 over_theme = {'txc_inactive': '#FFFFFF'}
 
@@ -53,6 +53,7 @@ menu_data = [
 ]
 
 # App declaration
+
 def main():
     
     menu_id = hc.nav_bar(
@@ -64,7 +65,6 @@ def main():
     sticky_nav=True, #at the top or not
     sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
 )
-
     page_selection = f"{menu_id}"
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
@@ -82,9 +82,7 @@ def main():
         # Recommender System algorithm selection
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
         st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
-        sys = st.radio("Select an algorithm",
-                     ("Content Based Filtering",
-                      "Collaborative Based Filtering"))
+        sys = st.radio("", ("Content Based Filtering", "Collaborative Based Filtering"))
 
         # User-based preferences
         st.write('### Select Your Three Favorite Movies')
@@ -98,10 +96,9 @@ def main():
             if st.button("Recommend"):
                 try:
                     with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
-                        top_recommendations = content_model(movie_list=fav_movies,
-                                                            top_n=10)
+                        top_recommendations = content_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         # the alteration is here
@@ -113,11 +110,10 @@ def main():
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
                 try:
-                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,):
-                        top_recommendations = collab_model(movie_list=fav_movies,
-                                                           top_n=10)
+                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
+                        top_recommendations = collab_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
-                    st.title("We think you'll like:")
+                    st.title("Only you will love these movies...")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                         top_trailers.youtubeScrapper(top_recommendations[i])
@@ -137,7 +133,6 @@ def main():
         stat.visuals()
     elif page_selection == "Help":
         h.helppage()
-
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
