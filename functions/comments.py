@@ -7,10 +7,10 @@ def commenter(yr):
 
     read.select()
 
-    form = st.form(yr + "comments")
-    name = form.text_input("Name")
-    comment = form.text_area("Comment")
-    submit = form.form_submit_button("Share comment")
+    form = st.form(yr + 'comments')
+    name = form.text_input('Name')
+    comment = form.text_area('Comment')
+    submit = form.form_submit_button('Share comment')
 
     if submit:
         date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
