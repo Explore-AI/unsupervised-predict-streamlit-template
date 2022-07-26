@@ -45,17 +45,17 @@ over_theme = {'txc_inactive': '#FFFFFF'}
 
 # specify the primary menu definition
 menu_data = [
-    {'icon': "far fa-copy", 'label':"About"},
-    {'id':'Trailers','icon':"fas fa-film",'label':"Trailers"},
-    {'icon': "far fa-chart-bar", 'label':"Statistics"}, #no tooltip message
-    {'id':'Contact Us','icon': "fas fa-laptop", 'label':"Contact Us"},
-    {'id':'Help', 'icon': 'fas fa-question', 'label':"Help"}
+    {'icon': "far fa-copy", 'label':'About'},
+    {'id':'Trailers','icon':'fas fa-film','label':'Trailers'},
+    {'icon': 'far fa-chart-bar', 'label':'Statistics'}, #no tooltip message
+    {'id':'Contact Us','icon': 'fas fa-laptop', 'label':'Contact Us'},
+    {'id':'Help', 'icon': 'fas fa-question', 'label':'Help'}
 ]
 
 # App declaration
 
 def main():
-    
+    # define hydralit navbar
     menu_id = hc.nav_bar(
     menu_definition=menu_data,
     override_theme=over_theme,
@@ -65,7 +65,7 @@ def main():
     sticky_nav=True, #at the top or not
     sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
 )
-    page_selection = f"{menu_id}"
+    page_selection = f'{menu_id}'
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     # page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
@@ -74,7 +74,7 @@ def main():
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     # page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if page_selection == "Home":
+    if page_selection == 'Home':
         # Header contents
         st.write('# Movie Xplorer')
         # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
@@ -82,7 +82,7 @@ def main():
         # Recommender System algorithm selection
         st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
         st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
-        sys = st.radio("", ("Content Based Filtering", "Collaborative Based Filtering"))
+        sys = st.radio("", ('Content Based Filtering', 'Collaborative Based Filtering'))
 
         # User-based preferences
         st.write('### Select Your Three Favorite Movies')
@@ -93,29 +93,34 @@ def main():
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
-            if st.button("Recommend"):
+            if st.button('Recommend'):
                 try:
+                    # intialize hydralit loaders
                     with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
+                        # get top 10 recommended movies using the content_model algorithm
                         top_recommendations = content_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
-                    st.title("Only you will love these movies...")
+                    st.title('Only you will love these movies...')
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
-                        # the alteration is here
+                        # get trailer from youtube
                         top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
 
         if sys == 'Collaborative Based Filtering':
-            if st.button("Recommend"):
+            if st.button('Recommend'):
                 try:
+                    # intialize hydralit loaders
                     with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
+                        # get top 10 recommended movies using the collab_model algorithm
                         top_recommendations = collab_model(movie_list=fav_movies, top_n=10)
                         time.sleep(5)
-                    st.title("Only you will love these movies...")
+                    st.title('Only you will love these movies...')
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
+                        # get trailer from youtube
                         top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
@@ -123,15 +128,20 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------------
-    elif page_selection == "About":
+    elif page_selection == 'About':
+        # navigate to the About page
         a.about()
-    elif page_selection == "Trailers":
+    elif page_selection == 'Trailers':
+        # navigate to the Trailers page
         t.vids()
-    elif page_selection == "Contact Us":
+    elif page_selection == 'Contact Us':
+        # navigate to the Contact Us page
         dreamers.data_professionals()
-    elif page_selection == "Statistics":
+    elif page_selection == 'Statistics':
+        # navigate to the Statistics page
         stat.visuals()
-    elif page_selection == "Help":
+    elif page_selection == 'Help':
+        # navigate to the Help page
         h.helppage()
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
