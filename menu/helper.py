@@ -45,6 +45,7 @@ def helppage():
         st.video('https://youtu.be/5q-vSzaKFik')
     
     #create the Step by step guide for the About Page.
+        st.title("Steps")
         st.write(
             """
         - Find out about the Company Trends Analytics.
@@ -79,12 +80,19 @@ def helppage():
         st.title("Statistics")
     
     #Add Stats help video
-    #s_vid = open('./resources/vids/.mp4', 'rb')
-    #s_play = s_vid.read()
-    #st.video(s_play)
+        st.video('https://youtu.be/Z8bAAdsZMOo')
     
     #create the Step by step guide for the About Page.
-        st.write("")
+        st.title("Steps")
+        st.write(
+            """
+            - Click the drop down.
+            - Select your options/metrics.
+            - After selecting your 2nd metric your chart or plot should pop up.
+            - To select a different chart clear one of the other metrics.
+            - Feel free to check out the valuable data insights we have for the movie industry.
+            """
+                )
         
     #create the Contact Us help section.
     with st.expander("Contact Us"):
