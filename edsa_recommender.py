@@ -59,7 +59,7 @@ def main():
     menu_id = hc.nav_bar(
     menu_definition=menu_data,
     override_theme=over_theme,
-    home_name='Recommender System',
+    home_name='Home',
     # login_name='Logout',
     hide_streamlit_markers=False, #will show the st hamburger as well as the navbar now!
     sticky_nav=True, #at the top or not
@@ -74,7 +74,7 @@ def main():
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     # page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if page_selection == 'Recommender System':
+    if page_selection == 'Home':
         # Header contents
         st.write('# Movie Xplorer')
         # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
