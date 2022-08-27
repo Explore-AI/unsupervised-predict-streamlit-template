@@ -56,6 +56,7 @@ menu_data = [
 
 def main():
     # define hydralit navbar
+
     menu_id = hc.nav_bar(
     menu_definition=menu_data,
     override_theme=over_theme,
@@ -66,62 +67,58 @@ def main():
     sticky_mode='pinned', #jumpy or not-jumpy, but sticky or pinned
 )
     page_selection = f'{menu_id}'
+
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    # page_options = ["Recommender System", "About", "Trailers", "Statistics", "The Dream Team", "Help Page"]
+    page_options = ["Recommender System", "About", "Trailers", "Statistics", "Contact Us", "Help Page"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     # page_selection = st.sidebar.selectbox("Choose Option", page_options)
+
     if page_selection == 'Home':
+
         # Header contents
-        st.write('# Movie Xplorer')
-        # st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-        st.image('resources/imgs/Header2L.gif',use_column_width=True)
+        st.write('# Movie Recommender Engine')
+        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
-        st.write('<style>div.row-widget.stRadio > div{flex-direction:row;justify-content: right;} </style>', unsafe_allow_html=True)
-        st.write('<style>div.st-bf{flex-direction:column;} div.st-ag{font-weight:bold;padding-right:2px;}</style>', unsafe_allow_html=True)
-        sys = st.radio("", ('Content Based Filtering', 'Collaborative Based Filtering'))
+        sys = st.radio("Select an algorithm",
+                       ('Content Based Filtering',
+                        'Collaborative Based Filtering'))
 
         # User-based preferences
-        st.write('### Select Your Three Favorite Movies')
-        movie_1 = st.selectbox('1ˢᵗ Movie',title_list[14930:15200])
-        movie_2 = st.selectbox('2ⁿᵈ Movie',title_list[25055:25255])
-        movie_3 = st.selectbox('3ʳᵈ Movie',title_list[21100:21200])
+        st.write('### Enter Your Three Favorite Movies')
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
-            if st.button('Recommend'):
+            if st.button("Recommend"):
                 try:
-                    # intialize hydralit loaders
-                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
-                        # get top 10 recommended movies using the content_model algorithm
-                        top_recommendations = content_model(movie_list=fav_movies, top_n=10)
-                        time.sleep(5)
-                    st.title('Only you will love these movies...')
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = content_model(movie_list=fav_movies,
+                                                            top_n=10)
+                    st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
-                        # get trailer from youtube
-                        top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
 
+
         if sys == 'Collaborative Based Filtering':
-            if st.button('Recommend'):
+            if st.button("Recommend"):
                 try:
-                    # intialize hydralit loaders
-                    with hc.HyLoader('We\'re getting movies only you will love...\n',hc.Loaders.standard_loaders,index=[5,0,3]):
-                        # get top 10 recommended movies using the collab_model algorithm
-                        top_recommendations = collab_model(movie_list=fav_movies, top_n=10)
-                        time.sleep(5)
-                    st.title('Only you will love these movies...')
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = collab_model(movie_list=fav_movies,
+                                                           top_n=10)
+                    st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
-                        # get trailer from youtube
-                        top_trailers.youtubeScrapper(top_recommendations[i])
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
