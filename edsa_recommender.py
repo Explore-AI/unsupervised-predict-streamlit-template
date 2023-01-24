@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Why Starlink","About us","Recommender System","Contact us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -54,7 +54,7 @@ def main():
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('### Connecting you to the stars')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
@@ -100,9 +100,17 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+    if page_selection == "Why Starlink":
+        st.title("reasons why they should choose us")
+        st.write("Describe what makes us the best")
+
+    if page_selection == "About us":
+        st.title("who we are")
+        st.write("what makes us better than the rest")
+
+    if page_selection == "Contact us":
+        st.title("message or email")
+        st.write("improvement suggestions or work with")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
