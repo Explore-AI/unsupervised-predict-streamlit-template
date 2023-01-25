@@ -37,6 +37,30 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+background-image: url('https://anhdepfree.com/wp-content/uploads/2019/05/50-anh-background-dep-nhat-4.jpg');
+background-size: cover;
+}
+[data-testid="stHeader"] {
+background-color: rgba(0,0,0,0);
+
+}
+
+[data-testid="stToolbar"] {
+right: 2rem;
+}
+
+[data-testid="stSidebar"] {
+background-image: url('https://png.pngtree.com/background/20210711/original/pngtree-curled-film-movie-and-television-blue-background-picture-image_1168260.jpg');
+background-size: cover;
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
