@@ -104,13 +104,25 @@ def main():
         st.title("reasons why they should choose us")
         st.write("Describe what makes us the best")
 
-    if page_selection == "About us":
+    if page_selection == "About us ":
         st.title("who we are")
         st.write("what makes us better than the rest")
 
     if page_selection == "Contact us":
         st.title("message or email")
         st.write("improvement suggestions or work with")
+
+    if page_selection == "Movie Selection":
+        st.subheading("Movie Selection")
+        st,title("Please select your genre:") ## add textbox or drop down
+        st.write("Please select your favourite genres: ")
+
+
+        
+        
+
+
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
