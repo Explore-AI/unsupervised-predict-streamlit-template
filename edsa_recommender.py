@@ -72,7 +72,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","EDA"]
     image = PIL.Image.open(os.path.join("resources/imgs/team_logo.jpg"))
     st.image(image, width=300, caption='')
     # -------------------------------------------------------------------
@@ -132,6 +132,10 @@ def main():
     #st.image(image, caption='')
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
+        st.write("Describe your winning approach on this page")
+
+    if page_selection == "EDA":
+        st.title("EDA OVERVIEW")
         st.write("Describe your winning approach on this page")
     
     # You may want to add more sections here for aspects such as an EDA,
