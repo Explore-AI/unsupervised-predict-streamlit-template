@@ -27,6 +27,9 @@
 """
 # Streamlit dependencies
 import streamlit as st
+import PIL.Image
+import os
+from tkinter import Image
 
 # Data handling dependencies
 import pandas as pd
@@ -70,7 +73,8 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Recommender System","Solution Overview"]
-
+    image = PIL.Image.open(os.path.join("resources/imgs/team_logo.jpg"))
+    st.image(image, width=300, caption='')
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
@@ -124,10 +128,12 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    #image = PIL.Image.open(os.path.join("resources/imgs/team_logo.jpg"))
+    #st.image(image, caption='')
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-
+    
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
