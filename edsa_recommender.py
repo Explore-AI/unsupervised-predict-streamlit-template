@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Why Starlink","About us","Recommender System","Contact us"]
+    page_options = ["Recommender System","Why Starlink","About us","Contact us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -101,16 +101,33 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Why Starlink":
-        st.title("reasons why they should choose us")
-        st.write("Describe what makes us the best")
+        st.title("Why Starlink")
+        st.write ("Starlink approaches problems in a systematic manner, carefully executing each step\
+                   along the way in  order to extract the maximum amount of information from data.our\
+                   team uses various statistical methods and technological tools used to make sense of\
+                   and model data. Our employees boast domain knowledge that makes it easy to apply the\
+                   right methods to extract valuable insights as well as the right methods to judge the\
+                   performance of our models properly.")
+
+
 
     if page_selection == "About us":
-        st.title("who we are")
-        st.write("what makes us better than the rest")
+        st.title("About us")
+        st.write("We believe that we are only as good as the impact we give.With a nationwide presence,\
+                  Starlink positively impacts our client firms successses thanks to our clear vision.\
+                  use of technology, clear values, and most importantly our people. Our diverse workforce\
+                  comes with vast domain knowledge in variety of industries and works in unison to provide\
+                  insights and postive impact to a number of companies.'unity in diversity' is our motto\
+                                                                                                         \
+                  With more than 5 years of hard work and commitment to making a real differnce, Starlink\
+                  continues to grow while providing world-class data analytics and consulting services\
+                                                                                                          \
+                  Starlink is defined by our drive to make an impact that matters in the world and providing\
+                  solutions to the challenges that face businesses,goverment and society at large.")          
 
     if page_selection == "Contact us":
-        st.title("message or email")
-        st.write("improvement suggestions or work with")
+        st.title("Email us")
+        st.write(" stalink.za@gmail.com")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
