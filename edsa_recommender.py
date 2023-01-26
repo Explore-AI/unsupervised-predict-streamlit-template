@@ -45,7 +45,7 @@ from recommenders.content_based import content_model
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-background-image: url('https://anhdepfree.com/wp-content/uploads/2019/05/50-anh-background-dep-nhat-4.jpg');
+background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgzHpXP1ybvtWDtMfb390cHIxBGrQ7WDmtcw&usqp=CAU');
 background-size: cover;
 }
 [data-testid="stHeader"] {
