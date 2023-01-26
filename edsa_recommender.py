@@ -53,6 +53,9 @@ def main():
         selection = option_menu("Main Menu", ["Home", "About Us", "Information", "Contact Us"], 
         icons=['house', 'people','graph-up-arrow','info-circle','envelope'], menu_icon="cast", default_index=0)
     
+    selected2 = option_menu(None, ["Home", "About Us", "Information", 'Contact Us'], 
+    icons=['house', 'people', "list-task", 'info-circle'], 
+    menu_icon="cast", default_index=0, orientation="horizontal")
 
 
     # -------------------------------------------------------------------
