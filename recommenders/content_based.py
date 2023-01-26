@@ -32,7 +32,8 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
@@ -55,6 +56,14 @@ def data_preprocessing(subset_size):
     """
     # Split genre data into individual words.
     movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    movies['keyWords'] = movies['genres']+' '+movies['title']
+
+    # To make the below variables accessible by other functions, we use 'global'
+    #global selected_features, joined_features   
+    #selected_features = ['genres','title']
+    #joined_features = movies['genres']+' '+movies['title']
+    #joined_features = movies['title']   # just checking
+
     # Subset of the data
     movies_subset = movies[:subset_size]
     return movies_subset
@@ -84,8 +93,11 @@ def content_model(movie_list,top_n=10):
     # Instantiating and generating the count matrix
     count_vec = CountVectorizer()
     count_matrix = count_vec.fit_transform(data['keyWords'])
+    #vectorizer = TfidfVectorizer(ngram_range=(1,2), stop_words='english')
+    #tfidf = vectorizer.fit_transform(joined_features)
     indices = pd.Series(data['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    #cosine_sim = linear_kernel(tfidf, tfidf)
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
