@@ -132,11 +132,12 @@ def main():
     #st.image(image, caption='')
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.write("Describe your winning approoach on this page")
+        
 
     if page_selection == "EDA":
         st.title("EDA OVERVIEW")
-        st.write("Describe your winning approach on this page")
+        st.write("Testing pull request")
     
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
