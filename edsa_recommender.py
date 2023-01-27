@@ -68,6 +68,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+movies = pd.read_csv('https://media.githubusercontent.com/media/LPTsilo/Team_ES2_Unsupervised_Predict/main/movies.csv')
 
 # App declaration
 def main():
@@ -175,9 +176,9 @@ def main():
             plt.show()
 
         # Create a bar plot of the top 20 best rated movies
-        #fig, ax  = plt.subplots(1,2,figsize=(20,10))
-        #sns.barplot(ax=ax[0], x='rating',y = 'title', data=movies.head(20)) 
-        #ax[0].set_title('The top 20 best rated movies ') 
+        fig, ax  = plt.subplots(1,2,figsize=(20,10))
+        sns.barplot(ax=ax[0], x='rating',y = 'title', data=movies.head(20)) 
+        ax[0].set_title('The top 20 best rated movies ') 
 
 
         #st.title("EDA Overview")
