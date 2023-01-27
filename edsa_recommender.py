@@ -111,21 +111,24 @@ def main():
     if page_selection == "Contact us ":
         st.title("message or ")
         st.write("improvement suggestions or work with")
+#______________________________________________________________________________________________________________
+
+
 
     if page_selection == "Movie Selection":
         st.subheader("Movie Selection")
 
-        st.title("Please select your genre:") ## add textbox or drop down
-        st.write("Please select your favourite genres: ")
-        #genre_selected = int.selectbox("Select genres", [,])
-        st.write("please select desired length of movie:")## add slider
-        movie_len = st.slider("slide me", min_value=0, max_value=400) ##check the eda of longest movie to clarify
-        st.write("Please select the decade you are interseted in:")
-        ## need to create array of genres so it can show available genres
-        st.multiselect(" to select", genre) 
-        ##  st.text_area("Enter Text","Type Here")
+    st.title("Please select your genre:") ## add textbox or drop down
+    st.write("Please select your favourite genres: ")
+    #genre_selected = int.selectbox("Select genres", [,])
+    st.write("please select desired length of movie:")## add slider
+    movie_len = st.slider("slide me", min_value=0, max_value=400) ##check the eda of longest movie to clarify
+    st.write("Please select the decade you are interseted in:")
+    ## need to create array of genres so it can show available genres
+    #st.multiselect(" to select", genre) 
+    ##  st.text_area("Enter Text","Type Here")
 
-        st.button("Search")
+    st.button("Search")
 
 
 
