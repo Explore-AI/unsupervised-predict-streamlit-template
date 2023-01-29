@@ -106,38 +106,39 @@ def main():
 
         search = st.text_input("Search for a movie")
         if st.button("Search"):
-            # Load the ratings and movies datasets
-            ratings = pd.read_csv("resources/data/ratings.csv")
-            movies = pd.read_csv("resources/data/movies.csv")
+            if search:
+                # Load the ratings and movies datasets
+                ratings = pd.read_csv("resources/data/ratings.csv")
+                movies = pd.read_csv("resources/data/movies.csv")
 
-            # Merge the ratings and movies datasets on the movieId column
-            merged_df = pd.merge(ratings, movies, on='movieId')
+                # Merge the ratings and movies datasets on the movieId column
+                merged_df = pd.merge(ratings, movies, on='movieId')
 
-            # Group the merged dataset by movie title and calculate the average rating for each movie
-            grouped_df = merged_df.groupby('title')['rating'].mean().reset_index()
+                # Group the merged dataset by movie title and calculate the average rating for each movie
+                grouped_df = merged_df.groupby('title')['rating'].mean().reset_index()
 
-            # Sort the grouped dataset by average rating in descending order
-            sorted_df = grouped_df.sort_values(by='rating', ascending=False)
+                # Sort the grouped dataset by average rating in descending order
+                sorted_df = grouped_df.sort_values(by='rating', ascending=False)
 
-            # Perform fuzzy string matching on the movie titles to find close matches to the search input
-            from fuzzywuzzy import fuzz
-            from fuzzywuzzy import process
+                # Perform fuzzy string matching on the movie titles to find close matches to the search input
+                from fuzzywuzzy import fuzz
+                from fuzzywuzzy import process
 
-            close_matches = process.extract(search, sorted_df['title'], limit=5, scorer=fuzz.token_set_ratio)
-            match_titles = [match[0] for match in close_matches]
+                close_matches = process.extract(search, sorted_df['title'], limit=5, scorer=fuzz.token_set_ratio)
+                match_titles = [match[0] for match in close_matches]
 
-            # Select the matching movie titles and their corresponding ratings from the sorted dataset
-            match_df = sorted_df[sorted_df['title'].isin(match_titles)]
+                # Select the matching movie titles and their corresponding ratings from the sorted dataset
+                match_df = sorted_df[sorted_df['title'].isin(match_titles)]
 
-            match_df = match_df.sort_values(by='rating', ascending=False)
+                match_df = match_df.sort_values(by='rating', ascending=False)
 
-            st.write("Search Results:")
-            for i, row in match_df.iterrows():
-                st.write(f"{i+1}. {row['title']} (Rating: {row['rating']:.2f})")
-            st.markdown("###  ")
-            st.markdown("###  ")
-            st.markdown("###  ")
-            
+                st.write("Search Results:")
+                for i, row in match_df.iterrows():
+                    st.write(f"{i+1}. {row['title']} (Rating: {row['rating']:.2f})")
+            else:
+                st.write("Search input is empty. Please enter a movie name to search.")
+            st.markdown("# ")
+            st.markdown("# ")
 
 
         # Read in the ratings and movies datasets
@@ -153,13 +154,25 @@ def main():
         # Sort the grouped dataset by average rating in descending order and select the top 10 movies
         top_rated_movies = grouped_df.sort_values(by='rating', ascending=False).head(10)
 
-        st.markdown("### Top Rated Movies - 2023")
+        st.markdown("### Top Rated Movies")
 
         # Create a horizontal row to display the top-rated movies
        
         for i, movie in enumerate(top_rated_movies['title']):
             st.write(f"{i+1}. {movie}")
-      
+    
+        # Find the 10 hottest movies (i.e., most highly rated in the latest 1,000 records) based on timestamp
+        hottest_df = merged_df.sort_values(by='timestamp', ascending=False).head(1000)
+        hottest_df = hottest_df.groupby('title')['rating'].mean().reset_index()
+        hottest_df = hottest_df.sort_values(by='rating', ascending=False).head(10)
+        st.markdown("# ")
+        st.markdown("# ")
+
+        st.markdown("### What People Are Liking Right Now")
+        for i, row in enumerate(hottest_df.itertuples(), start=1):
+            st.write(f"{i}. {row.title} (Rating: {row.rating:.2f})")
+
+
     # Solution Overview
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
@@ -207,8 +220,8 @@ def main():
         st.info("- Understanding distribution and relationships of the features in the dataset")
         st.info("- Identifying important features to be used as inputs for the recommendation model")
 
-        st.image('https://www.example.com/images/EDA.png', width=600)
-        st.write("Thank you for choosing MovieGenius for all your movie recommendation needs!")
+        #st.image('/unsupervised/unsupervised-predict-streamlit-template/resources/imgs/eda.jpg', width=600)
+        st.write("Thank you for choosing MovieGenius for alla your movie recommendation needs!")
         
         # Contact Us
     if page_selection == "Contact Us":
