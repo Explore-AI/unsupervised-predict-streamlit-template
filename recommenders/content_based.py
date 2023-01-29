@@ -34,6 +34,13 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
+# import images
+from PIL import Image
+
+# Streamlit dependencies
+import streamlit as st
+import joblib,os
+
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
