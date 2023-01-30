@@ -28,6 +28,15 @@
 
 # Streamlit dependencies
 import streamlit as st
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import smtplib
+import imaplib
+from PIL import Image
+from wordcloud import WordCloud, STOPWORDS
+
 
 # Data handling dependencies
 import pandas as pd
@@ -41,21 +50,23 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+movies = pd.read_csv('resources/data/movies.csv')
+ratings = pd.read_csv('resources/data/ratings.csv')
 
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview","About Us","Contact Us"]
+    page_options = ["Recommender System", "Explore Our App"]
     
-    with st.sidebar:
-        selection = option_menu("Main Menu", ["Home", "About Us", "Information", "Contact Us"], 
-        icons=['house', 'people','graph-up-arrow','info-circle','envelope'], menu_icon="cast", default_index=0)
+    #with st.sidebar:
+    #    selection = option_menu("Main Menu", ["Home", "About Us", "Information", "Contact Us"], 
+    #    icons=['house', 'people','graph-up-arrow','info-circle','envelope'], menu_icon="cast", default_index=0)
     
-    selected2 = option_menu(None, ["Home", "About Us", "Information", 'Contact Us'], 
-    icons=['house', 'people', "list-task", 'info-circle'], 
-    menu_icon="cast", default_index=0, orientation="horizontal")
+    #selected2 = option_menu(None, ["Home","Solution Overview", "Information","About Us","Contact Us"], 
+    #icons=['house', 'people', "list-task", 'info-circle'], 
+    #menu_icon="cast", default_index=0, orientation="horizontal")
 
 
     # -------------------------------------------------------------------
@@ -111,83 +122,234 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+    
+    if page_selection == "Explore Our App":
+
+        selected2 = option_menu(None, ["Home","Solution Overview", "Visualizations","About Us","Contact Us"], 
+        icons=['house', 'people', "graph-up-arrow", 'info-circle','telephone'], 
+        menu_icon="cast", default_index=0, orientation="horizontal")
+    
+        if selected2 == "Solution Overview":
+            st.title("Solution Overview")
+            st.write("We will descibe our winning approaches on this page")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
+        # Building the "Home" page
+        if selected2 == "Home":
+            st.markdown('<div style="text-align: center; color:White; font-weight: bold; font-size: 40px;">IntelliTech</br></br></div>', unsafe_allow_html=True)
+
+            # Creating columns to centre the logo and text
+            col1, col2, col3 = st.columns([1,6,1])
+
+            with col1:
+                st.write("")
+
+            with col2:
+                st.image("resources/imgs/intelitech.png")
+                st.write("")   # creating a space between image and text
+                st.write("")   # creating a space between image and text
+
+                st.markdown("Companies using machine learning understand that business growth requires continuous innovation. \
+                At IntelliTech, we provide accurate and robust solutions that help movie companies succeed, by using \
+                intelligent algorithms to help viewers find great movies from tens of thousands of options.   \
+                \
+                ")
+
+                st.markdown('We are a company that creates movie recommender systems and web applications \
+                        for businesses.\
+                        Most of what we do revolves around the full Data Science Life Cycle:   \
+                        ')
+                st.markdown(f"""
+                    - Data Collection
+                    - Data Cleaning
+                    - Exploratory Data Analysis
+                    - Model Building
+                    - Model Deployment
+                    """)
+                st.markdown(" \n \n Hope over to the next page to learn more...")
+
+            with col3:
+                st.write("")
+            #st.image('resources/imgs/intelitech.png',use_column_width=True)
+
+            #st.image('resources/imgs/Image_header.png',use_column_width=True)
+        
+        # Building the "Solution Overview" page
+        if selected2 == "Solution Overview":
+            # Using Tabs
+            tab1, tab2 = st.tabs(["Content-based Recommender System", "Collaborative-based Recommender System"]) 
+            with tab1:
+                st.info("Content-Based Recommender")
+                st.markdown(" This recommender system suggests similar items based on \
+                a particular item. It uses item metadata, such as genre, \
+                director, description, actors, etc. for movies, to make recommendations.\
+             \n \n **Why do we do content-based filtering?**      \n \
+             We do content-based \
+            filtering to get a similarity between different items so that another similar item can be recommended.\
+            \
+            In this recommender system the content of the movie (`genres`, `plot_keywords`, \
+            `title_cast`, and `title`) is used to find its similarity with other movies. \
+            Then the movies that are most likely to be similar are recommended to the user. \
+            \
+            \n \n Hope over to the next tab to learn more about the Collaborative-based approach! \
+            ")
+            
+            with tab2:
+                st.info("Collaborative-Based Recommender")
+                st.write(
+                """
+                With the collaborative-based approach, we can filter out items that a user might like on the basis of reactions by similar users. \
+                This provides a more personal touch to your recommended movies!
+
+                With the collaborative-based recommender system, we make use of a trained SVD model \
+                to make predictions.
+
+                The SVD model selected showed high performance over the others.
+                 
+
+                Hope over to the next page to see some visualizations! 
+                """
+                )
+                #image3 = Image.open("resources/imgs/Sentiment-notebook-picture.jpg")
+                #st.image(image3)
+            #with tab3:
+                #image5 = Image.open("resources/imgs/team-picture.png")
+                #st.image(image5)
+
+        if selected2 == "Visualizations":
+            #st.subheader("Climate change tweet classification")
+            #st.info("Content-Based Recommender")
+            
+            st.info("Here, you have the option of viewing some visualizations of the \
+                        data.  \
+            ")
+
+            if st.checkbox("Show ratings plot"):
+                st.info("A Bar Graph Showing The Number Of Ratings")		
+                #st.markdown("A Bar Graph showing the number of ratings")
+                st.bar_chart(data=ratings["rating"].value_counts(), x=None, y=None, width=220, height=520, use_container_width=True)
+
+
+            if st.checkbox("Show genres plot"):
+                # Create dataframe containing only the movieId and genres
+                movies_genres_split = pd.DataFrame(movies[['movieId', 'genres']],columns=['movieId', 'genres'])
+
+                # Splitting the genres seperated by "|". Movie-genre combinations are stored as a list
+                movies_genres_split.genres = movies_genres_split.genres.apply(lambda x: x.split('|'))
+
+                # Creating the expanded dataframe where each movie-genre combination is in a seperate row
+                movies_genres_split = pd.DataFrame([(x.movieId, d) for x in movies_genres_split.itertuples() for d in x.genres],
+                                columns=['movieId', 'genres'])
+
+                st.info("A Bar Graph Showing The Number Of Movies In Each Genre.")
+
+                st.bar_chart(data=movies_genres_split, x='genres', y=None, width=220, height=520, use_container_width=True)
+            
+            #if st.checkbox("Show popular movie word cloud"):
+            #    # Wordcloud of movie titles
+            #    import matplotlib
+            #    matplotlib.use("TkAgg") 
+
+            #    movies_word = movies['title'] = movies['title'].astype('str')
+            #    movies_wordcloud = ' '.join(movies_word)
+            #    title_wordcloud = WordCloud(
+            #                                background_color = 'White',
+            #                                height = 1200,
+            #                                width = 900).generate(movies_wordcloud)
+            #    plt.figure(figsize = (14,7), facecolor=None)
+            #    plt.imshow(title_wordcloud)
+            #    plt.axis('off')
+            #    plt.title('Distribution of words from movie titles')
+            #    plt.tight_layout(pad=0)
+            #    plt.show()
+
     # Building out the "About Us" page
-    if page_selection == "About Us":
-		# This is our company logo
-		#st.image("resources/imgs/LeafLogo.png", caption='Our company logo')
+        if selected2 == "About Us":
+            # This is our company logo
+            #st.image("resources/imgs/LeafLogo.png", caption='Our company logo')
+            
+            image = Image.open("resources/imgs/unsup.png")
+            st.image(image)
+            # Centering the logo image
+            col1, col2, col3 = st.columns([1,6,1])
 
-		# Centering the logo image
-        col1, col2, col3 = st.columns([1,6,1])
+            with col1:
+                st.write("")
 
-        with col1:
-            st.write("")
+            #with col2:
+                #st.image("resources/imgs/LeafLogo.png")
 
-        #with col2:
-            #st.image("resources/imgs/LeafLogo.png")
+            with col3:
+                st.write("")
 
-        with col3:
-            st.write("")
+            # You can read a markdown file from supporting resources folder
+            #st.title("Who Are We?")
+            st.markdown("")
+            st.markdown("")
 
-		# You can read a markdown file from supporting resources folder
-		#st.title("Who Are We?")
-        st.markdown("")
-        st.markdown("")
+            st.markdown('<div style="text-align: center; color:White; font-weight: bold; font-size: 20px;">Who Are We?</br></br></div>', unsafe_allow_html=True)
 
-        st.markdown('<div style="text-align: center; color:Black; font-weight: bold; font-size: 30px;">Who Are We?</br></br></div>', unsafe_allow_html=True)
+            st.markdown('We are a team of young Data Scientists. The skills within this amazing team range from degrees obtained in Computer Science,  \
+                        Marketing, Biomedical Sciences, and IT. \
+                        With such a diverse team, you are surely in good hands!   \
+                        ')
+            
+        # Building the "Contact Us" page
+        if selected2 == "Contact Us":
+            # Building out the contact page
+            with st.form("form1", clear_on_submit=True):
+                st.subheader("Get in touch with us")
+                name = st.text_input("Enter full name")
+                email = st.text_input("Enter email")
+                message = st.text_area("Message")
 
-        st.subheader("Intellitech")
-        st.markdown('We are a company that creates movie recommender systems and web applications \
-					for businesses.\
-					Most of what we do revolves around the full Data Science Life Cycle:   \
-					')
-        st.markdown(f"""
-				- Data Collection
-				- Data Cleaning
-				- Exploratory Data Analysis
-				- Model Building
-				- Model Deployment
-				""")
-		#st.subheader("Meet The Team")
-        st.markdown('<div style="text-align: center; color:Black; font-weight: bold; font-size: 30px;">Meet The Team</br></br></div>', unsafe_allow_html=True)
+                # Set up the email server
+                #server = smtplib.SMTP('smtp.gmail.com', 587)
+                #server.starttls()
+                #server.login("intellitech.movierecommender@gmail.com", "Intellitech$$6")
+                
+                submit = st.form_submit_button("Submit Form")
+                if submit:
+                    st.write("Your form has been submitted and we will be in touch 🙂")
+                
+            
+            # Send the email when the user clicks the submit button
+            #if st.button("Submit"):
+            #    server.sendmail("intellitech.movierecommender@gmail.com", email, message)
+            #    st.success("Email sent!")
+            
+            # Set up the form
+            #name = st.text_input("Enter your name")
+            #email = st.text_input("Enter your email address")
+            #message = st.text_area("Enter your message")
 
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
-		
-        with col1:
-			#st.subheader("Caron")
-            st.markdown('Ofentse')
-            #st.image("resources/imgs/Caron_Sathekge2.jpg")
+            # Connect to the IMAP server
+            #imap_server = imaplib.IMAP4_SSL("imap.gmail.com")
+            #imap_server.login("your_email@gmail.com", "your_password")
 
-        with col2:
-            #st.subheader("Hlengiwe")
-            st.markdown('Caron')
-            st.image("resources/imgs/Caron_Sathekge2.jpg")
+            # Search for the email address in the INBOX
+            #status, messages = imap_server.select("INBOX")
+            #status, data = imap_server.search(None, f'FROM "{email}"')
+            #submit = st.form_submit_button("Submit Form")
 
-        with col3:
-			#st.subheader("Jade")
-            st.markdown('Jade')
-            st.image("resources/imgs/Jade.jpg")
+            # Send the email when the user clicks the submit button
+            #if st.button("Submit"):
+            #    if int(data[0]) > 0:
+                    # Email address is found
+                    # Send email using the SMTP server
+            #        smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
+            #        smtp_server.starttls()
+            #        smtp_server.login("intellitech.movierecommender@gmail.com", "Intellitech$$6")
+            #        smtp_server.sendmail("intellitech.movierecommender@gmail.com", email, message)
+            #        smtp_server.quit()
+            #        st.success("Email sent!")
+            #    else:
+            #        st.error("Email not found.")
 
-        with col4:
-			#st.subheader("Palesa")
-            st.markdown('Sizakele')
-            #st.image("resources/imgs/Palesa3.jpg")
 
-        with col5:
-			#st.subheader("Kgotlelelo")
-            st.markdown('Rethabile')
-            #st.image("resources/imgs/Kgotlelelo2.jpg")
 
-        with col6:
-			#st.subheader("Nakedi")
-            st.markdown('Thembani')
-            #st.image("resources/imgs/Nakedi2.jpg")
 
 
 if __name__ == '__main__':

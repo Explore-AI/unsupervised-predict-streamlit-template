@@ -58,12 +58,6 @@ def data_preprocessing(subset_size):
     movies['keyWords'] = movies['genres'].str.replace('|', ' ')
     movies['keyWords'] = movies['genres']+' '+movies['title']
 
-    # To make the below variables accessible by other functions, we use 'global'
-    #global selected_features, joined_features   
-    #selected_features = ['genres','title']
-    #joined_features = movies['genres']+' '+movies['title']
-    #joined_features = movies['title']   # just checking
-
     # Subset of the data
     movies_subset = movies[:subset_size]
     return movies_subset
