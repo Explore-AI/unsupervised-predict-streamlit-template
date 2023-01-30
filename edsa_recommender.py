@@ -113,18 +113,19 @@ def main():
         st.subheader("Movie Filter")
 
         st.write("This section is based of you using the presented filter base to generate a list of movies:")               
-        image = https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')
-        st.image(image, caption='Sunrise by the mountains')
+        
+        st.image('resources/imgs/movie.jpg',use_column_width=True)
 
 
-        st.write("Please select your favourite genres: ")
+        st.subheader("Please select your favourite genres: ")
         selected_genres = st.multiselect(
-          'Please select your favourite genres:',
-            [' action'],
-            [' adventure'],
-            [' comedy'],
-            [' drama'],
-            [' fantasy'],
+            "Please select your desired genres",
+            options=list(names["genres"])
+          #  [' action'],
+           # [' adventure'],
+          #  [' comedy'],
+          #  [' drama'],
+          #  [' fantasy'],
             [' horror'],
             [' musicals'],
             [' mystery']
@@ -133,8 +134,8 @@ def main():
         st.write('You selected:', selected_genres)
 
 
-        st.write("Please select the desired length of the movie: ") ## I would have to add the Movie.csv
-        st.write("Please select the desired movie ratings : ")
+        st.subheader("Please select the desired length of the movie: ") ## I would have to add the Movie.csv
+        st.subheader("Please select the desired movie ratings : ")
 
 
 
