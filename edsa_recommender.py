@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Why Starlink","About us","Contact us"]
+    page_options = ["Recommender System","Why Starlink","Movie selector","About us","Contact us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -108,6 +108,10 @@ def main():
                    and model data. Our employees boast domain knowledge that makes it easy to apply the\
                    right methods to extract valuable insights as well as the right methods to judge the\
                    performance of our models properly.")
+
+    if page_selection == "Movie selector":
+        st.subheader("Movie Filter")
+        st.write("This section is based of you using the presented filter base to generate a list of movies:")               
 
 
 
