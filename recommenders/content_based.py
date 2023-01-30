@@ -37,7 +37,17 @@ from sklearn.feature_extraction.text import CountVectorizer
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
 ratings = pd.read_csv('resources/data/ratings.csv')
+imdb_data = pd.read_csv('resources/data/imdb_data.csv')
 movies.dropna(inplace=True)
+    
+# Replace missing genres with genres from imdb_data
+for i in range(len(movies)):
+    if movies.iloc[i]['genres'] == "(no genres listed)":
+        movie_id = movies.iloc[i]['movieId']
+        imdb_index = imdb_data[imdb_data['movieId'] == movie_id].index.values
+        if len(imdb_index) > 0:
+            genres = imdb_data.iloc[imdb_index[0]]['plot_keywords']
+            movies.at[i, 'genres'] = genres
 
 def data_preprocessing(subset_size):
     """Prepare data for use within Content filtering algorithm.
