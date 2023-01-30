@@ -35,7 +35,7 @@ import seaborn as sns
 import smtplib
 import imaplib
 from PIL import Image
-
+from wordcloud import WordCloud, STOPWORDS
 
 
 # Data handling dependencies
@@ -246,6 +246,24 @@ def main():
                 st.info("A Bar Graph Showing The Number Of Movies In Each Genre.")
 
                 st.bar_chart(data=movies_genres_split, x='genres', y=None, width=220, height=520, use_container_width=True)
+            
+            #if st.checkbox("Show popular movie word cloud"):
+            #    # Wordcloud of movie titles
+            #    import matplotlib
+            #    matplotlib.use("TkAgg") 
+
+            #    movies_word = movies['title'] = movies['title'].astype('str')
+            #    movies_wordcloud = ' '.join(movies_word)
+            #    title_wordcloud = WordCloud(
+            #                                background_color = 'White',
+            #                                height = 1200,
+            #                                width = 900).generate(movies_wordcloud)
+            #    plt.figure(figsize = (14,7), facecolor=None)
+            #    plt.imshow(title_wordcloud)
+            #    plt.axis('off')
+            #    plt.title('Distribution of words from movie titles')
+            #    plt.tight_layout(pad=0)
+            #    plt.show()
 
     # Building out the "About Us" page
         if selected2 == "About Us":
