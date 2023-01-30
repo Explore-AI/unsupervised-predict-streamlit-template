@@ -53,10 +53,15 @@ def data_preprocessing(subset_size):
         Subset of movies selected for content-based filtering.
 
     """
-    # Split genre data into individual words.
-    movies['keyWords'] = movies['genres'].str.replace('|', ' ')
+    # Remove duplicates
+    movies.drop_duplicates(subset=['title'], keep='first', inplace=True)
+    # Lowercase genre data
+    movies['keyWords'] = movies['genres'].str.lower().str.replace('|', ' ')
+    # Handle missing values
+    movies.dropna(inplace=True)
     # Subset of the data
     movies_subset = movies[:subset_size]
+    
     return movies_subset
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
