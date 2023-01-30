@@ -1,6 +1,8 @@
 # Streamlit-based Recommender System
 #### EXPLORE Data Science Academy Unsupervised Predict
 
+This library was created to learn how to build recommender systems and inplement unsupervised learning algorithms
+
 ## 1) Overview
 
 ![Movie_Recommendations](resources/imgs/Image_header.png)
