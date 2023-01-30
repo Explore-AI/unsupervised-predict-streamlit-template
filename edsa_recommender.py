@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Why Starlink","About us","Contact us"]
+    page_options = ["Recommender System","Why Starlink","Movie selector","About us","Contact us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -108,6 +108,37 @@ def main():
                    and model data. Our employees boast domain knowledge that makes it easy to apply the\
                    right methods to extract valuable insights as well as the right methods to judge the\
                    performance of our models properly.")
+
+    if page_selection == "Movie selector":
+        st.subheader("Movie Filter")
+
+        st.write("This section is based of you using the presented filter base to generate a list of movies:")               
+        image = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
+        st.image(image, caption='Sunrise by the mountains')
+
+
+        st.write("Please select your favourite genres: ")
+        selected_genres = st.multiselect(
+          'Please select your favourite genres:',
+          ['action','adventure','comedy','drama','fantasy','horror','musicals','mystery'])
+            
+            
+        
+
+        st.write('You selected:', selected_genres)
+
+
+        st.write("Please select the desired length of the movie: ") ## I would have to add the Movie.csv
+        st.write("Please select the desired movie ratings : ")
+
+
+
+        if st.button('Generate'):
+            st.write('Why hello there')
+        else:
+            st.write('Please try again')
+
+
 
 
 
