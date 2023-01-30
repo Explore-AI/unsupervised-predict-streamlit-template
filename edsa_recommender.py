@@ -113,12 +113,18 @@ def main():
         st.subheader("Movie Filter")
 
         st.write("This section is based of you using the presented filter base to generate a list of movies:")               
+<<<<<<< HEAD
         
         st.image('resources/imgs/movie.jpg',use_column_width=True)
+=======
+        image = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
+        st.image(image, caption='Sunrise by the mountains')
+>>>>>>> 29c177186635644861af8943668ed7b0caf84b51
 
 
         st.subheader("Please select your favourite genres: ")
         selected_genres = st.multiselect(
+<<<<<<< HEAD
             "Please select your desired genres",
             options=list(names["genres"])
           #  [' action'],
@@ -130,6 +136,13 @@ def main():
             [' musicals'],
             [' mystery']
         )
+=======
+          'Please select your favourite genres:',
+          ['action','adventure','comedy','drama','fantasy','horror','musicals','mystery'])
+            
+            
+        
+>>>>>>> 29c177186635644861af8943668ed7b0caf84b51
 
         st.write('You selected:', selected_genres)
 
