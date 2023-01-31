@@ -47,7 +47,7 @@ warnings.simplefilter(action='ignore')
 page_bg_img = """
 <style>
 [data-testid="stAppViewContainer"] {
-background-image: url('https://anhdepfree.com/wp-content/uploads/2019/05/50-anh-background-dep-nhat-4.jpg');
+background-image: url('https://e1.pxfuel.com/desktop-wallpaper/216/147/desktop-wallpaper-blue-movie-film-strip-backgrounds-for-powerpoint-powerpoint-background-movie-theme.jpg');
 background-size: cover;
 }
 [data-testid="stHeader"] {
@@ -60,7 +60,7 @@ right: 2rem;
 }
 
 [data-testid="stSidebar"] {
-background-image: url('https://images.pexels.com/photos/2088203/pexels-photo-2088203.jpeg?auto=compress&cs=tinysrgb&w=600');
+background-image: url('https://e1.pxfuel.com/desktop-wallpaper/216/147/desktop-wallpaper-blue-movie-film-strip-backgrounds-for-powerpoint-powerpoint-background-movie-theme.jpg');
 background-size: cover;
 }
 </style>
