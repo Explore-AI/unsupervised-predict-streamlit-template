@@ -44,6 +44,29 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 import warnings
 warnings.simplefilter(action='ignore')
 
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+background-image: url('https://anhdepfree.com/wp-content/uploads/2019/05/50-anh-background-dep-nhat-4.jpg');
+background-size: cover;
+}
+[data-testid="stHeader"] {
+background-color: rgba(0,0,0,0);
+
+}
+
+[data-testid="stToolbar"] {
+right: 2rem;
+}
+
+[data-testid="stSidebar"] {
+background-image: url('https://images.pexels.com/photos/2088203/pexels-photo-2088203.jpeg?auto=compress&cs=tinysrgb&w=600');
+background-size: cover;
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 path_to_s3 = ('https://media.githubusercontent.com/media/LPTsilo/Team_ES2_Unsupervised_Predict/main/')
 
 # Data Loading
@@ -60,7 +83,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Introduction", "Exploratory Data Analysis", "Recommender System", "Solution Overview"]
+    page_options = [ "Recommender System", "Introduction", "Exploratory Data Analysis", "Solution Overview"]
 
 ################################################################################
 ################################ MODEL #########################################
