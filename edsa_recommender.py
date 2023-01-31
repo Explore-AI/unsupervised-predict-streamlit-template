@@ -155,6 +155,14 @@ def main():
 
 
         st.subheader("Please select the desired movie ratings : ")
+        
+        stared_option = st.selectbox(
+        'Select rating of the movie: ', ## 
+        ('1.0', '2.0', '3.0', '4.0', '5.0'))
+        st.write('You selected:', stared_option)
+
+    
+
 
 
 
@@ -169,6 +177,12 @@ def main():
 
 
     if page_selection == "About us":
+
+        st.write("This section is based of you using the presented filter base to generate a list of movies:")               
+        movie_gallery = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
+        st.image(movie_gallery, caption='movie gallery')
+
+
         st.title("About us")
         st.write("We believe that we are only as good as the impact we give.With a nationwide presence,\
                   Starlink positively impacts our client firms successses thanks to our clear vision.\
@@ -184,17 +198,27 @@ def main():
 
     if page_selection == "Contact us":
         
+                  
+        contact_pic = "https://unsplash.com/photos/-0xCCPIbl3M')"
+        st.image(contact_pic, caption='telephone')
 
         st.text_input(
         "Tell us more on where we can improve. Feel free to write below or send us an email.",
         "Tell us ",
         key="placeholder",
+
+
     )
 
 
         st.title("Email us")
         st.write(" stalink.za@gmail.com")
 
+        option = st.selectbox(
+        'How would you like to be contacted?',
+        ('Email', 'Home phone', 'Mobile phone'))
+
+        st.write('You selected:', option)
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
