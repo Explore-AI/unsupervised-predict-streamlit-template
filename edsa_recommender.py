@@ -43,7 +43,8 @@ title_list = load_movie_titles('resources/data/movies.csv')
 # App declaration
 def main():
 
-    def add_bg_from_url():
+    def add_bg_from_url(): ## The main background added
+        
         st.markdown(
          f"""
          <style>
@@ -126,6 +127,23 @@ def main():
                    performance of our models properly.")
 
     if page_selection == "Movie selector":
+
+        def add_bg_from_url():
+         st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80.jpg");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+        add_bg_from_url() 
+
         st.subheader("Movie Filter")
 
         st.write("This section is based of you using the presented filter base to generate a list of movies:")               
@@ -178,12 +196,48 @@ def main():
 
     if page_selection == "About us":
 
+        
+        def add_bg_from_url():
+         st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80.jpg");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+        add_bg_from_url() 
+
         st.write("This section is based of you using the presented filter base to generate a list of movies:")               
         movie_gallery = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
         st.image(movie_gallery, caption='movie gallery')
 
 
         st.title("About us")
+
+        
+        def add_bg_from_url():
+         st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80.jpg");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+        add_bg_from_url() 
+
+
         st.write("We believe that we are only as good as the impact we give.With a nationwide presence,\
                   Starlink positively impacts our client firms successses thanks to our clear vision.\
                   use of technology, clear values, and most importantly our people. Our diverse workforce\
@@ -197,6 +251,23 @@ def main():
                   solutions to the challenges that face businesses,goverment and society at large.")          
 
     if page_selection == "Contact us":
+
+        
+        def add_bg_from_url():
+         st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80.jpg");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+        add_bg_from_url() 
         
                   
         contact_pic = "https://unsplash.com/photos/-0xCCPIbl3M')"
