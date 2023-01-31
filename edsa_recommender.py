@@ -103,6 +103,7 @@ def main():
     # Explore Movies  
     if page_selection == "Explore Movies":
         st.title("Explore Movies")
+        st.image('resources/imgs/banner.jpg',use_column_width=True)
 
         search = st.text_input("Search for a movie")
         if st.button("Search"):
@@ -186,7 +187,8 @@ def main():
     Based on the insights gained from the EDA, we identified the important features that would be used as inputs for the recommendation model.
     These features include the movie's **genres, plot keywords, cast, directors and ratings**. By using these features, the model is able to understand the user's preferences and make recommendations that are tailored to their interests or interests of someone similar.
     """)
-        st.markdown(""" ## Exploratory Data Analysis (EDA):""")
+        st.markdown(""" ## Exploratory Data Analysis (EDA)""")
+        
         st.markdown(""" Here are some key insights we drew from our EDA:""")
         
         st.markdown("- The majority of movies in our dataset are rated as 'average' by critics, with only a small percentage being highly rated or poorly rated.")
@@ -215,8 +217,9 @@ def main():
         st.write("- Mariam M'mbetsa, Machine Learning Engineer")
         st.write("- Mahlatse Motlanthi, Data Scientist")
         st.write("- Haruna Jibrin, Data Analyst")
-        st.write("- Babajide Adelekan, Business Analyst")
-        st.write("- Ncedo Fakude, Business Analyst II")
+        st.write("- Ncedo Fakude, Business Analyst")
+        st.write("- Babajide Adelekan, Business Analyst II")
+
         
         st.write("Our movie recommendation system is based on a state-of-the-art content and collaborative-based filtering algorithms. This approach takes into account the features of the movie such as the cast, crew, plot, and keywords to provide personalized and accurate recommendations.")
         st.write("We have a vast movie database that is constantly updated to ensure that you always have access to the latest releases and hidden gems.")
