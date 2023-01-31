@@ -44,7 +44,7 @@ title_list = load_movie_titles('resources/data/movies.csv')
 def main():
 
     def add_bg_from_url(): ## The main background added
-        
+
         st.markdown(
          f"""
          <style>
@@ -179,6 +179,8 @@ def main():
         ('1.0', '2.0', '3.0', '4.0', '5.0'))
         st.write('You selected:', stared_option)
 
+        
+
     
 
 
@@ -270,7 +272,7 @@ def main():
         add_bg_from_url() 
         
                   
-        contact_pic = "https://unsplash.com/photos/-0xCCPIbl3M')"
+        contact_pic = "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80')"
         st.image(contact_pic, caption='telephone')
 
         st.text_input(
@@ -285,11 +287,11 @@ def main():
         st.title("Email us")
         st.write(" stalink.za@gmail.com")
 
-        option = st.selectbox(
+        contact_op = st.selectbox(
         'How would you like to be contacted?',
         ('Email', 'Home phone', 'Mobile phone'))
 
-        st.write('You selected:', option)
+        st.write('You selected:', contact_op)
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
