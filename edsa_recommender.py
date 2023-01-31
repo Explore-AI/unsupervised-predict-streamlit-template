@@ -43,6 +43,22 @@ title_list = load_movie_titles('resources/data/movies.csv')
 # App declaration
 def main():
 
+    def add_bg_from_url():
+        st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://pixabay.com/illustrations/north-star-stars-night-night-sky-2869817/");
+             background-attachment: fixed;
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+    add_bg_from_url()  
+
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Recommender System","Why Starlink","Movie selector","About us","Contact us"]
@@ -134,7 +150,8 @@ def main():
 
 
         if st.button('Generate'):
-            st.write('Why hello there')
+            st.write('Your filtered movies')
+
         else:
             st.write('Please try again')
 
@@ -157,6 +174,15 @@ def main():
                   solutions to the challenges that face businesses,goverment and society at large.")          
 
     if page_selection == "Contact us":
+        
+
+        st.text_input(
+        "Tell us more on where we can improve. Feel free to write below or send us an email.",
+        "Tell us ",
+        key="placeholder",
+    )
+
+
         st.title("Email us")
         st.write(" stalink.za@gmail.com")
 
