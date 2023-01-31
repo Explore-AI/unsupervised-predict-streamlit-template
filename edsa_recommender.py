@@ -129,8 +129,8 @@ def main():
         st.subheader("Movie Filter")
 
         st.write("This section is based of you using the presented filter base to generate a list of movies:")               
-        image = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
-        st.image(image, caption='Sunrise by the mountains')
+        movie_gallery = "https://images.unsplash.com/photo-1581905764498-f1b60bae941a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80.open('sunrise.jpg')"
+        st.image(movie_gallery, caption='movie gallery')
 
 
         st.subheader("Please select your favourite genres: ")
@@ -145,6 +145,15 @@ def main():
 
 
         st.subheader("Please select the desired length of the movie: ") ## I would have to add the Movie.csv
+
+        start_len = 0     
+        start_len, end_len = st.select_slider(
+        'Select the length of the movie: ',
+         options=['0', '30', '60', '90', '120', '150', '180'],
+         value=('0', '90'))
+        st.write('You selected the length of the movies to be between ',start_len, 'minutes and', end_len,'minutes.')
+
+
         st.subheader("Please select the desired movie ratings : ")
 
 
