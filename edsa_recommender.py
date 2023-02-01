@@ -178,6 +178,7 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Our movie recommender system uses content-based and collaborative-based filtering approaches to recommend movies to users. The system takes in a user's input of a movie title, processes the data using the cosine similarity algorithm, SVD-PP and then recommends the top 10 most similar movies based on the user's input and model selection.")
+        st.image('resources/imgs/recommender_systems_model_types.png',use_column_width=True)
         st.markdown("""
     Before building the recommendation model, we conducted an extensive Exploratory Data Analysis (EDA) on a dataset of movies. 
     During the EDA, we cleaned and preprocessed the data, and performed various visualizations to understand the distribution and relationships of the features in the dataset.
@@ -187,24 +188,41 @@ def main():
     Based on the insights gained from the EDA, we identified the important features that would be used as inputs for the recommendation model.
     These features include the movie's **genres, plot keywords, cast, directors and ratings**. By using these features, the model is able to understand the user's preferences and make recommendations that are tailored to their interests or interests of someone similar.
     """)
+        st.markdown("""### Our process includes: """)
+        st.info("- Exploratory Data Analysis (EDA)")
+        st.info("- Cleaning and preprocessing of the data")
+        st.info("- Identifying important features to be used as inputs for the recommendation model")   
+        st.info("- Developing content-based filtering model & collaborative-based filtering model")
+        st.info("- Developing an interactive web app and hosting it on the cloud")
+   
+        
         st.markdown(""" ## Exploratory Data Analysis (EDA)""")
         
         st.markdown(""" Here are some key insights we drew from our EDA:""")
         
-        st.markdown("- The majority of movies in our dataset are rated as 'average' by critics, with only a small percentage being highly rated or poorly rated.")
-        st.markdown("- The majority of movies are English-language films, but there is a significant number of foreign-language films as well.")
-        st.markdown("- Action and Adventure are the most popular genres in our dataset, followed by Comedy and Thriller.")
-        st.markdown("- The majority of movies in our dataset have a runtime of between 90-120 minutes.")
-        st.markdown("- There is a positive correlation between the budget of a movie and its revenue.")    
-        st.markdown("""The solution was designed and developed by the team of **MovieGenius** company.""")     
+        st.markdown("- The majority of movies in our dataset are rated slightly above 'average' by raters, with a lower percentage being highly rated or even lower percentage poorly rated.")
+        st.image('resources/imgs/overall_rating_distribution.png',use_column_width=True)
         
-        st.success("Exploratory Data Analysis (EDA)")
-        st.info("- Cleaning and preprocessing of the data")
-        st.info("- Understanding distribution and relationships of the features in the dataset")
-        st.info("- Identifying important features to be used as inputs for the recommendation model")
-
-        #st.image('/unsupervised/unsupervised-predict-streamlit-template/resources/imgs/eda.jpg', width=600)
-        st.write("Thank you for choosing MovieGenius for alla your movie recommendation needs!")
+        st.markdown("- The majority of movies are English-language films, but there is a significant number of foreign-language films as well.")
+        st.markdown("- Drama, Comedy and Thriller are the most highly rated genres in our dataset, followed by Romance, Action and Horror.")
+        st.image('resources/imgs/genre_analysis.png',use_column_width=True)
+        
+        st.markdown("- The majority of movies in our dataset have a runtime of between 90-120 minutes.")
+        st.image('resources/imgs/avg_runtime_year.png',use_column_width=True)
+        
+        st.markdown("- The majority of movies have ratings below 5,000.")
+        st.image('resources/imgs/no_of_ratings_per_movie.png',use_column_width=True)
+        
+        st.markdown("- The late 90s saw a spike in the number of movies released.")
+        st.image('resources/imgs/movies_released_year.png',use_column_width=True)
+        
+        st.markdown("- Quentin Tarantino is the director with the most ratings")
+        st.image('resources/imgs/ratings_per_director.png',use_column_width=True)
+        
+        st.markdown("- Most used words in movie titles.")
+        st.image('resources/imgs/words_in_titles.png',use_column_width=True)
+        
+        st.markdown("""The solution was designed and developed by the team at **ND-Sigma** company.""")     
         
         # About Us
     if page_selection == "About Us":
@@ -233,7 +251,8 @@ def main():
         st.header("Contact Us")
         st.write("We would love to hear from you!")
         st.write("- Email us at contact@NDSigma.com")
-        st.write("- Follow us on social media:")
+        st.write(" ")
+        st.write("Follow us on social media:")
         st.write("- Twitter: @NDSigma")
         st.write("- Facebook: /NDSigma")
         st.write("- Instagram: @NDSigma")
