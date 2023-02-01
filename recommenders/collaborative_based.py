@@ -44,7 +44,7 @@ ratings_df.drop(['timestamp'], axis=1,inplace=True)
 movies_df.dropna(inplace=True)
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model=pickle.load(open('resources/models/item_svd.pkl', 'rb'))
+model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
 
 def collab_model(movie_list, top_n=10):
     """Performs Collaborative filtering based upon a list of movies supplied
