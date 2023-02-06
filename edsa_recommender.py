@@ -37,7 +37,6 @@ import base64
 import joblib,os
 import base64
 
-
 # Custom Libraries
 from utils.data_loader import load_movie_titles
 from streamlit_lottie import st_lottie
@@ -45,12 +44,17 @@ from streamlit_option_menu import option_menu
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+st.set_option('deprecation.showPyplotGlobalUse', False)
+import warnings
+warnings.simplefilter(action='ignore')
+
 # background-size: cover
+path_to_s3 = ('https://media.githubusercontent.com/media/LPTsilo/Team_ES2_Unsupervised_Predict/main/')
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
-st.set_page_config(page_title="Explo Insight", layout="wide", page_icon=":sparkles:")
 
+st.set_page_config(page_title="Explo Insight", layout="wide", page_icon=":sparkles:")
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -74,8 +78,7 @@ def load_lottieurl(url: str):
     if r.status_code != 200:
         return None
     return r.json()    
-add_bg_from_local('resources/imgs/the_one_bck.jpg')
-
+add_bg_from_local('resources/imgs/Movie Recommender System.png')
 
 load_lottie_home =load_lottieurl ("https://assets3.lottiefiles.com/packages/lf20_khzniaya.json")
 # App declaration
@@ -83,16 +86,14 @@ load_lottie_home =load_lottieurl ("https://assets3.lottiefiles.com/packages/lf20
 def main():
     page_selection = option_menu(
         menu_title= "Explo Insight",
-        options = ["Recommender System","Home","Solution Overview", "fun facts","Contact us"],
-        icons=["house", "skip-backward", "file-person","book-half", "bar-chart-line-fill"],
+        options = ["Recommender System","Home","Solution Overview", "Fun facts","Contact us"],
+        icons=["skip-backward","house", "bar-chart-line-fill","book-half", "file-person"],
         menu_icon =":gem:",
         orientation = "horizontal"
     )
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     
-    #page_options = ["Recommender System","Solution Overview","Home", "fun facts","Contact us "]
-
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
@@ -128,7 +129,6 @@ def main():
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
 
-
         if sys == 'Collaborative Based Filtering':
             if st.button("Recommend"):
                 try:
@@ -141,18 +141,30 @@ def main():
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-
-
     # -------------------------------------------------------------------
-
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
-        
+        st.write("We had a look into the most common genre of movies:")
+        st.image('resources/imgs/genres.png',use_column_width=False)
+        st.write("And did a further investigation based on the nubmer of movies released per director:")
+        st.image('resources/imgs/director_movies.png',use_column_width=True)
+        st.write("Since the dataset was so large we also subseted the data to contain only movies that had at least 50 ratings:")
+        st.image('resources/imgs/min_ratings.png',use_column_width=False)
+        st.write("We also created a visualizaton to detemine the number of ratings as well as the actual ratings. It may be noted that people tend to rate slighly higher than lower")
+        st.image('resources/imgs/number_ratings.png',use_column_width=True) 
+
     if page_selection == "Home":
         st_lottie(load_lottie_home, speed=1, loop=True, quality="high", width=750, reverse=True)
 
+    if page_selection == "Fun facts":
+        st.write("For our solution we decided to merge multiple dataframes together and try to create models based on the genre columns.")
+        st.image('resources/imgs/merge.png',use_column_width=False)
+        st.image('resources/imgs/movies_genres.png',use_column_width=False)
+        st.write("We also had a look of movie titles by popularity:")
+        st.image('resources/imgs/pop_titles.png',use_column_width=True)
+          
     if page_selection == "Contact us":
         st.header("Contact us:")
         cont = st.radio("Select how you wan to contact us", ("Leave us a message", "Get in touch with us", "Visit our offices"))
@@ -164,14 +176,12 @@ def main():
             st.info("Message ")
             st.text_area("Please leave your message")
             send = st.button("Submit")
-           
+            if st.button == "Submit":
+                 st.info("Your message has been submitted and we will get back to you")   
         if cont == "Get in touch with us":
-            st.info("Comming to attend to you")
+            st.info("Call us on 0785739666")
         if cont == "Come to our offices":
-            st.info("Comming to attend to you as well")
-    # You may want to add more sections here for aspects such as an EDA,
-    # or to provide your business pitc.
-
-
+            st.info("We are in Braamfontein Johnesburg")
+            
 if __name__ == '__main__':
     main()
