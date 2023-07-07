@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Instruction & Overview", 'Genre Insights', 'Movie Insights', 'Contact Us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -100,9 +100,21 @@ def main():
     # -------------------------------------------------------------------
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+    if page_selection == "Instruction & Overview":
+        st.title("Instruction & Overview")
+        st.write("Type how to work the app")
+        st.write("Overview of the pages")
+    
+    if page_selection == "Genre Insights":
+        st.write('Choose a genre')
+        st.write('Show top 10 movies of that genre')
+
+    if page_selection == "Movie Insights":
+        st.write('Detailed explanation of the movie')
+
+    if page_selection == "Contact Us":
+        st.write('Teams contact details here')
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
