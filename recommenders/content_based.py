@@ -31,7 +31,8 @@
 import os
 import pandas as pd
 import numpy as np
-import sklearn
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
@@ -81,10 +82,10 @@ def content_model(movie_list,top_n=10):
     recommended_movies = []
     data = data_preprocessing(27000)
     # Instantiating and generating the count matrix
-    count_vec = sklearn.feature_extraction.text.CountVectorizer()
+    count_vec = CountVectorizer()
     count_matrix = count_vec.fit_transform(data['keyWords'])
     indices = pd.Series(data['title'])
-    cosine_sim = sklearn.metrics.pairwise.cosine_similarity(count_matrix, count_matrix)
+    cosine_sim = cosine_similarity(count_matrix, count_matrix)
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
