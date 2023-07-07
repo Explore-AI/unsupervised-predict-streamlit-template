@@ -34,7 +34,7 @@ import pickle
 import copy
 from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
-import sklearn
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 # Importing data
@@ -124,7 +124,7 @@ def collab_model(movie_list,top_n=10):
     for i in movie_ids :
         df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
     # Getting the cosine similarity matrix
-    cosine_sim = sklearn.metrics.pairwise.cosine_similarity(np.array(df_init_users), np.array(df_init_users))
+    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
     idx_3 = indices[indices == movie_list[2]].index[0]
