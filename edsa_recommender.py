@@ -177,7 +177,7 @@ def main():
         des3.write("Oluwaseyi is an experienced Project Coordinator and Data Enginner. She has background knowledge in Project Control and Data analytics.")
 
         col4.image('resources/imgs/Musa.jpg', caption = "Data Engineer", width = 200)
-        col5.image()
+        col5.image('resources/imgs/Richard.jpg', caption = 'Data Scientist', width = 200)
         
         des4.subheader("Musa Aliu")
         des4.write("Musa is an experienced Data Engineer and pipeline developer. He has vast experience with Exploratory Data Analysis.")
