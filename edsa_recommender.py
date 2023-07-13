@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Home","Recommender System","Solution Overview", "About","Contact Us" ]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -103,6 +103,57 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+        
+        
+        
+    # -------------------------------------------------------------------
+
+    # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    def set_background_image():
+    st.markdown(
+        """
+        <style>
+        .reportview-container {
+            background: url('https://www.bing.com/images/search?view=detailV2&ccid=lss9flZL&id=9391FDB2991E917F20C692D8752FFF45F0895BA9&thid=OIP.lss9flZLDjAnoZ_Qa_sm1wHaFP&mediaurl=https%3a%2f%2faihubprojects.com%2fwp-content%2fuploads%2f2019%2f10%2fimage-6.png&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.96cb3d7e564b0e3027a19fd06bfb26d7%3frik%3dqVuJ8EX%252fL3XYkg%26pid%3dImgRaw%26r%3d0&exph=935&expw=1320&q=Movie+Recommender+System&simid=608046088341580220&FORM=IRPRST&ck=2C6BB31171A5E00DA46DD18A1CBD2BC7&selectedIndex=5') no-repeat center center fixed;
+            background-size: cover;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    set_background_image()
+    
+    def set_background_animation():
+    st.markdown(
+        """
+        <style>
+        @keyframes moving-background {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .reportview-container {
+            animation: moving-background 10s ease infinite;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    set_background_animation()
+
+
+    if page_selection == "Home":
+        st.title("Home")
+        st.write("Plenty Movies\
+                  For Everyone\
+                  To Enjoy Anywhere, Anytime")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
