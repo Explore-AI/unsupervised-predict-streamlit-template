@@ -39,7 +39,7 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
-
+gen=pd.read_csv("resources/data/aggregated_rating_streamlit.csv")
 # App declaration
 def main():
 
@@ -106,11 +106,91 @@ def main():
         st.write("Overview of the pages")
     
     if page_selection == "Genre Insights":
-        st.write('Choose a genre')
-        st.write('Show top 10 movies of that genre')
+        st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
+        col1,mid,col2=st.columns([40,2,60])
+        with col1:
+            act=st.checkbox("Action")
+            war=st.checkbox("War")
+            rom=st.checkbox("Romantic")
+            com=st.checkbox("Comedy")
+            drm=st.checkbox("Drama")
+            adv=st.checkbox("Adventure")
+            sf=st.checkbox("Sci-fi")
+            thr=st.checkbox("Thriller")
+            ani=st.checkbox("Animation")
+            doc=st.checkbox("Documentary")
+            chi=st.checkbox("Children")
+            fan=st.checkbox("Fantasy")
+            cri=st.checkbox("Crime")
+            hor=st.checkbox("Horror")
+            mys=st.checkbox("Mystery")
+            im=st.checkbox("IMAX")
+            mus=st.checkbox("Musical")
+            wes=st.checkbox("Western")
+            fil=st.checkbox("Film-Noir")
+
+            ls="True"
+            btn=st.button("Explore")
+
+        if btn:
+            if act:
+                ls=ls+"& gen['Genres'].str.contains(\"Action\")"
+            if war:
+                ls=ls+"& gen['Genres'].str.contains(\"War\")"
+            if rom:
+                ls=ls+"& gen['Genres'].str.contains(\"Romance\")"
+            if com:
+                ls=ls+"& gen['Genres'].str.contains(\"Comedy\")"
+            if drm:
+                ls=ls+"& gen['Genres'].str.contains(\"Drama\")"
+            if adv:
+                ls=ls+"& gen['Genres'].str.contains(\"Adventure\")"
+            if sf:
+                ls=ls+"& gen['Genres'].str.contains(\"Sci-Fi\")"
+            if thr:
+                ls=ls+"& gen['Genres'].str.contains(\"Thriller\")"
+            if ani:
+                ls=ls+"& gen['Genres'].str.contains(\"Animation\")"
+            if doc:
+                ls=ls+"& gen['Genres'].str.contains(\"Documentary\")"
+            if chi:
+                ls=ls+"& gen['Genres'].str.contains(\"Children\")"
+            if fan:
+                ls=ls+"& gen['Genres'].str.contains(\"Fantasy\")"
+            if cri:
+                ls=ls+"& gen['Genres'].str.contains(\"Crime\")"
+            if hor:
+                ls=ls+"& gen['Genres'].str.contains(\"Horror\")"
+            if mys:
+                ls=ls+"& gen['Genres'].str.contains(\"Mystery\")"
+            if im:
+                ls=ls+"& gen['Genres'].str.contains(\"IMAX\")"
+            if mus:
+                ls=ls+"& gen['Genres'].str.contains(\"Musical\")"
+            if wes:
+                ls=ls+"& gen['Genres'].str.contains(\"Western\")"
+            if fil:
+                ls=ls+"& gen['Genres'].str.contains(\"Film-Noir\")"
+
+                #with col2:
+
+            exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
+
+
+
 
     if page_selection == "Movie Insights":
-        st.write('Detailed explanation of the movie')
+       #st.write('Detailed explanation of the movie')
+       with st.form(key='searchform'):
+           nav1,midn,nav2=st.columns([10,3,3])
+           with nav1:
+               search_term=st.text_input("Search Movie")
+           with nav2:
+               st.text(" ")
+               st.text(" ")
+               submit_search=st.form_submit_button(label='Search')
+       if submit_search:
+        st.success("You have searched for the movie **{}**".format(search_term))
 
     if page_selection == "Contact Us":
         st.write('Teams contact details here')
