@@ -40,6 +40,7 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 gen=pd.read_csv("resources/data/aggregated_rating_streamlit.csv")
+mov=pd.read_csv("resources/data/movie_details_average.csv")
 # App declaration
 def main():
 
@@ -178,7 +179,7 @@ def main():
 
 
 
-
+    ls="True"
     if page_selection == "Movie Insights":
        #st.write('Detailed explanation of the movie')
        with st.form(key='searchform'):
@@ -190,7 +191,10 @@ def main():
                st.text(" ")
                submit_search=st.form_submit_button(label='Search')
        if submit_search:
-        st.success("You have searched for the movie **{}**".format(search_term))
+        st.success("You have searched for the movie **{}**.".format(search_term))
+        ls=ls+"& mov['title'].str.contains(search_term)"
+        exec("st.write(mov["+ls+"][['title','rating','genres','year','director','runtime','budget','title_cast']])")
+
 
     if page_selection == "Contact Us":
         st.write('Teams contact details here')
