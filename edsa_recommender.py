@@ -102,8 +102,31 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("we are in into building recommendation system for companies")
+        st.write("We the FSC_TECH company data science company offers solutions that leverage data analytics, machine learning,")
+        st.write(" and artificial intelligence to solve complex problems, also recommend and provide valuable insights to clients. ")
+        st.write("Here's a detailed overview of the various components and processes involved in the operations of FSC_TECH company:")
+        st.write("A: Problem Identification and Consultation")
+        st.write("B: Data Acquisition and Integration")
+        st.write("C: Exploratory Data Analysis (EDA)")
+        st.write("D: Feature Engineering")
+        st.write("E: Model Development")
+        st.write("F: Model Evaluation and Validation")
+        st.write("G: Deployment and Integration")
+        st.write("H: Continuous Monitoring and Maintenance")
+        st.write("I: Reporting and Visualization")
+        st.write("J: Ongoing Support and Collaboration")
 
+    if page_selection == "HOME":
+        st.title("HOME")
+        st.write("we are in into building recommendation system for companies and also offers the best services for our clients")
+
+    if page_selection == "ABOUT US":
+        st.title("ABOUT US")
+        st.write("FSC_TECH company is a business that specializes in utilizing advanced analytics techniques, machine learning,")
+        st.write("and statistical modeling to extract valuable insights from data. These insights can be used to make data-driven decisions,")
+        st.write("solve complex problems, and drive business growth.")
+
+        
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
