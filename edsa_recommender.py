@@ -118,15 +118,29 @@ def main():
 
     if page_selection == "HOME":
         st.title("HOME")
-        st.write("we are in into building recommendation system for companies and also offers the best services for our clients")
+        st.write("FSC_TECH company are into building recommendation system for companies and also offers the best services for our clients.")
 
     if page_selection == "ABOUT US":
         st.title("ABOUT US")
         st.write("FSC_TECH company is a business that specializes in utilizing advanced analytics techniques, machine learning,")
         st.write("and statistical modeling to extract valuable insights from data. These insights can be used to make data-driven decisions,")
         st.write("solve complex problems, and drive business growth.")
+        st.write("Here are some key aspects and details about FSC_TECH company:")
+        st.write("A: Services: we offer a range of services to clients, including,Data Analysis,Predictive Analytics,Data Visualization,")
+        st.write("Machine Learning Development, Data Engineering and Consulting and Strategy.")
+        st.write("B: Expertise: we typically have a team of highly skilled professionals with expertise in various domains, including:")
+        st.write(" Data Scientists,Machine Learning Engineers, Data Engineers, Domain Experts,Data Visualization Specialists.")
+        st.write("C: Tools and Technologies: We utilize a wide range of tools and technologies to perform our work effectively.")
+        st.write("Some common ones include: Programming Languages,Machine Learning Frameworks,Big Data Technologies,Data Visualization Tools")
+        st.write("Cloud Platforms.")
+        st.write("Client Engagement: A FSC_TECH company typically engages with clients through a systematic process that involves:")
+        st.write("Requirement Gathering, Data Exploration,Modeling and Analysis,Visualization and Reporting,Iteration and Improvement.")
+        st.write("D: Data Privacy and Security: FSC_TECH company prioritize data privacy and security,we ensure that client data is handled")
+        st.write("securely, adhere to relevant data protection regulations, and implement best practices for data anonymization and encryption")
+        st.write("E: Industry Applications: we work across various industries, includingfinance, healthcare, e-commerce, manufacturing,")
+        st.write("transportation, and marketing.we help businesses in these sectors optimize operations, improve customer targeting, detect fraud")
+        st.write("enhance forecasting accuracy, and support decision-making processes.")
 
-        
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
