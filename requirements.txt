@@ -1,0 +1,10 @@
+scikit-surprise
+matplotlib
+joblib
+Pillow
+wordcloud
+nltk
+scikit-learn
+streamlit
+comet-ml
+contractions
