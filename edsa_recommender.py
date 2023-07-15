@@ -31,6 +31,7 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -41,12 +42,13 @@ from recommenders.content_based import content_model
 title_list = load_movie_titles('resources/data/movies.csv')
 gen=pd.read_csv("resources/data/aggregated_rating_streamlit.csv")
 mov=pd.read_csv("resources/data/movie_details_average.csv")
+pie=pd.read_csv("resources/data/gen_only.csv")
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Instruction & Overview", 'Genre Insights', 'Movie Insights', 'Contact Us']
+    page_options = ["Recommender System","Instruction & Overview",'Insights', 'Contact Us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -106,82 +108,163 @@ def main():
         st.write("Type how to work the app")
         st.write("Overview of the pages")
     
-    if page_selection == "Genre Insights":
-        st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
-        col1,mid,col2=st.columns([40,2,60])
-        with col1:
-            act=st.checkbox("Action")
-            war=st.checkbox("War")
-            rom=st.checkbox("Romantic")
-            com=st.checkbox("Comedy")
-            drm=st.checkbox("Drama")
-            adv=st.checkbox("Adventure")
-            sf=st.checkbox("Sci-fi")
-            thr=st.checkbox("Thriller")
-            ani=st.checkbox("Animation")
-            doc=st.checkbox("Documentary")
-            chi=st.checkbox("Children")
-            fan=st.checkbox("Fantasy")
-            cri=st.checkbox("Crime")
-            hor=st.checkbox("Horror")
-            mys=st.checkbox("Mystery")
-            im=st.checkbox("IMAX")
-            mus=st.checkbox("Musical")
-            wes=st.checkbox("Western")
-            fil=st.checkbox("Film-Noir")
+    if page_selection == "Insights":
+       # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
+
+        tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
+
+        with tab1:
+            col1,col2,col3,col4,col5=st.columns([10,10,15,10,10])
+            with col1:
+                act=st.checkbox("Action")
+                war=st.checkbox("War")
+                rom=st.checkbox("Romantic")
+                com=st.checkbox("Comedy")
+            with col2:
+                drm=st.checkbox("Drama")
+                adv=st.checkbox("Adventure")
+                sf=st.checkbox("Sci-fi")
+                thr=st.checkbox("Thriller")
+            with col3:
+                ani=st.checkbox("Animation")
+                doc=st.checkbox("Documentary")
+                chi=st.checkbox("Children")
+                fan=st.checkbox("Fantasy")
+            with col4:
+                cri=st.checkbox("Crime")
+                hor=st.checkbox("Horror")
+                mys=st.checkbox("Mystery")
+                im=st.checkbox("IMAX")
+            with col5:
+                mus=st.checkbox("Musical")
+                wes=st.checkbox("Western")
+                fil=st.checkbox("Film-Noir")
 
             ls="True"
             btn=st.button("Explore")
 
         if btn:
+            col6,col7=st.columns([10,10])
+            g_count=pie['genres'].value_counts()
             if act:
                 ls=ls+"& gen['Genres'].str.contains(\"Action\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Action")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Action'
             if war:
                 ls=ls+"& gen['Genres'].str.contains(\"War\")"
+                df_selected_genre = mov[mov['genres'].str.contains("War")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'War'
             if rom:
                 ls=ls+"& gen['Genres'].str.contains(\"Romance\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Romance")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Romance'
             if com:
                 ls=ls+"& gen['Genres'].str.contains(\"Comedy\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Comedy")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Comedy'
             if drm:
                 ls=ls+"& gen['Genres'].str.contains(\"Drama\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Drama")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Drama'
             if adv:
                 ls=ls+"& gen['Genres'].str.contains(\"Adventure\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Adventure")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Adventure'
             if sf:
                 ls=ls+"& gen['Genres'].str.contains(\"Sci-Fi\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Sci-Fi")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Sci-Fi'
             if thr:
                 ls=ls+"& gen['Genres'].str.contains(\"Thriller\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Thriller")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Thriller'
             if ani:
                 ls=ls+"& gen['Genres'].str.contains(\"Animation\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Animation")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Animation'
             if doc:
                 ls=ls+"& gen['Genres'].str.contains(\"Documentary\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Documentary")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Documentary'
             if chi:
                 ls=ls+"& gen['Genres'].str.contains(\"Children\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Children")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Children'
             if fan:
                 ls=ls+"& gen['Genres'].str.contains(\"Fantasy\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Fantasy")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Fantasy'
             if cri:
                 ls=ls+"& gen['Genres'].str.contains(\"Crime\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Crime")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Crime'
             if hor:
                 ls=ls+"& gen['Genres'].str.contains(\"Horror\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Horror")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Horror'
             if mys:
                 ls=ls+"& gen['Genres'].str.contains(\"Mystery\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Mystery")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Mystery'
             if im:
                 ls=ls+"& gen['Genres'].str.contains(\"IMAX\")"
+                df_selected_genre = mov[mov['genres'].str.contains("IMAX")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'IMAX'
             if mus:
                 ls=ls+"& gen['Genres'].str.contains(\"Musical\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Musical")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Musical'
             if wes:
                 ls=ls+"& gen['Genres'].str.contains(\"Western\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Western")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Western'
             if fil:
                 ls=ls+"& gen['Genres'].str.contains(\"Film-Noir\")"
+                df_selected_genre = mov[mov['genres'].str.contains("Film-Noir")]
+                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                highlight_genre = 'Film-Noir'
+            with col6:
+                exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
+            with col7:
+                st.line_chart(df_genre_count)
 
-                #with col2:
+            col8,col9=st.columns([10,10])
+            with col8:
+                fig, ax = plt.subplots()
+                ax.pie(g_count.values, labels=g_count.index, autopct='%1.1f%%')
+                highlight_index = g_count.index.tolist().index(highlight_genre)
+                highlighted_wedge = ax.patches[highlight_index]
+                highlighted_wedge.set_edgecolor('white')
+                highlighted_wedge.set_linewidth(3)
+                highlighted_wedge.set_alpha(1)
+                ax.axis('equal')
+                st.pyplot(fig)
 
-            exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
 
 
 
-    ls="True"
-    if page_selection == "Movie Insights":
+    #ls="True"
+    #if page_selection == "Movie Insights":
        #st.write('Detailed explanation of the movie')
+    with tab2:
        with st.form(key='searchform'):
            nav1,midn,nav2=st.columns([10,3,3])
            with nav1:
@@ -191,9 +274,10 @@ def main():
                st.text(" ")
                submit_search=st.form_submit_button(label='Search')
        if submit_search:
-        st.success("You have searched for the movie **{}**.".format(search_term))
+        #st.success("You have searched for the movie **{}**.".format(search_term))
         ls=ls+"& mov['title'].str.contains(search_term)"
-        exec("st.write(mov["+ls+"][['title','rating','genres','year','director','runtime','budget','title_cast']])")
+        exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+
 
 
     if page_selection == "Contact Us":
