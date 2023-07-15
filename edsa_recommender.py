@@ -114,9 +114,8 @@ def main():
         st.write("On the left of this page you will find a side-bar with a dropdown menu for the pages available, these pages include:")
         st.write("1. Instruction and Overview - The current page with the information about how to use this App.")
         st.write("2. Recommender System - This is where you will get your recommended movies.")
-        st.write("3. Genre Insights - This is were you get the insigts about the genres. ")
-        st.write("4. Movive Insights - This is were you get the insigts about the movies. ")
-        st.write("5. Contact Us - This page has the App developer team information.")
+        st.write("3. Insights - This is were you get the insigts about the movies and genres. ")
+        st.write("4. Contact Us - This page has the App developer team information.")
 
         
         # Defining a list of image paths
@@ -145,6 +144,9 @@ def main():
             index = (index + 1) 
             col3.image(image_urls[index], width=image_width)
             time.sleep(2)  # Change image every 5 seconds
+        
+        # Center-align the subheader using Markdown and HTML formatting
+        st.markdown("<h2 style='text-align: center;'>Yummy Flavors😋...!</h2>", unsafe_allow_html=True)
 
         st.subheader("How to Use the App")
         st.write("1. Navigate to the 'Recommender System' page.")
