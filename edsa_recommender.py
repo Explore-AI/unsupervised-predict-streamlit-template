@@ -249,7 +249,7 @@ def main():
             col8,col9=st.columns([10,10])
             with col8:
                 fig, ax = plt.subplots()
-                ax.pie(g_count.values, labels=g_count.index, autopct='%1.1f%%')
+                ax.pie(g_count.values, labels=g_count.index)
                 highlight_index = g_count.index.tolist().index(highlight_genre)
                 highlighted_wedge = ax.patches[highlight_index]
                 highlighted_wedge.set_edgecolor('white')
