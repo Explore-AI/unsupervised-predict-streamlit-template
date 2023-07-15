@@ -32,6 +32,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -48,7 +49,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Instruction & Overview",'Insights', 'Contact Us']
+    page_options = ["Instruction & Overview","Recommender System",'Insights', 'Contact Us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -104,9 +105,56 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Instruction & Overview":
-        st.title("Instruction & Overview")
-        st.write("Type how to work the app")
-        st.write("Overview of the pages")
+        st.title("Welcome to ***DATAMINE*** Movie Recommender App 🎥🍿")
+        st.image("resources/imgs/Movie-Recommendation-System-with-Streamlit-and-Python-ML-1.jpg",)
+        st.write("Hi there🙋‍♂️, looking for that nice thing to watch without having to go over the hustle of scrolling for movies? Relax, we've got you.🤗")
+        st.write("")
+        st.subheader("About the App")
+        st.write("This app helps you discover personalized movie recommendations based on your preferences.")
+        st.write("On the left of this page you will find a side-bar with a dropdown menu for the pages available, these pages include:")
+        st.write("1. Instruction and Overview - The current page with the information about how to use this App.")
+        st.write("2. Recommender System - This is where you will get your recommended movies.")
+        st.write("3. Genre Insights - This is were you get the insigts about the genres. ")
+        st.write("4. Movive Insights - This is were you get the insigts about the movies. ")
+        st.write("5. Contact Us - This page has the App developer team information.")
+
+        
+        # Defining a list of image paths
+        image_urls = [
+            "resources/imgs/free.jpg",
+            "resources/imgs/images.jpg",
+            "resources/imgs/download.jpg"
+        ]
+
+        # Creating three columns for the images
+        col1, col2, col3 = st.columns(3)
+
+        # Set a common width for the images
+        image_width = 200
+
+        # Loop through the images and display them in the columns
+        index = 0
+        count_pic = 0 
+        while count_pic <1 :
+            count_pic +=1
+            col1.image(image_urls[index], width=image_width)
+            time.sleep(2)  # Change image every 5 seconds
+            index = (index + 1) 
+            col2.image(image_urls[index], width=image_width)
+            time.sleep(2)  # Change image every 5 seconds
+            index = (index + 1) 
+            col3.image(image_urls[index], width=image_width)
+            time.sleep(2)  # Change image every 5 seconds
+
+        st.subheader("How to Use the App")
+        st.write("1. Navigate to the 'Recommender System' page.")
+        st.write("2. Select the type of filtering (Content-based or Collaborative) for you movie choices.")
+        st.write("2. Select you three favourated movies.")
+        st.write("2. Press 'Recommand'.")
+        st.write("3. Receive personalized movie recommendations based on your favourite movies.")
+
+        st.write("**Content-based filtering** - means your recommended movies will be based on the properties of your three favourite movies.")
+        st.write("**Collaborative filtering** - means your recommended movies will be based on other users who have liked your favourite movies.")
     
     if page_selection == "Insights":
        # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
