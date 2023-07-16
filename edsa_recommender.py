@@ -161,7 +161,7 @@ def main():
     if page_selection == "Insights":
        # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
 
-    tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
+        tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
 
         with tab1:
             col1,col2,col3,col4,col5=st.columns([10,10,15,10,10])
@@ -314,19 +314,19 @@ def main():
     #ls="True"
     #if page_selection == "Movie Insights":
        #st.write('Detailed explanation of the movie')
-    with tab2:
-       with st.form(key='searchform'):
-           nav1,midn,nav2=st.columns([10,3,3])
-           with nav1:
-               search_term=st.text_input("Search Movie")
-           with nav2:
-               st.text(" ")
-               st.text(" ")
-               submit_search=st.form_submit_button(label='Search')
-       if submit_search:
+        with tab2:
+            with st.form(key='searchform'):
+                nav1,midn,nav2=st.columns([10,3,3])
+                with nav1:
+                    search_term=st.text_input("Search Movie")
+                with nav2:
+                    st.text(" ")
+                    st.text(" ")
+                    submit_search=st.form_submit_button(label='Search')
+            if submit_search:
         #st.success("You have searched for the movie **{}**.".format(search_term))
-        ls=ls+"& mov['title'].str.contains(search_term)"
-        exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+            ls=ls+"& mov['title'].str.contains(search_term)"
+            exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
 
 
 
