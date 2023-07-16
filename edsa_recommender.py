@@ -325,8 +325,8 @@ def main():
                     submit_search=st.form_submit_button(label='Search')
             if submit_search:
         #st.success("You have searched for the movie **{}**.".format(search_term))
-            ls=ls+"& mov['title'].str.contains(search_term)"
-            exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+                ls=ls+"& mov['title'].str.contains(search_term)"
+                exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
 
 
 
