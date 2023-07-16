@@ -105,7 +105,7 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Instruction & Overview":
-        st.title("Welcome to ***DATAMINE*** Movie Recommender App 🎥🍿")
+        st.title("Welcome to ***DATAMIN*** Movie Recommender App 🎥🍿")
         st.image("resources/imgs/Movie-Recommendation-System-with-Streamlit-and-Python-ML-1.jpg",)
         st.write("Hi there🙋‍♂️, looking for that nice thing to watch without having to go over the hustle of scrolling for movies? Relax, we've got you.🤗")
         st.write("")
@@ -161,7 +161,7 @@ def main():
     if page_selection == "Insights":
        # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
 
-        tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
+    tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
 
         with tab1:
             col1,col2,col3,col4,col5=st.columns([10,10,15,10,10])
