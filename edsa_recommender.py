@@ -45,16 +45,16 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","Business Proposal"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
-    page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    page_selection = st.sidebar.selectbox("Menu", page_options)
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('### Videoligy')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
@@ -102,8 +102,39 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        st.image('resources/imgs/first.png', use_column_width= True)
+        st.image('resources/imgs/second.png', use_column_width= True)
+        st.markdown(open('resources/About_solution.md').read())
+        st.image('resources/imgs/third.jpg', use_column_width= True)
+        st.markdown(open('resources/About2.md').read())
+        st.image('resources/imgs/fourth.png', use_column_width= True)
+        st.markdown(open('resources/About3.md').read())
+        st.image('resources/imgs/fifth.png', use_column_width= True)
+        st.markdown(open('resources/About4.md').read())
 
+    if page_selection == "Business Proposal":
+        st.title("advantages")
+        st.write("business benefit")
+
+
+    page_bg_img = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+    background-image: url("https://images.unsplash.com/photo-1535303311164-664fc9ec6532?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80");
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    color: black;
+    display : flex;
+    justify-content: centre;
+    align-items: centr;
+    }}
+
+    [data-testid="stHeader"].main
+    </style>"""
+
+    st.markdown(page_bg_img , unsafe_allow_html=True)
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
