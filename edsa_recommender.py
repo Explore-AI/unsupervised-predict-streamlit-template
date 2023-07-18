@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","App Feedback"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -107,6 +107,57 @@ def main():
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
+    if page_selection == "App Feedback":
+        st.title("App Feedback")
+        st.write("We appreciate your valuable feedback on our app! Your insights and suggestions are crucial in helping us improve and provide you with an exceptional user experience. Please take a few moments to share your thoughts by completing this feedback form. Your input will assist us in understanding what aspects of the app are working well and where we can make enhancements or address any issues you may have encountered.")
+        
+        with st.form("feedback_form"):
+            c_feedback = st.container()
+
+            with c_feedback:
+                col_feedback_1, col_feedback_2 = st.columns(2)
+                with col_feedback_1:
+                    feedback_name = st.text_input(
+                        "Name",
+                        placeholder='Enter',
+                    )
+                with col_feedback_2:
+                    feedback_email = st.text_input(
+                        "Email",
+                        placeholder='Enter',
+                    )
+                col_feedback_3, col_feedback_4 = st.columns(2)
+                with col_feedback_3:
+                    feedback_type = st.selectbox(
+                    'Category',
+                    ('Defect', 'Bug', 'Feature'))
+                with col_feedback_4:
+                    feedback_subject = st.text_input(
+                        "Subject",
+                        placeholder='Enter',
+                    )
+                col_feedback_5, col_feedback_6 = st.columns(2)
+                with col_feedback_5:
+                    feedback_description = st.text_area('Description', '''''')
+                with col_feedback_6:
+                    tab_low, tab_medium, tab_high = st.tabs(["Low", "Medium", "High"])
+                    with tab_low:
+                        feedback_priority = 0
+                    with tab_medium:
+                        feedback_priority = 1
+                    with tab_high:
+                        feedback_priority = 2
+
+                    feedback_satisfaction = st.radio(
+                    "Satisfaction",
+                    ('Very Satisfied', 'Satisfied', 'Neutral', 'Dissatisfied'))
+
+                    st.write('Additional Features')
+                    feedback_additional_1 = st.checkbox('UI/UX')
+                    feedback_additional_2 = st.checkbox('Performance')
+                    feedback_additional_3 = st.checkbox('Functionality')
+                    feedback_additional_4 = st.checkbox('Other')
+            submitted = st.form_submit_button("Submit Feedback")
 
 if __name__ == '__main__':
     main()
