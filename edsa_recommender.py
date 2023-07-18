@@ -101,7 +101,7 @@ def main():
         unsafe_allow_html=True
         )
         
-    add_bg_from_local('C:/Users/44475/example2/resources/imgs/back.jpg')
+    add_bg_from_local('C:/Users/nyama/Documents/GitHub/unsupervised-predict-streamlit-template/resources/imgs/istockphoto.jpg')
 
     with st.sidebar:
         st.image("resources/imgs/Flix.png", width=200)
@@ -201,7 +201,7 @@ def main():
   
       st.title("The ultimate app for EVERY movie enthusiasts")
       st.write("")
-      st.image('resources/imgs/movie_background.jpg',use_column_width=True)
+      st.image('resources/imgs/red-white-bucket.jpg',use_column_width=True)
       st.write("")
       st.write("FlixWhiz is the perfect app for all your movie recommendations. It gives you the freedom of choosing the perfect movie to watch without wrecking your brain. Input your 3 favourite movies and viola!!")
       st.title("Plenty Movies For Everyone To Enjoy Anywhere, Anytime")
@@ -211,7 +211,7 @@ def main():
     if page_selection == "About Us":
 
         #st.markdown(font_css, unsafe_allow_html=True)
-        tab1, tab2, tab3 = st.tabs(["Bits And Bytes Data Solutions", "Testimonials", "Contact Us"])
+        tab1, tab2, tab3, tab4 = st.tabs(["Bits And Bytes Data Solutions", "Testimonials", "Contact Us", "The Team"])
 
         with tab1:
             st.write("")
@@ -262,7 +262,92 @@ def main():
             
                 st.write("")
             
-            
+        with tab4:
+            #st.write("# MEET THE TEAM")
+            st.markdown("<p style='text-align: center; font-size: 80px; font-family: cursive; font-weight: bold; '>MEET THE TEAM</p>", unsafe_allow_html=True)
+            #st.image('resources/imgs/meet-team.jpg') 
+            st.write("")
+            st.write("")
+            st.write("")
+            st.write("")
+
+            with st.container():
+                st.write("<p style='text-align: center; font-size: 50px; '>The Notebook Team</p>", unsafe_allow_html=True)
+				
+                with st.container():
+                    
+                    col1, col2, col3 = st.columns(3)
+				
+                with col1:
+                    #st.header("Rinae Surname")
+                    st.image('resources/imgs/W.png')
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Rinae Surname</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+					
+                with col2:
+                    #st.header("Nassau Surname")
+                    st.image('resources/imgs/M.png')
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Nassau Surname</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+						
+                with col3:
+                    #st.header("Bonolo Surname")
+                    st.image('resources/imgs/M.png')
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Bonolo Surname</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                    st.write("")
+                    st.write("")
+                    
+                            
+                with st.container():
+                    st.write("<p style='text-align: center; font-size: 50px; '>The Strealit Team</p>", unsafe_allow_html=True)
+                    
+                    with st.container():
+                    
+                        col1, col2, col3 = st.columns(3)
+				
+                with col1:
+                    #st.header("Matsawela Surname")
+                    st.image('resources/imgs/W.png')
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matsawela Surname</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+					
+                    with col2:
+                        #st.header("Mmabatho Surname")
+                        st.image('resources/imgs/w.png')
+                        st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Mmabatho Surname</p>", unsafe_allow_html=True)
+                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                        st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                        
+						
+                        with col3:
+                            #st.header("Matlala Nyama")
+                            st.image('resources/imgs/w.png')
+                            st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                            st.write("")
+                            st.write("")
+
+                with st.container():
+                    st.write("<p style='text-align: center; font-size: 50px; '>Project Management Team</p>", unsafe_allow_html=True)
+                    
+                    with st.container():
+                    
+                        col1, col2, col3 = st.columns(3)
+				
+                with col2:
+                    #st.header("Temishka Surname")
+                    st.image('resources/imgs/W.png') 
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Surname</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)           
+
+
             with col13:
                 st.title("Contact Details")
                 st.write("Office Line : (+27) 43 656 9800")
