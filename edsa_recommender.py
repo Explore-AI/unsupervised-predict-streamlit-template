@@ -159,6 +159,7 @@ def main():
         st.write("**Collaborative filtering** - means your recommended movies will be based on other users who have liked your favourite movies.")
     
     if page_selection == "Insights":
+
        # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
 
         tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
@@ -308,9 +309,6 @@ def main():
                 ax.axis('equal')
                 st.pyplot(fig)
 
-
-
-
     #ls="True"
     #if page_selection == "Movie Insights":
        #st.write('Detailed explanation of the movie')
@@ -323,16 +321,38 @@ def main():
                     st.text(" ")
                     st.text(" ")
                     submit_search=st.form_submit_button(label='Search')
-            if submit_search:
-        #st.success("You have searched for the movie **{}**.".format(search_term))
-                ls=ls+"& mov['title'].str.contains(search_term)"
-                exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+        if submit_search:
+            #st.success("You have searched for the movie **{}**.".format(search_term))
+            ls=ls+"& mov['title'].str.contains(search_term)"
+            exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
 
 
 
     if page_selection == "Contact Us":
-        st.write('Teams contact details here')
+                # Define the company details
+        company_name = "DATAMIN"
+        company_address = "123 Street, Johannesburg, South Africa"
+        company_phone = "+27 11 555 6666"
+        company_email = "datamin@data.com"
 
+        # Display the company details in smaller boxes
+        st.subheader("Company Details")
+        st.info(f"Name: {company_name}")
+        st.info(f"Address: {company_address}")
+        st.info(f"Phone: {company_phone}")
+        st.info(f"Email: {company_email}")
+
+        # Create a form for user inquiries
+        st.subheader("Inquiry Form")
+        name = st.text_input("Your Email")
+        inquiry = st.text_area("Your Inquiry")
+        submit_button = st.button("Submit")
+
+        # Store the user's inquiry in a database or file
+        if submit_button:
+            # Store the user's name and inquiry somewhere (e.g., database, file)
+            # You can add your own code here to handle the storage
+            st.success("Inquiry submitted successfully!")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
