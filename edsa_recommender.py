@@ -101,7 +101,7 @@ def main():
         unsafe_allow_html=True
         )
         
-    add_bg_from_local('C:/Users/nyama/Documents/GitHub/unsupervised-predict-streamlit-template/resources/imgs/istockphoto.jpg')
+    add_bg_from_local('resources/imgs/istockphoto.jpg')
 
     with st.sidebar:
         st.image("resources/imgs/Flix.png", width=200)
@@ -279,21 +279,18 @@ def main():
                     col1, col2, col3 = st.columns(3)
 				
                 with col1:
-                    #st.header("Rinae Surname")
                     st.image('resources/imgs/W.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Rinae Surname</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
 					
                 with col2:
-                    #st.header("Nassau Surname")
                     st.image('resources/imgs/M.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Nassau Surname</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
 						
                 with col3:
-                    #st.header("Bonolo Surname")
                     st.image('resources/imgs/M.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Bonolo Surname</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
@@ -310,14 +307,12 @@ def main():
                         col1, col2, col3 = st.columns(3)
 				
                 with col1:
-                    #st.header("Matsawela Surname")
                     st.image('resources/imgs/W.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matsawela Surname</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
 					
                     with col2:
-                        #st.header("Mmabatho Surname")
                         st.image('resources/imgs/w.png')
                         st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Mmabatho Surname</p>", unsafe_allow_html=True)
                         st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
@@ -325,7 +320,6 @@ def main():
                         
 						
                         with col3:
-                            #st.header("Matlala Nyama")
                             st.image('resources/imgs/w.png')
                             st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
@@ -341,7 +335,6 @@ def main():
                         col1, col2, col3 = st.columns(3)
 				
                 with col2:
-                    #st.header("Temishka Surname")
                     st.image('resources/imgs/W.png') 
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Surname</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
