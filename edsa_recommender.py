@@ -37,6 +37,9 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+# image
+from PIL import Image
+
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -46,6 +49,10 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Recommender System","Solution Overview"]
+    st.sidebar.write("Autonomous Insights")
+    image = Image.open("./resources/imgs/logo-bg.png")
+    st.sidebar.image(image, width=200)
+    
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
