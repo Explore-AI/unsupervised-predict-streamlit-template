@@ -49,7 +49,7 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     page_options = ["Recommender System","Solution Overview"]
-    st.sidebar.write("Autonomous Insights")
+    st.sidebar.write("## Autonomous Insights")
     image = Image.open("./resources/imgs/logo-bg.png")
     st.sidebar.image(image, width=200)
     
@@ -62,6 +62,8 @@ def main():
         # Header contents
         st.write('# Movie Recommender Engine')
         st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.write('#### We give you best movie recommendations')
+        st.write('#### Select one the algorithms andyour three favorite movies to get recommendations')
         st.image('resources/imgs/Image_header.png',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
