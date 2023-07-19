@@ -76,8 +76,12 @@ def main():
         # movie_3 = st.selectbox('Third Option',title_list[21100:21200])
         # fav_movies = [movie_1,movie_2,movie_3]
 
+
+
+
         # Check the length of the title_list
         title_list_length = len(title_list)
+        st.write(f"Length of title_list: {title_list_length}")  
         # Determine the slicing indices based on the length of the title_list
         first_slice_start = max(title_list_length - 270, 0)
         second_slice_start = max(title_list_length - 145, 0)
