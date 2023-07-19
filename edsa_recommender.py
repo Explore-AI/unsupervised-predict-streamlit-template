@@ -113,8 +113,76 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
+        #st.title("Solution Overview")
+        #st.write("Describe your winning approach on this page")
+        
+        #st.title("The ReelDeal")
+        #st.header('This is a header')
+        
+        st.header('Problem Statement')
+        st. write('''Recommender systems have become crucial in today's technology-driven world, enabling individuals to make informed choices about the content they engage with regularly. Movie content recommendations are particularly important in this regard, as intelligent algorithms can assist viewers in discovering great titles from a vast selection of options.''')
+        
+        with st.expander("**Business Value**"):
+            st.write('**Enhanced User Experience:**')
+            st.write('''Recommender systems enhance the user experience by providing personalized recommendations tailored to individual preferences. By suggesting relevant and interesting movies, users are more likely to engage with the platform and discover content they enjoy. This leads to increased user satisfaction and a higher likelihood of repeat visits.''')
+            st.divider()
+            st.write('**Increased User Engagement:**')
+            st.write('''A well-designed recommender system increases user engagement by capturing and understanding user preferences. By analyzing historical data, the system can identify patterns, preferences, and user behavior, thereby presenting users with movies that align with their interests. Increased user engagement translates to longer session durations, more frequent visits, and higher user retention rates.''')
+            st.divider()
+            st.write('**Improved Customer Satisfaction:**')
+            st.write('''Recommender systems help users discover movies they are likely to enjoy but might have otherwise missed. By providing accurate and relevant recommendations, users feel satisfied and perceive the platform as valuable. This satisfaction leads to positive word-of-mouth recommendations, increased customer loyalty, and reduced churn rates.''')
+            st.divider()
+            st.write('**Revenue Generation:**')
+            st.write('''A well-executed recommender system can have a significant impact on revenue generation. By showcasing relevant movie recommendations, users are more likely to engage with the platform, leading to increased content consumption and potential revenue streams such as subscriptions, rentals, or advertising. Additionally, recommender systems can leverage personalized recommendations to upsell or cross-sell related products or services, further increasing revenue opportunities.''')
+            st.divider()
+            st.write('**Data-Driven Decision Making:**')
+            st.write('''Building a recommender system requires collecting and analyzing vast amounts of user data. This data can provide valuable insights into user preferences, trends, and behavior, enabling data-driven decision making for content acquisition, production, and marketing strategies. By leveraging the knowledge gained from the recommender system, platforms can make informed decisions to optimize their movie catalog and marketing efforts.''')
+            st.divider()
+            st.write('**Competitive Advantage:**')
+            st.write('''In today's competitive landscape, a well-implemented recommender system can serve as a differentiating factor for platforms. By providing accurate and personalized recommendations, platforms can attract new users and retain existing ones, positioning themselves as leaders in the industry. This competitive advantage can result in increased market share, brand recognition, and growth opportunities.''')
+        st.header('Solution')
+        st.write('''The ReelDeal Presents: Your Ultimate Movie Recommender App!
+
+Are you tired of endlessly scrolling through streaming platforms, trying to find the perfect movie to watch? Look no further! The ReelDeal is here to revolutionize your movie-watching experience with its advanced recommendation system that caters for collaborative filtering and content filtering techniques.''')
+        
+        tab1, tab2 = st.tabs(["Content Filtering", "Colaborative Filtering"])
+
+        with tab1:
+            st.header("Content Filtering")
+            st.write('''The app utilizes content filtering, which focuses on the characteristics and attributes of movies themselves. By analyzing the content, genre, actors, directors, and other metadata associated with movies, the app can provide recommendations based on your personal preferences and interests. Whether you're a fan of action-packed blockbusters, romantic comedies, or indie dramas, The app will suggest movies that align with your specific tastes.''')
+            st.image('resources/imgs/Content.png',use_column_width=True)
+            with st.expander("**Advantages/Disadvantages**"):
+                st.write('''**Advantages:**''')
+                st.write('''1. The model's recommendations are personalized to each user, eliminating the need for data on other users. This enables easy scalability to a large user base.''')
+                st.write('''2. By capturing the specific interests of users, the model can suggest niche items that appeal to a small subset of users, resulting in more tailored recommendations.''')
+                st.divider()
+                st.write('''**Disadvantages:**''')
+                st.write('''1. This technique relies on hand-engineered feature representations for items, requiring substantial domain knowledge. Consequently, the effectiveness of the model is limited by the quality of these engineered features.''')
+                st.write('''2. The model's recommendations are confined to the user's existing interests, lacking the capability to explore and expand upon new areas of interest.''')
+
+        with tab2:
+            st.header("Colaborative Filtering")
+            st.write('''But that's not all! Collaborative filtering is a powerful algorithm that analyzes user behavior and preferences to find similarities among users. By considering the preferences of users who have similar tastes as you, the app can suggest movies that you're likely to enjoy. It takes into account various factors, such as ratings, watch history, and movie preferences of like-minded users, to generate accurate recommendations tailored just for you.''')
+            st.image('resources/imgs/Collaborative.png',use_column_width=True)
+            st.write('''Memory-based approaches, also known as neighborhood collaborative filtering, predict ratings for user-item combinations based on the neighborhoods they belong to. User-based collaborative filtering recommends items by identifying like-minded users who provide strong and similar recommendations. Item-based collaborative filtering, on the other hand, suggests items based on the similarity calculated from user ratings of those items.''')
+            with st.expander("**Advantages/Disadvantages**"):
+                st.write('''**Advantages:**''')
+                st.write('''1. Collaborative filtering models are relatively simple to implement and offer broad coverage.
+    They can capture subtle characteristics.''')
+                st.write('''2. These models do not require an understanding of the item content.''')
+                st.divider()
+                st.write('''**Disadvantages:**''')
+                st.write('''1. Collaborative filtering models face challenges when recommending new items, as they lack user-item interactions, resulting in the "cold start problem."''')
+                st.write('''2. Memory-based algorithms tend to perform poorly on highly sparse datasets, where data points are limited or missing.''')
+        
+        st.write('''Here are some key features of the app:''')
+        with st.expander("**Key Features**"):
+            st.write("")
+            st.write('''Personalized Recommendations: The app understands your unique preferences and delivers personalized movie recommendations that suit your taste, making it easier for you to discover new films that you'll love.''')
+        
+        
+        st.write('''The ReelDeal's app is the ultimate movie companion that brings the power of collaborative filtering and content filtering together, ensuring that you never run out of fantastic movies to watch. Say goodbye to endless scrolling and start enjoying personalized movie recommendations today!''')
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
