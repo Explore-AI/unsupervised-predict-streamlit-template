@@ -70,11 +70,21 @@ def main():
                         'Collaborative Based Filtering'))
 
         # User-based preferences
-        st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
-        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
-        fav_movies = [movie_1,movie_2,movie_3]
+        # st.write('### Enter Your Three Favorite Movies')
+        # movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        # movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        # movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        # fav_movies = [movie_1,movie_2,movie_3]
+        # Determine the slicing indices based on the length of the title_list
+        first_slice_start = max(title_list_length - 270, 0)
+        second_slice_start = max(title_list_length - 145, 0)
+        third_slice_start = max(title_list_length - 100, 0)
+
+        movie_1 = st.selectbox('First Option', title_list[first_slice_start:])
+        movie_2 = st.selectbox('Second Option', title_list[second_slice_start:])
+        movie_3 = st.selectbox('Third Option', title_list[third_slice_start:])
+
+        fav_movies = [movie_1, movie_2, movie_3]
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
