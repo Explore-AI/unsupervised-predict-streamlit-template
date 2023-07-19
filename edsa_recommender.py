@@ -33,6 +33,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import warnings
+
+# Ignore FutureWarning
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
