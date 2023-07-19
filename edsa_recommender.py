@@ -53,6 +53,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
+    # st.image("resources/imgs/WhatsApp Image 2023-07-17 at 12.56.13.jpg",)
     page_options = ["Instruction & Overview","Recommender System",'Insights', 'Contact Us']
 
     # -------------------------------------------------------------------
@@ -70,34 +71,11 @@ def main():
                         'Collaborative Based Filtering'))
 
         # User-based preferences
-        # st.write('### Enter Your Three Favorite Movies')
-        # movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
-        # movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        # movie_3 = st.selectbox('Third Option',title_list[21100:21200])
-        # fav_movies = [movie_1,movie_2,movie_3]
-
-        # Check the length of the title_list
-        title_list_length = len(title_list)
-          
-        st.write(f"Length of title_list: {title_list_length}")
-        # Determine the slicing indices based on the length of the title_list
-        first_slice_start = max(title_list_length - 270, 0)
-        second_slice_start = max(title_list_length - 145, 0)
-        third_slice_start = max(title_list_length - 100, 0)
-
-        # Check if the slicing indices are valid
-        if first_slice_start >= title_list_length:
-            first_slice_start = title_list_length - 1
-        if second_slice_start >= title_list_length:
-            second_slice_start = title_list_length - 1
-        if third_slice_start >= title_list_length:
-            third_slice_start = title_list_length - 1
-
-        movie_1 = st.selectbox('First Option', title_list[first_slice_start:])
-        movie_2 = st.selectbox('Second Option', title_list[second_slice_start:])
-        movie_3 = st.selectbox('Third Option', title_list[third_slice_start:])
-
-        fav_movies = [movie_1, movie_2, movie_3]
+        st.write('### Enter Your Three Favorite Movies')
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        fav_movies = [movie_1,movie_2,movie_3]
 
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
@@ -123,9 +101,9 @@ def main():
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
-                except Exception as e:
-                    st.error("Oops! An error occurred while running the algorithm.")
-                    st.error(str(e)) 
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
 
 
     # -------------------------------------------------------------------
