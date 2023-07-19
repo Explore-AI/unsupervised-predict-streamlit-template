@@ -83,6 +83,14 @@ def main():
         second_slice_start = max(title_list_length - 145, 0)
         third_slice_start = max(title_list_length - 100, 0)
 
+        # Check if the slicing indices are valid
+        if first_slice_start >= title_list_length:
+            first_slice_start = title_list_length - 1
+        if second_slice_start >= title_list_length:
+            second_slice_start = title_list_length - 1
+        if third_slice_start >= title_list_length:
+            third_slice_start = title_list_length - 1
+
         movie_1 = st.selectbox('First Option', title_list[first_slice_start:])
         movie_2 = st.selectbox('Second Option', title_list[second_slice_start:])
         movie_3 = st.selectbox('Third Option', title_list[third_slice_start:])
