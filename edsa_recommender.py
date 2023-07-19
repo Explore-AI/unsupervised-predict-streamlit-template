@@ -291,24 +291,24 @@ def main():
                     col1, col2, col3 = st.columns(3)
 				
                 with col1:
-                    #st.header("Rinae Surname")
+                    #st.header("Rinae Luvhani")
                     st.image('resources/imgs/W.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Rinae Surname</p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Data scientist</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Your Place or Mine</p>", unsafe_allow_html=True)
 					
                 with col2:
-                    #st.header("Nassau Surname")
+                    #st.header("Nassau Carstens")
                     st.image('resources/imgs/M.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Nassau Surname</p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Data Engineer</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Apocalypse Now</p>", unsafe_allow_html=True)
 						
                 with col3:
                     #st.header("Bonolo Surname")
                     st.image('resources/imgs/M.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Bonolo Surname</p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
                     st.write("")
                     st.write("")
@@ -322,25 +322,25 @@ def main():
                         col1, col2, col3 = st.columns(3)
 				
                 with col1:
-                    #st.header("Matsawela Surname")
+                    #st.header("Matsawela Phiri")
                     st.image('resources/imgs/W.png')
-                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matsawela Surname</p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matsawela Phiri</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I still believe</p>", unsafe_allow_html=True)
 					
                     with col2:
-                        #st.header("Mmabatho Surname")
+                        #st.header("Mmabatho Mojapelo")
                         st.image('resources/imgs/w.png')
-                        st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Mmabatho Surname</p>", unsafe_allow_html=True)
-                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                        st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Mmabatho Mojapelo</p>", unsafe_allow_html=True)
+                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer</p>", unsafe_allow_html=True)
                         st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
                         
 						
                         with col3:
                             #st.header("Matlala Nyama")
-                            st.image('resources/imgs/w.png')
+                            st.image('resources/imgs/W.png')
                             st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
-                            st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer</p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
                             st.write("")
                             st.write("")
@@ -353,10 +353,10 @@ def main():
                         col1, col2, col3 = st.columns(3)
 				
                 with col2:
-                    #st.header("Temishka Surname")
+                    #st.header("Temishka Pillay")
                     st.image('resources/imgs/W.png') 
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Surname</p>", unsafe_allow_html=True)
-                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Project Manager</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)           
 
 
