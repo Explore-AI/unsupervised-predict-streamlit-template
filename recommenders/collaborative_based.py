@@ -149,6 +149,37 @@ def collab_model(movie_list,top_n=10):
     # return recommended_movies
 
     # Assuming movies_df and ratings_df are the DataFrames containing movie and rating information
+    # Get movieIds from movie_list
+    # movie_ids = pred_movies(movie_list)
+
+    # # Create a utility matrix with users as rows and movies as columns
+    # utility_matrix = ratings_df.pivot(index='userId', columns='movieId', values='rating')
+
+    # # Filter rows corresponding to movie_ids
+    # selected_users = utility_matrix.loc[movie_ids]
+
+    # # Convert utility matrix to a sparse matrix
+    # selected_users_sparse = csr_matrix(selected_users.fillna(0))
+
+    # # Compute cosine similarity matrix using sparse matrices
+    # cosine_sim_sparse = cosine_similarity(selected_users_sparse)
+
+    # # Get indices of movies in movie_list
+    # movie_indices = movies_df[movies_df['movieId'].isin(movie_ids)].index
+
+    # # Calculate the scores based on cosine similarity with movie_list movies
+    # scores = cosine_sim_sparse[:, movie_indices].sum(axis=1)
+
+    # # Sort movies based on scores in descending order
+    # top_indexes = np.argsort(scores)[::-1]
+
+    # # Get recommended movies excluding the ones in movie_list
+    # recommended_movies = list(movies_df['title'][top_indexes])
+    # recommended_movies = [movie for movie in recommended_movies if movie not in movie_list]
+
+    # return recommended_movies[:top_n]
+
+        # Assuming movies_df and ratings_df are the DataFrames containing movie and rating information
 
     # Get movieIds from movie_list
     movie_ids = pred_movies(movie_list)
@@ -162,11 +193,17 @@ def collab_model(movie_list,top_n=10):
     # Convert utility matrix to a sparse matrix
     selected_users_sparse = csr_matrix(selected_users.fillna(0))
 
+    print("Shape of selected_users_sparse:", selected_users_sparse.shape)
+
     # Compute cosine similarity matrix using sparse matrices
     cosine_sim_sparse = cosine_similarity(selected_users_sparse)
 
+    print("Shape of cosine_sim_sparse:", cosine_sim_sparse.shape)
+
     # Get indices of movies in movie_list
     movie_indices = movies_df[movies_df['movieId'].isin(movie_ids)].index
+
+    print("Movie indices:", movie_indices)
 
     # Calculate the scores based on cosine similarity with movie_list movies
     scores = cosine_sim_sparse[:, movie_indices].sum(axis=1)
