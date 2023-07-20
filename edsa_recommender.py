@@ -54,7 +54,7 @@ def main():
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
     # st.image("resources/imgs/WhatsApp Image 2023-07-17 at 12.56.13.jpg",)
-    page_options = ["Instruction & Overview","Recommender System",'Insights', 'Contact Us']
+    page_options = ["Recommender System","Instruction & Overview",'Insights', 'Contact Us']
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
