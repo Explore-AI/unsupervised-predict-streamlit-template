@@ -118,31 +118,60 @@ def collab_model(movie_list,top_n=10):
 
     """
 
-    indices = pd.Series(movies_df['title'])
+    # indices = pd.Series(movies_df['title'])
+    # movie_ids = pred_movies(movie_list)
+    # df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
+    # for i in movie_ids :
+    #     df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
+    # # Getting the cosine similarity matrix
+    # cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
+    # idx_1 = indices[indices == movie_list[0]].index[0]
+    # idx_2 = indices[indices == movie_list[1]].index[0]
+    # idx_3 = indices[indices == movie_list[2]].index[0]
+    # # Creating a Series with the similarity scores in descending order
+    # rank_1 = cosine_sim[idx_1]
+    # rank_2 = cosine_sim[idx_2]
+    # rank_3 = cosine_sim[idx_3]
+    # # Calculating the scores
+    # score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
+    # score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
+    # score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
+    #  # Appending the names of movies
+    # listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+    # recommended_movies = []
+    # # Choose top 50
+    # top_50_indexes = list(listings.iloc[1:50].index)
+    # # Removing chosen movies
+    # top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
+    # for i in top_indexes[:top_n]:
+    #     recommended_movies.append(list(movies_df['title'])[i])
+    # return recommended_movies
+
+    # Assuming movies_df and ratings_df are the DataFrames containing movie and rating information
+
+    # Get movieIds from movie_list
     movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
-    recommended_movies = []
-    # Choose top 50
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies_df['title'])[i])
-    return recommended_movies
+
+    # Creating a utility matrix with users as rows and movies as columns
+    utility_matrix = ratings_df.pivot(index='userId', columns='movieId', values='rating')
+
+    # Filter rows corresponding to movie_ids
+    selected_users = utility_matrix.loc[movie_ids]
+
+    # Compute cosine similarity matrix
+    cosine_sim = cosine_similarity(selected_users.fillna(0))
+
+    # Get indices of movies in movie_list
+    movie_indices = movies_df[movies_df['movieId'].isin(movie_ids)].index
+
+    # Calculate the scores based on cosine similarity with movie_list movies
+    scores = cosine_sim[:, movie_indices].sum(axis=1)
+
+    # Sort movies based on scores in descending order
+    top_indexes = np.argsort(scores)[::-1]
+
+    # Get recommended movies excluding the ones in movie_list
+    recommended_movies = list(movies_df['title'][top_indexes])
+    recommended_movies = [movie for movie in recommended_movies if movie not in movie_list]
+
+    return recommended_movies[:top_n]
