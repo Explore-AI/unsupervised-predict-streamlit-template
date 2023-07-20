@@ -87,9 +87,9 @@ def main():
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
-                except:
-                    st.error("Oops! Looks like this algorithm does't work.\
-                              We'll need to fix it!")
+                except Exception as e:
+                    st.error("Oops! An error occurred while running the algorithm.")
+                    st.error(str(e))
 
 
         if sys == 'Collaborative Based Filtering':
