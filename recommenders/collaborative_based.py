@@ -36,10 +36,11 @@ from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
+from scipy.sparse import csr_matrix
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
-ratings_df = pd.read_csv('resources/data/ratings_2.csv')
+ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
@@ -152,20 +153,23 @@ def collab_model(movie_list,top_n=10):
     # Get movieIds from movie_list
     movie_ids = pred_movies(movie_list)
 
-    # Creating a utility matrix with users as rows and movies as columns
+    # Create a utility matrix with users as rows and movies as columns
     utility_matrix = ratings_df.pivot(index='userId', columns='movieId', values='rating')
 
     # Filter rows corresponding to movie_ids
     selected_users = utility_matrix.loc[movie_ids]
 
-    # Compute cosine similarity matrix
-    cosine_sim = cosine_similarity(selected_users.fillna(0))
+    # Convert utility matrix to a sparse matrix
+    selected_users_sparse = csr_matrix(selected_users.fillna(0))
+
+    # Compute cosine similarity matrix using sparse matrices
+    cosine_sim_sparse = cosine_similarity(selected_users_sparse)
 
     # Get indices of movies in movie_list
     movie_indices = movies_df[movies_df['movieId'].isin(movie_ids)].index
 
     # Calculate the scores based on cosine similarity with movie_list movies
-    scores = cosine_sim[:, movie_indices].sum(axis=1)
+    scores = cosine_sim_sparse[:, movie_indices].sum(axis=1)
 
     # Sort movies based on scores in descending order
     top_indexes = np.argsort(scores)[::-1]
