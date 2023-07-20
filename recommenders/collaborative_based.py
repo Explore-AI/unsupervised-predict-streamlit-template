@@ -102,6 +102,8 @@ def pred_movies(movie_list):
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def collab_model(movie_list,top_n=10):
+
+    print('We just entered the collab funtion')
     """Performs Collaborative filtering based upon a list of movies supplied
        by the app user.
 
@@ -183,17 +185,22 @@ def collab_model(movie_list,top_n=10):
 
     # Get movieIds from movie_list
     movie_ids = pred_movies(movie_list)
+    print('movie_ids PASSED')
 
     # Create a utility matrix with users as rows and movies as columns
     utility_matrix = ratings_df.pivot(index='userId', columns='movieId', values='rating')
+    print('Util matrix done')
 
     # Filter rows corresponding to movie_ids
     selected_users = utility_matrix.loc[movie_ids]
+    print('Util matrix filtering done')
 
     # Convert utility matrix to a sparse matrix
     selected_users_sparse = csr_matrix(selected_users.fillna(0))
+    print('Converting util to sparse matrix done')
 
     print("Shape of selected_users_sparse:", selected_users_sparse.shape)
+    
 
     # Compute cosine similarity matrix using sparse matrices
     cosine_sim_sparse = cosine_similarity(selected_users_sparse)
