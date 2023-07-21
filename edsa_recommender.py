@@ -34,6 +34,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import warnings
+import wordcloud
+from wordcloud import WordCloud
 
 # Ignore FutureWarning
 warnings.simplefilter(action='ignore', category=FutureWarning)
@@ -48,6 +50,9 @@ title_list = load_movie_titles('resources/data/movies.csv')
 gen=pd.read_csv("resources/data/aggregated_rating_streamlit.csv")
 mov=pd.read_csv("resources/data/movie_details_average.csv")
 pie=pd.read_csv("resources/data/gen_only.csv")
+movie_df = pd.read_csv('resources/data/movie_insights_3.csv')
+tag_df = pd.read_csv('resources/data/tag_insights.csv')
+
 # App declaration
 def main():
 
@@ -199,120 +204,120 @@ def main():
             ls="True"
             btn=st.button("Explore")
 
-        if btn:
-            col6,col7=st.columns([10,10])
-            g_count=pie['genres'].value_counts()
-            if act:
-                ls=ls+"& gen['Genres'].str.contains(\"Action\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Action")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Action'
-            if war:
-                ls=ls+"& gen['Genres'].str.contains(\"War\")"
-                df_selected_genre = mov[mov['genres'].str.contains("War")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'War'
-            if rom:
-                ls=ls+"& gen['Genres'].str.contains(\"Romance\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Romance")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Romance'
-            if com:
-                ls=ls+"& gen['Genres'].str.contains(\"Comedy\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Comedy")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Comedy'
-            if drm:
-                ls=ls+"& gen['Genres'].str.contains(\"Drama\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Drama")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Drama'
-            if adv:
-                ls=ls+"& gen['Genres'].str.contains(\"Adventure\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Adventure")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Adventure'
-            if sf:
-                ls=ls+"& gen['Genres'].str.contains(\"Sci-Fi\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Sci-Fi")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Sci-Fi'
-            if thr:
-                ls=ls+"& gen['Genres'].str.contains(\"Thriller\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Thriller")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Thriller'
-            if ani:
-                ls=ls+"& gen['Genres'].str.contains(\"Animation\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Animation")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Animation'
-            if doc:
-                ls=ls+"& gen['Genres'].str.contains(\"Documentary\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Documentary")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Documentary'
-            if chi:
-                ls=ls+"& gen['Genres'].str.contains(\"Children\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Children")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Children'
-            if fan:
-                ls=ls+"& gen['Genres'].str.contains(\"Fantasy\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Fantasy")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Fantasy'
-            if cri:
-                ls=ls+"& gen['Genres'].str.contains(\"Crime\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Crime")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Crime'
-            if hor:
-                ls=ls+"& gen['Genres'].str.contains(\"Horror\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Horror")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Horror'
-            if mys:
-                ls=ls+"& gen['Genres'].str.contains(\"Mystery\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Mystery")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Mystery'
-            if im:
-                ls=ls+"& gen['Genres'].str.contains(\"IMAX\")"
-                df_selected_genre = mov[mov['genres'].str.contains("IMAX")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'IMAX'
-            if mus:
-                ls=ls+"& gen['Genres'].str.contains(\"Musical\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Musical")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Musical'
-            if wes:
-                ls=ls+"& gen['Genres'].str.contains(\"Western\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Western")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Western'
-            if fil:
-                ls=ls+"& gen['Genres'].str.contains(\"Film-Noir\")"
-                df_selected_genre = mov[mov['genres'].str.contains("Film-Noir")]
-                df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
-                highlight_genre = 'Film-Noir'
-            with col6:
-                exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
-            with col7:
-                st.line_chart(df_genre_count)
+            if btn:
+                col6,col7=st.columns([10,10])
+                g_count=pie['genres'].value_counts()
+                if act:
+                    ls=ls+"& gen['Genres'].str.contains(\"Action\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Action")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Action'
+                if war:
+                    ls=ls+"& gen['Genres'].str.contains(\"War\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("War")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'War'
+                if rom:
+                    ls=ls+"& gen['Genres'].str.contains(\"Romance\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Romance")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Romance'
+                if com:
+                    ls=ls+"& gen['Genres'].str.contains(\"Comedy\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Comedy")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Comedy'
+                if drm:
+                    ls=ls+"& gen['Genres'].str.contains(\"Drama\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Drama")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Drama'
+                if adv:
+                    ls=ls+"& gen['Genres'].str.contains(\"Adventure\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Adventure")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Adventure'
+                if sf:
+                    ls=ls+"& gen['Genres'].str.contains(\"Sci-Fi\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Sci-Fi")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Sci-Fi'
+                if thr:
+                    ls=ls+"& gen['Genres'].str.contains(\"Thriller\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Thriller")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Thriller'
+                if ani:
+                    ls=ls+"& gen['Genres'].str.contains(\"Animation\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Animation")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Animation'
+                if doc:
+                    ls=ls+"& gen['Genres'].str.contains(\"Documentary\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Documentary")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Documentary'
+                if chi:
+                    ls=ls+"& gen['Genres'].str.contains(\"Children\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Children")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Children'
+                if fan:
+                    ls=ls+"& gen['Genres'].str.contains(\"Fantasy\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Fantasy")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Fantasy'
+                if cri:
+                    ls=ls+"& gen['Genres'].str.contains(\"Crime\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Crime")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Crime'
+                if hor:
+                    ls=ls+"& gen['Genres'].str.contains(\"Horror\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Horror")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Horror'
+                if mys:
+                    ls=ls+"& gen['Genres'].str.contains(\"Mystery\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Mystery")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Mystery'
+                if im:
+                    ls=ls+"& gen['Genres'].str.contains(\"IMAX\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("IMAX")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'IMAX'
+                if mus:
+                    ls=ls+"& gen['Genres'].str.contains(\"Musical\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Musical")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Musical'
+                if wes:
+                    ls=ls+"& gen['Genres'].str.contains(\"Western\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Western")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Western'
+                if fil:
+                    ls=ls+"& gen['Genres'].str.contains(\"Film-Noir\")"
+                    df_selected_genre = mov[mov['genres'].str.contains("Film-Noir")]
+                    df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
+                    highlight_genre = 'Film-Noir'
+                with col6:
+                    exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
+                with col7:
+                    st.line_chart(df_genre_count)
 
-            col8,col9=st.columns([10,10])
-            with col8:
-                fig, ax = plt.subplots()
-                ax.pie(g_count.values, labels=g_count.index)
-                highlight_index = g_count.index.tolist().index(highlight_genre)
-                highlighted_wedge = ax.patches[highlight_index]
-                highlighted_wedge.set_edgecolor('white')
-                highlighted_wedge.set_linewidth(3)
-                highlighted_wedge.set_alpha(1)
-                ax.axis('equal')
-                st.pyplot(fig)
+                col8,col9=st.columns([10,10])
+                with col8:
+                    fig, ax = plt.subplots()
+                    ax.pie(g_count.values, labels=g_count.index)
+                    highlight_index = g_count.index.tolist().index(highlight_genre)
+                    highlighted_wedge = ax.patches[highlight_index]
+                    highlighted_wedge.set_edgecolor('white')
+                    highlighted_wedge.set_linewidth(3)
+                    highlighted_wedge.set_alpha(1)
+                    ax.axis('equal')
+                    st.pyplot(fig)
 
     #ls="True"
     #if page_selection == "Movie Insights":
@@ -330,8 +335,69 @@ def main():
             #st.success("You have searched for the movie **{}**.".format(search_term))
             ls=ls+"& mov['title'].str.contains(search_term)"
             exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+        
+        with tab3:
 
+            # Get unique years from the DataFrame
+            years = sorted(movie_df['year'].unique())
 
+            # Creating a sidebar with the year dropdown
+            selected_year = st.selectbox("Select a year", years)
+
+            # Filtering the DataFrame for the selected year
+            selected_year_df = movie_df[movie_df['year'] == selected_year]
+
+            # Sorting the DataFrame by rating in descending order and get the top ten movies
+            top_movies_df = selected_year_df.nlargest(10, 'rating' )
+
+            # Creating the bar chart
+            fig, ax = plt.subplots(figsize=(12, 6))
+
+            # Plotting the horizontal bar chart
+            ax.barh(top_movies_df['title'], top_movies_df['rating'], color='skyblue')
+
+            # Setting the font size for x and y-axis labels
+            ax.tick_params(axis='x', labelsize=14)  # Set the font size for x-axis labels
+            ax.tick_params(axis='y', labelsize=14)  # Set the font size for y-axis labels
+
+            # Setting the x and y-axis labels and the title
+            ax.set_xlabel('Rating', fontsize=16)   # Set the font size for x-axis label
+            ax.set_ylabel('Movie Title', fontsize=16)  # Set the font size for y-axis label
+            ax.set_title(f'Top Movies of {selected_year}', fontsize=18)  # Set the font size for the title
+
+            # Display the chart
+            plt.tight_layout()  # Ensures all elements fit within the figure area
+
+            # Desplaying the bar chart
+            st.pyplot(fig)
+
+            # Show the top ten movie titles in a table
+            st.write("Top Ten Movie Titles:")
+            st.table(top_movies_df[['title']])
+
+            # # Get the unique years from the DataFrame
+            unique_years = tag_df['year'].unique()
+
+            st.subheader('Select a year below for the Word Cloud of tags asociated with the movies released in that year.')
+
+            # Ask the user to select a year from the available options
+            selected_year = st.selectbox("Select a year:", unique_years)
+
+            # Filter the DataFrame to get the tags for the selected year
+            selected_tags = tag_df[tag_df['year'] == selected_year]['tag']
+
+            # Combine all the tags into a single string
+            tags_text = " ".join(selected_tags)
+
+            # Create a WordCloud based on the combined tags text
+            wordcloud = WordCloud(width=800, height=400, background_color='black').generate(tags_text)
+
+            # Display the WordCloud using Streamlit
+            st.title(f"Word Cloud for Movies in {selected_year}")
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            st.pyplot(plt)
 
     if page_selection == "Contact Us":
                 # Define the company details
