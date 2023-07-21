@@ -41,6 +41,19 @@ from recommenders.content_based import content_model
 title_list = load_movie_titles('resources/data/movies.csv')
 movies_df = pd.read_csv('resources/data/rated_movies.csv')
 # App declaration
+
+def extract_year_from_title(title):
+    year_start = title.find("(") + 1
+    year_end = title.find(")")
+    return title[year_start:year_end]
+
+
+# Extract year from the title and create a new "year" column
+movies_df['year'] = movies_df['title'].apply(extract_year_from_title)
+
+# Convert the "year" column to integer type
+movies_df['year'] = pd.to_numeric(movies_df['year'], errors='coerce')
+
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
@@ -104,16 +117,18 @@ def main():
 
         # Sidebar - Movie Search
         genre = st.sidebar.text_input('Enter a Genre (e.g., Action, Drama, Comedy):')
-
+        title = st.sidebar.text_input('Enter a Movie Title:')
             # Function to filter movies based on user criteria
-        def filter_movies(df, genre=None):
+        def filter_movies(df, genre=None, title=None):
             if genre:
                 df = df[df['genres'].str.contains(genre, case=False)]
+            if title:
+                df = df[df['title'].str.contains(title, case=False)]
             df = df.sort_values(by='rating', ascending=False)
             return df
 
             # Filter the movies based on user criteria
-        filtered_movies = filter_movies(movies_df, genre)
+        filtered_movies = filter_movies(movies_df, genre=genre, title=title)
 
             # Display the filtered movie results
         st.table(filtered_movies[['title', 'genres', 'rating']])
@@ -177,19 +192,10 @@ def main():
 
 #--------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------
-    if page_selection == "EDA":
-        st.title("Exploratory Data Analysis (EDA)")
-
-        # Display summary statistics or any other EDA you want to show
-        st.subheader("Summary Statistics")
-        st.write(movies_df.describe())
-
-        # You can add other EDA visualizations and analysis here
-
-    # -------------------------------------------------------------------
+    
 
     # Add code for "About Us" page
-    elif page_selection == "About Us":
+    if page_selection == "About Us":
         st.title("About Us")
 
         # Insert information about your team, project, or organization
@@ -207,6 +213,48 @@ def main():
         """)
 
 
+#--------------------------------------------------------------------------------------------------
+    elif page_selection == "EDA":
+        st.title("Exploratory Data Analysis (EDA)")
+
+        # Display summary statistics or any other EDA you want to show
+        #st.subheader("Summary Statistics")
+        #st.write(movies_df.describe())
+
+        st.subheader("Interactive Movie Filter")
+
+        # Sidebar - Interactive Filters
+        st.sidebar.title("Filter Options")
+
+        # Filter by Genre
+        genre_filter = st.sidebar.multiselect("Filter by Genre", movies_df['genres'].unique())
+
+        # Filter by Rating
+        min_rating, max_rating = st.sidebar.slider("Filter by Rating", min_value=0.0, max_value=5.0, value=(0.0, 5.0))
+
+        # Filter by Release Year
+        #min_year, max_year = st.sidebar.slider("Filter by Release Year", min_value=int(movies_df['year'].min()), max_value=int(movies_df['year'].max()), value=(int(movies_df['year'].min()), int(movies_df['year'].max())))
+        # Get the range of the release years
+        min_year, max_year = int(movies_df['year'].min()), int(movies_df['year'].max())
+
+        # Filter by Release Year
+        min_year, max_year = st.sidebar.slider("Filter by Release Year", min_value=min_year, max_value=max_year, value=(min_year, max_year))
+        
+        # Apply filters to the DataFrame
+        filtered_movies = movies_df[
+            (movies_df['genres'].isin(genre_filter)) &
+            (movies_df['rating'] >= min_rating) & (movies_df['rating'] <= max_rating) &
+            (movies_df['year'] >= min_year) & (movies_df['year'] <= max_year)
+        ]
+
+        # Display the filtered movie results
+        st.dataframe(filtered_movies)
+
+
+
+        # You can add other EDA visualizations and analysis here
+
+    # -------------------------------------------------------------------
 
 
 
