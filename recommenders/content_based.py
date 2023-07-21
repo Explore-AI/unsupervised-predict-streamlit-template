@@ -33,6 +33,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
@@ -78,35 +79,29 @@ def content_model(movie_list,top_n=10):
         Titles of the top-n movie recommendations to the user.
 
     """
-    # Initializing the empty list of recommended movies
-    recommended_movies = []
-    data = data_preprocessing(27000)
-    # Instantiating and generating the count matrix
-    count_vec = CountVectorizer()
-    count_matrix = count_vec.fit_transform(data['keyWords'])
-    indices = pd.Series(data['title'])
-    cosine_sim = cosine_similarity(count_matrix, count_matrix)
-    # Getting the index of the movie that matches the title
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-    # Getting the indexes of the 10 most similar movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+   # Convert the movie genres into a single string for each movie
+    movies['genres'] = movies['genres'].str.replace('|', ' ')
 
-    # Store movie names
-    recommended_movies = []
-    # Appending the names of movies
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies['title'])[i])
+    # Combine genres to create movie descriptions
+    movies['description'] = movies['genres']
+
+    # Convert the movie descriptions into a Tfidf matrix
+    tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+    tfidf_matrix = tfidf_vectorizer.fit_transform(movies['description'])
+
+    # Get the indices of the selected favorite movies
+    idx_movies = movies[movies['title'].isin(movie_list)].index.tolist()
+
+    # Calculate similarity scores between the selected favorite movies and all other movies
+    similarity_scores = cosine_similarity(tfidf_matrix[idx_movies], tfidf_matrix)
+
+    # Get the average similarity scores for each movie across the selected favorite movies
+    avg_similarity_scores = similarity_scores.mean(axis=0)
+
+    # Get the indices of the top_n recommended movies based on the average similarity scores
+    top_n_indices = avg_similarity_scores.argsort()[::-1][:top_n]
+
+    # Get the titles of the top_n recommended movies
+    recommended_movies = movies.iloc[top_n_indices]['title'].tolist()
+
     return recommended_movies

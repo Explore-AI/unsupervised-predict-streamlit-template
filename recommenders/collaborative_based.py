@@ -118,31 +118,26 @@ def collab_model(movie_list,top_n=10):
 
     """
 
-    indices = pd.Series(movies_df['title'])
+    # Load the pre-trained model
+    model = pickle.load(open('resources/models/ALS_model.pkl', 'rb'))
+
+    # Prepare the data for prediction
     movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+    user_id = max(movie_ids) + 1
+    user_ratings = [(user_id, movie_id, 0) for movie_id in movie_ids]
+
+    # Get prediction scores for all movies
+    predictions = []
+    for movie_id in movies_df['movieId'].values:
+        predicted_rating = model.predict(user_id, movie_id).est
+        predictions.append((movie_id, predicted_rating))
+
+    # Sort predictions in descending order of ratings
+    predictions.sort(key=lambda x: x[1], reverse=True)
+
+    # Get top_n recommended movie titles
     recommended_movies = []
-    # Choose top 50
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies_df['title'])[i])
+    for movie_id, _ in predictions[:top_n]:
+        recommended_movies.append(movies_df[movies_df['movieId'] == movie_id]['title'].values[0])
+
     return recommended_movies
