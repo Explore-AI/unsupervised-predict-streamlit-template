@@ -133,10 +133,10 @@ def main():
         st.subheader("About the App")
         st.write("This app helps you discover personalized movie recommendations based on your preferences.")
         st.write("On the left of this page you will find a side-bar with a dropdown menu for the pages available, these pages include:")
-        st.write("1. Instruction and Overview - The current page with the information about how to use this App.")
-        st.write("2. Recommender System - This is where you will get your recommended movies.")
-        st.write("3. Insights - This is were you get the insigts about the movies and genres. ")
-        st.write("4. Contact Us - This page has the App developer team information.")
+        st.write("1. **Recommender System** - This is where you will get your recommended movies.")
+        st.write("2. **Instruction and Overview** - The current page with the information about how to use this App.")
+        st.write("3. **Insights** - This is were you get the insigts about the movies and genres. ")
+        st.write("4. **Contact Us** - This page has the App developer team information.")
 
         
         # Defining a list of image paths
