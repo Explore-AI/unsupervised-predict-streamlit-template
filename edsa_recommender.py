@@ -39,15 +39,44 @@ from recommenders.content_based import content_model
 import base64
 from pathlib import Path
 
+# styling
+app_style = """
+<style>
+
+</style>
+
+"""
+
+st.markdown(app_style, unsafe_allow_html=True)
+
+# convert image to text readable
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
 def img_to_html(img_path):
-    img_html = "<img src='data:image/png;base64,{}' class='img-fluid' style='border-radius: 50%; width: 80%'>".format(
+    img_html = "<img src='data:image/png;base64,{}' class='img-fluid' style='border-radius: 50%; width: 100%'>".format(
       img_to_bytes(img_path)
     )
     return img_html
+
+# set app background
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+        <style>
+            .stApp {{
+                background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+                background-size: cover
+            }}
+        </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+#add_bg_from_local('resources/imgs/moviebg.jpg')
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
@@ -116,7 +145,7 @@ def main():
         #st.title("Solution Overview")
         #st.write("Describe your winning approach on this page")
         
-        #st.title("The ReelDeal")
+        #st.title("ReelGenius")
         #st.header('This is a header')
         
         st.header('Problem Statement')
@@ -189,47 +218,34 @@ Are you tired of endlessly scrolling through streaming platforms, trying to find
     
     if page_selection == "About Us":
         st.image('resources/imgs/2.png')
-        st.write('''
-Welcome to The ReelDeal, your ultimate destination for personalized movie recommendations! We are a cutting-edge technology company dedicated to revolutionizing the way you discover and enjoy movies. Our team of experts is passionate about film and committed to helping you find your next cinematic gem.
-
-At The ReelDeal, we understand that the world of movies can be overwhelming. With thousands of films released each year across various genres and platforms, it can be challenging to navigate through the vast sea of choices. That's where we come in. We have developed state-of-the-art custom movie recommender systems that take into account your unique tastes, preferences, and viewing history to deliver highly tailored recommendations just for you.
-
-Our sophisticated algorithms analyze an extensive database of movies, considering factors such as genre, director, actors, plot elements, and user reviews. By understanding your individual cinematic preferences and patterns, we curate a selection of films that align with your interests, ensuring that every movie you watch is a perfect match.
-
-So, why settle for generic movie suggestions when you can have a tailored cinematic experience with The ReelDeal? Join our community of movie enthusiasts today and unlock a world of captivating stories, unforgettable characters, and boundless entertainment. Let us be your trusted companion in the realm of movies, guiding you towards the films that will truly speak to you. Get ready to discover, be inspired, and embark on a thrilling reel journey with The ReelDeal!''')
         
-        st.header('Our Creative Team')
-        col_team_1, col_team_2, col_team_3,col_team_4, col_team_5 = st.columns([0.125,0.25,0.25,0.25,0.125])
-        with col_team_2:
+        st.markdown("<div style='background-color: rgba(246, 246, 246, 1); padding: 20px; margin: 0px 0px 25px 0px; border-radius: 10px; text-align:justify'><p>Welcome to The ReelDeal, your ultimate destination for personalized movie recommendations! We are a cutting-edge technology company dedicated to revolutionizing the way you discover and enjoy movies. Our team of experts is passionate about film and committed to helping you find your next cinematic gem.<br><br>At The ReelDeal, we understand that the world of movies can be overwhelming. With thousands of films released each year across various genres and platforms, it can be challenging to navigate through the vast sea of choices. That's where we come in. We have developed state-of-the-art custom movie recommender systems that take into account your unique tastes, preferences, and viewing history to deliver highly tailored recommendations just for you.<br><br>Our sophisticated algorithms analyze an extensive database of movies, considering factors such as genre, director, actors, plot elements, and user reviews. By understanding your individual cinematic preferences and patterns, we curate a selection of films that align with your interests, ensuring that every movie you watch is a perfect match.<br><br>So, why settle for generic movie suggestions when you can have a tailored cinematic experience with The ReelDeal? Join our community of movie enthusiasts today and unlock a world of captivating stories, unforgettable characters, and boundless entertainment. Let us be your trusted companion in the realm of movies, guiding you towards the films that will truly speak to you. Get ready to discover, be inspired, and embark on a thrilling reel journey with The ReelDeal!</div>", unsafe_allow_html=True)
+        
+        st.markdown("<div style='background-color: transparent; margin: 40px 0 20px 0'><h2 style='text-align:center'>Our Creative Team</h2></div>", unsafe_allow_html=True)
+        col_team_1, col_team_2, col_team_3, col_team_4 = st.columns(4)
+        with col_team_1:
             st.markdown(img_to_html('resources/imgs/Kobus.jpg'), unsafe_allow_html=True)
-            st.write('**Kobus Le Roux**')
-            st.write('Chairman')
-        with col_team_3:
-            st.markdown(img_to_html('resources/imgs/Tebogo.jpg'), unsafe_allow_html=True)
-            st.write('**Tebogo Khoza**')
-            st.write('Junior Developer')
-        with col_team_4:
-            st.markdown(img_to_html('resources/imgs/Devon.jpg'), unsafe_allow_html=True)
-            st.write('**Devon Woodman**')
-            st.write('Technical Director')
-        
-        col_team_4, col_team_5, col_team_6, col_team_7 = st.columns(4)
-        with col_team_4:
-            st.markdown(img_to_html('resources/imgs/Nhlanhla.jpg'), unsafe_allow_html=True)
-            st.write('**Nhlanhla Mthembu**')
-            st.write('Senior Developer')
-        with col_team_5:
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Kobus Le Roux</b><br>Chairman</p></div>", unsafe_allow_html=True)
+        with col_team_2:
             st.markdown(img_to_html('resources/imgs/Cara.jpg'), unsafe_allow_html=True)
-            st.write('**Cara Brits**')
-            st.write('Design Director')
-        with col_team_6:
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Cara Brits</b><br>Design Director</p></div>", unsafe_allow_html=True)
+        with col_team_3:
             st.markdown(img_to_html('resources/imgs/Koketso.jpg'), unsafe_allow_html=True)
-            st.write('**Koketso Maraba**')
-            st.write('Data Scientist')
-        with col_team_7:
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Koketso Maraba</b><br>Data Scientist</p></div>", unsafe_allow_html=True)
+        with col_team_4:
             st.markdown(img_to_html('resources/imgs/Mxolisi.jpg'), unsafe_allow_html=True)
-            st.write('**Mxolisi Zulu**')
-            st.write('Data Analist')
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Mxolisi Zulu</b><br>Data Analyst</p></div>", unsafe_allow_html=True)
+            
+        col_team_5, col_team_6, col_team_7, col_team_8, col_team_9 = st.columns([0.125,0.25,0.25,0.25,0.125])
+        with col_team_6:
+            st.markdown(img_to_html('resources/imgs/Devon.jpg'), unsafe_allow_html=True)
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Devon Woodman</b><br>Technical Director</p></div>", unsafe_allow_html=True)
+        with col_team_7:
+            st.markdown(img_to_html('resources/imgs/Nhlanhla.jpg'), unsafe_allow_html=True)
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Nhlanhla Mthembu</b><br>Senior Developer</p></div>", unsafe_allow_html=True)
+        with col_team_8:
+            st.markdown(img_to_html('resources/imgs/Tebogo.jpg'), unsafe_allow_html=True)
+            st.markdown("<div style='background-color: transparent; margin-top: 10px'><p style='text-align:center'><b>Tebogo Khoza</b><br>Junior Developer</p></div>", unsafe_allow_html=True)
         
         with st.form("feedback_form"):
             col_contact_1, col_contact_2 = st.columns(2)
@@ -256,11 +272,11 @@ So, why settle for generic movie suggestions when you can have a tailored cinema
                     
                 submit_contact = st.form_submit_button("Submit")
                 
-        df = pd.DataFrame(
-            [[-33.924852, 18.416760]],
-            columns=['lat', 'lon'])
+            df = pd.DataFrame(
+                [[-33.924852, 18.416760]],
+                columns=['lat', 'lon'])
 
-        st.map(df, zoom=13)
+            st.map(df, zoom=13)
             
     if page_selection == "App Feedback":
         st.title("App Feedback")
@@ -293,7 +309,7 @@ So, why settle for generic movie suggestions when you can have a tailored cinema
                     )
                 col_feedback_5, col_feedback_6 = st.columns(2)
                 with col_feedback_5:
-                    feedback_description = st.text_area('Description', '''''')
+                    feedback_description = st.text_area('Description', '''''', height=400)
                 with col_feedback_6:
                     tab_low, tab_medium, tab_high = st.tabs(["Low", "Medium", "High"])
                     with tab_low:
