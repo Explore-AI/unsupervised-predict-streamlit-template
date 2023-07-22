@@ -52,15 +52,24 @@ mov=pd.read_csv("resources/data/movie_details_average.csv")
 pie=pd.read_csv("resources/data/gen_only.csv")
 movie_df = pd.read_csv('resources/data/movie_insights_3.csv')
 tag_df = pd.read_csv('resources/data/tag_insights.csv')
-rating_count = pd.read_csv('resources/data/rating_count.csv')
+
+# Displaying the logo image
+
+log = "resources/imgs/logo.jpg"
+#st.image(image, width=200)
+
+cola, mid, colb = st.columns([25,1,40])
+with mid:
+	st.image(log, width=100)
 
 # App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    # st.image("resources/imgs/WhatsApp Image 2023-07-17 at 12.56.13.jpg",)
     page_options = ["Recommender System","Instruction & Overview",'Insights', 'Contact Us']
+    with st.sidebar:
+        st.image(log, width=250)
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -117,16 +126,16 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Instruction & Overview":
         st.title("Welcome to ***DATAMIN*** Movie Recommender App 🎥🍿")
-        st.image("resources/imgs/Movie-Recommendation-System-with-Streamlit-and-Python-ML-1.jpg")
+        st.image("resources/imgs/Movie-Recommendation-System-with-Streamlit-and-Python-ML-1.jpg",)
         st.write("Hi there🙋‍♂️, looking for that nice thing to watch without having to go over the hustle of scrolling for movies? Relax, we've got you.🤗")
         st.write("")
         st.subheader("About the App")
         st.write("This app helps you discover personalized movie recommendations based on your preferences.")
         st.write("On the left of this page you will find a side-bar with a dropdown menu for the pages available, these pages include:")
-        st.write("1. **Instruction and Overview** - The current page with the information about how to use this App.")
-        st.write("2. **Recommender System** - This is where you will get your recommended movies.")
-        st.write("3. **Insights** - This is were you get the insigts about the movies and genres. ")
-        st.write("4. **Contact Us** - This page has the App developer team information.")
+        st.write("1. Instruction and Overview - The current page with the information about how to use this App.")
+        st.write("2. Recommender System - This is where you will get your recommended movies.")
+        st.write("3. Insights - This is were you get the insigts about the movies and genres. ")
+        st.write("4. Contact Us - This page has the App developer team information.")
 
         
         # Defining a list of image paths
@@ -161,8 +170,8 @@ def main():
 
         st.subheader("How to Use the App")
         st.write("1. Navigate to the 'Recommender System' page.")
-        st.write("2. Select the type of filtering (Content-based or Collaborative) for your movie choices.")
-        st.write("2. Select your three favourated movies.")
+        st.write("2. Select the type of filtering (Content-based or Collaborative) for you movie choices.")
+        st.write("2. Select you three favourated movies.")
         st.write("2. Press 'Recommand'.")
         st.write("3. Receive personalized movie recommendations based on your favourite movies.")
 
@@ -172,8 +181,6 @@ def main():
     if page_selection == "Insights":
 
        # st.markdown("<h2 style=color:#3FBEBF;>Top Rated Movies By Genres</h2>",unsafe_allow_html=True)
-        # st.image("resources/imgs/insights-information.jpg",width=500)
-
 
         tab1,tab2,tab3=st.tabs(["Genres Insights","Movie Insights","Other Visuals"])
 
@@ -306,12 +313,10 @@ def main():
                     df_genre_count = df_selected_genre.groupby(df_selected_genre['year'])['genres'].count()
                     highlight_genre = 'Film-Noir'
                 with col6:
+                    st.write("<p style='text-align: center;'>Top Ranked Movies</p>", unsafe_allow_html=True)
                     exec("st.write(gen["+ls+"].sort_values(by=['rating'], ascending=False,ignore_index=True)[['Title']])")
                 with col7:
-                    st.line_chart(df_genre_count)
-
-                col8,col9=st.columns([10,10])
-                with col8:
+                    st.write("<p style='text-align: center;'>Proportion of the Genre</p>", unsafe_allow_html=True)
                     fig, ax = plt.subplots()
                     ax.pie(g_count.values, labels=g_count.index)
                     highlight_index = g_count.index.tolist().index(highlight_genre)
@@ -322,28 +327,81 @@ def main():
                     ax.axis('equal')
                     st.pyplot(fig)
 
+                col8,col9=st.columns([10,1])
+                with col8:
+                    st.write("<p style='text-align: center;'>Movies Releases Per Year</p>", unsafe_allow_html=True)
+                    st.line_chart(df_genre_count)
+
     #ls="True"
     #if page_selection == "Movie Insights":
        #st.write('Detailed explanation of the movie')
         with tab2:
+            years = sorted(movie_df['year'].unique())
+            selected_year1 = st.selectbox("Select a year", years,key="movie_In")
+            selected_year_df = movie_df[movie_df['year'] == selected_year1]
+            all_movies_df = selected_year_df.sort_values(by=["rating"], ascending=False,ignore_index=True)[["title"]]
+            st.write("List of Movies For the Year **{}**".format(selected_year1))
+            st.write(all_movies_df)
+
             with st.form(key='searchform'):
                 nav1,midn,nav2=st.columns([10,3,3])
                 with nav1:
-                    search_term=st.text_input("Search Movie")
+                    search_term=st.text_input("Which Movie You Want Details On?")
                 with nav2:
                     st.text(" ")
                     st.text(" ")
                     submit_search=st.form_submit_button(label='Search')
         if submit_search:
             #st.success("You have searched for the movie **{}**.".format(search_term))
+            
             ls=ls+"& mov['title'].str.contains(search_term)"
-            exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+            mov['title'] = mov['title'].fillna('Unknown').astype(str)
+            df_details=mov[mov['title'].str.contains(search_term,na=False)].sort_values(by=['year'], ascending=False,ignore_index=True)
+            df_details['year'] = df_details['year'].astype(int)
+            
+            #exec("st.write(mov["+ls+"].sort_values(by=['year'], ascending=False,ignore_index=True)[['title','rating','genres','year','director','runtime','budget','title_cast']])")
+            #df_details_dict=df_details.to
+            
+
+            def f_col(title,year,runtime,budget):
+                st.write("-------")
+                st.write("**Title:** ",title)
+                st.write("**Year:** ",str(year))
+                st.write("**Runtime:** ", str(runtime) + " Minutes")
+                st.write("**Budget:** ",budget)
+            
+            def s_col(director,title_cast):
+                st.write("---------")
+                st.write("**Director:** ",director)
+                st.write("**Casts:** ",title_cast)
+                
+            
+            for i, r in df_details.iterrows():
+                col10,col11=st.columns([10,10])
+                with col10:
+                    f_col(title=r['title'],year=r['year'],runtime=r['runtime'],budget=r['budget'])
+                        
+                        
+                with col11:
+                    s_col(director=r['director'],title_cast=r['title_cast'])
+
+            filtered_m = tag_df[tag_df['title'].str.contains(search_term)] 
+            selected_tags=filtered_m['tag']     
+            m_tags=" ".join(selected_tags)
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate(m_tags)
+
+            # Display the WordCloud using Streamlit
+            st.title(f"Word Cloud for the Movie {search_term}")
+            plt.figure(figsize=(10, 5))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            st.pyplot(plt)
         
         with tab3:
 
             # Get unique years from the DataFrame
-            years = sorted(movie_df['year'].unique(), reverse=True)
-            st.subheader('Select a year to see the top 10 rated movies for that year.')
+            #years = sorted(movie_df['year'].unique())
+
             # Creating a sidebar with the year dropdown
             selected_year = st.selectbox("Select a year", years)
 
@@ -366,7 +424,7 @@ def main():
             # Setting the x and y-axis labels and the title
             ax.set_xlabel('Rating', fontsize=16)   # Set the font size for x-axis label
             ax.set_ylabel('Movie Title', fontsize=16)  # Set the font size for y-axis label
-            ax.set_title(f'Top 10 Movies of {selected_year}', fontsize=18)  # Set the font size for the title
+            ax.set_title(f'Top Movies of {selected_year}', fontsize=18)  # Set the font size for the title
 
             # Display the chart
             plt.tight_layout()  # Ensures all elements fit within the figure area
@@ -378,47 +436,10 @@ def main():
             st.write("Top Ten Movie Titles:")
             st.table(top_movies_df[['title']])
 
-            #---------------------------------------------------------------------------------------------------#
-            # Create a dropdown to allow the user to select a year
-            years = sorted(rating_count['year'].unique(), reverse=True)
-            st.subheader('Select a year to see movies with the highest number of users that rated them for that year')
-            selected_year = st.selectbox('Select a year', years)
-            
-            # Filter the merged DataFrame based on the selected year
-            filtered_df = rating_count[rating_count['year'] == selected_year]
-
-            # Group the filtered DataFrame by movie title and count the number of unique users
-            movie_ratings_count = filtered_df.groupby('title')['userId'].nunique().reset_index()
-            movie_ratings_count = movie_ratings_count.rename(columns={'userId': 'user_count'})
-
-            # Sort the movies based on rating count in descending order
-            movie_ratings_count = movie_ratings_count.sort_values(by='user_count', ascending=False)
-
-            # Select only the top 10 movies (if there are more than 10)
-            if len(movie_ratings_count) > 10:
-                movie_ratings_count = movie_ratings_count.head(10)
-
-            # Create a horizontal bar chart
-            fig, ax = plt.subplots(figsize=(10, 8))
-            ax.barh(movie_ratings_count['title'], movie_ratings_count['user_count'], color='skyblue')
-
-            # Setting the font size for x and y-axis labels
-            ax.tick_params(axis='x', labelsize=12)  # Set the font size for x-axis labels
-            ax.tick_params(axis='y', labelsize=12)  # Set the font size for y-axis labels
-
-            ax.set_xlabel('Number of Users',fontsize=14)
-            ax.set_ylabel('Movie Title',fontsize=14)
-            ax.set_title(f'Top 10 Movies with Highest Rating Count in {selected_year}',fontsize=16)
-            plt.tight_layout()
-
-            # Display the bar chart in Streamlit
-            st.pyplot(fig)
-
-            #--------------------------------------------------------------------------------------------------------#
             # # Get the unique years from the DataFrame
-            unique_years = sorted(tag_df['year'].unique(), reverse=True)
+            unique_years = tag_df['year'].unique()
 
-            st.subheader('Select a year below for the Word Cloud of tags associated with the movies released in that year.')
+            st.subheader('Select a year below for the Word Cloud of tags asociated with the movies released in that year.')
 
             # Ask the user to select a year from the available options
             selected_year = st.selectbox("Select a year:", unique_years)
@@ -430,7 +451,7 @@ def main():
             tags_text = " ".join(selected_tags)
 
             # Create a WordCloud based on the combined tags text
-            wordcloud = WordCloud(width=900, height=500, background_color='black').generate(tags_text)
+            wordcloud = WordCloud(width=800, height=400, background_color='black').generate(tags_text)
 
             # Display the WordCloud using Streamlit
             st.title(f"Word Cloud for Movies in {selected_year}")
@@ -438,7 +459,6 @@ def main():
             plt.imshow(wordcloud, interpolation='bilinear')
             plt.axis('off')
             st.pyplot(plt)
-
 
     if page_selection == "Contact Us":
                 # Define the company details
