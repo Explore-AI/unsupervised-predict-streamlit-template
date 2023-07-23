@@ -45,7 +45,9 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","EDA","Solution Overview","About"]
+    
+ 
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -106,7 +108,54 @@ def main():
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
+    # Define the dark theme
+    if page_selection == "About":
+            # Page layout
+            st.title("About")
+            st.markdown("---")
+    
+         # Company Description
+            st.header("Welcome to SmrtByte Solutions!")
+            st.write("We are a leading technology solutions provider committed to delivering innovative software solutions that solve complex problems.")
+    
+    # Company Mission
+            st.header("Our Mission")
+            st.write("Our mission is to empower businesses and individuals by leveraging cutting-edge technologies to drive growth and success.")
+    
+    # Team Members
+            st.header("Our Team")
+            st.write("Meet the brilliant minds behind SmrtByte Solutions.")
+    
+    # Team Members' Profiles
+            #st.subheader("John Doe")
+            #st.image("john_doe.jpg", caption="Chief Technology Officer")
+            #st.write("John Doe is an experienced technologist with a passion for developing scalable and robust solutions.")
+    
+            st.subheader("The Team")
+            Tha = Image.open("resouces/imgs/tha.png")
+            st.image(Tha,use_column_width=False, clamp=False, width = 150, output_format="PNG")
+            #st.image('C:/Users/thabi/Downloads/Github Clone/unsupervised-predict-streamlit-template/resourcesimgs', use_column_width=True, caption='Lead Software Engineer') 
+            #st.write("Jane Smith is a skilled software engineer specializing in backend development and cloud architecture.")
+    
+    # Contact Information
+            st.header("Contact Us")
+            st.write("We'd love to hear from you! Get in touch with us:")
+            st.write("- Email: info@smrtbytesolutions.com")
+            st.write("- Phone: +1 123-456-7890")
+    
+    # Footer
+            st.markdown("---")
+            st.write("© 2023 SmrtByte Solutions. All rights reserved.")
 
+import streamlit as st
+
+# Adding an image to the sidebar
+#st.sidebar.image('C:/Users/thabi/Downloads/Github Clone/unsupervised-predict-streamlit-template/resources/imgs', use_column_width=True)
+
+
+# Rest of your Streamlit app code
+# ...
+ 
 
 if __name__ == '__main__':
     main()
