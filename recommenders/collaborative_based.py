@@ -39,7 +39,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
-ratings_df = pd.read_csv('resources/data/ratings_2.csv')
+ratings_df = pd.read_csv('~/unsupervised_data/edsa-movie-recommendation-predict/train.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
