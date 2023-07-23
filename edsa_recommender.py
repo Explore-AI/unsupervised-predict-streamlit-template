@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview","Business Proposal"]
+    page_options = ["Recommender System","Solution Overview","Business Proposal", "About Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -102,8 +102,7 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.image('resources/imgs/first.png', use_column_width= True)
-        st.image('resources/imgs/second.png', use_column_width= True)
+        st.image('resources/imgs/first.jpg', use_column_width= True)
         st.markdown(open('resources/About_solution.md').read())
         st.image('resources/imgs/third.jpg', use_column_width= True)
         st.markdown(open('resources/About2.md').read())
@@ -111,6 +110,9 @@ def main():
         st.markdown(open('resources/About3.md').read())
         st.image('resources/imgs/fifth.png', use_column_width= True)
         st.markdown(open('resources/About4.md').read())
+        st.markdown(open('resources/examples.md').read())
+        st.image('resources/imgs/netflix.jpg', use_column_width= True)
+        st.markdown(open('resources/benefits.md').read())
 
     if page_selection == "Business Proposal":
         st.title("advantages")
@@ -137,7 +139,7 @@ def main():
     st.markdown(page_bg_img , unsafe_allow_html=True)
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
-
-
+    
+    
 if __name__ == '__main__':
     main()
