@@ -154,28 +154,40 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.image('resources/imgs/header_image.jpg',use_column_width=True)
-        st.write("""
-    **Solution Overview: Movie Recommender App**
+        
+        # Button to expand/collapse the "Movie Recommender App" subsection
+        if st.button("Movie Recommender App"):
+            st.write("""
+        **Solution Overview: Movie Recommender App**
 
-    Our Movie Recommender App is an intelligent system designed to help users discover their ideal movies by leveraging the power of collaborative-based and content-based filtering techniques. The primary goal of this app is to provide personalized movie recommendations based on user preferences and movie features.
+        Our Movie Recommender App is an intelligent system designed to help users discover their ideal movies by leveraging the power of collaborative-based and content-based filtering techniques. The primary goal of this app is to provide personalized movie recommendations based on user preferences and movie features.
+        """)
 
-    **Key Features:**
+        if st.button("Key Features"):
+            st.write("""
+        **Key Features:**
 
-    1. **User-Friendly Interface:** The app offers a simple and intuitive user interface. Users can easily navigate through different sections, including "Recommender System," "Movie Search," and "Top Rated Movies."
+        1. **User-Friendly Interface:** The app offers a simple and intuitive user interface. Users can easily navigate through different sections, including "Recommender System," "Movie Search," and "Top Rated Movies."
 
-    2. **Recommender System:** Our app presents two advanced recommendation algorithms: Collaborative-Based Filtering and Content-Based Filtering. Users can input their three favorite movies, and the system will generate a list of movie recommendations tailored to their unique tastes.
+        2. **Recommender System:** Our app presents two advanced recommendation algorithms: Collaborative-Based Filtering and Content-Based Filtering. Users can input their three favorite movies, and the system will generate a list of movie recommendations tailored to their unique tastes.
 
-    3. **Movie Search:** Users have the freedom to search for specific movies or explore movies by genres. The app efficiently filters movies based on user-provided genre criteria, allowing users to quickly discover movies that match their interests.
+        3. **Movie Search:** Users have the freedom to search for specific movies or explore movies by genres. The app efficiently filters movies based on user-provided genre criteria, allowing users to quickly discover movies that match their interests.
 
-    4. **Top Rated Movies:** Our app presents a list of top-rated movies based on user ratings or other metrics. Users can adjust the number of movies displayed to explore the best movies based on their preferences.
+        4. **Top Rated Movies:** Our app presents a list of top-rated movies based on user ratings or other metrics. Users can adjust the number of movies displayed to explore the best movies based on their preferences.
+        """)
 
-    **How It Works:**
+        if st.button("How It Works"):
+            st.write("""
+        **How It Works:**
 
-    1. **Collaborative-Based Filtering:** This approach builds user-item interactions to uncover patterns in user preferences. By analyzing how similar users have rated movies, the system identifies movies that align with a user's taste. The resulting recommendations are personalized and considerate of user behavior.
+        1. **Collaborative-Based Filtering:** This approach builds user-item interactions to uncover patterns in user preferences. By analyzing how similar users have rated movies, the system identifies movies that align with a user's taste. The resulting recommendations are personalized and considerate of user behavior.
 
-    2. **Content-Based Filtering:** The content-based approach focuses on movie features such as genres and tags. By comparing movie attributes with user preferences, the app suggests movies that align with a user's previous movie choices.
-
-    **Benefits:**
+        2. **Content-Based Filtering:** The content-based approach focuses on movie features such as genres and tags. By comparing movie attributes with user preferences, the app suggests movies that align with a user's previous movie choices.
+        """)
+    
+        if st.button("Benefits"):
+            st.write("""
+        **Benefits:**
 
     1. **Personalized Recommendations:** Our app provides personalized movie recommendations, ensuring that users receive tailored suggestions based on their individual interests.
 
@@ -183,9 +195,12 @@ def main():
 
     3. **Enhanced Movie Search:** The movie search feature enables users to find movies based on specific genres, empowering them to explore movies relevant to their mood or interests.
 
+        """)
+                     
+        st.write("""Our Movie Recommender App is committed to delivering an engaging and dynamic movie discovery experience for users. We continuously strive to improve our recommendation algorithms and user interface to ensure movie enthusiasts find their perfect watchlist with ease. Enjoy exploring the world of cinema with our smart and sophisticated movie recommender system!
+    """) 
     
-    Our Movie Recommender App is committed to delivering an engaging and dynamic movie discovery experience for users. We continuously strive to improve our recommendation algorithms and user interface to ensure movie enthusiasts find their perfect watchlist with ease. Enjoy exploring the world of cinema with our smart and sophisticated movie recommender system!
-    """)
+    
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
@@ -250,7 +265,8 @@ def main():
         # Display the filtered movie results
         st.dataframe(filtered_movies)
 
-
+        st.image('resources/imgs/EDA1.jpg',width=600)
+        st.image('resources/imgs/EDA2.jpg',width=600)
 
         # You can add other EDA visualizations and analysis here
 
