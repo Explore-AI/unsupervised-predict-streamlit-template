@@ -2,7 +2,7 @@
 
     Streamlit webserver-based Recommender Engine.
 
-    Author: Explore Data Science Academy.
+    Author: EDSA2301_JM3_.
 
     Note:
     ---------------------------------------------------------------------
