@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview","Business Proposal", "About Us"]
+    page_options = ["Recommender System","Solution Overview","Business Proposal", "About Us" ,"Contact Us"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -115,8 +115,25 @@ def main():
         st.markdown(open('resources/benefits.md').read())
 
     if page_selection == "Business Proposal":
-        st.title("advantages")
-        st.write("business benefit")
+        st.title("Why our Product")
+        st.markdown(open("resources/Pages/Business.md").read())
+
+
+    if page_selection == "Contact Us":
+
+        #Adding sidebar image
+        #image = Image.open("resources/LOGOFINAL.png")
+        
+        with st.form("form1", clear_on_submit=True):
+            st.subheader("Get in touch with us")
+            name = st.text_input("Enter full name")
+            email = st.text_input("Enter email")
+            message = st.text_area("Message")
+            
+            submit = st.form_submit_button("Submit Form")
+            if submit:
+                st.write("Your form has been submitted and we will be in touch 🙂")
+            
 
 
     page_bg_img = f"""
