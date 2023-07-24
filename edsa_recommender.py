@@ -51,7 +51,7 @@ def main():
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
-    if selection == "About Us":
+    if page_selection == "About Us":
         st.title("About Us")
         st.write("We are a team of data scientists passionate about recommendations systems.")
         st.write("Our goal is to provide the best Movie recommendatiosn for users across our platforms.")
@@ -88,7 +88,7 @@ def main():
         desc5.write("Seye is our Market researcher. He has a strong background in Market research.")
 
 
-    if selection == "Exploratory Data Analysis":
+    if page_selection == "Exploratory Data Analysis":
         st.info("General Information")
 
         st.subheader("Data Cleaning")
