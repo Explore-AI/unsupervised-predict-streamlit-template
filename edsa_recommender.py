@@ -45,12 +45,98 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","Movie Mate","About Us", "Exploratory Data Analysis"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    if selection == "About Us":
+        st.title("About Us")
+        st.write("We are a team of data scientists passionate about recommendations systems.")
+        st.write("Our goal is to provide the best Movie recommendatiosn for users across our platforms.")
+
+        st.header("Team Members")
+        # Create three columns
+        col1, col2, col3 = st.columns(3)
+        desc1, desc2, desc3 = st.columns(3)
+        col4, col5, col6 = st.columns(3)
+        desc4,desc5,desc6 = st.columns(3)
+
+        # Place the images in separate columns
+        col1.image("", caption="Chief Data Scientist", width=200)
+        col3.image("", caption="Senior Developer", width=200)
+        col2.image("", caption="Chief Technical Officer", width=200)
+
+        desc1.subheader("Abdulmalik Adeyemo")
+        desc1.write("Abdulmalik is an experienced data scientist. He has a strong background in machine learning and deep learning.")
+
+        desc2.subheader("Ayomide Aladetuyi")
+        desc2.write("Ayomide is an experienced data analyst specializing in drawing insights from data. He has a strong background in Finance.")
+
+        desc3.subheader("Setshaba Mashigo")
+        desc3.write("Setshaba is an experienced data expert specializing in modelling. He has a strong background in Quality Assesment.")
+
+        # col4.image("resources/s.jpg", caption="Chief Administrative Officer", width=200)
+        # col5.image("resources/l.jpg", caption="Market Researcher", width=200)
+        #
+        #
+        desc4.subheader("Olaniyi Samuel")
+        desc4.write("Olaniyi is an experienced administrative specialist specialized in presenting amazing insights and presentations.")
+        #
+        desc5.subheader("Seye Tare Garanwei")
+        desc5.write("Seye is our Market researcher. He has a strong background in Market research.")
+
+
+    if selection == "Exploratory Data Analysis":
+        st.info("General Information")
+
+        st.subheader("Data Cleaning")
+
+    if page_selection == "Movie Mate":
+        # Header contents
+        st.write('# Movie Mate')
+        st.write('### Team RR Movie Recommender Model ')
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
+        # Recommender System algorithm selection
+        sys = st.radio("Select an algorithm",
+                       ('Content Based Filtering',
+                        'Collaborative Based Filtering'))
+
+        # User-based preferences
+        st.write('### Enter Your Three Favorite Movies')
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        fav_movies = [movie_1,movie_2,movie_3]
+
+        # Perform top-10 movie recommendation generation
+        if sys == 'Content Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = content_model(movie_list=fav_movies,
+                                                            top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
+
+
+        if sys == 'Collaborative Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = collab_model(movie_list=fav_movies,
+                                                           top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
     if page_selection == "Recommender System":
         # Header contents
         st.write('# Movie Recommender Engine')
@@ -103,6 +189,7 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+        st.write(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
