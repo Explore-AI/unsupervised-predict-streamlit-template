@@ -27,6 +27,8 @@
 
 """
 
+
+
 # Script dependencies
 import pandas as pd
 import numpy as np
@@ -36,12 +38,14 @@ from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-
+#from ast import literal_eval
+import ast
 # Importing data
 movies_df = pd.read_csv('resources/data/movies.csv',sep = ',')
 ratings_df = pd.read_csv('resources/data/ratings.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
-
+#movies_df['genres'] = movies_df['genres'].apply(lambda x: '|'.join(ast.literal_eval(x)))
+#movies_df['genres'] = movies_df['genres'].apply(literal_eval).apply(lambda x: [item['name'] for item in x] if isinstance(x, list) else [])
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
 model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
 
@@ -138,6 +142,9 @@ def collab_model(movie_list,top_n=10):
     # Get top_n recommended movie titles
     recommended_movies = []
     for movie_id, _ in predictions[:top_n]:
-        recommended_movies.append(movies_df[movies_df['movieId'] == movie_id]['title'].values[0])
-
+        predicted_rating = model.predict(user_id, movie_id).est
+        #recommended_movies_with_info.append((movie_title, genres, predicted_rating))
+        genres = movies_df[movies_df['movieId'] == movie_id]['genres'].values[0]
+        recommended_movies.append((movies_df[movies_df['movieId'] == movie_id]['title'].values[0],genres,predicted_rating))
+        
     return recommended_movies

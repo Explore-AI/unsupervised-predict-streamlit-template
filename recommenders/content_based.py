@@ -80,7 +80,7 @@ def content_model(movie_list,top_n=10):
 
     """
    # Convert the movie genres into a single string for each movie
-    movies['genres'] = movies['genres'].str.replace('|', ' ')
+    #movies['genres'] = movies['genres'].str.replace('|', ' ')
 
     # Combine genres to create movie descriptions
     movies['description'] = movies['genres']
@@ -103,5 +103,15 @@ def content_model(movie_list,top_n=10):
 
     # Get the titles of the top_n recommended movies
     recommended_movies = movies.iloc[top_n_indices]['title'].tolist()
-
+    recommended_movies = movies.iloc[top_n_indices][['title', 'genres']].values.tolist()
+    recommended_ratings = []
+    for movie_title, _ in recommended_movies:
+        movie_ratings = ratings[ratings['movieId'] == movies[movies['title'] == movie_title]['movieId'].values[0]]['rating']
+        if not movie_ratings.empty:
+            # Calculate the average rating for the recommended movie
+            average_rating = movie_ratings.mean()
+            recommended_ratings.append(average_rating)
+        else:
+            recommended_ratings.append(None)
+    recommended_movies = [(movie_title, genres, rating) for (movie_title, genres), rating in zip(recommended_movies, recommended_ratings)]        
     return recommended_movies

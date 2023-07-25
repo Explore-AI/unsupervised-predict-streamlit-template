@@ -8,12 +8,13 @@
     SVDpp algorithm on MovieLens data.
 
 """
-# Script dependencies
-import numpy as np
-import pandas as pd
-from surprise import SVD
-import surprise
 import pickle
+pip install numpy
+
+# Script dependencies
+import pandas as pd
+import surprise
+from surprise import SVD
 
 # Importing datasets
 ratings = pd.read_csv('ratings.csv')
