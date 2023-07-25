@@ -77,10 +77,9 @@ def main():
         desc3.subheader("Setshaba Mashigo")
         desc3.write("Setshaba is an experienced data expert specializing in modelling. He has a strong background in Quality Assesment.")
 
-        # col4.image("resources/s.jpg", caption="Chief Administrative Officer", width=200)
-        # col5.image("resources/l.jpg", caption="Market Researcher", width=200)
-        #
-        #
+        col4.image("resources/s.jpg", caption="Chief Administrative Officer", width=200)
+        col5.image("resources/l.jpg", caption="Market Researcher", width=200)
+
         desc4.subheader("Olaniyi Samuel")
         desc4.write("Olaniyi is an experienced administrative specialist specialized in presenting amazing insights and presentations.")
         #
@@ -89,7 +88,21 @@ def main():
 
 
     if page_selection == "Exploratory Data Analysis":
-        st.info("General Information")
+        st.info("Exploratory Data Analysis")
+        st.write("1. Movie ratings play a crucial role in guiding audiences' choices and determining a film's success or failure. Understanding the distribution of movie ratings is essential for filmmakers, studios, and critics alike. In this analysis, we delve into the distribution of movie ratings and uncover a fascinating trend that sheds light on user preferences and the overall positivity of the ratings landscape.")
+        st.write("a. The majority of movies (1) receive ratings higher than the average, suggesting a favorable reception among audiences. This might be influenced by selection bias, leading to inflated ratings for well-received films.")
+        st.write("b. Most frequently assigned ratings include 3.0, 4.0, and 5.0 (2), representing positive thresholds. High ratings near 5.0 indicate outstanding films that leave a lasting impression, influenced by social factors.")
+        st.write("c. The left-skewed distribution of ratings (3) confirms the positive landscape, with fewer negative ratings. This could be due to users rating films they enjoyed and neglecting poorly received movies.")
+        st.write("d. Users prefer whole numbers (4) over decimals when rating movies, possibly due to simplicity and the psychological impact of round numbers, making it easier to express their opinions")
+        st.image('resources/imgs/eda1.png',use_column_width=True)
+
+        st.write("2. In the dynamic world of movie ratings, understanding the trends across different time periods can provide valuable insights into audience preferences and cultural influences. In this analysis, we explore the quantity of ratings received by movies from different decades, with a particular focus on the 1990s. It is important to note that this study does not assess the sentiment or quality of the ratings; rather, it aims to highlight the popularity and enduring appeal of 90's movies based on the sheer number of ratings they have accumulated.")
+        st.write("a. Movies from the 1990s receive the highest quantity of ratings, reflecting their lasting global impact.")
+        st.write("b. The popularity of 90's movies stems from their cultural significance and nostalgia as cultural touchstones.")
+        st.write("c. Accessibility through streaming platforms boosts ratings, as viewers easily discover and rate these classics.")
+        st.write("d. 90's movies continue to captivate newer audiences, cementing their position as enduring rating favorites.")
+        st.image('resources/imgs/eda2.png',use_column_width=True)
+
 
         st.subheader("Data Cleaning")
 
@@ -97,7 +110,7 @@ def main():
         # Header contents
         st.write('# Movie Mate')
         st.write('### Team RR Movie Recommender Model ')
-        st.image('resources/imgs/Image_header.png',use_column_width=True)
+        st.image('resources/imgs/moviemate.PNG',use_column_width=True)
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
@@ -188,8 +201,8 @@ def main():
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
-        st.write(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
+
+        st.info(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
