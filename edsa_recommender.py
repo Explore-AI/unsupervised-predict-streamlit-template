@@ -195,11 +195,32 @@ def main():
 
             st.image(
                 "resources/imgs/logo.png",
-                width=250,)
+                width=200,)
         with c2:
             st.title("Frequently Asked Questions")
-        #st.title("")
+        st.markdown("Welcome to the FAQ page. Here are some frequently asked questions:")
         st.write("")
+        
+        faq_data = [("What is Streamlit?", "Streamlit is an open-source Python library that makes it easy to create web applications for data science and machine learning projects."),
+                   ("How do I install Streamlit?", "You can install Streamlit using pip: `pip install streamlit`."),
+                    ("Q1: What is a movie recommender system?","A movie recommender system is a type of software or algorithm that suggests movies to users based on their preferences and viewing history. It analyzes user data, such as movie ratings, viewing habits, and interactions, to make personalized movie recommendations."), 
+                    ("How do movie recommender systems work?","Movie recommender systems typically use two main approaches: collaborative filtering and content-based filtering. Collaborative filtering analyzes user behavior and identifies users with similar preferences to generate recommendations. Content-based filtering focuses on the attributes of movies themselves and suggests items with similar characteristics to those the user has liked in the past."),
+                    ("What are the benefits of using a movie recommender system?","Movie recommender systems provide several benefits. They help users discover new movies that match their interests, leading to enhanced user satisfaction and engagement. For movie platforms, recommender systems can increase user retention, improve movie ratings, and drive revenue through increased movie consumption."),
+                    ("What are hybrid recommender systems?","Hybrid recommender systems combine multiple recommendation techniques to improve the quality of recommendations. For example, a hybrid system might merge collaborative filtering and content-based filtering to provide more accurate and diverse movie suggestions."), 
+                    ("Are movie recommender systems only based on user ratings?","No, movie recommender systems can use various data sources beyond user ratings. They may consider factors like genre preferences, movie metadata (e.g., director, cast, release year), movie popularity, and even contextual data like time of day or season."), 
+                    ("Are movie recommender systems limited to movies?","No, the underlying techniques used in movie recommender systems can be applied to various domains beyond movies. They are commonly used in music, books, news articles, and product recommendations in e-commerce platforms."), 
+                    ("What is collaborative filtering?","Collaborative filtering is a technique where the recommender system identifies users with similar preferences and recommends items liked by those similar users. It relies on user-item interaction data, such as user ratings or purchase history, to make predictions about users' preferences."),
+                    ("How does content-based filtering work?","Content-based filtering recommends items based on the features or characteristics of the items themselves. For example, in a movie recommender system, it might recommend movies with similar genres, actors, or themes to those the user has shown interest in.")
+   
+]
+
+        for idx, (question, answer) in enumerate(faq_data):
+                st.markdown(f"**Q{idx+1}: {question}**")
+                st.write(answer)
+                st.markdown("---")
+
+            # Example FAQ data (question, answer) pairs
+
 
 if __name__ == '__main__':
     main()
