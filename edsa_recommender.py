@@ -31,6 +31,7 @@ import streamlit as st
 # Data handling dependencies
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Custom Libraries
 from utils.data_loader import load_movie_titles
@@ -40,6 +41,7 @@ from recommenders.content_based import content_model
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 movies_df = pd.read_csv('resources/data/rated_movies.csv')
+
 # App declaration
 
 def extract_year_from_title(title):
@@ -232,41 +234,60 @@ def main():
     elif page_selection == "EDA":
         st.title("Exploratory Data Analysis (EDA)")
 
-        # Display summary statistics or any other EDA you want to show
-        #st.subheader("Summary Statistics")
-        #st.write(movies_df.describe())
+        # Show basic statistics
+        st.header("Basic Statistics")
+        st.write("Total Number of Movies:", len(movies_df))
+        st.write("Overall Average Rating:", movies_df['rating'].mean())
 
-        st.subheader("Interactive Movie Filter")
+        # Button to show ratings distribution
+        if st.button("Show Ratings Distribution"):
+            st.header("Ratings Distribution")
+            ratings_counts = movies_df['rating'].value_counts().sort_index()
+            fig, ax = plt.subplots(figsize=(6.4, 2))
+            ax.bar(ratings_counts.index, ratings_counts.values)
+            ax.set_xlabel("Rating")
+            ax.set_ylabel("Number of Movies")
+            st.pyplot(fig)
 
-        # Sidebar - Interactive Filters
-        st.sidebar.title("Filter Options")
+            # Button to show top rated movies
+        #if st.button("Show Top Rated Movies"):
+         #   st.header("Top Rated Movies")
+          #  top_rated_movies = movies_df.groupby('title')['rating'].mean().sort_values(ascending=False).head(10)
+           # st.table(top_rated_movies.reset_index().rename(columns={'rating': 'Average Rating'}))
 
-        # Filter by Genre
-        genre_filter = st.sidebar.multiselect("Filter by Genre", movies_df['genres'].unique())
+# Button to show genres distribution
+        if st.button("Show Genres Distribution"):
+            st.header("Genres Distribution")
+            genres_counts = movies_df['genres'].str.split('|', expand=True).stack().value_counts()
+            fig, ax = plt.subplots(figsize=(6.4, 2))
+            ax.bar(genres_counts.index, genres_counts.values)
+            ax.set_xticklabels(genres_counts.index, rotation=90)
+            ax.set_xlabel("Genre")
+            ax.set_ylabel("Number of Movies")
+            st.pyplot(fig)
 
-        # Filter by Rating
-        min_rating, max_rating = st.sidebar.slider("Filter by Rating", min_value=0.0, max_value=5.0, value=(0.0, 5.0))
+ 
+# Button to show most common genres
+        if st.button("Show Most Common Genres"):
+            st.header("Most Common Genres")
+            most_common_genres = movies_df['genres'].str.split('|', expand=True).stack().value_counts().head(10)
+            st.table(most_common_genres.reset_index().rename(columns={'index': 'Genre', 0: 'Count'}))
 
-        # Filter by Release Year
-        #min_year, max_year = st.sidebar.slider("Filter by Release Year", min_value=int(movies_df['year'].min()), max_value=int(movies_df['year'].max()), value=(int(movies_df['year'].min()), int(movies_df['year'].max())))
-        # Get the range of the release years
-        min_year, max_year = int(movies_df['year'].min()), int(movies_df['year'].max())
+        # Button to show movie count by year
+        #if st.button("Show Movie Count by Year"):
+         #   st.header("Movie Count by Year")
+          #  movie_count_by_year = movies_df['year'].value_counts().sort_index()
+           # fig, ax = plt.subplots()
+         #   ax.plot(movie_count_by_year.index, movie_count_by_year.values)
+          #  ax.set_xlabel("Year")
+           # ax.set_ylabel("Number of Movies")
+            #st.pyplot(fig)
 
-        # Filter by Release Year
-        min_year, max_year = st.sidebar.slider("Filter by Release Year", min_value=min_year, max_value=max_year, value=(min_year, max_year))
-        
-        # Apply filters to the DataFrame
-        filtered_movies = movies_df[
-            (movies_df['genres'].isin(genre_filter)) &
-            (movies_df['rating'] >= min_rating) & (movies_df['rating'] <= max_rating) &
-            (movies_df['year'] >= min_year) & (movies_df['year'] <= max_year)
-        ]
+        # User rating stats
+        st.header("User Rating Statistics")
+        user_rating_stats = movies_df['rating'].describe()
+        st.table(user_rating_stats)
 
-        # Display the filtered movie results
-        st.dataframe(filtered_movies)
-
-        st.image('resources/imgs/EDA1.jpg',width=600)
-        st.image('resources/imgs/EDA2.jpg',width=600)
 
         # You can add other EDA visualizations and analysis here
 
