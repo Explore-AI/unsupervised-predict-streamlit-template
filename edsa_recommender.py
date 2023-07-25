@@ -45,17 +45,32 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["HOME","ABOUT US","Recommender System","Solution Overview"]
+    
+    page_options = ["Home","Recommender System","Solution Overview", 'About us', "FAQ"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
+    st.sidebar.image('resources/imgs/4.png',use_column_width=False)
+    st.sidebar.subheader("Movie Recommender Engine 💡")
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
     if page_selection == "Recommender System":
         # Header contents
-        st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        c1, c2 = st.columns([1, 2])
+        with c1:
+
+            st.image(
+                "resources/imgs/logo.png",
+                width=250,)
+        with c2:
+            st.title("Movie Recommender Engine 💡")
+        # We need to set up session state via st.session_state so that app interactions don't reset the app.
+        if not "valid_inputs_received" in st.session_state:
+            st.session_state["valid_inputs_received"] = False
+        st.write('# ')
+        st.write("### let's Get You started! Get Your Recommendations Below")
         st.image('resources/imgs/Image_header.png',use_column_width=True)
+        
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
@@ -116,48 +131,75 @@ def main():
         st.write("I: Reporting and Visualization")
         st.write("J: Ongoing Support and Collaboration")
 
-    if page_selection == "HOME":
-        st.title("HOME")
+    if page_selection == "Home":
+        st.image('resources/imgs/logo.png',use_column_width=True)
+        st.title("Home")
         st.write("FSC_TECH company are into building recommendation system for companies and also offers the best services for our clients.")
+        
+#         with st.expander("Click here to view the raw data"):
+#             st.dataframe(filtered_df)
+        
+        
     # Building out the About Us page
-    if selection == "About Us":
-		st.info("FSC_TECH company")
-		st.write("FSC_TECH company provides data and analytics solutions that enable clients to gain valuable insights from their data, make informed decisions in a timely manner, and consistently stay ahead of the competition.")
-		
-		st.info("Our Vision:")
-		st.write("To be the lead Tech Solution Plug")
+    if page_selection == "About us":
+        c1, c2 = st.columns([1, 2])
+        with c1:
+            st.image(
+                "resources/imgs/4.png",
+                width=150,)
+            
+            
+        with c2:
+            st.title(
+                "FSC_TECH company")
 
-		st.info("Meet the team")
-		Fumani = Image.open('resources/imgs/Fumani.JPEG')
-		Fumani1 = Fumani.resize((150, 155))
-		Confidence = Image.open('resources/imgs/Confidence.JPEG')
-		Confidence1 = Confidence.resize((150, 155))
-		Joshua = Image.open('resources/imgs/Joshua.JPEG')
-		Joshua1 = Joshua.resize((150, 155))
-		Stephen = Image.open('resources/imgs/MUTISO.JPEG')
-		Stephen1 = Stephen.resize((150, 155))
-		Collete = Image.open('resources/imgs/Collete.PNG')
-		Collete1 = Collete.resize((150, 155))
+        st.subheader("Our Vision:")
+        st.write("Our vision is to leverage cutting-edge AI and recommender algorithms to empower users with data-driven, personalized recommendations, enabling them to make informed choices effortlessly")
+        image_width = 200
 
-		col1, col2, col3, col4 = st.columns(4)
-		with col2:
-			st.image(Fumani1, width=150, caption="Fumani: Team Lead")
-		with col3:
-			st.image(Confidence1, width=150, caption="Confidence: Technical Lead")
-		
-		col1, col2, col3 = st.columns(3)
-		
-		with col1:
-			st.image(Stephen1, width=150, caption="Stephen: Project Manager")
-		with col2:
-			st.image(Joshua1, width=150, caption="Joshua: Data Scientist")
-		
-		with col3:
-			st.image(Collete1, width=150, caption="Collete: Data Scientist")
+        st.subheader("About our company")
+        st.markdown(
+            "We are FSC_TECH company, a leading data science company dedicated to helping businesses unlock the power of data to drive growth, innovation, and success. With our expertise in advanced analytics, machine learning, and artificial intelligence, we provide actionable insights and data-driven solutions that empower organizations to make informed decisionsin a timely manner, improve on customer satsfaction and achieve their goals by consistently being ahead of the competition."
+        )
+        st.header("")
+        st.subheader("Our Expertise")
+        st.markdown(
+            """With a team of highly skilled data scientists, machine learning engineers, and domain experts, we have the knowledge and experience to tackle complex data challenges across various industries. From predictive modeling and data visualization to natural language processing and recommendation systems, we specialize in a wide range of data science techniques and technologies."""
+        )
+        st.header("")
+        st.subheader("The Team")
+
+        column_11, column_12 = st.columns([2, 2])
+        with column_11:
+            st.markdown("Fumani Thibela")
+            st.image("resources/imgs/Fumani.jpeg", width=image_width)
+        with column_12:
+            st.markdown("Confidence")
+            st.image("resources/imgs/Confidence.jpeg", width=image_width)
+
+        column_11, column_12 = st.columns([2, 2])
+        with column_11:
+            st.markdown("Stephen")
+            st.image("resources/imgs/Stephen.jpeg", width=image_width)
+        with column_12:
+            st.markdown("Joshua")
+            st.image("resources/imgs/Joshua.jpeg", width=image_width)
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
+    
+    # Building out the FAQ page
+    if page_selection == "FAQ":
+        c1, c2 = st.columns([1, 2])
+        with c1:
 
+            st.image(
+                "resources/imgs/logo.png",
+                width=250,)
+        with c2:
+            st.title("Frequently Asked Questions")
+        #st.title("")
+        st.write("")
 
 if __name__ == '__main__':
     main()
