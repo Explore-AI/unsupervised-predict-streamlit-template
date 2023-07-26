@@ -35,8 +35,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',')
-ratings = pd.read_csv('resources/data/ratings.csv')
+movies = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/movies.csv', sep = ',')
+ratings = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/train.csv')
 movies.dropna(inplace=True)
 
 def data_preprocessing(subset_size):
@@ -60,7 +60,7 @@ def data_preprocessing(subset_size):
     return movies_subset
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
-# You are, however, encouraged to change its content.  
+# You are, however, encouraged to change its content.
 def content_model(movie_list,top_n=10):
     """Performs Content filtering based upon a list of movies supplied
        by the app user.
@@ -79,13 +79,16 @@ def content_model(movie_list,top_n=10):
 
     """
     # Initializing the empty list of recommended movies
-    recommended_movies = []
-    data = data_preprocessing(27000)
+    data = data_preprocessing(40000) ## CHANGE SUBSET TO MATCH RANGE IN APP
     # Instantiating and generating the count matrix
     count_vec = CountVectorizer()
     count_matrix = count_vec.fit_transform(data['keyWords'])
-    indices = pd.Series(data['title'])
+    names = data.copy()
+    names.set_index('movieId',inplace=True)
+    indices = pd.Series(names['title'])
     cosine_sim = cosine_similarity(count_matrix, count_matrix)
+    #cosine_sim = pairwise_kernels(count_matrix, metric='cosine', njobs = -1)
+    cosine_sim = pd.DataFrame(cosine_sim, index = data['movieId'].values.astype(int), columns = data['movieId'].values.astype(int))
     # Getting the index of the movie that matches the title
     idx_1 = indices[indices == movie_list[0]].index[0]
     idx_2 = indices[indices == movie_list[1]].index[0]
@@ -99,7 +102,8 @@ def content_model(movie_list,top_n=10):
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
     score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
     # Getting the indexes of the 10 most similar movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+
+    listings = score_series_1.append(score_series_2).append(score_series_3).sort_values(ascending = False)
 
     # Store movie names
     recommended_movies = []
