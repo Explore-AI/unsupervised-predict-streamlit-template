@@ -36,6 +36,7 @@ import numpy as np
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+from recommenders.matrix_mult import matrix_mult_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
@@ -168,7 +169,8 @@ def main():
         # Recommender System algorithm selection
         sys = st.radio("Select an algorithm",
                        ('Content Based Filtering',
-                        'Collaborative Based Filtering'))
+                        'Collaborative Filtering (SVD)',
+                        'Collaborative Filtering (Matrix-Mult)'))
 
         # User-based preferences
         st.write('### Enter Your Three Favorite Movies')
@@ -192,11 +194,24 @@ def main():
                               We'll need to fix it!")
 
 
-        if sys == 'Collaborative Based Filtering':
+        if sys == 'Collaborative Filtering (SVD)':
             if st.button("Recommend"):
                 try:
                     with st.spinner('Crunching the numbers...'):
                         top_recommendations = collab_model(movie_list=fav_movies,
+                                                           top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
+                    
+        if sys == 'Collaborative Filtering (Matrix-Mult)':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = matrix_mult_model(movie_list=fav_movies,
                                                            top_n=10)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
