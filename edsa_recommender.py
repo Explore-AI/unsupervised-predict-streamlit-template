@@ -37,12 +37,28 @@ import matplotlib.pyplot as plt
 from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
+from googleapiclient.discovery import build
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 movies_df = pd.read_csv('resources/data/rated_movies.csv')
 
-# App declaration
+
+
+# Function to fetch the YouTube video ID of a trailer based on the movie title
+def get_youtube_trailer_id(movie_title, api_key, num_results=1):
+    youtube = build('youtube', 'v3', developerKey=api_key)
+    search_response = youtube.search().list(
+        q=f"{movie_title} official trailer",
+        part='id',
+        type='video',
+        maxResults=num_results
+    ).execute()
+
+    # Extract the video ID from the API response
+    video_id = search_response['items'][0]['id']['videoId'] if search_response['items'] else None
+    return video_id
+
 
 def extract_year_from_title(title):
     year_start = title.find("(") + 1
@@ -56,6 +72,8 @@ movies_df['year'] = movies_df['title'].apply(extract_year_from_title)
 # Convert the "year" column to integer type
 movies_df['year'] = pd.to_numeric(movies_df['year'], errors='coerce')
 
+
+# App declaration
 def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
@@ -140,15 +158,35 @@ def main():
 
         # Code for "Top Rated Movies" page
     if page_selection == "Top Rated Movies":
+    #     st.title('Top Rated Movies')
+    #     num_top_rated_movies = st.slider('Number of Top Rated Movies to Display:', 5, 20, 10)
+
+    #         # Function to get top-rated movies
+    #     def get_top_rated_movies(df, num_movies=10):
+    #         return df.nlargest(num_movies, 'rating')
+
+    #     top_rated_movies = get_top_rated_movies(movies_df, num_top_rated_movies)
+    #     st.table(top_rated_movies[['title', 'genres', 'rating']])
+
         st.title('Top Rated Movies')
         num_top_rated_movies = st.slider('Number of Top Rated Movies to Display:', 5, 20, 10)
 
-            # Function to get top-rated movies
+        # Function to get top-rated movies
         def get_top_rated_movies(df, num_movies=10):
             return df.nlargest(num_movies, 'rating')
 
         top_rated_movies = get_top_rated_movies(movies_df, num_top_rated_movies)
-        st.table(top_rated_movies[['title', 'genres', 'rating']])
+
+        # Fetch and display trailers for each top-rated movie
+        st.write("Trailers:")
+        api_key = 'AIzaSyAz-2bMsUmJ6DdJioEFAPZYNdoKjbEABEs'  # Replace with your YouTube API key
+        for _, row in top_rated_movies.iterrows():
+            movie_title = row['title']
+            trailer_id = get_youtube_trailer_id(movie_title, api_key)
+            if trailer_id:
+                st.write(f"**{movie_title}**: ")
+                st.video(f"https://www.youtube.com/watch?v={trailer_id}", format="mp4")
+
 
 
 
