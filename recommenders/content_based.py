@@ -48,16 +48,16 @@ MOVIE_REVIEW_THRESHOLD = 5000 # Only consider movies with more reviews than this
 CONTENT_VEC_MIN_WORD_TO_REMOVE = 10 # Remove words that occurs less that this value in dataset 
 
 # Importing data
-movies = pd.read_csv('resources/data/movies.csv', sep = ',')
-ratings = pd.read_csv('resources/data/ratings.csv')
-movies.dropna(inplace=True)
+# movies = pd.read_csv('resources/data/movies.csv', sep = ',')
+# ratings = pd.read_csv('resources/data/ratings.csv')
+# movies.dropna(inplace=True)
 
-genome_scores_df = pd.read_csv('genome_scores.csv')
-genome_tags_df = pd.read_csv('genome_tags.csv')
-imdb_data_df = pd.read_csv('imdb_data.csv')
-links_df = pd.read_csv('links.csv')
-movies_df = pd.read_csv('movies.csv')
-tags_df = pd.read_csv('tags.csv')
+genome_scores_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/genome_scores.csv')
+genome_tags_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/genome_tags.csv')
+imdb_data_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/imdb_data.csv')
+links_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/links.csv')
+movies_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/movies.csv')
+tags_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/tags.csv')
 
 # extra_imdb_name_basics_df = pd.read_table("./resources/imdb_name_basics.tsv")
 # extra_imdb_title_crew_df = pd.read_table("./resources/imdb_title_crew.tsv")

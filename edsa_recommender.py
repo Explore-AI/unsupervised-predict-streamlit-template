@@ -79,7 +79,7 @@ def add_bg_from_local(image_file):
 #add_bg_from_local('resources/imgs/moviebg.jpg')
 
 # Data Loading
-title_list = load_movie_titles('resources/data/movies.csv')
+title_list = load_movie_titles('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/movies.csv')
 
 # App declaration
 def main():
@@ -92,7 +92,7 @@ def main():
     
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview","About Us","App Feedback"]
+    page_options = ["Recommender System","Solution Overview","Recommender Settings","About Us","App Feedback"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -335,6 +335,8 @@ Are you tired of endlessly scrolling through streaming platforms, trying to find
                     feedback_additional_3 = st.checkbox('Functionality')
                     feedback_additional_4 = st.checkbox('Other')
             submit_feedback = st.form_submit_button("Submit Feedback")
-
+        if page_selection == "Recommender Settings":
+            st.title('Settings')
+            model = st.selectbox()
 if __name__ == '__main__':
     main()
