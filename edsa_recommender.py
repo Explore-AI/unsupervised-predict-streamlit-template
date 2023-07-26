@@ -64,9 +64,9 @@ def main():
         desc4,desc5,desc6 = st.columns(3)
 
         # Place the images in separate columns
-        col1.image("", caption="Chief Data Scientist", width=200)
-        col3.image("", caption="Senior Developer", width=200)
-        col2.image("", caption="Chief Technical Officer", width=200)
+        col1.image("resources/aa.jpg", caption="Chief Data Scientist", width=200)
+        col3.image("resources/sm.jpg", caption="Senior Developer", width=200)
+        col2.image("resources/aag.jpg", caption="Chief Technical Officer", width=200)
 
         desc1.subheader("Abdulmalik Adeyemo")
         desc1.write("Abdulmalik is an experienced data scientist. He has a strong background in machine learning and deep learning.")
@@ -77,12 +77,11 @@ def main():
         desc3.subheader("Setshaba Mashigo")
         desc3.write("Setshaba is an experienced data expert specializing in modelling. He has a strong background in Quality Assesment.")
 
-        col4.image("resources/s.jpg", caption="Chief Administrative Officer", width=200)
-        col5.image("resources/l.jpg", caption="Market Researcher", width=200)
+        col4.image("resources/os.jpg", caption="Chief Administrative Officer", width=200)
 
         desc4.subheader("Olaniyi Samuel")
         desc4.write("Olaniyi is an experienced administrative specialist specialized in presenting amazing insights and presentations.")
-        #
+
         desc5.subheader("Seye Tare Garanwei")
         desc5.write("Seye is our Market researcher. He has a strong background in Market research.")
 
@@ -103,8 +102,21 @@ def main():
         st.write("d. 90's movies continue to captivate newer audiences, cementing their position as enduring rating favorites.")
         st.image('resources/imgs/eda2.png',use_column_width=True)
 
+        st.write("3.The realm of cinema has continually captivated audiences with its ability to transport them to worlds filled with excitement, wonder, and thrill. Among the vast array of films, certain masterpieces rise above the rest, garnering accolades and admiration from critics and viewers alike. In this write-up, we delve into the highest-rated movies, with special focus on the top two films—parts I and II of Planet Earth—providing insights into their genres and the reasons behind their overwhelming success.")
+        st.write("a. Common genres like action, adventure, and thriller dominate highly-rated movies, captivating audiences with adrenaline-pumping narratives and compelling storytelling. Understanding this preference is crucial for grasping cinematic appeal and the success of these captivating films.")
+        st.write("b. Planet Earth parts I and IIs unparalleled success exemplifies the genres allure. With extraordinary efforts and visionary storytelling, the series showcases breathtaking landscapes and natures wonders, immersing audiences in Earths raw beauty and diverse ecosystems.")
+        st.write("c. Action-Packed Adventure: The Planet Earth series is an action-packed adventure, immersing viewers in gripping encounters between predators and prey. Exploring remote and challenging terrains, the series captures heart-stopping moments, from breathtaking aerial chases to dramatic hunts, showcasing the raw survival instincts of Earth's inhabitants. Audiences are left on the edge of their seats, experiencing the thrill of the chase as if they were witnessing it firsthand.")
+        st.write("d. Thrills in the Natural World: Planet Earth series delivers unparalleled thrills through intimate portrayals of the animal kingdom. Filmmakers capture rare footage of animals in their natural habitats, evoking empathy and awe as viewers witness the beauty and fragility of wildlife, leading to a deeper understanding of Earth's delicate ecological balance")
+        st.image('resources/imgs/eda3.png',use_column_width=True)
 
-        st.subheader("Data Cleaning")
+        st.write("4.The genres of movies, when considered as an isolated feature, have minimal determining influence on the ratings they receive. This is evident from the comparable distributions observed in both the top 100 and bottom 100 rated movies. These movies exhibit similar genre compositions with similar frequencie.")
+        st.write("a. Genres have minimal isolated influence on movie ratings. Analyzing top 100 and bottom 100 rated films shows similar genre distributions, suggesting specific genres don't guarantee high or low ratings. Other factors play a more significant role in determining a movie's success. The presence of genres alone doesn't define audience reception. Filmmakers should focus on storytelling, performances, direction, and production quality to impact ratings positively")
+        st.write("b.The top 100 and bottom 100 rated movies have comparable genre compositions and frequencies. This indicates that genres alone don't heavily influence a film's reception. Other factors like storytelling, performances, direction, and production quality play a more significant role in determining audience response.")
+        st.image('resources/imgs/eda4.png',use_column_width=True)
+
+
+
+        # st.subheader("Data Cleaning")
 
     if page_selection == "Movie Mate":
         # Header contents
