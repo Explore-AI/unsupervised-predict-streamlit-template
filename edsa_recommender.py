@@ -340,7 +340,9 @@ if page_selection == "About Us":
                 with col3:
                     st.image('resources/imgs/W.png')
                     st.image('resources/imgs/w.png')
+                    st.image('resources/imgs/w.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Pillay</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
@@ -368,6 +370,8 @@ if page_selection == "About Us":
 >>>>>>> Stashed changes
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: I Still Believe </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: I Still Believe </p>", unsafe_allow_html=True)
 					
                     with col2:
                         st.image('resources/imgs/w.png')
@@ -379,6 +383,7 @@ if page_selection == "About Us":
                         st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
 >>>>>>> Stashed changes
                         st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
+                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
                         st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
                         
 						
@@ -387,6 +392,8 @@ if page_selection == "About Us":
                             st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Avengers </p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Avengers </p>", unsafe_allow_html=True)
                             st.write("")
