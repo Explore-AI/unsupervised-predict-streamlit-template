@@ -51,6 +51,61 @@ def main():
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
+    if page_selection == "Recommender System":
+        # Header contents
+        st.write('# Movie Recommender Engine')
+        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
+        st.image('resources/imgs/Image_header.png',use_column_width=True)
+        # Recommender System algorithm selection
+        sys = st.radio("Select an algorithm",
+                       ('Content Based Filtering',
+                        'Collaborative Based Filtering'))
+
+        # User-based preferences
+        st.write('### Enter Your Three Favorite Movies')
+        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
+        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
+        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
+        fav_movies = [movie_1,movie_2,movie_3]
+
+        # Perform top-10 movie recommendation generation
+        if sys == 'Content Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = content_model(movie_list=fav_movies,
+                                                            top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
+
+
+        if sys == 'Collaborative Based Filtering':
+            if st.button("Recommend"):
+                try:
+                    with st.spinner('Crunching the numbers...'):
+                        top_recommendations = collab_model(movie_list=fav_movies,
+                                                           top_n=10)
+                    st.title("We think you'll like:")
+                    for i,j in enumerate(top_recommendations):
+                        st.subheader(str(i+1)+'. '+j)
+                except:
+                    st.error("Oops! Looks like this algorithm does't work.\
+                              We'll need to fix it!")
+
+
+    # -------------------------------------------------------------------
+
+    # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    if page_selection == "Solution Overview":
+        st.title("Solution Overview")
+        st.write("Describe your winning approach on this page")
+        st.write(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
+
+
     if page_selection == "About Us":
         st.title("About Us")
         st.write("We are a team of data scientists passionate about recommendations systems.")
@@ -137,60 +192,6 @@ def main():
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
-    if page_selection == "Recommender System":
-        # Header contents
-        st.write('# Movie Recommender Engine')
-        st.write('### EXPLORE Data Science Academy Unsupervised Predict')
-        st.image('resources/imgs/Image_header.png',use_column_width=True)
-        # Recommender System algorithm selection
-        sys = st.radio("Select an algorithm",
-                       ('Content Based Filtering',
-                        'Collaborative Based Filtering'))
-
-        # User-based preferences
-        st.write('### Enter Your Three Favorite Movies')
-        movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
-        movie_2 = st.selectbox('Second Option',title_list[25055:25255])
-        movie_3 = st.selectbox('Third Option',title_list[21100:21200])
-        fav_movies = [movie_1,movie_2,movie_3]
-
-        # Perform top-10 movie recommendation generation
-        if sys == 'Content Based Filtering':
-            if st.button("Recommend"):
-                try:
-                    with st.spinner('Crunching the numbers...'):
-                        top_recommendations = content_model(movie_list=fav_movies,
-                                                            top_n=10)
-                    st.title("We think you'll like:")
-                    for i,j in enumerate(top_recommendations):
-                        st.subheader(str(i+1)+'. '+j)
-                except:
-                    st.error("Oops! Looks like this algorithm does't work.\
-                              We'll need to fix it!")
-
-
-        if sys == 'Collaborative Based Filtering':
-            if st.button("Recommend"):
-                try:
-                    with st.spinner('Crunching the numbers...'):
-                        top_recommendations = collab_model(movie_list=fav_movies,
-                                                           top_n=10)
-                    st.title("We think you'll like:")
-                    for i,j in enumerate(top_recommendations):
-                        st.subheader(str(i+1)+'. '+j)
-                except:
-                    st.error("Oops! Looks like this algorithm does't work.\
-                              We'll need to fix it!")
-
-
-    # -------------------------------------------------------------------
-
-    # ------------- SAFE FOR ALTERING/EXTENSION -------------------
-    if page_selection == "Solution Overview":
-        st.title("Solution Overview")
-        st.write("Describe your winning approach on this page")
-        st.write(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
-
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
 
