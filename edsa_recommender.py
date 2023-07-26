@@ -364,10 +364,6 @@ if page_selection == "About Us":
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Streamlit Engineer </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I Still Believe</p>", unsafe_allow_html=True)
-<<<<<<< Updated upstream
-=======
-                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I Still Believe </p>", unsafe_allow_html=True)
->>>>>>> Stashed changes
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: I Still Believe </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer </p>", unsafe_allow_html=True)
