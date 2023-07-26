@@ -28,7 +28,6 @@
 # Streamlit dependencies
 import streamlit as st
 import streamlit as st
-from streamlit_option_menu import option_menu
 import joblib,os
 import csv
 from PIL import Image, ImageDraw
