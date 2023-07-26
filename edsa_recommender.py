@@ -267,8 +267,10 @@ if page_selection == "About Us":
             col8, col9 = st.columns(2)
             with col8:
                 st.markdown("\"As a movie enthusiast, FlixWhiz is my go-to platform for finding new films to watch. The recommendations are always on point, and I appreciate the variety of genres and options available. It's like having my own personal movie curator!\" - Sarah White")
+                st.markdown("\"As a movie enthusiast, FlixWhiz is my go-to platform for finding new films to watch. The recommendations are always on point, and I appreciate the variety of genres and options available. It's like having my own personal movie curator!\" - Sarah White")
              
             with col9:
+                st.markdown("\"I've tried other movie recommendation platforms, but none come close to FlixWhiz. The accuracy of their recommendations is impressive, and the quality of the movies suggested is consistently high. I've discovered some of my all-time favorite films through this app.\" - Mpho Maremane")
                 st.markdown("\"I've tried other movie recommendation platforms, but none come close to FlixWhiz. The accuracy of their recommendations is impressive, and the quality of the movies suggested is consistently high. I've discovered some of my all-time favorite films through this app.\" - Mpho Maremane")
 
             st.write("")
@@ -337,7 +339,9 @@ if page_selection == "About Us":
 						
                 with col3:
                     st.image('resources/imgs/W.png')
+                    st.image('resources/imgs/w.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Pillay</p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
                     st.write("")
@@ -362,6 +366,8 @@ if page_selection == "About Us":
 =======
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I Still Believe </p>", unsafe_allow_html=True)
 >>>>>>> Stashed changes
+                    st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Full Stack Developer </p>", unsafe_allow_html=True)
+                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: I Still Believe </p>", unsafe_allow_html=True)
 					
                     with col2:
                         st.image('resources/imgs/w.png')
@@ -372,6 +378,7 @@ if page_selection == "About Us":
 =======
                         st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
 >>>>>>> Stashed changes
+                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
                         st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
                         
 						
@@ -380,6 +387,8 @@ if page_selection == "About Us":
                             st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Avengers </p>", unsafe_allow_html=True)
                             st.write("")
                             st.write("")
 
