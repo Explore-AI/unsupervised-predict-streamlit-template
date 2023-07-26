@@ -26,6 +26,8 @@
     filtering algorithm for rating predictions on Movie data.
 
 """
+# Streamlit dependencies
+import streamlit as st
 
 # Script dependencies
 import os
@@ -58,6 +60,13 @@ imdb_data_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-r
 links_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/links.csv')
 movies_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/movies.csv')
 tags_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/tags.csv')
+
+# genome_scores_df = pd.read_csv('genome_scores.csv')
+# genome_tags_df = pd.read_csv('genome_tags.csv')
+# imdb_data_df = pd.read_csv('imdb_data.csv')
+# links_df = pd.read_csv('links.csv')
+# movies_df = pd.read_csv('movies.csv')
+# tags_df = pd.read_csv('tags.csv')
 
 # extra_imdb_name_basics_df = pd.read_table("./resources/imdb_name_basics.tsv")
 # extra_imdb_title_crew_df = pd.read_table("./resources/imdb_title_crew.tsv")
@@ -443,6 +452,6 @@ def content_model(movie_list,top_n=10):
     # Removing chosen movies
     top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
     for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies['title'])[i])
+        recommended_movies.append(list(movies_df['title'])[i])
     return recommended_movies
 
