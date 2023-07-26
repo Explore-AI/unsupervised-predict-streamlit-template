@@ -38,8 +38,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
-movies_df = pd.read_csv('movies.csv',sep = ',')
-ratings_df = pd.read_csv('train.csv')
+movies_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/movies.csv',sep = ',')
+ratings_df = pd.read_csv('/home/explore-student/unsupervised_data/edsa-movie-recommendation-predict/train.csv')
 ratings_df.drop(['timestamp'], axis=1,inplace=True)
 
 # We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
