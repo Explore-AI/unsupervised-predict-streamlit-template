@@ -136,3 +136,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+train.csv
+tags.csv
+movies.csv
+links.csv
+imdb_data.csv
+genome_tags.csv
+genome_scores.csv
