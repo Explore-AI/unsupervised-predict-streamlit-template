@@ -118,31 +118,33 @@ def collab_model(movie_list,top_n=10):
 
     """
 
-    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
-    recommended_movies = []
-    # Choose top 50
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies_df['title'])[i])
-    return recommended_movies
+    user_movie_titles = movie_list
+    
+    title_to_id = movies_df.set_index('title')['movieId'].to_dict()
+    
+    title_to_id = movies_df.set_index('title')['movieId'].to_dict()
+    
+    id_to_title = movies_df.set_index('movieId')['title'].to_dict()
+    
+    new_user_ratings = []
+    
+    for title in user_movie_titles:
+        movie_id = title_to_id[title]
+        new_user_ratings.append((9999, movie_id, 5))
+        
+    new_ratings_df = ratings_df.append(pd.DataFrame(new_user_ratings, columns=['userId', 'movieId', 'rating']), ignore_index=True)
+
+    predictions = []
+    for movie_id in movies_df['movieId']:
+        prediction = model.predict(9999, movie_id)
+        predictions.append((id_to_title[movie_id], prediction.est))
+
+    sorted_predictions = sorted(predictions, key=lambda x: x[1], reverse=True)
+
+    top_10_movies = sorted_predictions[:10]
+    for title, rating in top_10_movies:
+        print(f"{title}: {rating}")
+        
+    top_10_movie_titles = [title for title, rating in top_10_movies]
+        
+    return top_10_movie_titles
