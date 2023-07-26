@@ -116,18 +116,40 @@ def collab_model(movie_list,top_n=10):
     list (str)
         Titles of the top-n movie recommendations to the user.
 
+        
     """
 
     indices = pd.Series(movies_df['title'])
     movie_ids = pred_movies(movie_list)
     df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
     for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
+        df_init_users = pd.concat([df_init_users,ratings_df[ratings_df['userId']==i]])
+        # df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
     # Getting the cosine similarity matrix
     cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
+    idx_1 = 1
+    idx_2 = 2
+    idx_3 = 3
+    
+    try: 
+        x = indices[indices == movie_list[0]].index[0]
+        idx_1 = df_init_users[df_init_users['movieId'] == x].index[0]
+    except IndexError:
+        pass
+
+    try: 
+        y = indices[indices == movie_list[1]].index[0]
+        idx_2 = df_init_users[df_init_users['movieId'] == y].index[0]
+    except IndexError:
+        pass
+
+    try:
+        z = indices[indices == movie_list[2]].index[0]
+        idx_3 = df_init_users[df_init_users['movieId'] == z].index[0]
+    except IndexError:
+        pass
+
+
     # Creating a Series with the similarity scores in descending order
     rank_1 = cosine_sim[idx_1]
     rank_2 = cosine_sim[idx_2]
@@ -137,7 +159,7 @@ def collab_model(movie_list,top_n=10):
     score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
     score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
      # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+    listings = pd.concat([score_series_1,score_series_2,score_series_3]).sort_values(ascending = False)
     recommended_movies = []
     # Choose top 50
     top_50_indexes = list(listings.iloc[1:50].index)
