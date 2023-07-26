@@ -336,7 +336,7 @@ if page_selection == "About Us":
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Apocalypse Now </p>", unsafe_allow_html=True)
 						
                 with col3:
-                    st.image('resources/imgs/M.png')
+                    st.image('resources/imgs/w.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Temishka Pillay</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Researcher </p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
@@ -368,7 +368,7 @@ if page_selection == "About Us":
                             st.image('resources/imgs/w.png')
                             st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matlala Nyama</p>", unsafe_allow_html=True)
                             st.write("<p style='text-align: center; font-size: 12px; '>Occupation: DevOps Engineer </p>", unsafe_allow_html=True)
-                            st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  </p>", unsafe_allow_html=True)
+                            st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  Avengers </p>", unsafe_allow_html=True)
                             st.write("")
                             st.write("")
 
@@ -407,7 +407,7 @@ if page_selection == "FlixWhiz Info":
     st.write("1. User-Based Collaborative Filtering: This method identifies users with similar movie tastes to yours. It then recommends movies that those like-minded users have enjoyed but you haven't watched yet. By connecting you with individuals who share your cinematic inclinations, this approach ensures that you'll discover hidden gems that are likely to resonate with you.")
     st.write("2. Item-Based Collaborative Filtering: Instead of focusing on users, this approach emphasizes the similarities between movies themselves. It suggests movies that are similar in genre, plot, and style to the ones you've rated highly. This way, you'll be introduced to movies that align with your specific preferences.")
     
-    st.header("Personalized cecommendations: Your movie universe awaits")
+    st.header("Personalized recommendations: Your movie universe awaits")
     st.write("To provide the most accurate and relevant recommendations, our app continuously learns from your interactions. Each time you rate a movie or watch a new one, the recommender system refines its understanding of your taste, offering you even better suggestions over time.")
     st.write("")
     st.write("Input your 3 favourite movies and click Recommend and then viola!!")
