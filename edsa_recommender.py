@@ -118,30 +118,30 @@ def main():
         # Perform top-10 movie recommendation generation
         if sys == 'Content Based Filtering':
             if st.button("Recommend"):
-                #try:
-                with st.spinner('Crunching the numbers...'):
-                    top_recommendations = content_model(movie_list=fav_movies,
-                                                        top_n=10)
-                st.title("We think you'll like:")
-                for i,j in enumerate(top_recommendations):
-                    st.subheader(str(i+1)+'. '+j)
-                #except:
-                #    st.error("Oops! Looks like this algorithm does't work.\
-                #              We'll need to fix it!")
-
-
-        if sys == 'Collaborative Based Filtering':
-            if st.button("Recommend"):
                 try:
                     with st.spinner('Crunching the numbers...'):
-                        top_recommendations = collab_model(movie_list=fav_movies,
-                                                           top_n=10)
+                        top_recommendations = content_model(movie_list=fav_movies,
+                                                            top_n=10)
                     st.title("We think you'll like:")
                     for i,j in enumerate(top_recommendations):
                         st.subheader(str(i+1)+'. '+j)
                 except:
                     st.error("Oops! Looks like this algorithm does't work.\
                               We'll need to fix it!")
+
+
+        if sys == 'Collaborative Based Filtering':
+            if st.button("Recommend"):
+                #try:
+                with st.spinner('Crunching the numbers...'):
+                    top_recommendations = collab_model(movie_list=fav_movies,
+                                                       top_n=10)
+                st.title("We think you'll like:")
+                for i,j in enumerate(top_recommendations):
+                    st.subheader(str(i+1)+'. '+j)
+                #except:
+                #    st.error("Oops! Looks like this algorithm does't work.\
+                #              We'll need to fix it!")
 
 
     # -------------------------------------------------------------------
