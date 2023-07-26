@@ -2,7 +2,7 @@
 
     Streamlit webserver-based Recommender Engine.
 
-    Author: EDSA2301_JM3_.
+    Author: EDSA2301_JM3.
 
     Note:
     ---------------------------------------------------------------------
@@ -28,6 +28,7 @@
 # Streamlit dependencies
 import streamlit as st
 import streamlit as st
+#import streamlit_option_menu
 import streamlit_option_menu
 import joblib,os
 import csv
