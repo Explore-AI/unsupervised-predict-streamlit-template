@@ -52,6 +52,7 @@ def main():
     # -------------------------------------------------------------------
     page_selection = st.sidebar.selectbox("Choose Option", page_options)
     if page_selection == "About Us":
+        st.image('resources/imgs/comp.PNG',use_column_width=True)
         st.title("About Us")
         st.write("We are a team of data scientists passionate about recommendations systems.")
         st.write("Our goal is to provide the best Movie recommendatiosn for users across our platforms.")
@@ -64,9 +65,9 @@ def main():
         desc4,desc5,desc6 = st.columns(3)
 
         # Place the images in separate columns
-        col1.image("resources/aa.jpg", caption="Chief Data Scientist", width=200)
-        col3.image("resources/sm.jpg", caption="Senior Developer", width=200)
-        col2.image("resources/aag.jpg", caption="Chief Technical Officer", width=200)
+        col1.image("resources/imgs/aa.jpg", caption="Chief Data Scientist", width=200)
+        col3.image("resources/imgs/sm.jpg", caption="Senior Developer", width=200)
+        col2.image("resources/imgs/aag.jpg", caption="Chief Technical Officer", width=200)
 
         desc1.subheader("Abdulmalik Adeyemo")
         desc1.write("Abdulmalik is an experienced data scientist. He has a strong background in machine learning and deep learning.")
@@ -102,14 +103,14 @@ def main():
         st.write("d. 90's movies continue to captivate newer audiences, cementing their position as enduring rating favorites.")
         st.image('resources/imgs/eda2.png',use_column_width=True)
 
-        st.write("3.The realm of cinema has continually captivated audiences with its ability to transport them to worlds filled with excitement, wonder, and thrill. Among the vast array of films, certain masterpieces rise above the rest, garnering accolades and admiration from critics and viewers alike. In this write-up, we delve into the highest-rated movies, with special focus on the top two films—parts I and II of Planet Earth—providing insights into their genres and the reasons behind their overwhelming success.")
+        st.write("3. The realm of cinema has continually captivated audiences with its ability to transport them to worlds filled with excitement, wonder, and thrill. Among the vast array of films, certain masterpieces rise above the rest, garnering accolades and admiration from critics and viewers alike. In this write-up, we delve into the highest-rated movies, with special focus on the top two films—parts I and II of Planet Earth—providing insights into their genres and the reasons behind their overwhelming success.")
         st.write("a. Common genres like action, adventure, and thriller dominate highly-rated movies, captivating audiences with adrenaline-pumping narratives and compelling storytelling. Understanding this preference is crucial for grasping cinematic appeal and the success of these captivating films.")
         st.write("b. Planet Earth parts I and IIs unparalleled success exemplifies the genres allure. With extraordinary efforts and visionary storytelling, the series showcases breathtaking landscapes and natures wonders, immersing audiences in Earths raw beauty and diverse ecosystems.")
         st.write("c. Action-Packed Adventure: The Planet Earth series is an action-packed adventure, immersing viewers in gripping encounters between predators and prey. Exploring remote and challenging terrains, the series captures heart-stopping moments, from breathtaking aerial chases to dramatic hunts, showcasing the raw survival instincts of Earth's inhabitants. Audiences are left on the edge of their seats, experiencing the thrill of the chase as if they were witnessing it firsthand.")
         st.write("d. Thrills in the Natural World: Planet Earth series delivers unparalleled thrills through intimate portrayals of the animal kingdom. Filmmakers capture rare footage of animals in their natural habitats, evoking empathy and awe as viewers witness the beauty and fragility of wildlife, leading to a deeper understanding of Earth's delicate ecological balance")
         st.image('resources/imgs/eda3.png',use_column_width=True)
 
-        st.write("4.The genres of movies, when considered as an isolated feature, have minimal determining influence on the ratings they receive. This is evident from the comparable distributions observed in both the top 100 and bottom 100 rated movies. These movies exhibit similar genre compositions with similar frequencie.")
+        st.write("4. The genres of movies, when considered as an isolated feature, have minimal determining influence on the ratings they receive. This is evident from the comparable distributions observed in both the top 100 and bottom 100 rated movies. These movies exhibit similar genre compositions with similar frequencie.")
         st.write("a. Genres have minimal isolated influence on movie ratings. Analyzing top 100 and bottom 100 rated films shows similar genre distributions, suggesting specific genres don't guarantee high or low ratings. Other factors play a more significant role in determining a movie's success. The presence of genres alone doesn't define audience reception. Filmmakers should focus on storytelling, performances, direction, and production quality to impact ratings positively")
         st.write("b.The top 100 and bottom 100 rated movies have comparable genre compositions and frequencies. This indicates that genres alone don't heavily influence a film's reception. Other factors like storytelling, performances, direction, and production quality play a more significant role in determining audience response.")
         st.image('resources/imgs/eda4.png',use_column_width=True)
@@ -214,7 +215,23 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
 
-        st.info(" Recommender systems play a vital role in todays technology-driven world. They are crucial for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. A well-designed movie recommendation system can significantly enhance user experience and satisfaction. Especially with the recent surge in streaming platforms across the internet. Major streaming platforms like Netflix, Amazon Prime, Showmax, Disney, and others heavily rely on recommender systems to recommend content to their users. These platforms use intelligent algorithms to analyze user behavior, historical preferences, and movie ratings to curate personalized movie lists. By building a functional and accurate recommendation system, you can unlock immense economic potential. Users will be exposed to content that aligns with their tastes, increasing platform affinity and generating revenue through increased content consumption.")
+        st.info("Section 1: Utilizing AI for Recommender Systems")
+
+        st.write("Solution: Implement advanced AI-powered algorithms for movie recommendation systems to enhance user experience.")
+        st.write("In today's technology-driven world, recommender systems play a crucial role in helping users make appropriate content choices daily. To provide seamless movie recommendations, we propose utilizing AI to power these systems. Major streaming platforms like Netflix, Amazon Prime, and Disney already leverage AI to analyze user behavior and preferences, ensuring the delivery of tailored content suggestions.")
+
+        st.info("Section 2: Section 2: Learning User Ratings and Watch History")
+
+        st.write("Solution: Analyze user ratings and watch history to understand individual preferences accurately.")
+        st.write("A well-designed movie recommendation system deeply analyzes user ratings and watch history. By employing intelligent algorithms, we can process this data to curate personalized movie lists. Understanding users' historical interactions allows the system to learn their preferences and refine future recommendations, ensuring a more satisfying movie-watching experience.")
+
+
+        st.info("Section 3: Providing Accurate Recommendations")
+
+        st.write("Solution: AI-powered algorithms offer accurate recommendations, boosting user satisfaction and platform revenue.")
+        st.write("Accurate recommendations are key to increasing user satisfaction and platform affinity. By harnessing the power of AI, our system will curate content that aligns precisely with users' tastes. The personalized movie lists will not only enhance content consumption but also drive revenue for streaming platforms through increased user engagement.")
+
+        st.image('resources/imgs/S1.PNG',use_column_width=True)
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
