@@ -355,20 +355,12 @@ if page_selection == "About Us":
                     st.image('resources/imgs/W.png')
                     st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Matsawela Phiri</p>", unsafe_allow_html=True)
                     st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Streamlit Engineer </p>", unsafe_allow_html=True)
-<<<<<<< Updated upstream
                     st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I Still Believe</p>", unsafe_allow_html=True)
-=======
-                    st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie:  I Still Believe </p>", unsafe_allow_html=True)
->>>>>>> Stashed changes
 					
                     with col2:
                         st.image('resources/imgs/w.png')
                         st.write("<p style='text-align: center; font-size: 20px; font-family: cursive; '>Mmabatho Mojapelo</p>", unsafe_allow_html=True)
-<<<<<<< Updated upstream
                         st.write("<p style='text-align: center; font-size: 12px; '>Occupation: Streamlit Engineer </p>", unsafe_allow_html=True)
-=======
-                        st.write("<p style='text-align: center; font-size: 12px; '>Occupation: UX/UI Designer </p>", unsafe_allow_html=True)
->>>>>>> Stashed changes
                         st.write("<p style='text-align: center; font-size: 12px; '>Current Favorite Movie: Spider-Man: ATSV  </p>", unsafe_allow_html=True)
                         
 						
