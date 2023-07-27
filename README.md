@@ -87,6 +87,7 @@ Where the specific `Network` and `External` URLs correspond to those assigned to
     Where the above public IP address corresponds to the one given to your AWS EC2 instance.
 
     If successful, you should see the landing page of the recommender system app.
+    #### NB: The app may not work as described in gthe screen recording because the code to implement the explorer functionality has been excluded.The user is encouraged to write their own code to implement the functionality of the explorer page and insert relevant links in the buttons.
 
 
 ![Explore Data Science Academy](resources/imgs/EDSA_logo.png)
