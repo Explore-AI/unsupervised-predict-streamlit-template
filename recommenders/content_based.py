@@ -36,7 +36,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
-ratings = pd.read_csv('resources/data/ratings.csv')
+ratings = pd.read_csv('~/unsupervised_data/edsa-movie-recommendation-predict/train.csv')
 movies.dropna(inplace=True)
 
 def data_preprocessing(subset_size):
