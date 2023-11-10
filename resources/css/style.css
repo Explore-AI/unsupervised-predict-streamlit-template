@@ -1,0 +1,13 @@
+/* body, .block-container, .fullScreenFrame {
+  background-color: #fcdee9;
+} */
+
+.fullScreenFrame > div {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    display: flex;
+	justify-content: center;
+}
