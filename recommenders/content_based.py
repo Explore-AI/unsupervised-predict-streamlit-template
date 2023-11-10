@@ -31,8 +31,8 @@
 import os
 import pandas as pd
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Importing data
 movies = pd.read_csv('resources/data/movies.csv', sep = ',')
@@ -80,33 +80,43 @@ def content_model(movie_list,top_n=10):
     """
     # Initializing the empty list of recommended movies
     recommended_movies = []
-    data = data_preprocessing(27000)
+    data = data_preprocessing(30000)
     # Instantiating and generating the count matrix
-    count_vec = CountVectorizer()
-    count_matrix = count_vec.fit_transform(data['keyWords'])
-    indices = pd.Series(data['title'])
-    cosine_sim = cosine_similarity(count_matrix, count_matrix)
-    # Getting the index of the movie that matches the title
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-    # Getting the indexes of the 10 most similar movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
+    tf_vec = TfidfVectorizer(strip_accents='unicode')
+    tfidf_matrix = tf_vec.fit_transform(data['keyWords'])
+    cos_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+
+    indices = pd.Series(data.index, index=data['title']).drop_duplicates()
+
+    def get_rec_list(movie_list, cos_sim=cos_sim):
+        idx = []
+        for title in movie_list:
+            idx.append(indices[title])
+
+        # get the pairwise similarity scores
+        sim_scores1 = list(enumerate(cos_sim[idx[0]]))
+        sim_scores2 = list(enumerate(cos_sim[idx[1]]))
+        sim_scores3 = list(enumerate(cos_sim[idx[2]]))
+
+        # sort movies
+        sim_scores1 = sorted(sim_scores1, key=lambda x: x[1], reverse=True)
+        sim_scores2 = sorted(sim_scores2, key=lambda x: x[1], reverse=True)
+        sim_scores3 = sorted(sim_scores3, key=lambda x: x[1], reverse=True)
+
+        sim_scores = sim_scores1[:10] + sim_scores2[:10] + sim_scores3[:10]
+        sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+        # scores of the most similar movies
+        sim_scores = sim_scores[1:20]
+
+        # movies indices
+        movie_indices = [i[0] for i in sim_scores]
+        movie_indices = [i for i in movie_indices if i not in idx]
+
+        # top 10 most similar movies
+        return data['title'].iloc[movie_indices]
 
     # Store movie names
-    recommended_movies = []
-    # Appending the names of movies
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies['title'])[i])
-    return recommended_movies
+    recommended_movies = get_rec_list(movie_list)
+
+    return recommended_movies[:10]
