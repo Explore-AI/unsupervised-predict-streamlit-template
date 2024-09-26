@@ -1,4 +1,4 @@
-# Streamlit-based Recommender System
+# Streamlit-based Recommender System - TEAM MX3
 #### EXPLORE Data Science Academy Unsupervised Predict
 
 ## 1) Overview
